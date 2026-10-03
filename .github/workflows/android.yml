@@ -25,25 +25,25 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Chiave di firma (se configurata nei Secrets)
-        env:
-          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
-        run: |
-          if [ -n "$KEYSTORE_B64" ]; then
-            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/claudia.jks"
-            echo "CL_KEYSTORE=$RUNNER_TEMP/claudia.jks" >> "$GITHUB_ENV"
-          fi
-
       - name: Compila l'APK
         env:
-          CL_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          CL_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          CL_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: |
           chmod +x gradlew
+          if [ -n "$KEYSTORE_PASSWORD" ]; then
+            export CL_KEYSTORE="$GITHUB_WORKSPACE/android/keystore/claudia.jks"
+            export CL_KEYSTORE_PASSWORD="$KEYSTORE_PASSWORD"
+            export CL_KEY_ALIAS=claudia
+            export CL_KEY_PASSWORD="$KEYSTORE_PASSWORD"
+            echo "SIGNED=1" >> "$GITHUB_ENV"
+            echo "Firma con la chiave di Claudia Luce"
+          else
+            echo "::warning::Manca il secret KEYSTORE_PASSWORD: APK firmato con una chiave temporanea"
+          fi
           ./gradlew --no-daemon assembleRelease
 
-      - name: Pubblica l'APK
+      - name: Pubblica l'APK (solo se firmato con la chiave stabile)
+        if: env.SIGNED == '1'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: apk-latest

@@ -17,8 +17,10 @@ android {
         applicationId = "it.claudialuce.app"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        // ogni compilazione su GitHub ha un numero più alto, così il telefono accetta l'aggiornamento
+        val run = System.getenv("GITHUB_RUN_NUMBER")?.toIntOrNull() ?: 1
+        versionCode = run
+        versionName = "1.0.$run"
         buildConfigField("String", "DATA_URL", "\"$dataUrl\"")
     }
 
