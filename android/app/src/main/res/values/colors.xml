@@ -1,0 +1,5 @@
+<resources>
+    <color name="page_bg">#EDF1F3</color>
+    <color name="lcd_bg">#C9D4C1</color>
+    <color name="lcd_ink">#15221A</color>
+</resources>

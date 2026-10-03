@@ -1,0 +1,2211 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Claudia Luce</title>
+<style>
+@font-face{font-family:"Archivo";src:url(fonts/archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url(fonts/source-sans-3-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url(fonts/source-sans-3-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url(fonts/source-sans-3-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url(fonts/ibm-plex-mono-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url(fonts/ibm-plex-mono-500.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url(fonts/ibm-plex-mono-600.woff2) format("woff2");font-weight:600;font-display:swap}
+html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}
+/* Layout: barra in alto con stato dei dati, schede; la classifica apre con un
+   display a cristalli liquidi come quello del contatore, il resto è quieto. */
+:root {
+  --bg: #edf1f3;
+  --surface: #ffffff;
+  --surface-2: #f5f7f8;
+  --ink: #13212b;
+  --ink-2: #475764;
+  --ink-3: #6b7a86;
+  --line: #d4dbe0;
+  --accent: #0b5cad;
+  --accent-ink: #ffffff;
+  --accent-soft: #dde9f6;
+  --lcd-bg: #c9d4c1;
+  --lcd-ink: #15221a;
+  --lcd-dim: #5c6b58;
+  --lcd-edge: #9fae98;
+  --good: #1d7a4c;
+  --good-soft: #def0e5;
+  --warn: #9a5b00;
+  --warn-soft: #f8ead2;
+  --bad: #b23a2e;
+  --bad-soft: #f7e1de;
+  --f1: #eb6834;
+  --f2: #2a78d6;
+  --f3: #1baf7a;
+  --seg-materia: #0b5cad;
+  --seg-fissa: #eb6834;
+  --seg-rete: #9aa7b1;
+  --seg-tasse: #c9d1d7;
+  --shadow: 0 1px 2px rgba(19, 33, 43, .06), 0 4px 16px rgba(19, 33, 43, .05);
+  --font-display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Source Sans 3", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e161c; --surface: #15202a; --surface-2: #1b2833; --ink: #e5ecf1; --ink-2: #aab8c3; --ink-3: #8696a2; --line: #2a3a46;
+    --accent: #5aa2ee; --accent-ink: #08131c; --accent-soft: #19344f;
+    --lcd-bg: #1d2a23; --lcd-ink: #cfe7b6; --lcd-dim: #86a07a; --lcd-edge: #33463a;
+    --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b;
+    --f1: #d95926; --f2: #3987e5; --f3: #199e70;
+    --seg-materia: #5aa2ee; --seg-fissa: #d95926; --seg-rete: #5d6d79; --seg-tasse: #3c4a55;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e161c; --surface: #15202a; --surface-2: #1b2833; --ink: #e5ecf1; --ink-2: #aab8c3; --ink-3: #8696a2; --line: #2a3a46;
+  --accent: #5aa2ee; --accent-ink: #08131c; --accent-soft: #19344f;
+  --lcd-bg: #1d2a23; --lcd-ink: #cfe7b6; --lcd-dim: #86a07a; --lcd-edge: #33463a;
+  --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b;
+  --f1: #d95926; --f2: #3987e5; --f3: #199e70;
+  --seg-materia: #5aa2ee; --seg-fissa: #d95926; --seg-rete: #5d6d79; --seg-tasse: #3c4a55;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 16px; padding-block: 0 48px; }
+h1, h2, h3 { font-family: var(--font-display); font-stretch: 112%; text-wrap: balance; margin: 0; line-height: 1.15; }
+h2 { font-size: 1.35rem; font-weight: 700; }
+h3 { font-size: 1.05rem; font-weight: 700; }
+p { margin: 0; }
+a { color: var(--accent); }
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+.muted { color: var(--ink-2); }
+.small { font-size: .875rem; }
+.tiny { font-size: .78rem; color: var(--ink-3); }
+.eyebrow { font-family: var(--font-display); font-stretch: 118%; font-size: .72rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.grow { flex: 1 1 auto; min-width: 0; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Barra superiore */
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+.topbar-in { max-width: 1080px; margin: 0 auto; padding-inline: 16px; padding-block: 10px; display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.brand { display: flex; align-items: baseline; gap: 10px; }
+.brand h1 { font-size: 1.35rem; font-weight: 800; font-stretch: 125%; letter-spacing: -.01em; }
+.brand .kw { font-family: var(--font-data); font-size: .75rem; color: var(--ink-3); }
+.status { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-left: auto; }
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); white-space: nowrap; }
+.pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-3); flex: none; }
+.pill.ok .dot { background: var(--good); }
+.pill.warn .dot { background: var(--warn); }
+.pill.bad .dot { background: var(--bad); }
+.tabs { max-width: 1080px; margin: 0 auto; padding-inline: 16px; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { appearance: none; border: 0; background: none; font: inherit; font-weight: 600; color: var(--ink-2); padding: 8px 12px 10px; border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap; }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tab:hover { color: var(--ink); }
+
+/* Pulsanti e campi */
+.btn { appearance: none; font: inherit; font-weight: 600; font-size: .95rem; border-radius: 8px; padding: 8px 14px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; display: inline-flex; gap: 8px; align-items: center; justify-content: center; min-height: 40px; }
+.btn:hover { border-color: var(--ink-3); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.primary:hover { filter: brightness(1.08); }
+.btn.ghost { background: transparent; border-color: transparent; color: var(--accent); padding-inline: 6px; }
+.btn.small { min-height: 32px; padding: 4px 10px; font-size: .85rem; }
+.btn[disabled] { opacity: .55; cursor: not-allowed; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { appearance: none; border: 0; background: none; font: inherit; font-size: .88rem; font-weight: 600; padding: 6px 12px; color: var(--ink-2); cursor: pointer; min-height: 36px; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--ink); }
+label.fld { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; font-weight: 600; color: var(--ink-2); min-width: 0; }
+label.fld .hint { font-weight: 400; color: var(--ink-3); font-size: .78rem; }
+input[type="text"], input[type="number"], input[type="date"], select, textarea {
+  font: inherit; font-size: 1rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-height: 40px; width: 100%; min-width: 0;
+}
+input[type="number"] { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+textarea { min-height: 80px; resize: vertical; }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: .95rem; color: var(--ink); cursor: pointer; }
+.check input { margin-top: 4px; width: 18px; height: 18px; flex: none; accent-color: var(--accent); }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+
+/* Superfici */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px; }
+.section { display: flex; flex-direction: column; gap: 18px; padding-top: 20px; }
+.callout { border-radius: 8px; padding: 10px 12px; font-size: .92rem; background: var(--surface-2); border: 1px solid var(--line); }
+.callout.warn { background: var(--warn-soft); border-color: transparent; }
+.callout.bad { background: var(--bad-soft); border-color: transparent; }
+.callout.ok { background: var(--good-soft); border-color: transparent; }
+
+/* Contesto utenza */
+.ctx { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.ctx select { width: auto; max-width: 100%; font-weight: 600; }
+.ctx .facts { display: flex; flex-wrap: wrap; gap: 6px; }
+.fact { font-family: var(--font-data); font-size: .82rem; padding: 2px 8px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+.example-tag { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--warn); }
+
+/* Display del contatore */
+.meter { background: var(--lcd-bg); color: var(--lcd-ink); border-radius: 14px; padding: 18px 20px; border: 2px solid var(--lcd-edge); box-shadow: inset 0 2px 10px rgba(0, 0, 0, .12); display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px 28px; }
+.meter .lbl { font-family: var(--font-display); font-stretch: 118%; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--lcd-dim); }
+.meter .who { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; font-stretch: 108%; line-height: 1.15; margin-top: 4px; }
+.meter .who small { display: block; font-family: var(--font-body); font-size: .95rem; font-weight: 600; color: var(--lcd-dim); }
+.meter .digits { font-family: var(--font-data); font-weight: 500; font-size: clamp(2.4rem, 7vw, 3.6rem); line-height: 1; letter-spacing: -.02em; margin-top: 10px; font-variant-numeric: tabular-nums; }
+.meter .digits .u { font-size: .38em; letter-spacing: 0; color: var(--lcd-dim); margin-left: 6px; }
+.meter .sub { font-family: var(--font-data); font-size: .88rem; margin-top: 6px; color: var(--lcd-ink); }
+.meter .side { display: flex; flex-direction: column; gap: 12px; border-left: 1px dashed var(--lcd-edge); padding-left: 22px; min-width: 0; }
+.meter .side p { font-size: .98rem; line-height: 1.45; }
+.meter .side strong { font-family: var(--font-data); font-weight: 600; }
+.meter .flag { display: inline-block; font-family: var(--font-display); font-stretch: 112%; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; border: 1.5px solid var(--lcd-ink); border-radius: 4px; padding: 1px 6px; }
+@media (max-width: 720px) { .meter { grid-template-columns: 1fr; } .meter .side { border-left: 0; border-top: 1px dashed var(--lcd-edge); padding-left: 0; padding-top: 14px; } }
+
+/* Controlli della classifica */
+.controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.controls select { width: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .8rem; color: var(--ink-2); }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+/* Righe della classifica */
+.rank { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.offer { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
+.offer.is-best { border-color: var(--good); box-shadow: 0 0 0 1px var(--good); }
+.offer.is-current { border-color: var(--accent); }
+.offer.is-dim { opacity: .72; }
+.offer-main { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr) auto; gap: 4px 14px; padding: 14px 16px 12px; align-items: start; }
+.pos { font-family: var(--font-data); font-size: 1.15rem; font-weight: 600; color: var(--ink-3); line-height: 1.6; text-align: right; }
+.offer.is-best .pos { color: var(--good); }
+.o-name { font-family: var(--font-display); font-stretch: 106%; font-size: 1.08rem; font-weight: 700; line-height: 1.25; }
+.o-sup { color: var(--ink-2); font-weight: 600; font-size: .92rem; }
+.o-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.tag { font-size: .76rem; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); white-space: nowrap; }
+.tag.fisso { background: var(--good-soft); color: var(--good); border-color: transparent; }
+.tag.var { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+.tag.bad { background: var(--bad-soft); color: var(--bad); border-color: transparent; }
+.tag.cur { background: var(--accent-soft); color: var(--ink); border-color: transparent; }
+.o-price { font-family: var(--font-data); font-size: .82rem; color: var(--ink-2); margin-top: 6px; }
+.o-cost { text-align: right; }
+.o-cost .tot { font-family: var(--font-data); font-size: 1.45rem; font-weight: 600; line-height: 1.1; white-space: nowrap; }
+.o-cost .per { font-family: var(--font-data); font-size: .8rem; color: var(--ink-2); white-space: nowrap; }
+.o-cost .delta { font-family: var(--font-data); font-size: .82rem; font-weight: 600; white-space: nowrap; margin-top: 2px; }
+.delta.up { color: var(--bad); }
+.delta.down { color: var(--good); }
+.bar-wrap { grid-column: 2 / -1; margin-top: 8px; position: relative; height: 14px; }
+.bar { position: absolute; left: 0; top: 2px; height: 10px; display: flex; gap: 2px; }
+.bar span { display: block; height: 100%; }
+.bar span:first-child { border-radius: 3px 0 0 3px; }
+.bar span:last-child { border-radius: 0 4px 4px 0; }
+.whisker { position: absolute; top: 6px; height: 2px; background: var(--ink-2); }
+.whisker::before, .whisker::after { content: ""; position: absolute; top: -4px; width: 2px; height: 10px; background: var(--ink-2); }
+.whisker::before { left: 0; } .whisker::after { right: 0; }
+details.more { border-top: 1px solid var(--line); }
+details.more summary { cursor: pointer; padding: 8px 16px; font-size: .88rem; font-weight: 600; color: var(--accent); list-style: none; }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary::before { content: "+ "; font-family: var(--font-data); }
+details.more[open] summary::before { content: "− "; }
+.more-body { padding: 4px 16px 16px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 18px; }
+@media (max-width: 720px) { .more-body { grid-template-columns: 1fr; } .offer-main { grid-template-columns: 1.6rem minmax(0, 1fr); } .o-cost { grid-column: 2; text-align: left; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; } .bar-wrap { grid-column: 2; } }
+.notes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: .92rem; }
+.notes li { display: grid; grid-template-columns: 1.2rem 1fr; gap: 6px; }
+.notes li::before { font-family: var(--font-data); font-weight: 700; }
+.notes li.ok::before { content: "✓"; color: var(--good); }
+.notes li.info::before { content: "i"; color: var(--accent); text-align: center; }
+.notes li.warn::before { content: "!"; color: var(--warn); text-align: center; }
+.notes li.bad::before { content: "×"; color: var(--bad); text-align: center; }
+table.bk { width: 100%; border-collapse: collapse; font-size: .88rem; }
+table.bk td { padding: 3px 0; border-bottom: 1px solid var(--line); }
+table.bk td:last-child { text-align: right; font-family: var(--font-data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.bk tr.tot td { font-weight: 700; border-bottom: 0; padding-top: 6px; }
+table.bk .same { color: var(--ink-3); }
+
+/* Tabelle */
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+table.data { width: 100%; border-collapse: collapse; font-size: .88rem; }
+table.data th { text-align: left; font-family: var(--font-display); font-stretch: 112%; font-size: .72rem; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+table.data td { padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.data tr:last-child td { border-bottom: 0; }
+table.data td.n { font-family: var(--font-data); font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+
+/* Settimana tipo (fasce) */
+.week { display: grid; grid-template-columns: 2.4rem repeat(24, minmax(0, 1fr)); gap: 2px; font-family: var(--font-data); font-size: .66rem; color: var(--ink-3); }
+.week .c { height: 18px; border-radius: 2px; }
+.week .d { align-self: center; }
+.week .h { text-align: center; }
+.fsplit { display: flex; height: 26px; border-radius: 6px; overflow: hidden; gap: 2px; }
+.fsplit div { display: flex; align-items: center; justify-content: center; color: #fff; font-family: var(--font-data); font-size: .78rem; font-weight: 600; min-width: 0; overflow: hidden; white-space: nowrap; }
+
+/* Caricamento bolletta */
+.drop { border: 2px dashed var(--line); border-radius: var(--r); padding: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: var(--surface-2); }
+.drop.over { border-color: var(--accent); background: var(--accent-soft); }
+.filebtn { position: relative; overflow: hidden; }
+.filebtn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.spinner { width: 16px; height: 16px; border: 2px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; flex: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
+
+/* Grafico PUN */
+.chart { width: 100%; height: auto; display: block; }
+.chart text { fill: var(--ink-3); font-family: var(--font-data); font-size: 11px; }
+.chart .grid line { stroke: var(--line); stroke-width: 1; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-family: var(--font-data); font-size: .78rem; padding: 6px 8px; border-radius: 6px; white-space: nowrap; transform: translate(-50%, -110%); z-index: 5; }
+.chart-box { position: relative; }
+
+/* Chat */
+.chat { display: flex; flex-direction: column; gap: 10px; }
+.msg { max-width: 80ch; padding: 10px 14px; border-radius: 12px; white-space: pre-wrap; line-height: 1.5; }
+.msg.u { align-self: flex-end; background: var(--accent-soft); }
+.msg.a { align-self: flex-start; background: var(--surface); border: 1px solid var(--line); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { appearance: none; font: inherit; font-size: .85rem; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.chip:hover { border-color: var(--accent); }
+
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-size: .92rem; z-index: 50; max-width: calc(100% - 32px); box-shadow: var(--shadow); }
+footer.foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .82rem; color: var(--ink-3); display: flex; flex-direction: column; gap: 6px; max-width: 80ch; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><h1>Claudia Luce</h1><span class="kw">consulenza energetica</span></div>
+    <div class="status">
+      <span class="pill" id="dataPill"><span class="dot"></span><span id="dataPillText">Dati incorporati</span></span>
+      <button class="btn small" id="btnRefresh" type="button" hidden>Aggiorna adesso</button>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Sezioni">
+    <button class="tab" role="tab" id="tab-classifica" aria-selected="true" data-tab="classifica">Classifica</button>
+    <button class="tab" role="tab" id="tab-consumi" aria-selected="false" data-tab="consumi">Dati del cliente</button>
+    <button class="tab" role="tab" id="tab-offerte" aria-selected="false" data-tab="offerte">Offerte</button>
+    <button class="tab" role="tab" id="tab-mercato" aria-selected="false" data-tab="mercato">Mercato</button>
+    <button class="tab" role="tab" id="tab-claude" aria-selected="false" data-tab="claude">Chiedi a Claude</button>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div id="banner" class="callout warn" style="margin-top:16px" hidden></div>
+
+  <!-- ===== CLASSIFICA ===== -->
+  <section class="section" id="sec-classifica" data-sec="classifica">
+    <div class="ctx">
+      <label class="fld" for="selUtenza" style="flex-direction:row;align-items:center;gap:8px">Cliente
+        <select id="selUtenza"></select>
+      </label>
+      <div class="facts" id="ctxFacts"></div>
+      <button class="btn ghost small" type="button" data-goto="consumi">Modifica dati del cliente</button>
+    </div>
+
+    <div id="verdict"></div>
+    <div id="advice" class="stack"></div>
+    <div class="row" id="reportRow" hidden>
+      <button class="btn primary" type="button" id="btnReport">Crea la proposta per il cliente (PDF)</button>
+      <span class="small muted" id="reportNote">Riassume consumi, le tre offerte migliori, il risparmio e i punti di attenzione.</span>
+    </div>
+
+    <div class="panel stack">
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Tipo di prezzo" id="segTipo">
+          <button type="button" data-v="tutte" aria-pressed="true">Tutte</button>
+          <button type="button" data-v="fisso" aria-pressed="false">Prezzo fisso</button>
+          <button type="button" data-v="indicizzato" aria-pressed="false">Prezzo variabile</button>
+        </div>
+        <label class="fld" for="selOrdina" style="flex-direction:row;align-items:center;gap:8px">Ordina per
+          <select id="selOrdina">
+            <option value="previsto">Spesa prevista</option>
+            <option value="prudente">Spesa nel caso peggiore</option>
+          </select>
+        </label>
+        <label class="fld" for="selScenario" style="flex-direction:row;align-items:center;gap:8px">Mercato
+          <select id="selScenario">
+            <option value="1">Come prevedono i futures</option>
+            <option value="1.2">Prezzi in salita (+20%)</option>
+            <option value="0.8">Prezzi in discesa (−20%)</option>
+          </select>
+        </label>
+        <label class="check" for="chkCanone"><input type="checkbox" id="chkCanone"> Includi canone RAI</label>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i style="background:var(--seg-materia)"></i>Energia (cambia da offerta a offerta)</span>
+        <span><i style="background:var(--seg-fissa)"></i>Quota fissa del fornitore</span>
+        <span><i style="background:var(--seg-rete)"></i>Rete e oneri (uguali per tutti)</span>
+        <span><i style="background:var(--seg-tasse)"></i>Accise e IVA</span>
+        <span><i style="background:var(--ink-2);height:2px;vertical-align:4px"></i>Variabili: da prezzi −25% a +35%</span>
+      </div>
+      <p class="small muted" id="rankIntro"></p>
+    </div>
+
+    <ol class="rank" id="rankList"></ol>
+
+    <details class="panel" id="excludedBox" hidden>
+      <summary class="small" style="cursor:pointer;font-weight:600" id="excludedSum"></summary>
+      <ol class="rank" id="excludedList" style="margin-top:12px"></ol>
+    </details>
+
+    <div class="row">
+      <button class="btn small" type="button" id="btnExport" hidden>Scarica la classifica (CSV)</button>
+      <span class="tiny" id="calcNote"></span>
+    </div>
+  </section>
+
+  <!-- ===== I TUOI CONSUMI ===== -->
+  <section class="section" id="sec-consumi" data-sec="consumi" hidden>
+    <div class="panel stack">
+      <h2>I tuoi dati di consulente</h2>
+      <p class="small muted">Compaiono in testa alla proposta che consegni al cliente.</p>
+      <div class="grid2">
+        <label class="fld" for="inConsNome">Nome e cognome<input type="text" id="inConsNome" placeholder="Es. Claudia Rossi"></label>
+        <label class="fld" for="inConsRec">Recapiti<input type="text" id="inConsRec" placeholder="Telefono, email"></label>
+      </div>
+    </div>
+    <div class="panel stack">
+      <div class="row">
+        <h2 class="grow">Clienti</h2>
+        <button class="btn small" type="button" id="btnNewUtenza">Nuovo cliente</button>
+      </div>
+      <div class="grid2">
+        <label class="fld" for="selUtenza2">Cliente che stai modificando<select id="selUtenza2"></select></label>
+        <label class="fld" for="inNome">Nome del cliente<input type="text" id="inNome" placeholder="Es. Mario Rossi"></label>
+      </div>
+      <label class="fld" for="inNote">Note sul cliente<input type="text" id="inNote" placeholder="Recapiti, indirizzo di fornitura, POD"><span class="hint">Restano nel tuo account: non compaiono nella proposta.</span></label>
+      <div class="row">
+        <button class="btn small" type="button" id="btnDelUtenza">Elimina questo cliente</button>
+        <span id="delConfirm" class="row" hidden><span class="small">Eliminarlo davvero?</span>
+          <button class="btn small" type="button" id="btnDelYes">Sì, elimina</button>
+          <button class="btn small" type="button" id="btnDelNo">Annulla</button></span>
+      </div>
+    </div>
+
+    <div class="panel stack">
+      <h2>Carica la bolletta</h2>
+      <p class="muted small">Claude legge la bolletta del cliente e compila i campi qui sotto: consumo annuo, fasce, potenza e prezzo dell'offerta attuale. Puoi controllare tutto prima di applicarlo.</p>
+      <div class="drop" id="dropBill">
+        <span class="btn primary filebtn">Foto della bolletta<input type="file" id="fileImg" accept="image/*" capture="environment" multiple></span>
+        <span class="btn filebtn">PDF della bolletta<input type="file" id="filePdf" accept="application/pdf,.pdf"></span>
+        <span class="btn filebtn">Curva di carico (CSV)<input type="file" id="fileCsv" accept=".csv,.txt,text/csv"></span>
+        <span class="tiny">Oppure trascina qui il file.</span>
+      </div>
+      <p class="tiny">La curva di carico si scarica gratis dal sito del distributore (per esempio e-distribuzione, area clienti, "Le mie misure"): con i dati ora per ora il calcolo delle fasce è esatto.</p>
+      <div id="extractOut" class="stack"></div>
+    </div>
+
+    <div class="panel stack">
+      <h2>Consumi</h2>
+      <div class="grid3">
+        <label class="fld" for="inKwh">Consumo annuo (kWh)<input type="number" id="inKwh" min="0" step="10" inputmode="numeric"><span class="hint">In bolletta: "consumo annuo"</span></label>
+        <label class="fld" for="inKw">Potenza impegnata<select id="inKw">
+          <option value="1.5">1,5 kW</option><option value="2">2 kW</option><option value="3">3 kW</option><option value="3.5">3,5 kW</option><option value="4">4 kW</option><option value="4.5">4,5 kW</option><option value="5">5 kW</option><option value="5.5">5,5 kW</option><option value="6">6 kW</option><option value="7">7 kW</option><option value="8">8 kW</option><option value="10">10 kW</option>
+        </select></label>
+        <label class="fld" for="inRes">Tipo di abitazione<select id="inRes"><option value="1">Residenza</option><option value="0">Seconda casa</option></select></label>
+      </div>
+      <div class="stack" style="gap:8px">
+        <div class="eyebrow">Ripartizione nelle fasce orarie</div>
+        <div class="grid3">
+          <label class="fld" for="inF1">F1 (%)<input type="number" id="inF1" min="0" max="100" step="1"><span class="hint">Lun-ven 8-19</span></label>
+          <label class="fld" for="inF2">F2 (%)<input type="number" id="inF2" min="0" max="100" step="1"><span class="hint">Lun-ven 7-8 e 19-23, sab 7-23</span></label>
+          <label class="fld" for="inF3">F3 (%)<input type="number" id="inF3" min="0" max="100" step="1"><span class="hint">Notte, domenica e festivi</span></label>
+        </div>
+        <div class="fsplit" id="splitBar" aria-hidden="true"></div>
+        <p class="tiny" id="splitNote"></p>
+      </div>
+      <div class="stack" style="gap:8px">
+        <div class="eyebrow">Condizioni che il cliente accetta</div>
+        <label class="check" for="chkDom"><input type="checkbox" id="chkDom"> Addebito automatico su conto corrente</label>
+        <label class="check" for="chkWeb"><input type="checkbox" id="chkWeb"> Bolletta solo via email</label>
+        <label class="check" for="chkVul"><input type="checkbox" id="chkVul"> Cliente vulnerabile (over 75, bonus sociale, disabilità o apparecchi salvavita)</label>
+      </div>
+    </div>
+
+    <div class="panel stack">
+      <div class="row"><h2 class="grow">Abitudini in casa</h2><span class="tiny">Servono a stimare le fasce se la bolletta non le riporta</span></div>
+      <div class="grid2">
+        <label class="fld" for="hPersone">Persone in casa<select id="hPersone"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+        <label class="fld" for="hPresenza">Nei giorni feriali di giorno<select id="hPresenza"><option value="fuori">Casa vuota (tutti al lavoro o a scuola)</option><option value="meta">Qualcuno rientra nel pomeriggio</option><option value="casa">Qualcuno è sempre in casa</option></select></label>
+        <label class="fld" for="hLavaggi">Lavatrice e lavastoviglie<select id="hLavaggi"><option value="giorno">Di giorno nei feriali</option><option value="sera">La sera dopo le 19</option><option value="notte">Di notte o nel weekend</option></select></label>
+        <label class="fld" for="hCucina">Fornelli<select id="hCucina"><option value="gas">A gas</option><option value="induzione">A induzione</option></select></label>
+        <label class="fld" for="hAcqua">Acqua calda<select id="hAcqua"><option value="gas">Caldaia a gas</option><option value="boiler">Scaldabagno elettrico sempre acceso</option><option value="boiler_timer">Scaldabagno elettrico con timer notturno</option><option value="pdc">Pompa di calore</option></select></label>
+        <label class="fld" for="hRisc">Riscaldamento<select id="hRisc"><option value="no">Non elettrico</option><option value="pdc">Pompa di calore / climatizzatore</option><option value="stufe">Stufette elettriche</option></select></label>
+        <label class="fld" for="hClima">Condizionatore d'estate<select id="hClima"><option value="no">No</option><option value="poco">Poco</option><option value="molto">Molto</option></select></label>
+        <label class="fld" for="hAuto">Auto elettrica<select id="hAuto"><option value="no">No</option><option value="notte">Sì, ricarico di notte</option><option value="giorno">Sì, ricarico di giorno</option></select></label>
+        <label class="fld" for="hFv">Fotovoltaico<select id="hFv"><option value="no">No</option><option value="si">Sì</option></select></label>
+      </div>
+      <div class="stack" style="gap:6px">
+        <div class="eyebrow">Settimana tipo, ora per ora</div>
+        <div class="week" id="weekGrid" aria-label="Consumo stimato per giorno e ora, colorato per fascia"></div>
+        <div class="legend"><span><i style="background:var(--f1)"></i>F1</span><span><i style="background:var(--f2)"></i>F2</span><span><i style="background:var(--f3)"></i>F3</span><span>Colore più intenso = più consumo</span></div>
+      </div>
+      <div class="callout" id="habitsOut"></div>
+      <div class="row">
+        <button class="btn" type="button" id="btnApplyHabits">Usa queste fasce</button>
+        <button class="btn" type="button" id="btnApplyHabitsKwh">Usa fasce e consumo stimato</button>
+      </div>
+    </div>
+
+    <div class="panel stack">
+      <h2>Offerta attuale del cliente</h2>
+      <p class="small muted">Inseriscila per calcolare quanto risparmia cambiando. I prezzi sono quelli della voce "spesa per la materia energia", senza IVA.</p>
+      <div class="grid2">
+        <label class="fld" for="cFornitore">Fornitore<input type="text" id="cFornitore" placeholder="Es. Engie"></label>
+        <label class="fld" for="cNome">Nome offerta<input type="text" id="cNome" placeholder="Es. PuntoFisso 24"></label>
+        <label class="fld" for="cTipo">Tipo di prezzo<select id="cTipo"><option value="">Non la inserisco</option><option value="fisso">Fisso</option><option value="indicizzato">Variabile (PUN + spread)</option></select></label>
+        <label class="fld" for="cFasce">Fasce<select id="cFasce"><option value="mono">Monoraria (prezzo unico)</option><option value="bi">Bioraria (F1 / F23)</option><option value="tri">Multioraria (F1 / F2 / F3)</option></select></label>
+      </div>
+      <div class="grid3" id="cPrezzi">
+        <label class="fld" for="cP1"><span id="cP1l">Prezzo €/kWh</span><input type="number" id="cP1" step="0.0001" min="0"></label>
+        <label class="fld" for="cP2"><span id="cP2l">F2 €/kWh</span><input type="number" id="cP2" step="0.0001" min="0"></label>
+        <label class="fld" for="cP3"><span id="cP3l">F3 €/kWh</span><input type="number" id="cP3" step="0.0001" min="0"></label>
+        <label class="fld" for="cQf">Quota fissa (€/mese)<input type="number" id="cQf" step="0.01" min="0"></label>
+        <label class="fld" for="cScad">Prezzo bloccato fino al<input type="date" id="cScad"></label>
+      </div>
+    </div>
+    <div class="panel stack">
+      <h2>Backup dei dati</h2>
+      <p class="small muted">Salva in un file tutti i clienti e le offerte che hai aggiunto, per spostarli su un altro dispositivo o non perderli.</p>
+      <div class="row">
+        <button class="btn" type="button" id="btnBackupOut">Salva backup</button>
+        <span class="btn filebtn">Ripristina da file<input type="file" id="fileBackup" accept=".json,application/json"></span>
+      </div>
+      <div class="callout warn row" id="backupConfirm" hidden><span id="backupConfirmText" class="grow"></span>
+        <button class="btn small" type="button" id="btnBackupYes">Sì, sostituisci</button>
+        <button class="btn small" type="button" id="btnBackupNo">Annulla</button></div>
+    </div>
+  </section>
+
+  <!-- ===== OFFERTE ===== -->
+  <section class="section" id="sec-offerte" data-sec="offerte" hidden>
+    <div class="row">
+      <h2 class="grow">Catalogo offerte</h2>
+      <input type="text" id="offSearch" placeholder="Cerca fornitore o offerta" style="max-width:280px">
+    </div>
+    <p class="small muted" id="offIntro"></p>
+    <div class="tbl-wrap"><table class="data" id="offTable"></table></div>
+
+    <div class="panel stack">
+      <h2>Aggiungi un'offerta</h2>
+      <p class="small muted">Hai ricevuto una proposta da un venditore o hai trovato un'offerta che qui manca? Carica la scheda sintetica (PDF o foto) e Claude la legge, oppure compila i campi. Le offerte che aggiungi restano solo tue.</p>
+      <div class="drop" id="dropOffer">
+        <span class="btn filebtn">Scheda sintetica: foto<input type="file" id="offImg" accept="image/*" multiple></span>
+        <span class="btn filebtn">Scheda sintetica: PDF<input type="file" id="offPdf" accept="application/pdf,.pdf"></span>
+      </div>
+      <div id="offExtractOut" class="small"></div>
+      <form id="offForm" class="stack" novalidate>
+        <div class="grid2">
+          <label class="fld" for="nFornitore">Fornitore<input type="text" id="nFornitore" required></label>
+          <label class="fld" for="nNome">Nome offerta<input type="text" id="nNome" required></label>
+          <label class="fld" for="nTipo">Tipo di prezzo<select id="nTipo"><option value="fisso">Fisso</option><option value="indicizzato">Variabile (PUN + spread)</option></select></label>
+          <label class="fld" for="nFasce">Fasce<select id="nFasce"><option value="mono">Monoraria</option><option value="bi">Bioraria (F1 / F23)</option><option value="tri">Multioraria (F1 / F2 / F3)</option></select></label>
+        </div>
+        <div class="grid3">
+          <label class="fld" for="nP1"><span id="nP1l">Prezzo €/kWh</span><input type="number" id="nP1" step="0.0001" min="0"></label>
+          <label class="fld" for="nP2"><span id="nP2l">F2 €/kWh</span><input type="number" id="nP2" step="0.0001" min="0"></label>
+          <label class="fld" for="nP3"><span id="nP3l">F3 €/kWh</span><input type="number" id="nP3" step="0.0001" min="0"></label>
+          <label class="fld" for="nQf">Quota fissa (€/mese)<input type="number" id="nQf" step="0.01" min="0"></label>
+          <label class="fld" for="nSconto">Sconti (€/anno)<input type="number" id="nSconto" step="1" min="0"></label>
+          <label class="fld" for="nDurata">Prezzo bloccato (mesi)<input type="number" id="nDurata" step="1" min="0"></label>
+        </div>
+        <label class="fld" for="nNote">Note<input type="text" id="nNote" placeholder="Condizioni, bonus, penali"></label>
+        <div class="row"><button class="btn primary" type="submit">Aggiungi alla classifica</button><span class="small" id="offFormMsg"></span></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== MERCATO ===== -->
+  <section class="section" id="sec-mercato" data-sec="mercato" hidden>
+    <div class="panel stack">
+      <div class="row"><h2 class="grow">Prezzo all'ingrosso dell'energia (PUN)</h2><span class="tiny" id="punAsOf"></span></div>
+      <p class="small muted" id="mktNote"></p>
+      <div class="chart-box" id="punChartBox"></div>
+      <div class="legend"><span><i style="background:var(--accent);height:3px;vertical-align:3px"></i>PUN mensile (GME)</span><span><i style="background:var(--ink-3);height:3px;vertical-align:3px"></i>Futures: cosa si aspetta il mercato</span></div>
+    </div>
+    <div class="panel stack">
+      <h3>Ultimi mesi per fascia (€/kWh, senza perdite di rete)</h3>
+      <div class="tbl-wrap"><table class="data" id="punTable"></table></div>
+    </div>
+    <div class="panel stack">
+      <h3>Voci uguali per tutti i fornitori</h3>
+      <p class="small muted">Le fissa ARERA. Le paghi qualunque offerta scegli, quindi non spostano la classifica ma pesano sul totale.</p>
+      <div class="tbl-wrap"><table class="data" id="regTable"></table></div>
+    </div>
+    <div class="panel stack">
+      <h3>Aggiornamenti</h3>
+      <div class="stack" id="androidData" hidden>
+        <label class="fld" for="inDataUrl">Indirizzo del file prezzi<input type="text" id="inDataUrl" placeholder="https://raw.githubusercontent.com/…/dati.json"><span class="hint">L'app scarica da qui i prezzi aggiornati ogni volta che si apre.</span></label>
+        <div class="row"><button class="btn small" type="button" id="btnDataUrl">Salva e scarica</button></div>
+      </div>
+      <div id="runLog" class="small"></div>
+      <div id="srcList" class="small"></div>
+    </div>
+  </section>
+
+  <!-- ===== CHIEDI A CLAUDE ===== -->
+  <section class="section" id="sec-claude" data-sec="claude" hidden>
+    <div class="panel stack">
+      <h2>Chiedi a Claude</h2>
+      <p class="small muted">Claude vede i dati del cliente selezionato, la classifica e i dati di mercato. Usalo per approfondire prima di parlare con il cliente.</p>
+      <div class="chips" id="chatChips">
+        <button type="button" class="chip">Per questo cliente meglio il fisso o il variabile?</button>
+        <button type="button" class="chip">Spiegami la bolletta del cliente voce per voce</button>
+        <button type="button" class="chip">Conviene spostare i consumi in F3?</button>
+        <button type="button" class="chip">Gli conviene ridurre o aumentare la potenza?</button>
+      </div>
+      <div class="chat" id="chatLog"></div>
+      <form id="chatForm" class="row" novalidate>
+        <label for="chatIn" class="grow" style="display:flex"><textarea id="chatIn" placeholder="Scrivi la tua domanda" rows="2"></textarea></label>
+        <button class="btn primary" type="submit" id="chatSend">Invia</button>
+        <button class="btn" type="button" id="chatStop" hidden>Ferma</button>
+      </form>
+      <p class="tiny" id="chatNote"></p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>Le stime coprono i prossimi 12 mesi e includono materia energia, perdite di rete, dispacciamento, quota fissa, trasporto, oneri, accise e IVA. Per le offerte variabili il prezzo futuro del PUN viene preso dai futures di borsa: è una previsione, non una certezza.</p>
+    <p>Prima di firmare controlla sempre la scheda sintetica dell'offerta sul sito del fornitore. Per i clienti domestici cambiare fornitore è gratuito e la disdetta la fa il nuovo fornitore.</p>
+  </footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+/* ===== Dati incorporati (copia di sicurezza) =====
+   Usati solo se il database dell'app non risponde. I dati vivi arrivano dal
+   database, che un'attività programmata aggiorna ogni giorno. */
+const FALLBACK = {
+  market: {
+    schema: 1,
+    updatedAt: "2026-10-03T12:30:00+02:00",
+    regolato: {
+      validoDal: "2026-10-01",
+      validoAl: "2026-12-31",
+      trasporto: { quotaFissaAnno: 23.04, quotaPotenzaKWAnno: 23.7192, quotaEnergiaKWh: 0.01473 },
+      oneri: {
+        residente: { quotaFissaAnno: 0, quotaEnergiaKWh: 0.033153 },
+        nonResidente: { quotaFissaAnno: 95.0916, quotaEnergiaKWh: 0.033153 }
+      },
+      accise: { aliquotaKWh: 0.0227, franchigiaMeseKWh: 150, soglia1MeseKWh: 220, potenzaMaxKW: 3 },
+      iva: 0.10,
+      perdite: 0.10,
+      dispacciamento: { energiaKWh: 0.0117, capacitaKWh: 0.0085, dispBTAnno: 1.2311, nota: "Componenti ARERA (uplift, essenzialità, modulazione, altri) del I trim. 2026 più stima media del corrispettivo mercato capacità." },
+      canoneRaiAnno: 90,
+      fonti: [
+        { nome: "Servizio Elettrico Nazionale, tariffe ott-dic 2026 (trasporto, oneri)", url: "https://www.servizioelettriconazionale.it/it-IT/tariffe/uso-domestico/biorarie/residente" },
+        { nome: "ARERA, comunicato IV trimestre 2026", url: "https://www.arera.it/comunicati-stampa/dettaglio/elettricita-maggior-tutela-373-nel-iv-trimestre-2026-per-i-clienti-vulnerabili" },
+        { nome: "Pulsee, CTE con componenti di dispacciamento", url: "https://pulsee.it/assets/pulsee/data/it/cte_12_01/Pulsee%20Luce%20Limit.e%20-%20Condizioni%20tecnico-economiche%20e%20Scheda%20Sintetica.pdf" }
+      ]
+    },
+    pun: {
+      fonte: "GME, Prezzo medio per fasce (PUN Index)",
+      url: "https://gme.mercatoelettrico.org/it-it/Home/Pubblicazioni/PrezzoMedioFasce",
+      storico: [
+        { mese: "2025-01", mono: 0.14305, f1: 0.1583, f2: 0.1516, f3: 0.1286 },
+        { mese: "2025-02", mono: 0.15039, f1: 0.1577, f2: 0.1590, f3: 0.1399 },
+        { mese: "2025-03", mono: 0.12057, f1: 0.1217, f2: 0.1349, f3: 0.1117 },
+        { mese: "2025-04", mono: 0.09990, f1: 0.0959, f2: 0.1151, f3: 0.0951 },
+        { mese: "2025-05", mono: 0.09356, f1: 0.0891, f2: 0.1106, f3: 0.0871 },
+        { mese: "2025-06", mono: 0.11179, f1: 0.1131, f2: 0.1268, f3: 0.1036 },
+        { mese: "2025-07", mono: 0.11315, f1: 0.1090, f2: 0.1271, f3: 0.1085 },
+        { mese: "2025-08", mono: 0.10878, f1: 0.1056, f2: 0.1180, f3: 0.1060 },
+        { mese: "2025-09", mono: 0.10908, f1: 0.1096, f2: 0.1209, f3: 0.1019 },
+        { mese: "2025-10", mono: 0.11106, f1: 0.1178, f2: 0.1217, f3: 0.0995 },
+        { mese: "2025-11", mono: 0.11708, f1: 0.1296, f2: 0.1240, f3: 0.1055 },
+        { mese: "2025-12", mono: 0.11373, f1: 0.13009, f2: 0.11200, f3: 0.10452 },
+        { mese: "2026-01", mono: 0.13266, f1: 0.15126, f2: 0.13740, f3: 0.11829 },
+        { mese: "2026-02", mono: 0.11441, f1: 0.12228, f2: 0.11984, f3: 0.10530 },
+        { mese: "2026-03", mono: 0.14340, f1: 0.14302, f2: 0.15391, f3: 0.13809 },
+        { mese: "2026-04", mono: 0.11946, f1: 0.11114, f2: 0.13826, f3: 0.11663 },
+        { mese: "2026-05", mono: 0.11935, f1: 0.10717, f2: 0.13144, f3: 0.12081 },
+        { mese: "2026-06", mono: 0.13251, f1: 0.12576, f2: 0.15170, f3: 0.12724 },
+        { mese: "2026-07", mono: 0.15704, f1: 0.15420, f2: 0.16938, f3: 0.15226 },
+        { mese: "2026-08", mono: 0.18000, f1: 0.17452, f2: 0.20435, f3: 0.17172 },
+        { mese: "2026-09", mono: 0.20754, f1: 0.20635, f2: 0.22758, f3: 0.19702 }
+      ],
+      meseCorrente: { mese: "2026-10", parziale: true, aggiornatoAl: "2026-10-02", mono: 0.213061, f1: 0.21057, f2: 0.251871, f3: 0.192231, fonte: "a4energie.it su dati GME" }
+    },
+    forward: {
+      rilevatoAl: "2026-10-03",
+      fonte: "ICE Endex, Italian Power Base futures (quotazioni via TradingView)",
+      url: "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts",
+      unita: "€/MWh",
+      mesi: [
+        { mese: "2026-10", v: 201.41 }, { mese: "2026-11", v: 205.47 }, { mese: "2026-12", v: 206.55 },
+        { mese: "2027-01", v: 197.45 }, { mese: "2027-02", v: 190.86 }, { mese: "2027-03", v: 176.60 },
+        { mese: "2027-04", v: 135.61 }, { mese: "2027-05", v: 137.00 }, { mese: "2027-06", v: 135.88 },
+        { mese: "2027-07", v: 142.58 }, { mese: "2027-08", v: 147.55 }, { mese: "2027-09", v: 148.95 },
+        { mese: "2027-10", v: 143.26 }, { mese: "2027-11", v: 146.31 }, { mese: "2027-12", v: 148.72 },
+        { mese: "2028-01", v: 145.61 }, { mese: "2028-02", v: 138.58 }, { mese: "2028-03", v: 130.41 },
+        { mese: "2028-04", v: 105.57 }, { mese: "2028-05", v: 98.23 }, { mese: "2028-06", v: 95.89 },
+        { mese: "2028-07", v: 101.12 }, { mese: "2028-08", v: 108.39 }, { mese: "2028-09", v: 112.53 },
+        { mese: "2028-10", v: 107.95 }, { mese: "2028-11", v: 113.70 }, { mese: "2028-12", v: 114.57 }
+      ]
+    },
+    rapportiFasce: {
+      "01": { f1: 1.123, f2: 1.048, f3: 0.895 }, "02": { f1: 1.059, f2: 1.052, f3: 0.925 },
+      "03": { f1: 1.003, f2: 1.096, f3: 0.945 }, "04": { f1: 0.945, f2: 1.155, f3: 0.964 },
+      "05": { f1: 0.925, f2: 1.142, f3: 0.972 }, "06": { f1: 0.980, f2: 1.140, f3: 0.943 },
+      "07": { f1: 0.973, f2: 1.101, f3: 0.964 }, "08": { f1: 0.970, f2: 1.110, f3: 0.964 },
+      "09": { f1: 1.000, f2: 1.102, f3: 0.942 }, "10": { f1: 1.061, f2: 1.096, f3: 0.896 },
+      "11": { f1: 1.107, f2: 1.059, f3: 0.901 }, "12": { f1: 1.144, f2: 0.985, f3: 0.919 }
+    },
+    notaMercato: "Il PUN è salito da 0,13 €/kWh di gennaio a 0,21 €/kWh di settembre per la tensione sul gas (PSV intorno a 0,80 €/Smc). I futures prezzano un inverno ancora caro, intorno a 0,20 €/kWh, e un calo dalla primavera 2027 verso 0,14 €/kWh. Le offerte a prezzo fisso oggi sul mercato costano meno del PUN atteso per i prossimi 12 mesi."
+  },
+
+  offers: [
+    { id: "octopus-fissa-12m", fornitore: "Octopus Energy", nome: "Fissa 12M", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.1683 }, quotaFissaMese: 6, durataMesi: 12, validoFino: "2026-10-02", requisiti: ["online"], verde: true, fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/octopus-energy/offerte", data: "2026-10-01" }, note: "Octopus aggiorna il prezzo fisso ogni settimana: controlla quello del giorno prima di firmare." },
+    { id: "octopus-flex", fornitore: "Octopus Energy", nome: "Flex Luce", tipo: "indicizzato", fasce: "mono", spread: { mono: 0.0088 }, quotaFissaMese: 6, validoFino: "2026-10-31", requisiti: ["online"], verde: true, fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/octopus-energy/offerte", data: "2026-10-01" } },
+    { id: "edison-web-luce", fornitore: "Edison Energia", nome: "Web Luce", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.168 }, quotaFissaMese: 8, sconti: [{ descrizione: "Sconto annuo", euroAnno: 30 }], durataMesi: 12, validoFino: "2026-10-07", requisiti: ["online", "bolletta_web"], fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/edison/offerte", data: "2026-10-01" }, note: "Disponibile anche bioraria: F1 0,172 e F23 0,167 €/kWh." },
+    { id: "edison-easy-fix", fornitore: "Edison Energia", nome: "Easy Fix Luce (bioraria)", tipo: "fisso", fasce: "bi", prezzo: { f1: 0.172, f23: 0.167 }, quotaFissaMese: 12, sconti: [{ descrizione: "Sconto annuo", euroAnno: 30 }], durataMesi: 12, validoFino: "2026-10-07", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/edison/offerte", data: "2026-10-01" } },
+    { id: "edison-dynamic", fornitore: "Edison Energia", nome: "Dynamic Luce", tipo: "indicizzato", fasce: "mono", spread: { mono: 0.018 }, spreadOltre: { sogliaAnnoKWh: 2200, spread: 0.023 }, quotaFissaMese: 8.3, sconti: [{ descrizione: "Sconto annuo", euroAnno: 30 }], validoFino: "2026-10-07", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/edison/offerte", data: "2026-10-01" }, note: "Spread 0,018 €/kWh fino a 2.200 kWh l'anno, 0,023 €/kWh oltre." },
+    { id: "edison-super-flex", fornitore: "Edison Energia", nome: "Super Flex Luce", tipo: "indicizzato", fasce: "mono", spread: { mono: 0.022 }, quotaFissaMese: 12, sconti: [{ descrizione: "Sconto annuo", euroAnno: 30 }], validoFino: "2026-10-07", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/edison/offerte", data: "2026-10-01" } },
+    { id: "edison-world", fornitore: "Edison Energia", nome: "World Luce", tipo: "indicizzato", fasce: "mono", spread: { mono: 0 }, quotaFissaMese: 20, sconti: [{ descrizione: "Sconto annuo", euroAnno: 30 }], validoFino: "2026-10-07", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/edison/offerte", data: "2026-10-01" } },
+    { id: "lene-leggera-24", fornitore: "Lene", nome: "Leggera Luce 24", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.1604 }, quotaFissaMese: 7, sconti: [{ descrizione: "Sconto annuo", euroAnno: 50 }], durataMesi: 24, validoFino: "2026-10-05", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/confronto/offerte-luce", data: "2026-10-02" } },
+    { id: "alperia-smile-easy", fornitore: "Alperia Energia", nome: "Smile Easy Luce", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.1298 }, quotaFissaMese: 9.1, durataMesi: 12, validoFino: "2026-10-10", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/confronto/offerte-luce", data: "2026-09-24" } },
+    { id: "sorgenia-puntuale", fornitore: "Sorgenia", nome: "Next Energy PUNtuale Luce", tipo: "indicizzato", fasce: "mono", spread: { mono: 0 }, quotaFissaMese: 6.7, sconti: [{ descrizione: "Sconto annuo", euroAnno: 40 }], validoFino: "2026-10-08", requisiti: ["online"], fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/sorgenia/offerte", data: "2026-10-02" } },
+    { id: "eon-luce-premia", fornitore: "E.ON", nome: "Luce Premia", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.146 }, quotaFissaMese: 9, sconti: [{ descrizione: "Sconto annuo", euroAnno: 20 }], durataMesi: 12, validoFino: "2026-10-08", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/confronto/offerte-luce", data: "2026-10-02" }, note: "Prevede costi in caso di recesso anticipato: leggi le condizioni." },
+    { id: "eon-insieme", fornitore: "E.ON", nome: "Insieme Luce", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.1559 }, quotaFissaMese: 9, durataMesi: 12, validoFino: "2026-10-08", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/confronto/offerte-luce", data: "2026-10-02" }, note: "Prevede costi in caso di recesso anticipato: leggi le condizioni." },
+    { id: "enel-fix-web", fornitore: "Enel Energia", nome: "Fix Web Luce", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.1785 }, quotaFissaMese: 12, sconti: [{ descrizione: "Sconto annuo", euroAnno: 50 }], durataMesi: 12, validoFino: "2026-10-01", requisiti: ["online", "bolletta_web", "domiciliazione"], fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/enel/offerte", data: "2026-10-01" } },
+    { id: "enel-move", fornitore: "Enel Energia", nome: "Move Luce", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.208 }, quotaFissaMese: 14, durataMesi: 12, validoFino: "2026-10-01", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/enel/offerte", data: "2026-09-30" }, note: "Include il servizio Enel Move Plus (riparazioni elettriche) per 36 mesi." },
+    { id: "enel-flex-box", fornitore: "Enel Energia", nome: "Flex Box", tipo: "indicizzato", fasce: "mono", spread: { mono: 0.041 }, quotaFissaMese: 6, validoFino: "2026-10-22", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/enel/offerte", data: "2026-10-01" } },
+    { id: "plenitude-trend-casa", fornitore: "Plenitude", nome: "Trend Casa Luce", tipo: "indicizzato", fasce: "mono", spread: { mono: 0.022 }, quotaFissaMese: 12, sconti: [{ descrizione: "Sconto con domiciliazione", euroAnno: 12, condizione: "domiciliazione" }], validoFino: "2026-10-14", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/eni/offerte", data: "2026-10-02" } },
+    { id: "plenitude-fixa-time-24", fornitore: "Plenitude", nome: "Fixa Time 24 Luce", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.2079 }, quotaFissaMese: 12, scontoEnergiaPct: { pct: 5, condizione: "domiciliazione" }, durataMesi: 24, validoFino: "2026-10-14", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/eni/offerte", data: "2026-10-02" }, note: "Bioraria: F1 0,2165 e F23 0,2029 €/kWh. Durata del prezzo bloccato da verificare (12 o 24 mesi)." },
+    { id: "hera-special-active", fornitore: "Hera Comm", nome: "Più Controllo Special Active Luce", tipo: "indicizzato", fasce: "mono", spread: { mono: 0.005 }, quotaFissaMese: 12, bonusUnaTantum: 30, validoFino: "2026-11-04", requisiti: ["online"], fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/hera/offerte", data: "2026-10-01" }, note: "Bonus digitale di 30 € per chi attiva online." },
+    { id: "hera-special-flat", fornitore: "Hera Comm", nome: "Più Controllo Special Flat Luce", tipo: "fisso", fasce: "mono", prezzo: { mono: 0.1777 }, quotaFissaMese: 12, durataMesi: 12, validoFino: "2026-10-07", fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/fornitori/hera/offerte", data: "2026-10-01" } },
+    { id: "nen-surf", fornitore: "NeN", nome: "Surf Luce", tipo: "indicizzato", fasce: "mono", spread: { mono: 0 }, quotaFissaMese: 12, requisiti: ["online"], fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/confronto/meglio-nen-o-pulsee", data: "2026-10-02" }, note: "Quota fissa riportata da un confronto Selectra: verificala sul sito NeN." },
+    { id: "pulsee-limite", fornitore: "Pulsee", nome: "Luce Limit.e", tipo: "indicizzato", fasce: "mono", spread: { mono: 0 }, quotaFissaMese: 15, requisiti: ["online"], fonte: { nome: "luce-gas.it (Selectra)", url: "https://luce-gas.it/confronto/meglio-nen-o-pulsee", data: "2026-10-02" }, note: "In passato includeva un tetto massimo al prezzo per 12 mesi: controlla se è ancora previsto, perché con il PUN alto conviene molto." },
+    { id: "arera-vulnerabilita", fornitore: "Servizio di tutela (ARERA)", nome: "Tutela della vulnerabilità ott-dic 2026", tipo: "regolato", fasce: "bi", prezzo: { f1: 0.27379, f23: 0.27781 }, quotaFissaMese: 3.524, perdite: "incluse", dispacciamento: "incluso", durataMesi: 3, validoFino: "2026-12-31", solo: "vulnerabili", fonte: { nome: "Servizio Elettrico Nazionale", url: "https://www.servizioelettriconazionale.it/it-IT/tariffe/uso-domestico/biorarie/residente", data: "2026-10-01" }, note: "Solo per clienti vulnerabili (over 75, bonus sociale, disabilità, ecc.). Prezzo aggiornato da ARERA ogni trimestre: qui è applicato a tutti i 12 mesi." }
+  ],
+
+  status: { lastRun: "2026-10-03T12:30:00+02:00", lastFull: "2026-10-03T12:30:00+02:00", runs: [{ at: "2026-10-03T12:30:00+02:00", esito: "ok", note: "Prima raccolta dati: PUN GME gen-set 2026, futures ICE, tariffe ARERA ott-dic 2026, 22 offerte." }] }
+};
+
+/* ===== Motore di calcolo ===== */
+const MESI_BREVI = ["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"];
+const MESI_LUNGHI = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"];
+
+function pad2(n) { return String(n).padStart(2, "0"); }
+function monthKey(y, m) { return y + "-" + pad2(m); }
+function addMonths(key, n) {
+  const y = +key.slice(0, 4), m = +key.slice(5, 7) - 1 + n;
+  return monthKey(y + Math.floor(m / 12), ((m % 12) + 12) % 12 + 1);
+}
+function todayISO() { const d = new Date(); return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+function nextMonthKey() { const d = new Date(); return addMonths(monthKey(d.getFullYear(), d.getMonth() + 1), 1); }
+
+/* --- Fasce orarie ARERA (delibera 181/06) e festività nazionali --- */
+function easterUTC(y) {
+  const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
+    g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
+    l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451),
+    mo = Math.floor((h + l - 7 * m + 114) / 31), da = ((h + l - 7 * m + 114) % 31) + 1;
+  return new Date(Date.UTC(y, mo - 1, da));
+}
+const _holCache = {};
+function holidaySet(y) {
+  if (_holCache[y]) return _holCache[y];
+  const s = new Set(["01-01", "01-06", "04-25", "05-01", "06-02", "08-15", "11-01", "12-08", "12-25", "12-26"]);
+  const em = new Date(easterUTC(y).getTime() + 86400000);
+  s.add(pad2(em.getUTCMonth() + 1) + "-" + pad2(em.getUTCDate()));
+  return (_holCache[y] = s);
+}
+function isHoliday(y, m, d) { return holidaySet(y).has(pad2(m) + "-" + pad2(d)); }
+/* dow: 0=domenica ... 6=sabato. Restituisce 1, 2 o 3. */
+function fasciaOf(dow, hour, holiday) {
+  if (holiday || dow === 0) return 3;
+  if (dow === 6) return hour >= 7 && hour < 23 ? 2 : 3;
+  if (hour >= 8 && hour < 19) return 1;
+  if (hour === 7 || (hour >= 19 && hour < 23)) return 2;
+  return 3;
+}
+function fasciaHours(key) {
+  const y = +key.slice(0, 4), m = +key.slice(5, 7);
+  const days = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  const c = [0, 0, 0, 0];
+  for (let d = 1; d <= days; d++) {
+    const dow = new Date(Date.UTC(y, m - 1, d)).getUTCDay(), hol = isHoliday(y, m, d);
+    for (let h = 0; h < 24; h++) c[fasciaOf(dow, h, hol)]++;
+  }
+  return { f1: c[1], f2: c[2], f3: c[3] };
+}
+
+/* --- Prezzo all'ingrosso (PUN) per mese e fascia --- */
+function punMonoFor(key, market, mult) {
+  const fw = (market.forward && market.forward.mesi) || [];
+  const hit = fw.find(x => x.mese === key);
+  if (hit) return (hit.v / 1000) * mult;
+  const st = (market.pun && market.pun.storico) || [];
+  const h = st.find(x => x.mese === key);
+  if (h) return h.mono * mult;
+  if (fw.length) {
+    // oltre l'ultimo contratto quotato: stesso mese dell'ultimo anno disponibile
+    const sameMonth = fw.filter(x => x.mese.slice(5) === key.slice(5));
+    const ref = sameMonth.length ? sameMonth[sameMonth.length - 1] : fw[fw.length - 1];
+    return (ref.v / 1000) * mult;
+  }
+  const last = st[st.length - 1];
+  return last ? last.mono * mult : 0.15 * mult;
+}
+function punFasce(key, market, mult) {
+  const mono = punMonoFor(key, market, mult);
+  const r = (market.rapportiFasce && market.rapportiFasce[key.slice(5)]) || { f1: 1, f2: 1, f3: 1 };
+  const H = fasciaHours(key);
+  const tot = H.f1 + H.f2 + H.f3;
+  // normalizzo i rapporti perché la media pesata sulle ore torni al mono
+  const norm = (r.f1 * H.f1 + r.f2 * H.f2 + r.f3 * H.f3) / tot;
+  const f1 = mono * r.f1 / norm, f2 = mono * r.f2 / norm, f3 = mono * r.f3 / norm;
+  const f23 = (f2 * H.f2 + f3 * H.f3) / (H.f2 + H.f3);
+  return { mono, f1, f2, f3, f23 };
+}
+
+/* --- Accise: abitazione di residenza fino a 3 kW con franchigia mensile --- */
+function acciseKWhTassati(kwhMese, residente, potenzaKW, reg) {
+  const a = reg.accise;
+  if (!residente || potenzaKW > a.potenzaMaxKW + 1e-9) return kwhMese;
+  const fr = a.franchigiaMeseKWh, s1 = a.soglia1MeseKWh;
+  if (kwhMese <= fr) return 0;
+  if (kwhMese <= s1) return kwhMese - fr;
+  const esente = Math.max(0, fr - (kwhMese - s1));
+  return kwhMese - esente;
+}
+
+/* --- Profilo mensile standard di una famiglia (quote dell'anno) --- */
+const PROFILO_MENSILE_STD = [0.095, 0.085, 0.083, 0.074, 0.070, 0.076, 0.092, 0.088, 0.076, 0.076, 0.085, 0.100];
+
+function normSplit(s) {
+  const a = Math.max(0, +s.f1 || 0), b = Math.max(0, +s.f2 || 0), c = Math.max(0, +s.f3 || 0);
+  const t = a + b + c;
+  return t > 0 ? { f1: a / t, f2: b / t, f3: c / t } : { f1: 0.33, f2: 0.31, f3: 0.36 };
+}
+function normProfile(p) {
+  const arr = (Array.isArray(p) && p.length === 12) ? p.map(x => Math.max(0, +x || 0)) : PROFILO_MENSILE_STD.slice();
+  const t = arr.reduce((s, x) => s + x, 0);
+  return t > 0 ? arr.map(x => x / t) : PROFILO_MENSILE_STD.slice();
+}
+
+/* --- Idoneità e avvisi per il consumatore --- */
+function offerEligibility(offer, profile) {
+  const motivi = [];
+  const req = offer.requisiti || [];
+  const pref = profile.preferenze || {};
+  if (req.includes("domiciliazione") && pref.domiciliazione === false) motivi.push("Richiede l'addebito su conto corrente");
+  if (req.includes("bolletta_web") && pref.bollettaWeb === false) motivi.push("Richiede la bolletta solo via email");
+  if (offer.solo === "vulnerabili" && !profile.vulnerabile) motivi.push("Riservata ai clienti vulnerabili");
+  if (offer.solo === "nonResidenti" && profile.residente) motivi.push("Solo per seconde case");
+  return motivi;
+}
+function isExpired(offer) {
+  return !!offer.validoFino && offer.validoFino < todayISO();
+}
+
+/* --- Calcolo del costo di un'offerta su 12 mesi --- */
+function computeOffer(offer, profile, market, opts) {
+  opts = opts || {};
+  const reg = market.regolato;
+  const mult = opts.mult == null ? 1 : opts.mult;
+  const start = opts.start || nextMonthKey();
+  const kwhAnno = Math.max(0, +profile.kwhAnno || 0);
+  const kW = +profile.potenzaKW || 3;
+  const residente = profile.residente !== false;
+  const split = normSplit(profile.split || {});
+  const prof = normProfile(profile.profiloMensile);
+  const pref = profile.preferenze || {};
+  const perditeOn = offer.perdite !== "incluse";
+  const dispOn = offer.dispacciamento !== "incluso";
+  const oneri = residente ? reg.oneri.residente : reg.oneri.nonResidente;
+  const disp = reg.dispacciamento || { energiaKWh: 0, capacitaKWh: 0, dispBTAnno: 0 };
+  const dispKWh = (disp.energiaKWh || 0) + (disp.capacitaKWh || 0);
+
+  // quota di consumo soggetta allo spread maggiorato (es. oltre 2.200 kWh/anno)
+  const quotaOltre = offer.spreadOltre && kwhAnno > offer.spreadOltre.sogliaAnnoKWh
+    ? (kwhAnno - offer.spreadOltre.sogliaAnnoKWh) / kwhAnno : 0;
+
+  const scPct = offer.scontoEnergiaPct && (offer.scontoEnergiaPct.condizione !== "domiciliazione" || pref.domiciliazione !== false)
+    ? offer.scontoEnergiaPct.pct / 100 : 0;
+  const scontiAnno = (offer.sconti || []).reduce((s, x) => {
+    if (x.condizione === "domiciliazione" && pref.domiciliazione === false) return s;
+    if (x.condizione === "bolletta_web" && pref.bollettaWeb === false) return s;
+    return s + (+x.euroAnno || 0);
+  }, 0);
+
+  const tot = { energia: 0, perdite: 0, dispacciamento: 0, commercializzazione: 0, trasporto: 0, oneri: 0, sconti: 0, accise: 0, iva: 0, totale: 0 };
+  const mesi = [];
+
+  for (let i = 0; i < 12; i++) {
+    const key = addMonths(start, i);
+    const cal = +key.slice(5, 7) - 1;
+    const kwh = kwhAnno * prof[cal];
+    const k1 = kwh * split.f1, k2 = kwh * split.f2, k3 = kwh * split.f3;
+    let energia = 0;
+
+    if (offer.tipo === "indicizzato") {
+      const p = punFasce(key, market, mult);
+      const sp = offer.spread || {};
+      const extra = quotaOltre * ((offer.spreadOltre ? offer.spreadOltre.spread : 0) - (sp.mono != null ? sp.mono : (sp.f1 || 0)));
+      if (offer.fasce === "tri") {
+        energia = k1 * (p.f1 + (sp.f1 ?? sp.mono ?? 0)) + k2 * (p.f2 + (sp.f2 ?? sp.mono ?? 0)) + k3 * (p.f3 + (sp.f3 ?? sp.mono ?? 0));
+      } else if (offer.fasce === "bi") {
+        energia = k1 * (p.f1 + (sp.f1 ?? sp.mono ?? 0)) + (k2 + k3) * (p.f23 + (sp.f23 ?? sp.mono ?? 0));
+      } else {
+        energia = kwh * (p.mono + (sp.mono || 0));
+      }
+      energia += kwh * extra;
+      if (offer.tetto && offer.tetto.prezzoKWh) {
+        // tetto massimo sul prezzo medio (perdite comprese se indicato)
+        const fattore = offer.tetto.perditeComprese && perditeOn ? 1 + reg.perdite : 1;
+        const maxE = kwh * offer.tetto.prezzoKWh / fattore;
+        energia = Math.min(energia, maxE);
+      }
+    } else {
+      const pz = offer.prezzo || {};
+      if (offer.fasce === "tri") energia = k1 * (pz.f1 ?? pz.mono) + k2 * (pz.f2 ?? pz.f23 ?? pz.mono) + k3 * (pz.f3 ?? pz.f23 ?? pz.mono);
+      else if (offer.fasce === "bi") energia = k1 * (pz.f1 ?? pz.mono) + (k2 + k3) * (pz.f23 ?? pz.mono);
+      else energia = kwh * (pz.mono ?? pz.f1 ?? 0);
+    }
+    energia += kwh * (+offer.altriCostiKWh || 0);
+    const scontoE = energia * scPct;
+    energia -= scontoE;
+    const perdite = perditeOn ? energia * reg.perdite : 0;
+    const dispacc = dispOn ? kwh * (1 + reg.perdite) * dispKWh + (disp.dispBTAnno || 0) / 12 : 0;
+    const comm = (+offer.quotaFissaMese || 0);
+    const trasporto = (reg.trasporto.quotaFissaAnno + reg.trasporto.quotaPotenzaKWAnno * kW) / 12 + kwh * reg.trasporto.quotaEnergiaKWh;
+    const on = oneri.quotaFissaAnno / 12 + kwh * oneri.quotaEnergiaKWh;
+    const sconti = scontiAnno / 12 + (i === 0 ? (+offer.bonusUnaTantum || 0) : 0);
+    const accise = acciseKWhTassati(kwh, residente, kW, reg) * reg.accise.aliquotaKWh;
+    const imponibile = energia + perdite + dispacc + comm + trasporto + on - sconti + accise;
+    const iva = Math.max(0, imponibile) * reg.iva;
+    const totale = imponibile + iva;
+    mesi.push({ mese: key, kwh, totale });
+    tot.energia += energia; tot.perdite += perdite; tot.dispacciamento += dispacc; tot.commercializzazione += comm;
+    tot.trasporto += trasporto; tot.oneri += on; tot.sconti += sconti; tot.accise += accise; tot.iva += iva; tot.totale += totale;
+  }
+  if (opts.canoneRai && residente) tot.totale += reg.canoneRaiAnno || 0;
+  tot.cKWh = kwhAnno > 0 ? tot.totale / kwhAnno : 0;
+  tot.materia = tot.energia + tot.perdite + tot.dispacciamento + tot.commercializzazione - tot.sconti;
+  tot.mesi = mesi;
+  return tot;
+}
+
+/* Classifica completa: costo atteso, forchetta per le variabili, avvisi */
+function rankOffers(offers, profile, market, opts) {
+  opts = opts || {};
+  const base = opts.mult || 1;
+  const rows = offers.map(o => {
+    const r = computeOffer(o, profile, market, { mult: base, start: opts.start, canoneRai: opts.canoneRai });
+    let basso = r.totale, alto = r.totale;
+    if (o.tipo === "indicizzato") {
+      basso = computeOffer(o, profile, market, { mult: base * 0.75, start: opts.start, canoneRai: opts.canoneRai }).totale;
+      alto = computeOffer(o, profile, market, { mult: base * 1.35, start: opts.start, canoneRai: opts.canoneRai }).totale;
+    }
+    const esclusa = offerEligibility(o, profile);
+    return { offer: o, calc: r, basso, alto, esclusa, scaduta: isExpired(o) };
+  });
+  const key = opts.ordina === "prudente" ? (x => x.alto) : (x => x.calc.totale);
+  rows.sort((a, b) => key(a) - key(b));
+  return rows;
+}
+
+/* Punti di attenzione in parole semplici, per ogni offerta */
+function consumerNotes(row, best, profile) {
+  const o = row.offer, n = [];
+  if (o.tipo === "fisso") {
+    n.push({ t: "ok", s: "Prezzo bloccato per " + (o.durataMesi || 12) + " mesi: la spesa non dipende dalla borsa." });
+    if ((o.durataMesi || 12) <= 12) n.push({ t: "info", s: "Alla scadenza il fornitore proporrà un nuovo prezzo: segna la data e rifai il confronto." });
+  } else if (o.tipo === "indicizzato") {
+    n.push({ t: "warn", s: "Prezzo variabile ogni mese: se il mercato sale si paga di più. Nell'anno la spesa può andare da " + euro(row.basso) + " a " + euro(row.alto) + "." });
+  } else if (o.tipo === "regolato") {
+    n.push({ t: "info", s: "Prezzo fissato da ARERA ogni tre mesi." });
+  }
+  if (o.quotaFissaMese >= 12) n.push({ t: "warn", s: "Quota fissa alta (" + euro2(o.quotaFissaMese) + " al mese, " + euro(o.quotaFissaMese * 12) + " l'anno anche con consumi bassi)." });
+  (o.requisiti || []).forEach(r => {
+    if (r === "domiciliazione") n.push({ t: "info", s: "Serve l'addebito automatico su conto corrente." });
+    if (r === "bolletta_web") n.push({ t: "info", s: "Bolletta solo in formato digitale." });
+    if (r === "online") n.push({ t: "info", s: "Si attiva e si gestisce online o da app." });
+  });
+  if (o.bonusUnaTantum) n.push({ t: "info", s: "Bonus di " + euro(o.bonusUnaTantum) + " solo il primo anno: dal secondo anno costa di più." });
+  if (row.scaduta) n.push({ t: "bad", s: "Il prezzo pubblicato era valido fino al " + dataIt(o.validoFino) + ": in attesa di verifica con il prossimo aggiornamento." });
+  if (o.note) n.push({ t: /recesso/i.test(o.note) ? "warn" : "info", s: o.note });
+  row.esclusa.forEach(m => n.push({ t: "bad", s: m + "." }));
+  return n;
+}
+
+/* Formattazione */
+function euro(v) { return (v < 0 ? "−" : "") + Math.round(Math.abs(v)).toLocaleString("it-IT") + " €"; }
+function euro2(v) { return v.toLocaleString("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €"; }
+function cent(v) { return (v * 100).toLocaleString("it-IT", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + " c€/kWh"; }
+function kwhPrice(v, dec) { return v.toLocaleString("it-IT", { minimumFractionDigits: dec || 4, maximumFractionDigits: dec || 4 }); }
+function numIt(v, dec) { return (+v).toLocaleString("it-IT", { maximumFractionDigits: dec == null ? 0 : dec }); }
+function dataIt(iso) { if (!iso) return ""; const p = iso.slice(0, 10).split("-"); return p[2] + "/" + p[1] + "/" + p[0]; }
+function meseIt(key) { return MESI_BREVI[+key.slice(5, 7) - 1] + " " + key.slice(2, 4); }
+
+if (typeof module !== "undefined") module.exports = { computeOffer, rankOffers, punFasce, fasciaHours, acciseKWhTassati, fasciaOf, isHoliday, addMonths, consumerNotes, normSplit };
+
+/* ===== Lettura del testo di bollette e schede sintetiche, senza Claude =====
+   Usata sul telefono (testo da riconoscimento ottico o da PDF) e come
+   ripiego sul web. Restituisce lo stesso formato della lettura con Claude. */
+const FORNITORI_NOTI = ["Servizio Elettrico Nazionale", "Enel Energia", "Plenitude", "Eni gas e luce", "Edison Energia", "Edison", "A2A Energia", "A2A", "Hera Comm", "Hera", "Iren", "Sorgenia", "Octopus Energy", "Octopus", "E.ON", "Engie", "Acea Energia", "Acea", "NeN", "Illumia", "Pulsee", "Alperia", "Dolomiti Energia", "Magis", "Lene", "Wekiwi", "Iberdrola", "Duferco", "AGSM AIM", "Estra", "Optima", "Enegan", "Axpo", "Tate", "Sinergy", "Bluenergy", "Fastweb Energia", "Iliad", "Unoenergy", "Repower", "Green Network", "Argos", "Vivi Energia", "Edison Next"];
+
+function parseNumIt(s) {
+  s = String(s || "").trim().replace(/\s/g, "");
+  if (!s) return null;
+  if (/^\d{1,3}(\.\d{3})+(,\d+)?$/.test(s)) s = s.replace(/\./g, "").replace(",", ".");
+  else if (/^\d+,\d+$/.test(s)) s = s.replace(",", ".");
+  else if (/^\d{1,3}(,\d{3})+(\.\d+)?$/.test(s)) s = s.replace(/,/g, "");
+  const v = parseFloat(s);
+  return isFinite(v) ? v : null;
+}
+const NUM = "(\\d{1,3}(?:\\.\\d{3})+(?:,\\d+)?|\\d+(?:[.,]\\d+)?)";
+function reEsc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+function cleanText(text) {
+  return String(text || "").replace(/ | /g, " ").replace(/€\s*\/\s*/g, "€/").replace(/[ \t]+/g, " ").replace(/k\s?W\s?h/gi, "kWh");
+}
+function firstNum(t, res, min, max) {
+  for (const re of res) {
+    const g = new RegExp(re.source, re.flags.includes("g") ? re.flags : re.flags + "g");
+    let m;
+    while ((m = g.exec(t))) {
+      const v = parseNumIt(m[1]);
+      if (v != null && (min == null || v >= min) && (max == null || v <= max)) return v;
+    }
+  }
+  return null;
+}
+function dateIt(s) { const m = String(s || "").match(/(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})/); if (!m) return null; const y = m[3].length === 2 ? "20" + m[3] : m[3]; return y + "-" + m[2].padStart(2, "0") + "-" + m[1].padStart(2, "0"); }
+
+function localBillParse(text) {
+  const raw = cleanText(text);
+  const t = raw.replace(/\n+/g, " \n ");
+  const flat = raw.replace(/\s*\n\s*/g, " ");
+  const out = { fornitore: null, offerta: null, tipo: null, consumoAnnuoKWh: null, potenzaKW: null, residente: null, periodo: { da: null, a: null }, consumiPeriodoKWh: { f1: null, f2: null, f3: null, f23: null, totale: null }, prezzoEnergia: { mono: null, f1: null, f2: null, f3: null, f23: null }, spreadKWh: null, quotaFissaMese: null, scadenzaPrezzo: null, totaleBolletta: null, note: "" };
+  out.fornitore = FORNITORI_NOTI.find(s => new RegExp("(^|[^A-Za-z])" + reEsc(s) + "([^A-Za-z]|$)", "i").test(flat)) || null;
+  const STOP = "(?!Condizioni|Codice|Cod\\.|Data|Tipologia|Tipo|Prezzo|Valid|Periodo|Venditore|Fornitore|Scheda)";
+  const off = flat.match(new RegExp("(?<![Cc]odice |l'|L'|dell')(?:[Nn]ome (?:dell'?)?[Oo]fferta|[Oo]fferta|OFFERTA)(?: commerciale)?\\s*[:\\-]?\\s*" + STOP + "([A-Z][\\w'.+]*(?:\\s" + STOP + "[A-Z0-9][\\w'.+]*){0,3})"));
+  if (off) out.offerta = off[1].trim().replace(/[\s\-–:]+$/, "") || null;
+  out.consumoAnnuoPeriodo = { da: null, a: null };
+  const ini = flat.match(new RegExp("consumo da inizio fornitura\\s*dal\\s+(\\d{1,2}[\\/.\\-]\\d{1,2}[\\/.\\-]\\d{2,4})\\s+al\\s+(\\d{1,2}[\\/.\\-]\\d{1,2}[\\/.\\-]\\d{2,4})[^0-9]{0,10}" + NUM + "\\s*kWh", "i"));
+  const due = flat.match(/periodo di fatturazione:?\s*periodo di riferimento:?[^0-9]{0,30}?dal\s+(\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4})\s+al\s+(\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4})[^0-9]{0,20}?dal\s+(\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4})\s+al\s+(\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4})/i);
+  if (due) { out.periodo = { da: dateIt(due[1]), a: dateIt(due[2]) }; out.consumoAnnuoPeriodo = { da: dateIt(due[3]), a: dateIt(due[4]) }; }
+  out.consumoAnnuoKWh = firstNum(flat, [new RegExp("consumo annuo[^0-9]{0,90}" + NUM + "\\s*kWh", "i"), new RegExp("consumi? (?:degli )?ultimi 12 mesi[^0-9]{0,60}" + NUM + "\\s*kWh", "i"), new RegExp("consumo annuo[^0-9]{0,40}" + NUM, "i")], 50, 100000);
+  out.potenzaKW = firstNum(flat, [new RegExp("potenza (?:contrattualmente |contrattuale )?impegnata[^0-9]{0,50}" + NUM + "\\s*kW", "i"), new RegExp("potenza impegnata[^0-9]{0,30}" + NUM, "i")], 0.5, 30);
+  // "consumo da inizio fornitura" è esplicito: ha la precedenza sul riquadro "consumo annuo"
+  if (ini) { const v = parseNumIt(ini[3]); if (v > 0) { out.consumoAnnuoKWh = v; out.consumoAnnuoPeriodo = { da: dateIt(ini[1]), a: dateIt(ini[2]) }; } }
+  if (out.potenzaKW == null) { const pd = firstNum(flat, [new RegExp("potenza disponibile[^0-9]{0,40}" + NUM + "\\s*kW", "i")], 0.5, 40); if (pd) out.potenzaKW = Math.round(pd / 1.1 * 2) / 2; }
+  if (/non\s+residente|diversa dalla residenza|altri usi domestici|uso domestico non resid/i.test(flat)) out.residente = false;
+  else if (/(abitazione di |cliente )?residen(te|za)/i.test(flat)) out.residente = true;
+  const per = flat.match(/(?:periodo|fattura(?:zione)?|consumi)?[^0-9]{0,30}dal\s+(\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4})\s+al\s+(\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4})/i);
+  if (per && !due) { out.periodo.da = dateIt(per[1]); out.periodo.a = dateIt(per[2]); }
+  const cons = f => firstNum(flat, [new RegExp("\\b" + f + "\\b[^0-9€\\n]{0,30}" + NUM + "\\s*kWh(?!\\s*\\/)", "i")], 1, 50000);
+  out.consumiPeriodoKWh.f1 = cons("F1"); out.consumiPeriodoKWh.f2 = cons("F2"); out.consumiPeriodoKWh.f3 = cons("F3");
+  out.consumiPeriodoKWh.f23 = cons("F23");
+  out.consumiPeriodoKWh.totale = firstNum(flat, [new RegExp("(?:totale consumi|consumo (?:fatturato|totale|del periodo)|energia consumata)[^0-9]{0,40}" + NUM + "\\s*kWh", "i")], 0, 100000);
+  const price = (label) => firstNum(flat, [new RegExp(label + "[^€\\n]{0,60}?" + NUM + "\\s*€\\/kWh", "i"), new RegExp(label + "[^0-9\\n]{0,60}?€\\/kWh\\s*" + NUM, "i")], 0.02, 0.8);
+  out.prezzoEnergia.f1 = price("\\bF1\\b"); out.prezzoEnergia.f2 = price("\\bF2\\b"); out.prezzoEnergia.f3 = price("\\bF3\\b"); out.prezzoEnergia.f23 = price("\\bF23\\b");
+  // corrispettivo energia per fascia scritto come "CEF (Netto) ... F1 0,0885 F2 0,0885 F3 0,0885"
+  const cef = flat.match(new RegExp("(?:CEF|corrispettivo energia(?: fisso)?)\\s*\\(?netto\\)?[^\\n]{0,60}?F1\\s*" + NUM + "[^0-9]{0,12}(?:F2\\s*" + NUM + ")?[^0-9]{0,12}(?:F3\\s*" + NUM + ")?", "i"));
+  if (cef && out.prezzoEnergia.f1 == null) {
+    const v = [cef[1], cef[2], cef[3]].map(parseNumIt).filter(x => x != null && x > 0.02 && x < 0.8);
+    if (v.length && v.every(x => Math.abs(x - v[0]) < 1e-6)) out.prezzoEnergia.mono = v[0];
+    else if (v.length === 3) { out.prezzoEnergia.f1 = v[0]; out.prezzoEnergia.f2 = v[1]; out.prezzoEnergia.f3 = v[2]; }
+  }
+  if (out.prezzoEnergia.f1 == null && out.prezzoEnergia.mono == null) out.prezzoEnergia.mono = price("(?:prezzo (?:della |dell')?energia|corrispettivo energia|quota energia|materia (?:prima )?energia|componente energia|prezzo unico|monorari[ao])");
+  out.spreadKWh = firstNum(flat, [new RegExp("spread[^0-9\\n]{0,40}" + NUM, "i"), new RegExp("PUN[^0-9\\n]{0,15}\\+\\s*" + NUM, "i")], 0, 0.15);
+  const haPrezzi = out.prezzoEnergia.mono != null || out.prezzoEnergia.f1 != null;
+  if (out.spreadKWh != null || (!haPrezzi && (/\bPUN\b/.test(flat) || /indicizzat|prezzo variabile|variabile mensilmente/i.test(flat)))) out.tipo = "indicizzato";
+  else if (haPrezzi || /prezzo fisso|prezzo bloccato|fisso per|bloccato (per|fino)/i.test(flat)) out.tipo = "fisso";
+  const qv = flat.match(new RegExp("quota fissa[\\s\\S]{0,200}?vendita[^0-9\\n]{0,40}" + NUM + "\\s*€\\/\\s*(mese|anno|giorno|gg)", "i"));
+  const qf = qv || flat.match(new RegExp("(?:quota fissa|commercializzazione|corrispettivo fisso|costo fisso|PCV)[^€\\n]{0,70}?" + NUM + "\\s*€\\/\\s*(?:pod\\s*\\/\\s*|punto di prelievo\\s*\\/\\s*|cliente\\s*\\/\\s*)?(mese|anno|giorno|gg)", "i"));
+  if (qf) { const v = parseNumIt(qf[1]); const u = qf[2].toLowerCase(); out.quotaFissaMese = u === "anno" ? v / 12 : (u === "giorno" || u === "gg") ? v * 30.42 : v; if (out.quotaFissaMese > 60) out.quotaFissaMese = null; }
+  const sc = flat.match(/(?:prezzo|condizioni economiche|offerta)[^.\n]{0,60}?(?:valid[oae]|bloccat[oae]|fisso)[^.\n]{0,20}?(?:fino al|sino al|al)\s+(\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4})/i);
+  if (sc) out.scadenzaPrezzo = dateIt(sc[1]);
+  if (!out.scadenzaPrezzo) { const sc2 = flat.match(/(?:scadenza condizioni economiche|condizioni economiche valide fino al|prezzo bloccato fino al)[:\s]*(\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4})/i); if (sc2) out.scadenzaPrezzo = dateIt(sc2[1]); }
+  out.totaleBolletta = firstNum(flat, [new RegExp("totale (?:da pagare|bolletta|fattura|importo)[^0-9]{0,30}" + NUM, "i")], 1, 20000);
+  const found = [out.consumoAnnuoKWh != null && "consumo annuo", out.potenzaKW != null && "potenza", (out.consumiPeriodoKWh.f1 != null) && "fasce", (out.prezzoEnergia.mono ?? out.prezzoEnergia.f1 ?? out.spreadKWh) != null && "prezzo", out.quotaFissaMese != null && "quota fissa"].filter(Boolean);
+  const missing = ["consumo annuo", "potenza", "fasce", "prezzo", "quota fissa"].filter(x => !found.includes(x));
+  out.note = (found.length ? "Trovati: " + found.join(", ") + "." : "Non ho riconosciuto dati utili.") + (missing.length ? " Mancano: " + missing.join(", ") + ": controlla e completa a mano." : " Controlla comunque i valori.");
+  return out;
+}
+
+function localOfferParse(text) {
+  const flat = cleanText(text).replace(/\s*\n\s*/g, " ");
+  const r = { fornitore: null, nome: null, tipo: null, fasce: "mono", prezzo: { mono: null, f1: null, f2: null, f3: null, f23: null }, spread: { mono: null }, quotaFissaMese: null, scontiAnno: null, durataMesi: null, note: "" };
+  r.fornitore = FORNITORI_NOTI.find(s => new RegExp("(^|[^A-Za-z])" + reEsc(s) + "([^A-Za-z]|$)", "i").test(flat)) || null;
+  const nm = flat.match(/(?:nome (?:dell'?)?offerta|offerta)\s*[:\-]\s*([^\n,;]{3,50}?)(?=\s(?:codice|cod\.|valid|tipo|prezzo|venditore|fornitore|durata|scheda)|[,;]|$)/i);
+  if (nm) r.nome = nm[1].trim().replace(/[\s\-–:]+$/, "");
+  const p = (label) => firstNum(flat, [new RegExp(label + "[^€\\n]{0,60}?" + NUM + "\\s*€\\/kWh", "i"), new RegExp(label + "[^0-9\\n]{0,40}?€\\/kWh\\s*" + NUM, "i")], 0.02, 0.8);
+  r.prezzo.f1 = p("\\bF1\\b"); r.prezzo.f2 = p("\\bF2\\b"); r.prezzo.f3 = p("\\bF3\\b"); r.prezzo.f23 = p("\\bF23\\b");
+  r.prezzo.mono = p("(?:costo per consumi|prezzo (?:della |dell')?energia|corrispettivo energia|componente energia|prezzo fisso|monorari[ao]|prezzo unico)");
+  r.spread.mono = firstNum(flat, [new RegExp("spread[^0-9\\n]{0,40}" + NUM, "i"), new RegExp("PUN[^0-9\\n]{0,15}\\+\\s*" + NUM, "i")], 0, 0.15);
+  const haP = r.prezzo.mono != null || r.prezzo.f1 != null;
+  r.tipo = r.spread.mono != null || (!haP && (/\bPUN\b/.test(flat) || /indicizzat|prezzo variabile/i.test(flat))) ? "indicizzato" : "fisso";
+  if (r.tipo === "fisso") r.fasce = r.prezzo.f2 != null && r.prezzo.f3 != null ? "tri" : (r.prezzo.f1 != null && r.prezzo.f23 != null ? "bi" : "mono");
+  const anno = firstNum(flat, [new RegExp("costo fisso anno[^0-9]{0,40}" + NUM, "i"), new RegExp("(?:quota fissa|commercializzazione|corrispettivo fisso)[^€\\n]{0,60}?" + NUM + "\\s*€\\/(?:pod\\/)?anno", "i")], 0, 500);
+  const mese = firstNum(flat, [new RegExp("(?:quota fissa|commercializzazione|corrispettivo fisso|costo fisso)[^€\\n]{0,60}?" + NUM + "\\s*€\\/(?:pod\\/)?mese", "i")], 0, 50);
+  r.quotaFissaMese = mese != null ? mese : anno != null ? Math.round(anno / 12 * 100) / 100 : null;
+  r.durataMesi = firstNum(flat, [new RegExp("(?:durata|valid[oae]|bloccat[oae]|fisso per|fissa per)[^0-9\\n]{0,40}" + NUM + "\\s*mesi", "i")], 1, 60);
+  r.note = "Letta sul telefono: controlla prezzi e quota fissa prima di aggiungerla.";
+  return r;
+}
+if (typeof module !== "undefined") module.exports = { localBillParse, localOfferParse, parseNumIt };
+
+/* ===== App ===== */
+const ANDROID = typeof window !== "undefined" && !!window.ClaudiaAndroid;
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+function esc(v) { return String(v == null ? "" : v).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+function clone(o) { return JSON.parse(JSON.stringify(o)); }
+function num(el) { const v = String(el.value || "").replace(",", "."); const n = parseFloat(v); return isFinite(n) ? n : null; }
+function setNum(el, v, dec) { el.value = v == null || !isFinite(v) ? "" : (dec != null ? (+v).toFixed(dec) : v); }
+function safeUrl(u) { return /^https:\/\//i.test(String(u || "")) ? String(u) : ""; }
+let toastT;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 4200); }
+function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* non disponibile */ } }
+
+/* ---------- Stato ---------- */
+const ABITUDINI_STD = { persone: "3", presenza: "fuori", lavaggi: "sera", cucina: "gas", acqua: "gas", risc: "no", clima: "poco", auto: "no", fv: "no" };
+function nuovaUtenza(nome, esempio) {
+  const ab = clone(ABITUDINI_STD);
+  const st = habitsModel(ab);
+  return {
+    id: esempio ? "esempio" : "u" + Date.now().toString(36),
+    nome, esempio: !!esempio,
+    kwhAnno: esempio ? 2700 : st.kwhAnno,
+    potenzaKW: 3, residente: true,
+    split: st.split, profiloMensile: st.profilo, fonteSplit: "abitudini",
+    preferenze: { domiciliazione: true, bollettaWeb: true },
+    vulnerabile: false, abitudini: ab, attuale: null
+  };
+}
+const S = {
+  market: FALLBACK.market, offers: FALLBACK.offers, status: FALLBACK.status,
+  source: "fallback", dbState: "pending",
+  user: { utenze: [nuovaUtenza("Esempio: famiglia di 3 persone", true)], attivaId: "esempio", offerteMie: [], vista: { tipo: "tutte", ordina: "previsto", scenario: "1", canone: false } },
+  caps: { db: null, user: null, uid: null, sample: null, images: null, mcp: null, downloads: null },
+  lastRows: [], chat: [], chatCtl: null, extracted: null
+};
+function U() { return S.user.utenze.find(u => u.id === S.user.attivaId) || S.user.utenze[0]; }
+
+/* ---------- Salvataggio (database privato, altrimenti questo browser) ---------- */
+let saveTimer = null, saveChain = Promise.resolve();
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    const data = clone(S.user); data.updatedAt = new Date().toISOString();
+    lsSet("wattgiusto.user", JSON.stringify(data));
+    const db = S.caps.db, uid = S.caps.uid;
+    if (db && uid) {
+      saveChain = saveChain.then(() => db.doc("data/users/" + uid + "/watt").set(data)).then(() => { if (S.saveDenied) { S.saveDenied = false; renderStatus(); } }).catch(e => {
+        if (e && e.code === "quota_exceeded") toast("Spazio del database esaurito: elimina qualche cliente o offerta aggiunta.");
+        if (e && e.code === "invalid_argument") { S.saveDenied = true; renderStatus(); }
+      });
+    }
+  }, 1200);
+}
+function adoptUser(data) {
+  if (!data || !Array.isArray(data.utenze) || !data.utenze.length) return false;
+  S.user = clone(data);
+  S.user.offerteMie = S.user.offerteMie || [];
+  S.user.vista = Object.assign({ tipo: "tutte", ordina: "previsto", scenario: "1", canone: false }, S.user.vista || {});
+  if (!S.user.utenze.some(u => u.id === S.user.attivaId)) S.user.attivaId = S.user.utenze[0].id;
+  return true;
+}
+function loadLocal() { const raw = lsGet("wattgiusto.user"); if (raw) { try { adoptUser(JSON.parse(raw)); } catch (e) { /* ignora */ } } }
+
+/* ---------- Offerte considerate ---------- */
+function allOffers() {
+  const u = U();
+  const list = S.offers.concat(S.user.offerteMie || []);
+  if (u.attuale && u.attuale.tipo && !u.attuale.incompleta) list.push(Object.assign({ id: "attuale", attuale: true }, u.attuale, { fornitore: u.attuale.fornitore || "Fornitore attuale", nome: u.attuale.nome || "Offerta attuale" }));
+  return list;
+}
+
+/* ---------- Stato dei dati in alto ---------- */
+function renderStatus() {
+  const pill = $("#dataPill"), txt = $("#dataPillText");
+  const iso = (S.status && S.status.lastRun) || S.market.updatedAt;
+  pill.className = "pill";
+  if (S.source !== "db" && S.source !== "remote" && S.source !== "cache") {
+    pill.classList.add("warn");
+    txt.textContent = (ANDROID ? "Prezzi inclusi nell'app, " : "Dati salvati nella pagina, ") + dataIt(S.market.updatedAt);
+  } else {
+    const d = new Date(iso), ore = (Date.now() - d.getTime()) / 3.6e6;
+    const hhmm = d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+    const oggi = new Date().toDateString() === d.toDateString();
+    const ieri = new Date(Date.now() - 864e5).toDateString() === d.toDateString();
+    pill.classList.add(ore < 30 ? "ok" : ore < 96 ? "warn" : "bad");
+    txt.textContent = oggi ? "Dati aggiornati oggi alle " + hhmm : ieri ? "Dati aggiornati ieri alle " + hhmm : "Dati del " + d.toLocaleDateString("it-IT");
+  }
+  const b = $("#banner");
+  if (ANDROID) {
+    if (S.remoteState === "nourl") { b.hidden = false; b.textContent = "L'aggiornamento automatico dei prezzi non è ancora configurato: l'app usa i prezzi del " + dataIt(S.market.updatedAt) + ". Puoi impostarlo nella scheda Mercato."; }
+    else if (S.remoteState === "offline") { b.hidden = false; b.textContent = "Non riesco a scaricare i prezzi nuovi (sei offline?). Uso quelli scaricati il " + dataIt(S.market.updatedAt) + "."; }
+    else b.hidden = true;
+  } else if (S.dbState === "absent") { b.hidden = false; b.textContent = "Il database dell'app non risponde in questa vista: stai vedendo i dati salvati nella pagina il " + dataIt(FALLBACK.market.updatedAt) + ". Riapri la pagina da Claude per avere i prezzi aggiornati."; }
+  else if (S.saveDenied) { b.hidden = false; b.textContent = "I dati dei clienti restano solo su questo browser: con il permesso attuale non puoi salvarli nel tuo account. Chiedi a chi ti ha condiviso la pagina di darti il ruolo di Editor."; }
+  else b.hidden = true;
+  updateRefreshBtn();
+}
+function updateRefreshBtn() {
+  const btn = $("#btnRefresh");
+  if (ANDROID) { btn.hidden = false; btn.textContent = "Aggiorna prezzi"; return; }
+  btn.hidden = !(S.caps.mcp && S.caps.isOwner && S.status && S.status.triggerId);
+}
+
+/* ---------- Classifica ---------- */
+function prezzoTesto(o) {
+  if (o.tipo === "indicizzato") {
+    const s = o.spread || {};
+    const v = s.mono != null ? s.mono : s.f1;
+    return "PUN + " + kwhPrice(v || 0) + " €/kWh" + (o.spreadOltre ? " (" + kwhPrice(o.spreadOltre.spread) + " oltre " + numIt(o.spreadOltre.sogliaAnnoKWh) + " kWh)" : "");
+  }
+  const p = o.prezzo || {};
+  if (o.fasce === "tri") return "F1 " + kwhPrice(p.f1) + " · F2 " + kwhPrice(p.f2 ?? p.f23) + " · F3 " + kwhPrice(p.f3 ?? p.f23) + " €/kWh";
+  if (o.fasce === "bi") return "F1 " + kwhPrice(p.f1) + " · F23 " + kwhPrice(p.f23) + " €/kWh";
+  return kwhPrice(p.mono ?? 0) + " €/kWh";
+}
+function tipoTag(o) {
+  if (o.tipo === "fisso") return '<span class="tag fisso">Prezzo fisso' + (o.durataMesi ? " · " + o.durataMesi + " mesi" : "") + "</span>";
+  if (o.tipo === "indicizzato") return '<span class="tag var">Prezzo variabile</span>';
+  return '<span class="tag">Prezzo ARERA</span>';
+}
+function segs(c, canone) {
+  const materia = Math.max(0, c.energia + c.perdite + c.dispacciamento - c.sconti);
+  return [
+    { k: "materia", v: materia, col: "var(--seg-materia)", t: "Energia" },
+    { k: "fissa", v: c.commercializzazione, col: "var(--seg-fissa)", t: "Quota fissa" },
+    { k: "rete", v: c.trasporto + c.oneri, col: "var(--seg-rete)", t: "Rete e oneri" },
+    { k: "tasse", v: c.accise + c.iva + (canone || 0), col: "var(--seg-tasse)", t: "Imposte" }
+  ];
+}
+function breakdownTable(c, o, canone) {
+  const u = U();
+  const r = (t, v, cls) => '<tr class="' + (cls || "") + '"><td>' + t + "</td><td>" + euro2(v) + "</td></tr>";
+  return '<table class="bk">' +
+    r("Energia consumata", c.energia) +
+    (c.perdite ? r("Perdite di rete (10%)", c.perdite) : "") +
+    (c.dispacciamento ? r("Dispacciamento", c.dispacciamento) : "") +
+    r("Quota fissa del fornitore", c.commercializzazione) +
+    (c.sconti ? r("Sconti e bonus", -c.sconti) : "") +
+    r('<span class="same">Trasporto e contatore (' + numIt(u.potenzaKW, 1) + " kW)</span>", c.trasporto) +
+    r('<span class="same">Oneri di sistema</span>', c.oneri) +
+    r("Accise", c.accise) + r("IVA 10%", c.iva) +
+    (canone ? r("Canone RAI", canone) : "") +
+    r("Totale 12 mesi", c.totale, "tot") + "</table>";
+}
+function offerRow(row, pos, scale, best, cur, canone) {
+  const o = row.offer, c = row.calc;
+  const isBest = best && row === best, isCur = !!o.attuale;
+  const tags = [tipoTag(o)];
+  if (isCur) tags.unshift('<span class="tag cur">Offerta attuale</span>');
+  if (o.mia) tags.push('<span class="tag cur">Aggiunta da te</span>');
+  if (row.scaduta) tags.push('<span class="tag bad">Prezzo da verificare</span>');
+  if (o.verde) tags.push('<span class="tag">Energia verde</span>');
+  const sg = segs(c, canone);
+  const bar = sg.filter(s => s.v > 0).map(s => '<span style="flex:' + s.v.toFixed(2) + ' 1 0;background:' + s.col + '" title="' + s.t + ": " + euro(s.v) + '"></span>').join("");
+  let whisk = "";
+  if (o.tipo === "indicizzato") whisk = '<div class="whisker" style="left:' + (row.basso / scale * 100).toFixed(2) + "%;width:" + ((row.alto - row.basso) / scale * 100).toFixed(2) + '%" title="Da ' + euro(row.basso) + " a " + euro(row.alto) + '"></div>';
+  let delta = "";
+  const ref = cur && !isCur ? cur : (best && !isBest ? best : null);
+  if (ref) {
+    const d = c.totale - ref.calc.totale;
+    const lab = cur && !isCur ? (d < 0 ? "risparmia " + euro(-d) + " l'anno" : "spende " + euro(d) + " in più") : "+" + euro(d) + " rispetto alla prima";
+    delta = '<div class="delta ' + (d < 0 ? "down" : "up") + '">' + lab + "</div>";
+  }
+  const notes = consumerNotes(row, best, U()).map(n => '<li class="' + n.t + '">' + esc(n.s) + "</li>").join("");
+  const src = o.fonte ? '<p class="tiny">Dati: ' + (safeUrl(o.fonte.url) ? '<a href="' + esc(safeUrl(o.fonte.url)) + '" target="_blank" rel="noopener">' + esc(o.fonte.nome) + "</a>" : esc(o.fonte.nome)) + (o.fonte.data ? ", " + dataIt(o.fonte.data) : "") + (o.validoFino ? ". Prezzo valido fino al " + dataIt(o.validoFino) : "") + "</p>" : "";
+  return '<li class="offer' + (isBest ? " is-best" : "") + (isCur ? " is-current" : "") + (row.scaduta || row.esclusa.length ? " is-dim" : "") + '">' +
+    '<div class="offer-main"><div class="pos">' + (pos || "–") + "</div>" +
+    '<div style="min-width:0"><div class="o-name">' + esc(o.nome) + '</div><div class="o-sup">' + esc(o.fornitore) + '</div><div class="o-tags">' + tags.join("") + '</div><div class="o-price">' + esc(prezzoTesto(o)) + " · quota fissa " + euro2(+o.quotaFissaMese || 0) + "/mese</div></div>" +
+    '<div class="o-cost"><div class="tot">' + euro(c.totale) + '</div><div class="per">' + euro(c.totale / 12) + "/mese · " + cent(c.cKWh) + "</div>" + delta + "</div>" +
+    '<div class="bar-wrap"><div class="bar" style="width:' + (c.totale / scale * 100).toFixed(2) + '%">' + bar + "</div>" + whisk + "</div></div>" +
+    '<details class="more"><summary>Cosa sapere e dettaglio dei costi</summary><div class="more-body"><div class="stack"><ul class="notes">' + notes + "</ul>" + src + "</div>" + breakdownTable(c, o, canone) + "</div></details></li>";
+}
+
+function renderRanking() {
+  const u = U(), v = S.user.vista;
+  const mult = parseFloat(v.scenario) || 1;
+  const start = nextMonthKey();
+  const canone = v.canone && u.residente !== false ? (S.market.regolato.canoneRaiAnno || 0) : 0;
+  let rows = rankOffers(allOffers(), u, S.market, { mult, start, canoneRai: v.canone, ordina: v.ordina });
+  S.lastRows = rows;
+  const tipoOk = r => v.tipo === "tutte" || r.offer.tipo === v.tipo || r.offer.attuale;
+  const ok = rows.filter(r => !r.esclusa.length && tipoOk(r));
+  const out = rows.filter(r => r.esclusa.length && tipoOk(r));
+  const cur = rows.find(r => r.offer.attuale) || null;
+  const best = ok.find(r => !r.scaduta && !r.offer.attuale) || null;
+  const scale = Math.max(1, ...ok.concat(out).map(r => Math.max(r.calc.totale, r.alto)));
+  const end = addMonths(start, 11);
+  $("#rankIntro").textContent = "Spesa per " + numIt(u.kwhAnno) + " kWh da " + MESI_LUNGHI[+start.slice(5) - 1] + " " + start.slice(0, 4) + " a " + MESI_LUNGHI[+end.slice(5) - 1] + " " + end.slice(0, 4) + ", tutto compreso. " + ok.length + " offerte, dalla più conveniente.";
+  let pos = 0;
+  $("#rankList").innerHTML = ok.map(r => offerRow(r, ++pos, scale, best, cur, canone)).join("") || '<li class="panel">Nessuna offerta con questi filtri.</li>';
+  const box = $("#excludedBox");
+  box.hidden = !out.length;
+  if (out.length) {
+    $("#excludedSum").textContent = out.length === 1 ? "1 offerta che non puoi attivare con le tue condizioni" : out.length + " offerte che non puoi attivare con le tue condizioni";
+    $("#excludedList").innerHTML = out.map(r => offerRow(r, 0, scale, null, null, canone)).join("");
+  }
+  renderVerdict(best, cur, ok, canone);
+  $("#calcNote").textContent = "Mercato: " + (mult === 1 ? "futures del " + dataIt(S.market.forward.rilevatoAl) : (mult > 1 ? "+" : "−") + Math.round(Math.abs(mult - 1) * 100) + "% sui futures") + ". Tariffe di rete ARERA " + dataIt(S.market.regolato.validoDal) + ".";
+}
+
+function computeTips(best, cur, ok) {
+  const tips = [];
+  if (!best) return tips;
+  const c = best.calc, o = best.offer;
+  const fixed = ok.find(r => r.offer.tipo === "fisso" && !r.scaduta && !r.offer.attuale);
+  const variab = ok.find(r => r.offer.tipo === "indicizzato" && !r.scaduta && !r.offer.attuale);
+  if (o.tipo === "fisso" && variab) {
+    tips.push({ t: "ok", s: "Oggi il prezzo fisso conviene: la migliore offerta variabile (" + variab.offer.fornitore + ") costerebbe " + euro(variab.calc.totale - c.totale) + " in più con i prezzi previsti, e fino a " + euro(variab.alto) + " se il mercato sale." });
+  } else if (o.tipo === "indicizzato" && fixed) {
+    const gap = fixed.calc.totale - c.totale;
+    if (gap < c.totale * 0.04) tips.push({ t: "warn", s: "La variabile costa solo " + euro(gap) + " in meno del miglior prezzo fisso (" + fixed.offer.fornitore + "). Il fisso protegge dagli aumenti: per pochi euro conviene la tranquillità." });
+    else tips.push({ t: "warn", s: "La variabile oggi costa meno, ma il prezzo cambia ogni mese: nell'anno la spesa può andare da " + euro(best.basso) + " a " + euro(best.alto) + ". Il miglior prezzo fisso costa " + euro(fixed.calc.totale) + "." });
+  }
+  const u = U();
+  if (u.split && normSplit(u.split).f1 > 0.4) tips.push({ t: "info", s: "Il " + Math.round(normSplit(u.split).f1 * 100) + "% dei consumi è in F1, le ore feriali più care. Con una monoraria il prezzo è uguale a ogni ora: conviene." });
+  if (u.potenzaKW > 3) tips.push({ t: "info", s: "Con " + numIt(u.potenzaKW, 1) + " kW si pagano " + euro(S.market.regolato.trasporto.quotaPotenzaKWAnno * (u.potenzaKW - 3) * 1.1) + " l'anno in più di quota potenza rispetto a 3 kW e si perde l'esenzione sulle accise. Se il contatore non salta mai, si può valutare di ridurla." });
+  if (cur && cur.offer.scadenza) tips.push({ t: "info", s: "Il prezzo attuale è bloccato fino al " + dataIt(cur.offer.scadenza) + ". Cambiare fornitore è comunque gratuito: la disdetta la fa il nuovo fornitore." });
+  return tips;
+}
+function renderVerdict(best, cur, ok, canone) {
+  const el = $("#verdict"), adv = $("#advice");
+  const tips = computeTips(best, cur, ok);
+  S.lastPick = { best, cur, ok, tips, canone };
+  if (!best) { el.innerHTML = ""; adv.innerHTML = ""; return; }
+  const c = best.calc, o = best.offer, u = U();
+  let side = "";
+  if (cur) {
+    const d = cur.calc.totale - c.totale;
+    if (cur === ok[0] || d <= 0) side = '<p><span class="flag">Resta dove è</span></p><p>L\'offerta attuale costa <strong>' + euro(cur.calc.totale) + "</strong> l'anno: è già tra le più convenienti.</p>";
+    else side = '<p><span class="flag">Può risparmiare</span></p><p>Oggi con ' + esc(cur.offer.fornitore) + " spende <strong>" + euro(cur.calc.totale) + "</strong> l'anno. Cambiando risparmia circa <strong>" + euro(d) + "</strong>, cioè " + euro(d / 12) + " al mese.</p>";
+  } else {
+    const second = ok.find(r => r !== best && !r.scaduta && !r.offer.attuale);
+    const median = ok.map(r => r.calc.totale).sort((a, b) => a - b)[Math.floor(ok.length / 2)] || c.totale;
+    side = "<p>Rispetto a un'offerta nella media spende <strong>" + euro(median - c.totale) + "</strong> in meno l'anno." + (second ? " La seconda in classifica costa " + euro(second.calc.totale - c.totale) + " in più." : "") + "</p><p>Carica la bolletta del cliente in <em>Dati del cliente</em> per vedere quanto risparmia rispetto a oggi.</p>";
+  }
+  el.innerHTML = '<div class="meter" role="group" aria-label="Offerta più conveniente">' +
+    '<div><div class="lbl">La più conveniente per ' + (u.esempio ? "questo cliente" : esc(u.nome)) + '</div><div class="who">' + esc(o.nome) + "<small>" + esc(o.fornitore) + " · " + (o.tipo === "fisso" ? "prezzo fisso" : o.tipo === "indicizzato" ? "prezzo variabile" : "prezzo ARERA") + '</small></div>' +
+    '<div class="digits">' + Math.round(c.totale).toLocaleString("it-IT") + '<span class="u">€ in 12 mesi</span></div>' +
+    '<div class="sub">' + euro(c.totale / 12) + " al mese · " + cent(c.cKWh) + " tutto compreso</div></div>" +
+    '<div class="side">' + side + "</div></div>";
+  adv.innerHTML = tips.length ? '<div class="panel"><div class="eyebrow" style="margin-bottom:8px">Il consiglio</div><ul class="notes">' + tips.map(x => '<li class="' + x.t + '">' + esc(x.s) + "</li>").join("") + "</ul></div>" : "";
+}
+
+/* ---------- Proposta per il cliente (PDF) ---------- */
+let jspdfPromise = null;
+function loadJsPdf() { if (!jspdfPromise) jspdfPromise = loadScript(ANDROID ? "vendor/jspdf.umd.min.js" : "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js").then(() => window.jspdf.jsPDF); return jspdfPromise; }
+function pdfSafe(s) { return String(s == null ? "" : s).replace(/\u2212/g, "-").replace(/\u2026/g, "...").replace(/[\u2013\u2014]/g, "-").replace(/\u00a0|\u202f/g, " ").replace(/[^\x20-\x7E\u00A0-\u00FF\u20AC\u2019\u201C\u201D\u2018]/g, ""); }
+function reportData() {
+  const u = U(), p = S.lastPick || {};
+  const ok = (p.ok || []).filter(r => !r.scaduta && !r.offer.attuale);
+  const top = ok.slice(0, 3);
+  const cons = S.user.consulente || {};
+  const sp = normSplit(u.split || {});
+  return { u, cur: p.cur, top, tips: p.tips || [], cons, sp, oggi: new Date().toLocaleDateString("it-IT") };
+}
+function reportPlain(d) {
+  const L = [];
+  L.push("PROPOSTA OFFERTA LUCE");
+  if (d.cons.nome) L.push("Preparata da " + d.cons.nome + (d.cons.recapiti ? " - " + d.cons.recapiti : ""));
+  L.push("Cliente: " + d.u.nome + " - " + d.oggi, "");
+  L.push("CONSUMI: " + numIt(d.u.kwhAnno) + " kWh l'anno, " + numIt(d.u.potenzaKW, 1) + " kW, " + (d.u.residente !== false ? "abitazione di residenza" : "seconda casa") + ". Fasce: F1 " + Math.round(d.sp.f1 * 100) + "%, F2 " + Math.round(d.sp.f2 * 100) + "%, F3 " + Math.round(d.sp.f3 * 100) + "%.");
+  if (d.cur) L.push("OFFERTA ATTUALE: " + d.cur.offer.fornitore + " " + d.cur.offer.nome + ": spesa stimata " + euro(d.cur.calc.totale) + " in 12 mesi.");
+  L.push("", "LE OFFERTE PIÙ CONVENIENTI");
+  d.top.forEach((r, i) => {
+    L.push((i + 1) + ". " + r.offer.fornitore + " - " + r.offer.nome + " (" + (r.offer.tipo === "fisso" ? "prezzo fisso" : "prezzo variabile") + ")");
+    L.push("   " + prezzoTesto(r.offer) + ", quota fissa " + euro2(+r.offer.quotaFissaMese || 0) + "/mese");
+    L.push("   Spesa stimata 12 mesi: " + euro(r.calc.totale) + " (" + euro(r.calc.totale / 12) + " al mese)" + (d.cur ? ", risparmio " + euro(d.cur.calc.totale - r.calc.totale) + " l'anno" : ""));
+    consumerNotes(r, null, d.u).slice(0, 3).forEach(n => L.push("   - " + n.s));
+  });
+  if (d.tips.length) { L.push("", "IL CONSIGLIO"); d.tips.forEach(t => L.push("- " + t.s)); }
+  L.push("", "MERCATO: " + (S.market.notaMercato || "") + " Dati aggiornati al " + dataIt(S.market.updatedAt) + ".");
+  L.push("", "Stima su 12 mesi comprensiva di energia, perdite di rete, dispacciamento, quota fissa, trasporto, oneri, accise e IVA. Per le offerte variabili il prezzo futuro viene dai futures di borsa ed è una previsione. Prima di firmare verificare la scheda sintetica sul sito del fornitore. Cambiare fornitore è gratuito e la disdetta la fa il nuovo fornitore.");
+  return L.join("\n");
+}
+async function makeReport() {
+  const dl = S.caps.downloads; if (!dl) return;
+  const d = reportData();
+  if (!d.top.length) { toast("Non ci sono offerte valide da proporre con questi filtri."); return; }
+  const btn = $("#btnReport"); btn.disabled = true;
+  const fname = "proposta-luce-" + (d.u.nome || "cliente").toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  try {
+    const JsPDF = await loadJsPdf();
+    const doc = new JsPDF({ unit: "mm", format: "a4" });
+    const M = 18, W = 210 - 2 * M; let y = 20;
+    const ink = [19, 33, 43], soft = [90, 104, 116], acc = [11, 92, 173], good = [29, 122, 76];
+    const need = h => { if (y + h > 280) { doc.addPage(); y = 20; } };
+    const text = (t, size, opt) => { opt = opt || {}; doc.setFont("helvetica", opt.bold ? "bold" : "normal"); doc.setFontSize(size); doc.setTextColor.apply(doc, opt.color || ink); const lines = doc.splitTextToSize(pdfSafe(t), opt.w || W); need(lines.length * size * 0.42 + 1); doc.text(lines, opt.x || M, y); y += lines.length * size * 0.42 + (opt.gap == null ? 2 : opt.gap); };
+    text("Claudia Luce", 10, { bold: true, color: acc, gap: 6 });
+    text("Proposta offerta luce", 20, { bold: true, gap: 3 });
+    if (d.cons.nome) text("Preparata da " + d.cons.nome + (d.cons.recapiti ? " · " + d.cons.recapiti : ""), 10, { color: soft, gap: 1 });
+    text("Per " + d.u.nome + " · " + d.oggi, 10, { color: soft, gap: 2 });
+    doc.setDrawColor(212, 219, 224); doc.line(M, y, M + W, y); y += 8;
+    text("I consumi considerati", 12, { bold: true });
+    text(numIt(d.u.kwhAnno) + " kWh l'anno · potenza " + numIt(d.u.potenzaKW, 1) + " kW · " + (d.u.residente !== false ? "abitazione di residenza" : "seconda casa") + " · fasce F1 " + Math.round(d.sp.f1 * 100) + "%, F2 " + Math.round(d.sp.f2 * 100) + "%, F3 " + Math.round(d.sp.f3 * 100) + "%", 10, { gap: 2 });
+    if (d.cur) text("Offerta attuale: " + d.cur.offer.fornitore + " " + d.cur.offer.nome + ". Spesa stimata nei prossimi 12 mesi: " + euro(d.cur.calc.totale) + ".", 10, { gap: 2 });
+    y += 3;
+    text("Le offerte più convenienti", 12, { bold: true, gap: 3 });
+    d.top.forEach((r, i) => {
+      need(34);
+      const o = r.offer;
+      doc.setFillColor(i === 0 ? 222 : 245, i === 0 ? 240 : 247, i === 0 ? 229 : 248); doc.roundedRect(M, y - 5, W, 15, 2, 2, "F");
+      doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor.apply(doc, ink);
+      doc.text(pdfSafe((i + 1) + ". " + o.fornitore + " · " + o.nome), M + 3, y);
+      doc.setFontSize(14); doc.text(pdfSafe(euro(r.calc.totale)), M + W - 3, y, { align: "right" });
+      doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor.apply(doc, soft);
+      doc.text(pdfSafe((o.tipo === "fisso" ? "Prezzo fisso" + (o.durataMesi ? " " + o.durataMesi + " mesi" : "") : "Prezzo variabile") + " · " + prezzoTesto(o) + " · quota fissa " + euro2(+o.quotaFissaMese || 0) + "/mese"), M + 3, y + 6);
+      doc.text(pdfSafe(euro(r.calc.totale / 12) + " al mese · 12 mesi"), M + W - 3, y + 6, { align: "right" });
+      y += 15;
+      if (d.cur) { const s = d.cur.calc.totale - r.calc.totale; text(s > 0 ? "Risparmio rispetto all'offerta attuale: " + euro(s) + " l'anno" : "Costa " + euro(-s) + " in più dell'offerta attuale", 10, { bold: true, color: s > 0 ? good : [178, 58, 46], gap: 1 }); }
+      if (o.tipo === "indicizzato") text("Con il prezzo variabile la spesa può andare da " + euro(r.basso) + " a " + euro(r.alto) + ".", 9, { color: soft, gap: 1 });
+      consumerNotes(r, null, d.u).filter(n => n.t !== "ok").slice(0, 3).forEach(n => text("- " + n.s, 9, { color: soft, gap: 0.5, x: M + 3, w: W - 3 }));
+      y += 4;
+    });
+    if (d.tips.length) { text("Il consiglio", 12, { bold: true, gap: 2 }); d.tips.forEach(t => text("- " + t.s, 10, { gap: 1 })); y += 3; }
+    text("Il mercato", 12, { bold: true, gap: 2 });
+    text((S.market.notaMercato || "") + " Dati aggiornati al " + dataIt(S.market.updatedAt) + ".", 10, { gap: 5 });
+    text("Come è fatta la stima: spesa dei prossimi 12 mesi comprensiva di energia, perdite di rete, dispacciamento, quota fissa, trasporto, oneri di sistema, accise e IVA. Per le offerte variabili il prezzo futuro dell'energia viene dai futures di borsa ed è una previsione. Prima di firmare verificare la scheda sintetica sul sito del fornitore. Per i clienti domestici cambiare fornitore è gratuito e la disdetta la fa il nuovo fornitore.", 8, { color: soft });
+    await dl.save({ filename: fname + ".pdf", data: doc.output("blob") });
+  } catch (e) {
+    const c = e && e.code;
+    if (c === "declined") { /* annullato */ }
+    else if (c === "extension_not_enabled" || c === "rejected_extension" || !c) {
+      try { await dl.save({ filename: fname + ".txt", data: reportPlain(d) }); toast("Il PDF non è disponibile qui: ho preparato la proposta come testo."); }
+      catch (e2) { if (!e2 || e2.code !== "declined") toast("Non è stato possibile creare la proposta in questa vista."); }
+    } else toast("Non è stato possibile creare la proposta in questa vista.");
+  } finally { btn.disabled = false; }
+}
+
+function renderCtx() {
+  const opts = S.user.utenze.map(u => '<option value="' + esc(u.id) + '"' + (u.id === S.user.attivaId ? " selected" : "") + ">" + esc(u.nome) + "</option>").join("");
+  $("#selUtenza").innerHTML = opts; $("#selUtenza2").innerHTML = opts;
+  const u = U(), sp = normSplit(u.split || {});
+  $("#ctxFacts").innerHTML = (u.esempio ? '<span class="example-tag">Dati di esempio</span>' : "") +
+    '<span class="fact">' + numIt(u.kwhAnno) + " kWh/anno</span>" + '<span class="fact">' + numIt(u.potenzaKW, 1) + " kW</span>" +
+    '<span class="fact">' + (u.residente !== false ? "residente" : "seconda casa") + "</span>" +
+    '<span class="fact">F1 ' + Math.round(sp.f1 * 100) + "% · F2 " + Math.round(sp.f2 * 100) + "% · F3 " + Math.round(sp.f3 * 100) + "%</span>";
+}
+
+function renderAll() {
+  syncVistaControls(); renderStatus(); renderCtx(); renderRanking(); fillForm(); renderOffersTable(); renderMarket();
+}
+
+/* ---------- Esportazione ---------- */
+async function exportCsv() {
+  const d = S.caps.downloads; if (!d) return;
+  const lines = [["Posizione", "Fornitore", "Offerta", "Tipo", "Prezzo", "Quota fissa €/mese", "Spesa 12 mesi €", "€/mese", "c€/kWh", "Minimo €", "Massimo €", "Fonte"].join(";")];
+  let p = 0;
+  S.lastRows.filter(r => !r.esclusa.length).forEach(r => {
+    const o = r.offer;
+    lines.push([++p, o.fornitore, o.nome, o.tipo, prezzoTesto(o), String(o.quotaFissaMese || 0).replace(".", ","), Math.round(r.calc.totale), Math.round(r.calc.totale / 12), (r.calc.cKWh * 100).toFixed(1).replace(".", ","), Math.round(r.basso), Math.round(r.alto), o.fonte ? o.fonte.url || o.fonte.nome : ""].map(x => '"' + String(x).replace(/"/g, '""') + '"').join(";"));
+  });
+  try { await d.save({ filename: "classifica-offerte-luce.csv", data: "﻿" + lines.join("\n") }); }
+  catch (e) { if (e && e.code !== "declined") toast("Non è stato possibile scaricare il file in questa vista."); }
+}
+
+/* ---------- Consumi: modulo ---------- */
+function fillForm() {
+  const u = U();
+  $("#inNome").value = u.nome;
+  $("#inNote").value = u.noteCliente || "";
+  const cons = S.user.consulente || {};
+  if (document.activeElement !== $("#inConsNome")) $("#inConsNome").value = cons.nome || "";
+  if (document.activeElement !== $("#inConsRec")) $("#inConsRec").value = cons.recapiti || "";
+  setNum($("#inKwh"), Math.round(u.kwhAnno));
+  $("#inKw").value = String(u.potenzaKW);
+  $("#inRes").value = u.residente !== false ? "1" : "0";
+  const sp = normSplit(u.split || {});
+  setNum($("#inF1"), Math.round(sp.f1 * 100)); setNum($("#inF2"), Math.round(sp.f2 * 100)); setNum($("#inF3"), Math.round(sp.f3 * 100));
+  $("#chkDom").checked = (u.preferenze || {}).domiciliazione !== false;
+  $("#chkWeb").checked = (u.preferenze || {}).bollettaWeb !== false;
+  $("#chkVul").checked = !!u.vulnerabile;
+  const ab = Object.assign(clone(ABITUDINI_STD), u.abitudini || {});
+  $("#hPersone").value = ab.persone; $("#hPresenza").value = ab.presenza; $("#hLavaggi").value = ab.lavaggi; $("#hCucina").value = ab.cucina;
+  $("#hAcqua").value = ab.acqua; $("#hRisc").value = ab.risc; $("#hClima").value = ab.clima; $("#hAuto").value = ab.auto; $("#hFv").value = ab.fv;
+  const a = u.attuale || {};
+  $("#cFornitore").value = a.fornitore || ""; $("#cNome").value = a.nome || ""; $("#cTipo").value = a.tipo || ""; $("#cFasce").value = a.fasce || "mono";
+  const pz = a.tipo === "indicizzato" ? (a.spread || {}) : (a.prezzo || {});
+  if ((a.fasce || "mono") === "mono") { setNum($("#cP1"), pz.mono); $("#cP2").value = ""; $("#cP3").value = ""; }
+  else if (a.fasce === "bi") { setNum($("#cP1"), pz.f1); setNum($("#cP2"), pz.f23); $("#cP3").value = ""; }
+  else { setNum($("#cP1"), pz.f1); setNum($("#cP2"), pz.f2); setNum($("#cP3"), pz.f3); }
+  setNum($("#cQf"), a.quotaFissaMese); $("#cScad").value = a.scadenza || "";
+  updatePriceLabels("c"); renderSplitBar(); renderHabits();
+}
+function updatePriceLabels(p) {
+  const tipo = $("#" + p + "Tipo").value, f = $("#" + p + "Fasce").value;
+  const unit = tipo === "indicizzato" ? "spread €/kWh" : "€/kWh";
+  const l1 = $("#" + p + "P1l"), l2 = $("#" + p + "P2l"), l3 = $("#" + p + "P3l");
+  l1.textContent = f === "mono" ? (tipo === "indicizzato" ? "Spread sul PUN (€/kWh)" : "Prezzo energia (€/kWh)") : "F1 " + unit;
+  l2.textContent = f === "bi" ? "F23 " + unit : "F2 " + unit;
+  l3.textContent = "F3 " + unit;
+  $("#" + p + "P2").closest("label").hidden = f === "mono";
+  $("#" + p + "P3").closest("label").hidden = f !== "tri";
+}
+function readOfferFields(p) {
+  const tipo = $("#" + p + "Tipo").value, f = $("#" + p + "Fasce").value;
+  const a = num($("#" + p + "P1")), b = num($("#" + p + "P2")), c = num($("#" + p + "P3"));
+  const vals = f === "mono" ? { mono: a } : f === "bi" ? { f1: a, f23: b } : { f1: a, f2: b, f3: c };
+  const o = { tipo, fasce: f };
+  if (tipo === "indicizzato") o.spread = vals; else o.prezzo = vals;
+  o.quotaFissaMese = num($("#" + p + "Qf")) || 0;
+  return o;
+}
+function readCurrent() {
+  const u = U(), tipo = $("#cTipo").value;
+  const o = readOfferFields("c");
+  o.tipo = tipo;
+  o.fornitore = $("#cFornitore").value.trim(); o.nome = $("#cNome").value.trim(); o.scadenza = $("#cScad").value || null;
+  const vals = o.prezzo || o.spread;
+  o.incompleta = !tipo || Object.values(vals).some(x => x == null);
+  u.attuale = (!tipo && !o.fornitore && !o.nome) ? null : o;
+}
+function markEdited(u) { if (u.esempio) { u.esempio = false; if (/^Esempio/.test(u.nome)) { u.nome = "Nuovo cliente"; $("#inNome").value = u.nome; } } }
+function onFormChange(e) {
+  const u = U(), id = e.target.id;
+  if (id === "inNome") { u.nome = e.target.value.trim() || "Cliente"; renderCtx(); scheduleSave(); return; }
+  if (id === "inNote") { u.noteCliente = e.target.value; scheduleSave(); return; }
+  if (id === "inConsNome" || id === "inConsRec") { S.user.consulente = { nome: $("#inConsNome").value.trim(), recapiti: $("#inConsRec").value.trim() }; scheduleSave(); return; }
+  markEdited(u);
+  if (id === "inKwh") u.kwhAnno = Math.max(0, num($("#inKwh")) || 0);
+  if (id === "inKw") u.potenzaKW = parseFloat($("#inKw").value);
+  if (id === "inRes") u.residente = $("#inRes").value === "1";
+  if (["inF1", "inF2", "inF3"].includes(id)) { u.split = { f1: (num($("#inF1")) || 0) / 100, f2: (num($("#inF2")) || 0) / 100, f3: (num($("#inF3")) || 0) / 100 }; u.fonteSplit = "manuale"; renderSplitBar(); }
+  if (id === "chkDom" || id === "chkWeb") u.preferenze = { domiciliazione: $("#chkDom").checked, bollettaWeb: $("#chkWeb").checked };
+  if (id === "chkVul") u.vulnerabile = $("#chkVul").checked;
+  if (/^h[A-Z]/.test(id)) { u.abitudini = { persone: $("#hPersone").value, presenza: $("#hPresenza").value, lavaggi: $("#hLavaggi").value, cucina: $("#hCucina").value, acqua: $("#hAcqua").value, risc: $("#hRisc").value, clima: $("#hClima").value, auto: $("#hAuto").value, fv: $("#hFv").value }; renderHabits(); }
+  if (/^c[A-Z]/.test(id)) { if (id === "cTipo" || id === "cFasce") updatePriceLabels("c"); readCurrent(); }
+  scheduleSave(); renderCtx(); renderRankingSoon();
+}
+let rankT;
+function renderRankingSoon() { clearTimeout(rankT); rankT = setTimeout(renderRanking, 250); }
+function renderSplitBar() {
+  const sp = normSplit(U().split || {});
+  const sum = (num($("#inF1")) || 0) + (num($("#inF2")) || 0) + (num($("#inF3")) || 0);
+  $("#splitBar").innerHTML = ["f1", "f2", "f3"].map(k => '<div style="flex:' + sp[k] + ';background:var(--' + k + ')">' + k.toUpperCase() + " " + Math.round(sp[k] * 100) + "%</div>").join("");
+  const src = { abitudini: "stimata dalle abitudini", bolletta: "letta dalla bolletta", curva: "calcolata dalla curva di carico", manuale: "inserita a mano" }[U().fonteSplit] || "";
+  $("#splitNote").textContent = (src ? "Ripartizione " + src + ". " : "") + (Math.abs(sum - 100) > 1 ? "Le percentuali sommano a " + Math.round(sum) + ": le riporto a 100 in proporzione." : "");
+}
+
+/* ---------- Modello delle abitudini ---------- */
+function habitsModel(a) {
+  const P = +a.persone || 2;
+  const DT = ["wd", "sat", "sun"], days = { wd: 250, sat: 50, sun: 65 };
+  const occ = { wd: [], sat: [], sun: [] };
+  for (let h = 0; h < 24; h++) {
+    const sleep = h < 6 || h >= 23;
+    let w;
+    if (sleep) w = 0.15;
+    else if (a.presenza === "casa") w = h >= 7 ? 1 : 0.4;
+    else if (a.presenza === "meta") w = h < 8 ? 1 : h < 14 ? 0.2 : 1;
+    else w = h < 8 ? 1 : h < 18 ? 0.2 : 1;
+    occ.wd[h] = w;
+    occ.sat[h] = sleep ? 0.15 : h < 8 ? 0.4 : (h >= 10 && h < 13) ? 0.6 : 1;
+    occ.sun[h] = sleep ? 0.15 : h < 9 ? 0.4 : (h >= 10 && h < 13) ? 0.6 : 1;
+  }
+  const luce = h => (h >= 17 && h < 23) ? 1.6 : (h >= 6 && h < 8) ? 1.2 : 1;
+  const C = [];
+  C.push({ e: 450 + 60 * P, s: "luce", f: () => 1 });
+  C.push({ e: (250 + 220 * P) * (a.presenza === "casa" ? 1.25 : 1), s: "luce", f: (d, h) => occ[d][h] * luce(h) });
+  if (a.cucina === "induzione") C.push({ e: 250 + 80 * P, f: (d, h) => { const pranzo = d !== "wd" || a.presenza !== "fuori"; if (h === 12 || h === 13) return pranzo ? 1 : 0.05; if (h >= 19 && h < 21) return 1.3; return h === 7 ? 0.3 : 0; } });
+  else C.push({ e: 120, f: (d, h) => (h >= 19 && h < 21) ? 1 : (h === 12 || h === 13) ? 0.5 : 0 });
+  C.push({ e: 150 + 120 * P, f: (d, h) => {
+    if (a.lavaggi === "giorno") return (d === "wd" && h >= 9 && h < 17) ? 1 : (d !== "wd" && h >= 9 && h < 13) ? 0.3 : 0;
+    if (a.lavaggi === "sera") return (d === "wd" && h >= 19 && h < 23) ? 1 : (d !== "wd" && h >= 10 && h < 20) ? 0.6 : 0;
+    return (h >= 23 || h < 7) ? 1 : (d === "sun" && h >= 9 && h < 19) ? 0.8 : 0; } });
+  if (a.acqua === "boiler") C.push({ e: 450 + 350 * P, s: "acqua", f: (d, h) => (h >= 6 && h < 9) ? 2 : (h >= 19 && h < 23) ? 1.6 : h < 6 ? 0.5 : 0.7 });
+  if (a.acqua === "boiler_timer") C.push({ e: 430 + 330 * P, s: "acqua", f: (d, h) => (h >= 23 || h < 7) ? 1 : 0 });
+  if (a.acqua === "pdc") C.push({ e: 200 + 120 * P, s: "acqua", f: (d, h) => (h >= 10 && h < 17) ? 1 : 0.4 });
+  if (a.risc === "pdc") C.push({ e: 1800, s: "risc", f: (d, h) => h < 6 ? 0.3 : occ[d][h] + 0.2 });
+  if (a.risc === "stufe") C.push({ e: 600, s: "risc", f: (d, h) => occ[d][h] * ((h >= 17 && h < 23) ? 1.5 : 1) });
+  if (a.clima === "poco" || a.clima === "molto") C.push({ e: a.clima === "molto" ? 700 : 250, s: "clima", f: (d, h) => (h >= 13 && h < 19) ? occ[d][h] * 1.3 : h >= 19 ? occ[d][h] : h < 7 ? 0.2 : 0.1 });
+  if (a.auto === "notte") C.push({ e: 2000, f: (d, h) => (h >= 23 || h < 6) ? 1 : 0 });
+  if (a.auto === "giorno") C.push({ e: 2000, f: (d, h) => (d === "wd" && h >= 9 && h < 18) ? 1 : (d !== "wd" && h >= 10 && h < 17) ? 1 : 0 });
+  const pv = h => a.fv === "si" ? ((h >= 10 && h < 15) ? 0.55 : (h === 9 || h === 15 || h === 16) ? 0.35 : (h === 8 || h === 17) ? 0.12 : 0) : 0;
+  const load = { wd: Array(24).fill(0), sat: Array(24).fill(0), sun: Array(24).fill(0) };
+  C.forEach(c => {
+    let S0 = 0; DT.forEach(d => { for (let h = 0; h < 24; h++) S0 += days[d] * c.f(d, h); });
+    if (S0 <= 0) return;
+    DT.forEach(d => { for (let h = 0; h < 24; h++) load[d][h] += c.e * c.f(d, h) / S0; });
+  });
+  DT.forEach(d => { for (let h = 0; h < 24; h++) load[d][h] *= (1 - pv(h)); });
+  const dow = { wd: 3, sat: 6, sun: 0 };
+  const F = [0, 0, 0, 0]; let tot = 0;
+  DT.forEach(d => { for (let h = 0; h < 24; h++) { const e = days[d] * load[d][h]; F[fasciaOf(dow[d], h, false)] += e; tot += e; } });
+  // profilo mensile
+  const SEAS = {
+    luce: [1.12, 1.05, 1, .95, .9, .88, .9, .85, .95, 1.05, 1.12, 1.2],
+    acqua: [1.2, 1.15, 1.1, 1, .9, .8, .75, .75, .8, .95, 1.1, 1.2],
+    risc: [.22, .19, .13, .05, 0, 0, 0, 0, 0, .03, .15, .23],
+    clima: [0, 0, 0, 0, .03, .2, .38, .31, .08, 0, 0, 0],
+    flat: Array(12).fill(1)
+  };
+  const prof = Array(12).fill(0);
+  C.forEach(c => { const s = SEAS[c.s || "flat"]; const t = s.reduce((x, y) => x + y, 0); s.forEach((v, i) => { prof[i] += c.e * v / t; }); });
+  if (a.fv === "si") { const sol = [.5, .65, .9, 1.1, 1.25, 1.3, 1.35, 1.25, 1.05, .8, .55, .45]; const red = 1 - tot / C.reduce((s, c) => s + c.e, 0); const st = sol.reduce((x, y) => x + y, 0); const T0 = prof.reduce((x, y) => x + y, 0); for (let i = 0; i < 12; i++) prof[i] = Math.max(prof[i] * 0.2, prof[i] - T0 * red * sol[i] / st); }
+  const pt = prof.reduce((x, y) => x + y, 0);
+  return { kwhAnno: Math.round(tot / 10) * 10, split: { f1: F[1] / tot, f2: F[2] / tot, f3: F[3] / tot }, profilo: prof.map(x => x / pt), load };
+}
+function currentHabits() { return { persone: $("#hPersone").value, presenza: $("#hPresenza").value, lavaggi: $("#hLavaggi").value, cucina: $("#hCucina").value, acqua: $("#hAcqua").value, risc: $("#hRisc").value, clima: $("#hClima").value, auto: $("#hAuto").value, fv: $("#hFv").value }; }
+function renderHabits() {
+  const m = habitsModel(currentHabits());
+  const max = Math.max(...["wd", "sat", "sun"].flatMap(d => m.load[d]));
+  const names = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"], dows = [1, 2, 3, 4, 5, 6, 0];
+  let html = '<span></span>' + Array.from({ length: 24 }, (_, h) => '<span class="h">' + (h % 3 === 0 ? h : "") + "</span>").join("");
+  names.forEach((n, i) => {
+    const d = i < 5 ? "wd" : i === 5 ? "sat" : "sun";
+    html += '<span class="d">' + n + "</span>";
+    for (let h = 0; h < 24; h++) {
+      const f = fasciaOf(dows[i], h, false), pct = Math.round(18 + 82 * m.load[d][h] / max);
+      html += '<span class="c" style="background:color-mix(in srgb, var(--f' + f + ") " + pct + '%, var(--surface-2))" title="' + n + " " + h + "-" + (h + 1) + ": F" + f + '"></span>';
+    }
+  });
+  $("#weekGrid").innerHTML = html;
+  $("#habitsOut").innerHTML = "Con queste abitudini una casa consuma circa <strong class=\"num\">" + numIt(m.kwhAnno) + " kWh</strong> l'anno, così divisi: <strong class=\"num\">F1 " + Math.round(m.split.f1 * 100) + "%</strong>, <strong class=\"num\">F2 " + Math.round(m.split.f2 * 100) + "%</strong>, <strong class=\"num\">F3 " + Math.round(m.split.f3 * 100) + "%</strong>. Se hai la bolletta, i dati veri sono sempre meglio della stima.";
+}
+function applyHabits(withKwh) {
+  const u = U(), m = habitsModel(currentHabits());
+  markEdited(u);
+  u.split = m.split; u.profiloMensile = m.profilo; u.fonteSplit = "abitudini"; u.abitudini = currentHabits();
+  if (withKwh) u.kwhAnno = m.kwhAnno;
+  scheduleSave(); renderCtx(); fillForm(); renderRanking();
+  toast(withKwh ? "Fasce e consumo aggiornati dalle abitudini." : "Fasce aggiornate dalle abitudini.");
+}
+
+/* ---------- Lettura bolletta e curva di carico ---------- */
+let pdfjsPromise = null;
+function loadScript(src) { return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("load")); document.head.appendChild(s); }); }
+function loadPdfJs() {
+  if (!pdfjsPromise) {
+    const base = ANDROID ? "vendor/" : "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/";
+    pdfjsPromise = loadScript(base + "pdf.min.js").then(() => loadScript(base + "pdf.worker.min.js")).then(() => {
+      window.pdfjsLib.GlobalWorkerOptions.workerSrc = base + "pdf.worker.min.js";
+      return window.pdfjsLib;
+    });
+  }
+  return pdfjsPromise;
+}
+/* Legge un PDF: testo di tutte le pagine (max 8) e, se richiesto, immagini delle prime pagine.
+   opts.maxSide limita il lato lungo in pixel; opts.tiles divide ogni pagina in metà
+   sovrapposte, così il testo piccolo resta leggibile dopo il ridimensionamento. */
+async function readPdf(file, maxImgs, opts) {
+  opts = opts || {};
+  const maxSide = opts.maxSide || 2200;
+  const lib = await loadPdfJs();
+  const doc = await lib.getDocument({ data: new Uint8Array(await file.arrayBuffer()) }).promise;
+  let text = "";
+  const imgs = [];
+  for (let i = 1; i <= Math.min(doc.numPages, 8); i++) {
+    const page = await doc.getPage(i);
+    const tc = await page.getTextContent();
+    text += "\n--- pagina " + i + " ---\n" + tc.items.map(x => x.str + (x.hasEOL ? "\n" : " ")).join("");
+    if (imgs.length < maxImgs) {
+      const v1 = page.getViewport({ scale: 1 });
+      const scale = Math.min(2, maxSide / Math.max(v1.width, v1.height));
+      const vp = page.getViewport({ scale });
+      const cv = document.createElement("canvas"); cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
+      const ctx = cv.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, cv.width, cv.height);
+      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+      if (opts.tiles) for (const b of await splitCanvas(cv)) { if (imgs.length < maxImgs) imgs.push(b); }
+      else { const blob = await new Promise(r => cv.toBlob(r, "image/jpeg", 0.85)); if (blob) imgs.push(blob); }
+    }
+  }
+  return { text, imgs, pagine: doc.numPages };
+}
+/* Divide un'immagine alta in metà superiore e inferiore, sovrapposte del 10% */
+async function splitCanvas(cv) {
+  if (cv.height < cv.width * 1.15) { const b = await new Promise(r => cv.toBlob(r, "image/jpeg", 0.85)); return b ? [b] : []; }
+  const out = [], h = Math.round(cv.height * 0.55);
+  for (const y0 of [0, cv.height - h]) {
+    const c2 = document.createElement("canvas"); c2.width = cv.width; c2.height = h;
+    c2.getContext("2d").drawImage(cv, 0, y0, cv.width, h, 0, 0, cv.width, h);
+    const b = await new Promise(r => c2.toBlob(r, "image/jpeg", 0.85)); if (b) out.push(b);
+  }
+  return out;
+}
+async function tileImage(blob) {
+  try {
+    const bmp = await createImageBitmap(blob);
+    const cv = document.createElement("canvas"); cv.width = bmp.width; cv.height = bmp.height;
+    cv.getContext("2d").drawImage(bmp, 0, 0);
+    return await splitCanvas(cv);
+  } catch (e) { return [blob]; }
+}
+const BILL_PROMPT = `Sei un esperto di bollette elettriche italiane. Leggi la bolletta (testo e/o immagini) e rispondi SOLO con un oggetto JSON con questa forma esatta:
+{"fornitore":string|null,"offerta":string|null,"tipo":"fisso"|"indicizzato"|null,"consumoAnnuoKWh":number|null,"consumoAnnuoPeriodo":{"da":"AAAA-MM-GG"|null,"a":"AAAA-MM-GG"|null},"potenzaKW":number|null,"residente":true|false|null,"periodo":{"da":"AAAA-MM-GG"|null,"a":"AAAA-MM-GG"|null},"consumiPeriodoKWh":{"f1":number|null,"f2":number|null,"f3":number|null,"f23":number|null,"totale":number|null},"prezzoEnergia":{"mono":number|null,"f1":number|null,"f2":number|null,"f3":number|null,"f23":number|null},"spreadKWh":number|null,"quotaFissaMese":number|null,"scadenzaPrezzo":"AAAA-MM-GG"|null,"totaleBolletta":number|null,"note":string}
+Regole:
+- consumoAnnuoKWh è il "consumo annuo" che la bolletta riporta; se manca usa null. Metti in consumoAnnuoPeriodo le date a cui si riferisce: molte bollette, per forniture iniziate da poco, riportano come "consumo annuo" solo i mesi dall'inizio della fornitura.
+- Se c'è una tabella dei consumi mensili per fascia, usala per consumiPeriodoKWh solo se mancano i consumi del periodo fatturato.
+- prezzoEnergia: prezzo unitario della sola componente energia (spesa per la materia energia) in €/kWh, IVA esclusa, senza perdite, dispacciamento, trasporto, oneri o accise. Se l'offerta è indicizzata (PUN + spread) metti lo spread in spreadKWh e lascia null i prezzi.
+- quotaFissaMese: quota fissa/commercializzazione del fornitore in €/mese IVA esclusa (converti se è espressa per anno o per giorno). Non includere la quota fissa di trasporto.
+- residente: true se abitazione di residenza, false se non residente.
+- Usa numeri con il punto decimale. Non inventare: se un dato non c'è, metti null.
+- In "note" scrivi in italiano, in una o due frasi, cosa hai trovato e cosa manca.`;
+
+function extractUI(html) { $("#extractOut").innerHTML = html; }
+function mergeRead(a, b) {
+  if (!a) return b; if (!b) return a;
+  const out = Array.isArray(a) ? a.slice() : Object.assign({}, a);
+  for (const k of Object.keys(b)) {
+    const va = out[k], vb = b[k];
+    if (va == null || va === "") out[k] = vb;
+    else if (vb && typeof vb === "object" && !Array.isArray(vb) && typeof va === "object") out[k] = mergeRead(va, vb);
+    else if (k === "note" && vb) out[k] = va + " " + vb;
+  }
+  return out;
+}
+async function claudeRead(prompt, text, imgs) {
+  const sample = S.caps.sample;
+  if (!sample) throw { code: "sampling_disabled" };
+  const per = (S.caps.images && S.caps.images.maxCount) || 2;
+  const list = imgs && imgs.length && S.caps.images ? imgs : [];
+  const intro = text ? "\n\nTESTO ESTRATTO:\n" + text.slice(0, 20000) : "\n\nLe immagini allegate sono parti delle pagine del documento, in ordine (metà superiore e inferiore di ogni pagina).";
+  if (list.length <= per) return sample.json(prompt + intro, list.length ? { images: list } : {});
+  // più immagini di quante ne passano in una richiesta: leggo a gruppi e unisco
+  let res = null;
+  for (let i = 0; i < list.length && i < per * 3; i += per) {
+    const r = await sample.json(prompt + intro + " Questo è il gruppo " + (i / per + 1) + " di immagini: compila solo ciò che vedi qui.", { images: list.slice(i, i + per) });
+    res = mergeRead(res, r);
+  }
+  return res;
+}
+function sampleErrorText(e) {
+  const c = e && e.code;
+  if (c === "not_granted" || c === "sampling_disabled" || c === "not_declared" || c === "capability_disabled") return "Claude non è disponibile in questa vista o non hai dato il permesso. Puoi inserire i dati a mano.";
+  if (c === "images_unavailable" || c === "image_rejected") return "Questa immagine non può essere letta: prova con una foto più nitida o con il PDF.";
+  if (c === "rate_limited") return "Troppe richieste ravvicinate: riprova tra qualche minuto.";
+  if (c === "invalid_json") return "Claude non è riuscito a leggere i dati in modo ordinato: riprova o inserisci a mano.";
+  return "Lettura non riuscita. Riprova tra poco o inserisci i dati a mano.";
+}
+function showBillResult(r, srcLabel) {
+  S.extracted = r;
+  const rows = [];
+  const add = (k, v) => { if (v != null && v !== "") rows.push("<tr><td>" + k + '</td><td class="n">' + esc(v) + "</td></tr>"); };
+  add("Fornitore", r.fornitore); add("Offerta", r.offerta); add("Tipo di prezzo", r.tipo === "fisso" ? "fisso" : r.tipo === "indicizzato" ? "variabile" : null);
+  const cap = r.consumoAnnuoPeriodo || {}, cov = periodCoverage(cap.da, cap.a);
+  add("Consumo annuo", r.consumoAnnuoKWh != null ? numIt(r.consumoAnnuoKWh) + " kWh" + (cov && cov < 0.9 ? " (solo dal " + dataIt(cap.da) + " al " + dataIt(cap.a) + ": su 12 mesi sono circa " + numIt(Math.round(r.consumoAnnuoKWh / cov / 10) * 10) + " kWh)" : "") : null);
+  add("Potenza impegnata", r.potenzaKW != null ? numIt(r.potenzaKW, 1) + " kW" : null);
+  add("Abitazione", r.residente === true ? "residenza" : r.residente === false ? "seconda casa" : null);
+  const cp = r.consumiPeriodoKWh || {};
+  if (cp.f1 != null || cp.f2 != null || cp.f3 != null) add("Consumi del periodo", ["f1", "f2", "f3", "f23"].filter(k => cp[k] != null).map(k => k.toUpperCase() + " " + numIt(cp[k]) + " kWh").join(" · "));
+  const pe = r.prezzoEnergia || {};
+  const pp = ["mono", "f1", "f2", "f3", "f23"].filter(k => pe[k] != null).map(k => (k === "mono" ? "" : k.toUpperCase() + " ") + kwhPrice(pe[k]) + " €/kWh");
+  if (pp.length) add("Prezzo energia", pp.join(" · "));
+  add("Spread sul PUN", r.spreadKWh != null ? kwhPrice(r.spreadKWh) + " €/kWh" : null);
+  add("Quota fissa", r.quotaFissaMese != null ? euro2(r.quotaFissaMese) + "/mese" : null);
+  add("Prezzo bloccato fino al", r.scadenzaPrezzo ? dataIt(r.scadenzaPrezzo) : null);
+  add("Totale bolletta", r.totaleBolletta != null ? euro2(r.totaleBolletta) : null);
+  extractUI('<div class="callout ok"><strong>Ecco cosa ho letto ' + esc(srcLabel) + ".</strong> " + esc(r.note || "") + '</div><div class="tbl-wrap"><table class="data">' + (rows.join("") || "<tr><td>Nessun dato riconosciuto.</td></tr>") + '</table></div><div class="row"><button class="btn primary" type="button" id="btnApplyBill">Usa questi dati</button><button class="btn" type="button" id="btnDropBill">Scarta</button></div>');
+  $("#btnApplyBill").onclick = applyBill;
+  $("#btnDropBill").onclick = () => { S.extracted = null; extractUI(""); };
+}
+/* Quota del consumo annuo tipico coperta da un periodo (profilo stagionale standard) */
+function periodCoverage(da, a) {
+  if (!da || !a) return null;
+  const d0 = new Date(da + "T00:00:00Z"), d1 = new Date(a + "T00:00:00Z");
+  if (!(d1 > d0)) return null;
+  let cov = 0;
+  for (let d = new Date(d0); d <= d1; d = new Date(d.getTime() + 864e5)) {
+    const m = d.getUTCMonth(), dim = new Date(Date.UTC(d.getUTCFullYear(), m + 1, 0)).getUTCDate();
+    cov += PROFILO_MENSILE_STD[m] / dim;
+  }
+  return cov;
+}
+function applyBill() {
+  const r = S.extracted; if (!r) return;
+  const u = U(); markEdited(u);
+  if (r.consumoAnnuoKWh > 0) {
+    const pa = r.consumoAnnuoPeriodo || {};
+    const cov = periodCoverage(pa.da, pa.a);
+    u.kwhAnno = cov && cov < 0.9 ? Math.round(r.consumoAnnuoKWh / cov / 10) * 10 : r.consumoAnnuoKWh;
+  }
+  else if (r.consumiPeriodoKWh && r.consumiPeriodoKWh.totale > 0 && r.periodo && r.periodo.da && r.periodo.a) {
+    const g = (new Date(r.periodo.a) - new Date(r.periodo.da)) / 864e5 + 1;
+    if (g > 20) u.kwhAnno = Math.round(r.consumiPeriodoKWh.totale * 365 / g / 10) * 10;
+  }
+  if (r.potenzaKW > 0) u.potenzaKW = r.potenzaKW;
+  if (r.residente === true || r.residente === false) u.residente = r.residente;
+  const cp = r.consumiPeriodoKWh || {};
+  if (cp.f1 != null && cp.f2 != null && cp.f3 != null && cp.f1 + cp.f2 + cp.f3 > 0) { u.split = { f1: cp.f1, f2: cp.f2, f3: cp.f3 }; u.split = normSplit(u.split); u.fonteSplit = "bolletta"; }
+  else if (cp.f1 != null && cp.f23 != null && cp.f1 + cp.f23 > 0) { const old = normSplit(u.split || {}); const t = cp.f1 + cp.f23; const r23 = old.f2 / (old.f2 + old.f3 || 1); u.split = { f1: cp.f1 / t, f2: cp.f23 / t * r23, f3: cp.f23 / t * (1 - r23) }; u.fonteSplit = "bolletta"; }
+  const pe = r.prezzoEnergia || {};
+  if (r.tipo || r.spreadKWh != null || Object.values(pe).some(x => x != null)) {
+    const a = { fornitore: r.fornitore || "", nome: r.offerta || "", quotaFissaMese: r.quotaFissaMese || 0, scadenza: r.scadenzaPrezzo || null };
+    if (r.tipo === "indicizzato" || (r.spreadKWh != null && pe.mono == null && pe.f1 == null)) { a.tipo = "indicizzato"; a.fasce = "mono"; a.spread = { mono: r.spreadKWh || 0 }; }
+    else if (pe.f1 != null && pe.f2 != null && pe.f3 != null) { a.tipo = "fisso"; a.fasce = "tri"; a.prezzo = { f1: pe.f1, f2: pe.f2, f3: pe.f3 }; }
+    else if (pe.f1 != null && pe.f23 != null) { a.tipo = "fisso"; a.fasce = "bi"; a.prezzo = { f1: pe.f1, f23: pe.f23 }; }
+    else if (pe.mono != null) { a.tipo = "fisso"; a.fasce = "mono"; a.prezzo = { mono: pe.mono }; }
+    if (a.tipo) u.attuale = a;
+  }
+  S.extracted = null; extractUI('<div class="callout ok">Dati applicati. Controllali qui sotto: la classifica è già aggiornata.</div>');
+  scheduleSave(); renderCtx(); fillForm(); renderRanking();
+}
+async function toJpeg(file) {
+  try {
+    const bmp = await createImageBitmap(file);
+    const k = Math.min(1, 2200 / Math.max(bmp.width, bmp.height));
+    const cv = document.createElement("canvas"); cv.width = Math.round(bmp.width * k); cv.height = Math.round(bmp.height * k);
+    cv.getContext("2d").drawImage(bmp, 0, 0, cv.width, cv.height);
+    const b = await new Promise(r => cv.toBlob(r, "image/jpeg", 0.88));
+    return b || file;
+  } catch (e) { return file; }
+}
+async function handleBillImages(files) {
+  if (!files.length) return;
+  if (ANDROID) {
+    extractUI('<div class="row"><span class="spinner"></span><span>Leggo il testo della foto…</span></div>');
+    try { let txt = ""; for (const f of files) txt += "\n" + await ocrBlob(await toJpeg(f)); showBillResult(localBillParse(txt), "dalla foto"); }
+    catch (e) { extractUI('<div class="callout bad">Non riesco a leggere la foto. Prova con una foto più nitida e dritta, o inserisci i dati a mano.</div>'); }
+    return;
+  }
+  if (!S.caps.sample || !S.caps.images) { extractUI('<div class="callout warn">La lettura delle foto non è disponibile in questa vista. Carica il PDF oppure inserisci i dati a mano.</div>'); return; }
+  extractUI('<div class="row"><span class="spinner"></span><span>Claude sta leggendo la bolletta. Può volerci un minuto.</span></div>');
+  try { const imgs = []; for (const f of files) imgs.push(...await tileImage(await toJpeg(f))); showBillResult(await claudeRead(BILL_PROMPT, "", imgs), "dalla foto"); }
+  catch (e) { extractUI('<div class="callout bad">' + esc(sampleErrorText(e)) + "</div>"); }
+}
+async function handleBillPdf(file) {
+  if (!file) return;
+  extractUI('<div class="row"><span class="spinner"></span><span>Apro il PDF…</span></div>');
+  let pdf;
+  try { pdf = await readPdf(file, 0); }
+  catch (e) { extractUI('<div class="callout bad">Non riesco ad aprire questo PDF. Se è protetto da password, scaricalo di nuovo dall\'area clienti o carica una foto.</div>'); return; }
+  if (ANDROID && pdf.text.replace(/\s|-+ pagina \d+ -+/g, "").length < 200) {
+    extractUI('<div class="row"><span class="spinner"></span><span>Il PDF è una scansione: leggo il testo dalle immagini…</span></div>');
+    try { const p2 = await readPdf(file, 4, { maxSide: 2600 }); let txt = ""; for (const b of p2.imgs) txt += "\n" + await ocrBlob(b); showBillResult(localBillParse(txt), "dal PDF"); }
+    catch (e) { extractUI('<div class="callout bad">Non riesco a leggere questo PDF: inserisci i dati a mano.</div>'); }
+    return;
+  }
+  if (!S.caps.sample) { showBillResult(localBillParse(pdf.text), ANDROID ? "dal PDF" : "dal PDF (lettura di base)"); return; }
+  const scansione = pdf.text.replace(/\s|-+ pagina \d+ -+/g, "").length < 200;
+  extractUI('<div class="row"><span class="spinner"></span><span>' + (scansione ? "Il PDF è una scansione: Claude legge le pagine come immagini. Può volerci qualche minuto." : "Claude sta leggendo la bolletta. Può volerci un minuto.") + '</span></div>');
+  try {
+    let imgs = [];
+    if (S.caps.images) imgs = (await readPdf(file, scansione ? 8 : 1, { tiles: scansione, maxSide: 2200 })).imgs;
+    if (scansione && !imgs.length) { extractUI('<div class="callout warn">Questo PDF è una scansione senza testo e in questa vista Claude non può leggere immagini. Inserisci i dati a mano.</div>'); return; }
+    showBillResult(await claudeRead(BILL_PROMPT, scansione ? "" : pdf.text, imgs), "dal PDF");
+  }
+  catch (e) { if (e && (e.code === "not_granted" || e.code === "sampling_disabled")) showBillResult(localBillParse(pdf.text), "dal PDF (lettura di base)"); else extractUI('<div class="callout bad">' + esc(sampleErrorText(e)) + "</div>"); }
+}
+
+/* Curva di carico: formati larghi (una riga per giorno, 24/48/96 colonne) o lunghi (data, ora, valore) */
+function parseDateIt(s) {
+  s = String(s || "").trim().replace(/"/g, "");
+  let m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{2,4})(?:[ T](\d{1,2})[:.](\d{2}))?/);
+  if (m) { const y = +m[3] < 100 ? 2000 + +m[3] : +m[3]; return { y, mo: +m[2], d: +m[1], h: m[4] != null ? +m[4] : null, mi: m[5] != null ? +m[5] : 0 }; }
+  m = s.match(/^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{1,2}):(\d{2}))?/);
+  if (m) return { y: +m[1], mo: +m[2], d: +m[3], h: m[4] != null ? +m[4] : null, mi: m[5] != null ? +m[5] : 0 };
+  return null;
+}
+function parseCurve(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  const delim = (lines[0].match(/;/g) || []).length >= (lines[0].match(/,/g) || []).length ? ";" : (lines[0].includes("\t") ? "\t" : ",");
+  const toN = s => { s = String(s || "").trim().replace(/"/g, ""); if (!s) return NaN; if (delim !== "," && s.includes(",")) s = s.replace(/\./g, "").replace(",", "."); return parseFloat(s); };
+  const F = [0, 0, 0, 0], mesi = {}; const giorni = new Set(); let tot = 0, vals = [];
+  const addKwh = (p, h, v) => {
+    if (!isFinite(v) || v < 0) return;
+    const dow = new Date(Date.UTC(p.y, p.mo - 1, p.d)).getUTCDay();
+    const f = fasciaOf(dow, h, isHoliday(p.y, p.mo, p.d));
+    F[f] += v; tot += v; const k = monthKey(p.y, p.mo); mesi[k] = (mesi[k] || 0) + v; giorni.add(k + "-" + p.d);
+  };
+  for (const line of lines) {
+    const cells = line.split(delim);
+    const di = cells.findIndex(c => parseDateIt(c));
+    if (di < 0) continue;
+    const p = parseDateIt(cells[di]);
+    const rest = cells.slice(di + 1).map(toN);
+    const numeric = rest.filter(x => isFinite(x));
+    if (p.h == null && numeric.length >= 23) {
+      const per = numeric.length, step = 24 / per;
+      numeric.forEach((v, i) => { vals.push(v); addKwh(p, Math.min(23, Math.floor(i * step)), v); });
+    } else {
+      let h = p.h;
+      if (h == null) { const tc = cells.slice(di + 1).find(c => /^\s*"?\d{1,2}[:.]\d{2}/.test(c)); if (tc) h = parseInt(tc.replace(/"/g, ""), 10); }
+      if (h == null) continue;
+      const v = numeric.length ? numeric[numeric.length - 1] : NaN;
+      vals.push(v); addKwh(p, Math.min(23, h % 24), v);
+    }
+  }
+  if (!tot) return null;
+  // Wh invece di kWh?
+  const sorted = vals.filter(isFinite).sort((a, b) => a - b), med = sorted[Math.floor(sorted.length / 2)] || 0;
+  const scale = med > 30 ? 1 / 1000 : 1;
+  const nGiorni = giorni.size;
+  Object.keys(mesi).forEach(k => mesi[k] *= scale);
+  const totK = tot * scale;
+  // stima annua: correggo con il profilo stagionale standard
+  let cover = 0;
+  Object.keys(mesi).forEach(k => { const y = +k.slice(0, 4), m = +k.slice(5, 7); const dim = new Date(Date.UTC(y, m, 0)).getUTCDate(); const g = Array.from(giorni).filter(x => x.startsWith(k + "-")).length; cover += PROFILO_MENSILE_STD[m - 1] * g / dim; });
+  const annuo = cover > 0 ? totK / cover : totK;
+  let profilo = null;
+  if (Object.keys(mesi).length >= 11) { profilo = Array(12).fill(0); Object.keys(mesi).forEach(k => { profilo[+k.slice(5, 7) - 1] += mesi[k]; }); }
+  return { split: { f1: F[1] / tot, f2: F[2] / tot, f3: F[3] / tot }, kwhAnno: Math.round((nGiorni >= 360 ? totK * 365 / nGiorni : annuo) / 10) * 10, giorni: nGiorni, totK, profilo };
+}
+async function handleCsv(file) {
+  if (!file) return;
+  const r = parseCurve(await file.text());
+  if (!r) { extractUI('<div class="callout bad">Non riconosco il formato del file. Serve un CSV con la data e i consumi in kWh per ora o per quarto d\'ora.</div>'); return; }
+  extractUI('<div class="callout ok"><strong>Curva di carico letta: ' + numIt(r.giorni) + " giorni, " + numIt(r.totK) + ' kWh.</strong> Fasce reali: <span class="num">F1 ' + Math.round(r.split.f1 * 100) + "% · F2 " + Math.round(r.split.f2 * 100) + "% · F3 " + Math.round(r.split.f3 * 100) + '%</span>. Consumo annuo stimato: <span class="num">' + numIt(r.kwhAnno) + " kWh</span>" + (r.giorni < 330 ? " (calcolato da meno di un anno di dati, corretto per la stagione)" : "") + '.</div><div class="row"><button class="btn primary" type="button" id="btnApplyCurve">Usa questi dati</button><button class="btn" type="button" id="btnApplyCurveSplit">Usa solo le fasce</button></div>');
+  const apply = withKwh => { const u = U(); markEdited(u); u.split = r.split; u.fonteSplit = "curva"; if (withKwh) u.kwhAnno = r.kwhAnno; if (r.profilo) u.profiloMensile = r.profilo; scheduleSave(); renderCtx(); fillForm(); renderRanking(); extractUI('<div class="callout ok">Dati della curva applicati.</div>'); };
+  $("#btnApplyCurve").onclick = () => apply(true);
+  $("#btnApplyCurveSplit").onclick = () => apply(false);
+}
+function wireDrop(el, handler) {
+  el.addEventListener("dragover", e => { e.preventDefault(); el.classList.add("over"); });
+  el.addEventListener("dragleave", () => el.classList.remove("over"));
+  el.addEventListener("drop", e => { e.preventDefault(); el.classList.remove("over"); handler(Array.from(e.dataTransfer.files || [])); });
+}
+function routeBillFiles(files) {
+  const pdf = files.find(f => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name));
+  const csv = files.find(f => /\.(csv|txt)$/i.test(f.name) || /csv/.test(f.type));
+  const imgs = files.filter(f => /^image\//.test(f.type));
+  if (pdf) handleBillPdf(pdf); else if (csv) handleCsv(csv); else if (imgs.length) handleBillImages(imgs);
+}
+
+/* ---------- Catalogo offerte ---------- */
+function renderOffersTable() {
+  const q = ($("#offSearch").value || "").toLowerCase();
+  const list = S.offers.concat(S.user.offerteMie || []).filter(o => !q || (o.fornitore + " " + o.nome).toLowerCase().includes(q));
+  $("#offIntro").textContent = S.offers.length + " offerte raccolte dai comparatori e dai siti dei fornitori" + (S.user.offerteMie.length ? ", più " + S.user.offerteMie.length + " aggiunte da te" : "") + ". Il prezzo è IVA esclusa, senza perdite di rete e oneri.";
+  $("#offTable").innerHTML = "<thead><tr><th>Fornitore</th><th>Offerta</th><th>Tipo</th><th>Prezzo energia</th><th>Quota fissa</th><th>Valida fino</th><th>Fonte</th><th></th></tr></thead><tbody>" +
+    list.map(o => "<tr><td>" + esc(o.fornitore) + "</td><td>" + esc(o.nome) + "</td><td>" + (o.tipo === "fisso" ? "Fisso" : o.tipo === "indicizzato" ? "Variabile" : "ARERA") + '</td><td class="n">' + esc(prezzoTesto(o)) + '</td><td class="n">' + euro2(+o.quotaFissaMese || 0) + '/mese</td><td class="n">' + (o.validoFino ? (isExpired(o) ? '<span style="color:var(--bad)">' + dataIt(o.validoFino) + "</span>" : dataIt(o.validoFino)) : "–") + "</td><td>" + (o.mia ? "Tu" : o.fonte && safeUrl(o.fonte.url) ? '<a href="' + esc(safeUrl(o.fonte.url)) + '" target="_blank" rel="noopener">' + esc(o.fonte.nome) + "</a>" : esc(o.fonte ? o.fonte.nome : "")) + "</td><td>" + (o.mia ? '<button class="btn small" type="button" data-del-offer="' + esc(o.id) + '">Elimina</button>' : "") + "</td></tr>").join("") + "</tbody>";
+}
+const OFFER_PROMPT = `Leggi questa scheda sintetica / proposta di un'offerta luce per clienti domestici italiani e rispondi SOLO con un JSON:
+{"fornitore":string|null,"nome":string|null,"tipo":"fisso"|"indicizzato"|null,"fasce":"mono"|"bi"|"tri","prezzo":{"mono":number|null,"f1":number|null,"f2":number|null,"f3":number|null,"f23":number|null},"spread":{"mono":number|null,"f1":number|null,"f23":number|null},"quotaFissaMese":number|null,"scontiAnno":number|null,"durataMesi":number|null,"note":string}
+Prezzi e spread in €/kWh IVA esclusa per la sola energia; quotaFissaMese in €/mese (converti da €/anno). In "note" scrivi in italiano condizioni importanti: bonus, penali, obblighi di domiciliazione, scadenza. Non inventare: se manca metti null.`;
+function fillOfferForm(r) {
+  $("#nFornitore").value = r.fornitore || ""; $("#nNome").value = r.nome || "";
+  $("#nTipo").value = r.tipo === "indicizzato" ? "indicizzato" : "fisso";
+  const src = r.tipo === "indicizzato" ? (r.spread || {}) : (r.prezzo || {});
+  let f = r.fasce || "mono";
+  if (f === "mono" && src.mono == null && src.f1 != null) f = src.f2 != null ? "tri" : "bi";
+  $("#nFasce").value = f;
+  if (f === "mono") setNum($("#nP1"), src.mono); else if (f === "bi") { setNum($("#nP1"), src.f1); setNum($("#nP2"), src.f23); } else { setNum($("#nP1"), src.f1); setNum($("#nP2"), src.f2); setNum($("#nP3"), src.f3); }
+  setNum($("#nQf"), r.quotaFissaMese); setNum($("#nSconto"), r.scontiAnno); setNum($("#nDurata"), r.durataMesi); $("#nNote").value = r.note || "";
+  updatePriceLabels("n");
+}
+async function handleOfferFiles(files) {
+  const pdf = files.find(f => /\.pdf$/i.test(f.name) || /pdf/.test(f.type));
+  const imgs = files.filter(f => /^image\//.test(f.type));
+  const out = $("#offExtractOut");
+  if (ANDROID) {
+    out.innerHTML = '<div class="row"><span class="spinner"></span><span>Leggo la scheda…</span></div>';
+    try {
+      let text = "";
+      if (pdf) { const p = await readPdf(pdf, 0); text = p.text; if (text.replace(/\s|-+ pagina \d+ -+/g, "").length < 200) { const p2 = await readPdf(pdf, 2); text = ""; for (const b of p2.imgs) text += "\n" + await ocrBlob(b); } }
+      else for (const f of imgs) text += "\n" + await ocrBlob(await toJpeg(f));
+      fillOfferForm(localOfferParse(text));
+      out.innerHTML = '<div class="callout ok">Ho compilato i campi che ho riconosciuto. Controllali e completa quelli vuoti prima di aggiungere l\'offerta.</div>';
+    } catch (e) { out.innerHTML = '<div class="callout bad">Non riesco a leggere la scheda: compila i campi a mano.</div>'; }
+    return;
+  }
+  if (!S.caps.sample) { out.innerHTML = '<div class="callout warn">Claude non è disponibile in questa vista: compila i campi a mano.</div>'; return; }
+  out.innerHTML = '<div class="row"><span class="spinner"></span><span>Claude sta leggendo la scheda…</span></div>';
+  try {
+    let text = "", im = await Promise.all(imgs.map(toJpeg));
+    if (pdf) { const p = await readPdf(pdf, S.caps.images ? 2 : 0); text = p.text; im = p.imgs; }
+    else if (!S.caps.images) { out.innerHTML = '<div class="callout warn">In questa vista Claude non può leggere immagini: usa il PDF o compila a mano.</div>'; return; }
+    const r = await claudeRead(OFFER_PROMPT, text.trim().length > 200 ? text : "", im);
+    fillOfferForm(r);
+    out.innerHTML = '<div class="callout ok">Campi compilati dalla scheda. Controllali e premi "Aggiungi alla classifica".</div>';
+  } catch (e) { out.innerHTML = '<div class="callout bad">' + esc(sampleErrorText(e)) + "</div>"; }
+}
+function submitOffer(e) {
+  e.preventDefault();
+  const o = readOfferFields("n");
+  const vals = o.prezzo || o.spread;
+  const msg = $("#offFormMsg");
+  if (!$("#nFornitore").value.trim() || !$("#nNome").value.trim()) { msg.textContent = "Scrivi fornitore e nome dell'offerta."; return; }
+  if (Object.values(vals).some(x => x == null)) { msg.textContent = "Inserisci tutti i prezzi richiesti."; return; }
+  Object.assign(o, { id: "mia-" + Date.now().toString(36), mia: true, fornitore: $("#nFornitore").value.trim(), nome: $("#nNome").value.trim(), durataMesi: num($("#nDurata")) || null, note: $("#nNote").value.trim() || null, fonte: { nome: "Aggiunta da te", data: todayISO() } });
+  const sc = num($("#nSconto")); if (sc) o.sconti = [{ descrizione: "Sconti", euroAnno: sc }];
+  S.user.offerteMie.push(o);
+  scheduleSave(); renderOffersTable(); renderRanking();
+  $("#offForm").reset(); updatePriceLabels("n"); msg.textContent = "";
+  toast("Offerta aggiunta alla classifica.");
+}
+
+/* ---------- Mercato ---------- */
+function renderMarket() {
+  const m = S.market;
+  $("#mktNote").textContent = m.notaMercato || "";
+  $("#punAsOf").textContent = "Futures rilevati il " + dataIt(m.forward.rilevatoAl);
+  renderPunChart();
+  const st = m.pun.storico.slice(-6).concat(m.pun.meseCorrente ? [m.pun.meseCorrente] : []);
+  $("#punTable").innerHTML = '<thead><tr><th>Mese</th><th style="text-align:right">PUN</th><th style="text-align:right">F1</th><th style="text-align:right">F2</th><th style="text-align:right">F3</th></tr></thead><tbody>' +
+    st.reverse().map(r => "<tr><td>" + meseIt(r.mese) + (r.parziale ? " (fino al " + dataIt(r.aggiornatoAl).slice(0, 5) + ")" : "") + '</td><td class="n">' + kwhPrice(r.mono) + '</td><td class="n">' + kwhPrice(r.f1) + '</td><td class="n">' + kwhPrice(r.f2) + '</td><td class="n">' + kwhPrice(r.f3) + "</td></tr>").join("") + "</tbody>";
+  const g = m.regolato, d = g.dispacciamento || {};
+  const R = (a, b, c) => "<tr><td>" + a + '</td><td class="n">' + b + "</td><td>" + (c || "") + "</td></tr>";
+  $("#regTable").innerHTML = "<thead><tr><th>Voce</th><th style=\"text-align:right\">Valore</th><th>Note</th></tr></thead><tbody>" +
+    R("Trasporto: quota fissa", euro2(g.trasporto.quotaFissaAnno) + "/anno") +
+    R("Trasporto: quota potenza", euro2(g.trasporto.quotaPotenzaKWAnno) + "/kW/anno", "Con 3 kW: " + euro2(g.trasporto.quotaPotenzaKWAnno * 3) + " l'anno") +
+    R("Trasporto: quota energia", kwhPrice(g.trasporto.quotaEnergiaKWh, 5) + " €/kWh") +
+    R("Oneri di sistema, residenti", kwhPrice(g.oneri.residente.quotaEnergiaKWh, 5) + " €/kWh") +
+    R("Oneri di sistema, seconde case", euro2(g.oneri.nonResidente.quotaFissaAnno) + "/anno + " + kwhPrice(g.oneri.nonResidente.quotaEnergiaKWh, 5) + " €/kWh") +
+    R("Accise", kwhPrice(g.accise.aliquotaKWh, 4) + " €/kWh", "Residenti fino a 3 kW: esenti i primi 150 kWh al mese, esenzione ridotta oltre 220 kWh") +
+    R("IVA", Math.round(g.iva * 100) + "%") +
+    R("Perdite di rete", Math.round(g.perdite * 100) + "%", "Applicate all'energia nelle offerte del mercato libero") +
+    R("Dispacciamento", kwhPrice((d.energiaKWh || 0) + (d.capacitaKWh || 0), 4) + " €/kWh", esc(d.nota || "")) +
+    R("Canone RAI", euro2(g.canoneRaiAnno || 0) + "/anno", "Solo residenti, uguale per tutti") + "</tbody>";
+  const runs = (S.status && S.status.runs) || [];
+  $("#runLog").innerHTML = runs.length ? '<ul class="notes">' + runs.slice(0, 8).map(r => '<li class="' + (r.esito === "ok" ? "ok" : "warn") + '">' + esc(new Date(r.at).toLocaleString("it-IT", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })) + " · " + esc(r.note || "") + "</li>").join("") + "</ul>" : "Nessun aggiornamento registrato.";
+  const fonti = [{ nome: m.pun.fonte, url: m.pun.url }, { nome: m.forward.fonte, url: m.forward.url }].concat(g.fonti || []);
+  $("#srcList").innerHTML = '<div class="eyebrow" style="margin:10px 0 4px">Fonti</div>' + fonti.map(f => safeUrl(f.url) ? '<div><a href="' + esc(safeUrl(f.url)) + '" target="_blank" rel="noopener">' + esc(f.nome) + "</a></div>" : "<div>" + esc(f.nome) + "</div>").join("");
+}
+function renderPunChart() {
+  const m = S.market;
+  const pts = m.pun.storico.map(r => ({ k: r.mese, v: r.mono, t: "PUN" }));
+  if (m.pun.meseCorrente) pts.push({ k: m.pun.meseCorrente.mese, v: m.pun.meseCorrente.mono, t: "PUN parziale" });
+  const lastHist = pts[pts.length - 1].k;
+  const fw = m.forward.mesi.filter(x => x.mese >= lastHist).slice(0, 16).map(x => ({ k: x.mese, v: x.v / 1000, t: "Futures" }));
+  const first = pts[0].k, last = fw.length ? fw[fw.length - 1].k : lastHist;
+  const idx = k => (+k.slice(0, 4) - +first.slice(0, 4)) * 12 + (+k.slice(5, 7) - +first.slice(5, 7));
+  const N = idx(last);
+  const W = 720, H = 250, L = 46, R = 30, T = 14, B = 30;
+  const maxV = Math.ceil(Math.max(...pts.map(p => p.v), ...fw.map(p => p.v)) / 0.05) * 0.05;
+  const x = i => L + (W - L - R) * i / N, y = v => T + (H - T - B) * (1 - v / maxV);
+  let g = '<g class="grid">';
+  for (let v = 0; v <= maxV + 1e-9; v += 0.05) g += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(v).toFixed(1) + '" y2="' + y(v).toFixed(1) + '"></line><text x="' + (L - 6) + '" y="' + (y(v) + 4).toFixed(1) + '" text-anchor="end">' + v.toFixed(2).replace(".", ",") + "</text>";
+  g += "</g>";
+  let xl = "";
+  for (let i = 0; i <= N; i++) { const k = addMonths(first, i); if (+k.slice(5, 7) % 3 === 1) xl += '<text x="' + x(i).toFixed(1) + '" y="' + (H - 10) + '" text-anchor="middle">' + meseIt(k) + "</text>"; }
+  const line = arr => arr.map((p, j) => (j ? "L" : "M") + x(idx(p.k)).toFixed(1) + " " + y(p.v).toFixed(1)).join(" ");
+  const area = line(pts) + " L" + x(idx(lastHist)).toFixed(1) + " " + y(0) + " L" + x(0) + " " + y(0) + " Z";
+  const now = idx(lastHist);
+  const lp = pts[pts.length - 1];
+  const svg = '<svg class="chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="PUN mensile dal ' + meseIt(first) + " e futures fino a " + meseIt(last) + '">' + g +
+    '<path d="' + area + '" fill="var(--accent)" fill-opacity="0.10"></path>' +
+    '<line x1="' + x(now).toFixed(1) + '" x2="' + x(now).toFixed(1) + '" y1="' + T + '" y2="' + (H - B) + '" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="2 3"></line>' +
+    '<text x="' + (x(now) + 4).toFixed(1) + '" y="' + (T + 10) + '">oggi</text>' +
+    (fw.length ? '<path d="' + line([lp].concat(fw.filter(p => p.k > lp.k))) + '" fill="none" stroke="var(--ink-3)" stroke-width="2" stroke-dasharray="6 4"></path>' : "") +
+    '<path d="' + line(pts) + '" fill="none" stroke="var(--accent)" stroke-width="2.25" stroke-linejoin="round"></path>' +
+    '<circle cx="' + x(now).toFixed(1) + '" cy="' + y(lp.v).toFixed(1) + '" r="4.5" fill="var(--accent)" stroke="var(--surface)" stroke-width="2"></circle>' +
+    '<text x="' + (x(now) - 8).toFixed(1) + '" y="' + (y(lp.v) - 10).toFixed(1) + '" text-anchor="end" style="fill:var(--ink);font-weight:600">' + kwhPrice(lp.v, 3) + " €/kWh</text>" +
+    xl + '<rect id="punHit" x="' + L + '" y="' + T + '" width="' + (W - L - R) + '" height="' + (H - T - B) + '" fill="transparent"></rect></svg>';
+  const box = $("#punChartBox");
+  box.innerHTML = svg + '<div class="tip" id="punTip" hidden></div>';
+  const all = {}; fw.forEach(p => all[p.k] = p); pts.forEach(p => all[p.k] = p);
+  const hit = $("#punHit"), tip = $("#punTip"), svgEl = box.querySelector("svg");
+  const move = ev => {
+    const rc = svgEl.getBoundingClientRect(); const cx = (ev.clientX - rc.left) / rc.width * W;
+    const i = Math.max(0, Math.min(N, Math.round((cx - L) / (W - L - R) * N))); const k = addMonths(first, i); const p = all[k];
+    if (!p) { tip.hidden = true; return; }
+    tip.hidden = false; tip.textContent = meseIt(k) + " · " + p.t + " " + kwhPrice(p.v, 4) + " €/kWh";
+    tip.style.left = (x(i) / W * rc.width) + "px"; tip.style.top = (y(p.v) / H * rc.height) + "px";
+  };
+  hit.addEventListener("mousemove", move); hit.addEventListener("mouseleave", () => { tip.hidden = true; });
+}
+
+/* ---------- Chiedi a Claude ---------- */
+function chatContext() {
+  const u = U();
+  const top = S.lastRows.filter(r => !r.esclusa.length).slice(0, 10).map((r, i) => ({ pos: i + 1, fornitore: r.offer.fornitore, offerta: r.offer.nome, tipo: r.offer.tipo, prezzo: prezzoTesto(r.offer), quotaFissaMese: r.offer.quotaFissaMese, spesa12mesi: Math.round(r.calc.totale), minimo: Math.round(r.basso), massimo: Math.round(r.alto), prezzoScaduto: r.scaduta, attuale: !!r.offer.attuale, note: r.offer.note || null }));
+  const fw = S.market.forward.mesi.slice(0, 12).map(x => x.mese + ": " + (x.v / 1000).toFixed(3));
+  return JSON.stringify({ oggi: todayISO(), utenza: { consumoAnnuoKWh: u.kwhAnno, potenzaKW: u.potenzaKW, residente: u.residente !== false, fasce: normSplit(u.split || {}), offertaAttuale: u.attuale, abitudini: u.abitudini, esempio: u.esempio }, classifica: top, mercato: { punUltimiMesi: S.market.pun.storico.slice(-6), punMeseCorrente: S.market.pun.meseCorrente, futuresEuroKWh: fw, nota: S.market.notaMercato }, regolato: S.market.regolato });
+}
+const CHAT_RULES = "Stai aiutando una consulente energetica che usa l'app Claudia Luce per confrontare le offerte luce per un suo cliente. Rispondi a lei in italiano semplice, breve e concreto, mettendo al primo posto l'interesse del cliente. Usa i numeri dei DATI qui sotto (spese su 12 mesi già comprensive di tasse, perdite, oneri e quota fissa); non inventare offerte o prezzi che non ci sono. Distingui stime e certezze. Se consigli di cambiare, ricorda di controllare la scheda sintetica sul sito del fornitore. Niente tabelle lunghe, al massimo un elenco breve.\n\nDATI:\n";
+function renderChat() {
+  $("#chatLog").innerHTML = S.chat.map(m => '<div class="msg ' + (m.role === "user" ? "u" : "a") + '">' + esc(m.content) + "</div>").join("");
+}
+async function sendChat(text) {
+  text = (text || "").trim(); if (!text) return;
+  const sample = S.caps.sample;
+  if (!sample) { $("#chatNote").textContent = "Claude non è disponibile in questa vista."; return; }
+  S.chat.push({ role: "user", content: text }); renderChat();
+  $("#chatIn").value = "";
+  const hist = S.chat.slice(-10); while (hist.length && hist[0].role !== "user") hist.shift();
+  const turns = [{ role: "user", content: CHAT_RULES + chatContext() }].concat(hist);
+  const bubble = document.createElement("div"); bubble.className = "msg a"; bubble.textContent = "Sto pensando…"; $("#chatLog").appendChild(bubble);
+  const ctl = new AbortController(); S.chatCtl = ctl;
+  $("#chatSend").disabled = true; $("#chatStop").hidden = false;
+  try {
+    const r = await sample(turns, { cache: false, signal: ctl.signal, onText: ({ text }) => { bubble.textContent = text; } });
+    S.chat.push({ role: "assistant", content: r.text });
+    if (r.truncated) $("#chatNote").textContent = "Risposta interrotta perché troppo lunga: chiedi una cosa alla volta.";
+  } catch (e) {
+    if (e && e.text) S.chat.push({ role: "assistant", content: e.text });
+    else S.chat.pop();
+    if (!e || e.code !== "cancelled") $("#chatNote").textContent = sampleErrorText(e);
+  } finally {
+    $("#chatSend").disabled = false; $("#chatStop").hidden = true; renderChat();
+  }
+}
+
+/* ---------- Aggiorna adesso ---------- */
+async function refreshNow() {
+  const btn = $("#btnRefresh"); btn.disabled = true;
+  try {
+    await S.caps.mcp.callTool("Claude Code Remote", "fire_trigger", { trigger_id: S.status.triggerId, text: "Aggiornamento richiesto dall'app alle " + new Date().toLocaleString("it-IT") });
+    toast("Aggiornamento avviato: i nuovi dati compaiono qui da soli tra qualche minuto.");
+  } catch (e) {
+    const c = e && e.code;
+    if (c === "server_not_connected" || c === "needs_reauth") toast("Collega 'Claude Code Remote' nelle impostazioni dei connettori di Claude per aggiornare da qui.");
+    else if (c === "not_in_manifest" || c === "not_granted") toast("Permesso non concesso: l'aggiornamento automatico quotidiano resta attivo.");
+    else if (c === "tool_error") toast("L'aggiornamento non è partito: " + (e.message || "errore del servizio") + ".");
+    else toast("L'aggiornamento non è partito. Riprova più tardi: quello quotidiano resta attivo.");
+  } finally { setTimeout(() => { btn.disabled = false; }, 60000); }
+}
+
+/* ---------- Collegamento alle capacità della pagina ---------- */
+function initCaps() {
+  if (ANDROID) { initAndroid(); return; }
+  const c = window.claude;
+  if (!c || typeof c.use !== "function") { S.dbState = "absent"; loadLocal(); renderAll(); return; }
+  c.use("db").then(async db => {
+    S.caps.db = db;
+    if (!db) { S.dbState = "absent"; loadLocal(); renderAll(); return; }
+    S.dbState = "ok";
+    db.doc("market/current").onSnapshot(s => { if (s.exists && s.data().regolato && s.data().pun) { S.market = s.data(); S.source = "db"; renderAll(); } }, () => {});
+    db.collection("offers").onSnapshot(qs => { if (!qs.empty) { S.offers = qs.docs.map(d => d.data()).filter(o => o && o.fornitore && o.tipo && o.attiva !== false); renderAll(); } }, () => {});
+    db.doc("meta/status").onSnapshot(s => { if (s.exists) { S.status = s.data(); renderStatus(); renderMarket(); } }, () => {});
+    const user = await c.use("user"); S.caps.user = user;
+    const uid = user ? await user.id().catch(() => null) : null; S.caps.uid = uid;
+    S.caps.isOwner = user ? await user.isOwner().catch(() => false) : false; updateRefreshBtn();
+    if (uid) {
+      try { const snap = await db.doc("data/users/" + uid + "/watt").get(); if (!(snap.exists && adoptUser(snap.data()))) { loadLocal(); if (S.user.utenze.some(u => !u.esempio)) scheduleSave(); } }
+      catch (e) { loadLocal(); }
+    } else loadLocal();
+    renderAll();
+  });
+  c.use("sample").then(async s => {
+    S.caps.sample = s;
+    if (s) { const lim = await s.limits().catch(() => null); S.caps.images = lim && lim.images ? lim.images : null; }
+    $("#chatNote").textContent = s ? "Le risposte usano il tuo account Claude." : "Claude non è disponibile in questa vista.";
+  });
+  c.use("mcp").then(m => { S.caps.mcp = m; updateRefreshBtn(); });
+  c.use("downloads").then(d => { S.caps.downloads = d; $("#btnExport").hidden = !d; $("#reportRow").hidden = !d; });
+}
+
+/* ---------- Versione Android ---------- */
+const _ocrCb = {};
+window.__ocrDone = function (id, text, err) { const cb = _ocrCb[id]; if (!cb) return; delete _ocrCb[id]; if (err) cb.reject(new Error(err)); else cb.resolve(text || ""); };
+function blobToBase64(blob) { return new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(String(r.result).split(",")[1] || ""); r.onerror = rej; r.readAsDataURL(blob); }); }
+async function ocrBlob(blob) {
+  const b64 = await blobToBase64(blob);
+  const id = "o" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  return new Promise((resolve, reject) => { _ocrCb[id] = { resolve, reject }; window.ClaudiaAndroid.ocr(b64, id); setTimeout(() => { if (_ocrCb[id]) { delete _ocrCb[id]; reject(new Error("timeout")); } }, 60000); });
+}
+function mimeFor(name) { return /\.pdf$/i.test(name) ? "application/pdf" : /\.csv$/i.test(name) ? "text/csv" : /\.json$/i.test(name) ? "application/json" : "text/plain"; }
+const androidDownloads = {
+  save: async ({ filename, data }) => {
+    const blob = typeof data === "string" ? new Blob([data], { type: mimeFor(filename) }) : data;
+    window.ClaudiaAndroid.saveFile(filename, mimeFor(filename), await blobToBase64(blob));
+  }
+};
+function applyRemote(d) {
+  if (!d || !d.market || !d.market.regolato || !d.market.pun || !Array.isArray(d.offers)) return false;
+  S.market = d.market; S.offers = d.offers.filter(o => o && o.fornitore && o.tipo && o.attiva !== false); S.status = d.status || S.status;
+  return true;
+}
+async function loadRemoteData(manual) {
+  let url = lsGet("claudia.dataUrl");
+  if (url == null || url === "") { try { url = window.ClaudiaAndroid.dataUrl() || ""; } catch (e) { url = ""; } }
+  $("#inDataUrl").value = url;
+  if (!url) { S.remoteState = "nourl"; renderAll(); if (manual) toast("Imposta prima l'indirizzo del file prezzi nella scheda Mercato."); return; }
+  const btn = $("#btnRefresh"); btn.disabled = true;
+  try {
+    const r = await fetch(url + (url.includes("?") ? "&" : "?") + "t=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) throw new Error("http " + r.status);
+    const txt = await r.text();
+    if (!applyRemote(JSON.parse(txt))) throw new Error("formato");
+    lsSet("claudia.dataCache", txt);
+    S.source = "remote"; S.remoteState = "ok";
+    if (manual) toast("Prezzi aggiornati al " + dataIt(S.market.updatedAt) + ".");
+  } catch (e) {
+    S.remoteState = "offline";
+    if (manual) toast("Non riesco a scaricare i prezzi: controlla la connessione o l'indirizzo.");
+  } finally { btn.disabled = false; renderAll(); }
+}
+function initAndroid() {
+  S.dbState = "android";
+  S.caps.downloads = androidDownloads;
+  $("#btnExport").hidden = false; $("#reportRow").hidden = false;
+  $("#tab-claude").hidden = true;
+  $("#androidData").hidden = false;
+  loadLocal();
+  const cache = lsGet("claudia.dataCache");
+  if (cache) { try { if (applyRemote(JSON.parse(cache))) S.source = "cache"; } catch (e) { /* ignora */ } }
+  renderAll();
+  loadRemoteData(false);
+}
+
+/* ---------- Backup dei dati ---------- */
+async function exportBackup() {
+  const d = S.caps.downloads;
+  if (!d) { toast("Il salvataggio di file non è disponibile in questa vista."); return; }
+  const data = JSON.stringify({ app: "Claudia Luce", tipo: "backup", creato: new Date().toISOString(), dati: S.user }, null, 1);
+  try { await d.save({ filename: "claudia-luce-backup-" + todayISO() + ".json", data }); }
+  catch (e) { if (!e || e.code !== "declined") toast("Non è stato possibile salvare il backup."); }
+}
+async function importBackup(file) {
+  if (!file) return;
+  let j;
+  try { j = JSON.parse(await file.text()); } catch (e) { toast("Questo file non è un backup di Claudia Luce."); return; }
+  const dati = j && j.dati;
+  if (!dati || !Array.isArray(dati.utenze)) { toast("Questo file non è un backup di Claudia Luce."); return; }
+  const box = $("#backupConfirm");
+  box.hidden = false;
+  $("#backupConfirmText").textContent = "Il backup contiene " + dati.utenze.length + " clienti. Vuoi sostituire i dati attuali?";
+  $("#btnBackupYes").onclick = () => { if (adoptUser(dati)) { scheduleSave(); renderAll(); toast("Backup ripristinato."); } box.hidden = true; };
+  $("#btnBackupNo").onclick = () => { box.hidden = true; };
+}
+
+/* ---------- Avvio ---------- */
+function showTab(t) {
+  $$(".tab").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === t)));
+  $$("[data-sec]").forEach(s => { s.hidden = s.dataset.sec !== t; });
+  lsSet("wattgiusto.tab", t);
+  if (t === "mercato") renderPunChart();
+}
+function boot() {
+  $$(".tab").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+  $$("[data-goto]").forEach(b => b.addEventListener("click", () => { showTab(b.dataset.goto); window.scrollTo(0, 0); }));
+  const onSel = e => { S.user.attivaId = e.target.value; scheduleSave(); renderAll(); };
+  $("#selUtenza").addEventListener("change", onSel); $("#selUtenza2").addEventListener("change", onSel);
+  $("#segTipo").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.user.vista.tipo = b.dataset.v; $$("#segTipo button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); scheduleSave(); renderRanking(); });
+  $("#selOrdina").addEventListener("change", e => { S.user.vista.ordina = e.target.value; scheduleSave(); renderRanking(); });
+  $("#selScenario").addEventListener("change", e => { S.user.vista.scenario = e.target.value; scheduleSave(); renderRanking(); });
+  $("#chkCanone").addEventListener("change", e => { S.user.vista.canone = e.target.checked; scheduleSave(); renderRanking(); });
+  $("#sec-consumi").addEventListener("input", e => { if (e.target.matches("input,select") && !e.target.closest(".drop") && e.target.id !== "selUtenza2") onFormChange(e); });
+  $("#btnApplyHabits").addEventListener("click", () => applyHabits(false));
+  $("#btnApplyHabitsKwh").addEventListener("click", () => applyHabits(true));
+  $("#btnNewUtenza").addEventListener("click", () => { const u = nuovaUtenza("Nuovo cliente " + (S.user.utenze.length + 1), false); S.user.utenze.push(u); S.user.attivaId = u.id; scheduleSave(); renderAll(); $("#inNome").focus(); $("#inNome").select(); });
+  $("#btnDelUtenza").addEventListener("click", () => { $("#delConfirm").hidden = false; });
+  $("#btnDelNo").addEventListener("click", () => { $("#delConfirm").hidden = true; });
+  $("#btnDelYes").addEventListener("click", () => {
+    S.user.utenze = S.user.utenze.filter(u => u.id !== S.user.attivaId);
+    if (!S.user.utenze.length) S.user.utenze.push(nuovaUtenza("Nuovo cliente", false));
+    S.user.attivaId = S.user.utenze[0].id; $("#delConfirm").hidden = true; scheduleSave(); renderAll(); toast("Cliente eliminato.");
+  });
+  $("#fileImg").addEventListener("change", e => { handleBillImages(Array.from(e.target.files)); e.target.value = ""; });
+  $("#filePdf").addEventListener("change", e => { handleBillPdf(e.target.files[0]); e.target.value = ""; });
+  $("#fileCsv").addEventListener("change", e => { handleCsv(e.target.files[0]); e.target.value = ""; });
+  wireDrop($("#dropBill"), routeBillFiles);
+  wireDrop($("#dropOffer"), handleOfferFiles);
+  $("#offImg").addEventListener("change", e => { handleOfferFiles(Array.from(e.target.files)); e.target.value = ""; });
+  $("#offPdf").addEventListener("change", e => { handleOfferFiles(Array.from(e.target.files)); e.target.value = ""; });
+  $("#nTipo").addEventListener("change", () => updatePriceLabels("n")); $("#nFasce").addEventListener("change", () => updatePriceLabels("n"));
+  $("#offForm").addEventListener("submit", submitOffer);
+  $("#offSearch").addEventListener("input", renderOffersTable);
+  $("#offTable").addEventListener("click", e => { const b = e.target.closest("[data-del-offer]"); if (!b) return; S.user.offerteMie = S.user.offerteMie.filter(o => o.id !== b.dataset.delOffer); scheduleSave(); renderOffersTable(); renderRanking(); toast("Offerta eliminata."); });
+  $("#btnExport").addEventListener("click", exportCsv);
+  $("#btnReport").addEventListener("click", makeReport);
+  $("#btnRefresh").addEventListener("click", () => ANDROID ? loadRemoteData(true) : refreshNow());
+  $("#btnBackupOut").addEventListener("click", exportBackup);
+  $("#fileBackup").addEventListener("change", e => { importBackup(e.target.files[0]); e.target.value = ""; });
+  $("#btnDataUrl").addEventListener("click", () => { lsSet("claudia.dataUrl", $("#inDataUrl").value.trim()); loadRemoteData(true); });
+  $("#chatForm").addEventListener("submit", e => { e.preventDefault(); sendChat($("#chatIn").value); });
+  $("#chatIn").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat($("#chatIn").value); } });
+  $("#chatChips").addEventListener("click", e => { const b = e.target.closest(".chip"); if (b) { showTab("claude"); sendChat(b.textContent); } });
+  $("#chatStop").addEventListener("click", () => { if (S.chatCtl) S.chatCtl.abort(); });
+  updatePriceLabels("n");
+  const v = S.user.vista;
+  $("#selOrdina").value = v.ordina; $("#selScenario").value = v.scenario; $("#chkCanone").checked = v.canone;
+  renderAll();
+  const t = lsGet("wattgiusto.tab"); if (t && $("#tab-" + t)) showTab(t);
+  initCaps();
+}
+function syncVistaControls() {
+  const v = S.user.vista;
+  $("#selOrdina").value = v.ordina; $("#selScenario").value = v.scenario; $("#chkCanone").checked = !!v.canone;
+  $$("#segTipo button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.v === v.tipo)));
+}
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+
+</script>
+</body>
+</html>

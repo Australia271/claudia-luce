@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fulmine su display a cristalli liquidi, come il contatore -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="@color/lcd_ink"
+        android:pathData="M59,26 L37,58 L51,58 L46,82 L71,47 L56,47 L63,26 Z" />
+</vector>
