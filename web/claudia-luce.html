@@ -253,6 +253,10 @@ table.data td.n { font-family: var(--font-data); font-variant-numeric: tabular-n
 
 .toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 8px; font-size: .92rem; z-index: 50; max-width: calc(100% - 32px); box-shadow: var(--shadow); }
 footer.foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .82rem; color: var(--ink-3); display: flex; flex-direction: column; gap: 6px; max-width: 80ch; }
+
+.verdict-big { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; }
+.verdict-big > strong { font-family: var(--font-display); font-stretch: 108%; font-size: 1.3rem; line-height: 1.25; }
+.verdict-big p { font-size: 1rem; }
 </style>
 <header class="topbar">
   <div class="topbar-in">
@@ -339,12 +343,16 @@ footer.foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--l
   <!-- ===== I TUOI CONSUMI ===== -->
   <section class="section" id="sec-consumi" data-sec="consumi" hidden>
     <div class="panel stack">
-      <h2>I tuoi dati di consulente</h2>
-      <p class="small muted">Compaiono in testa alla proposta che consegni al cliente.</p>
-      <div class="grid2">
-        <label class="fld" for="inConsNome">Nome e cognome<input type="text" id="inConsNome" placeholder="Es. Claudia Rossi"></label>
-        <label class="fld" for="inConsRec">Recapiti<input type="text" id="inConsRec" placeholder="Telefono, email"></label>
+      <h2>Carica la bolletta</h2>
+      <p class="muted small">Claude legge la bolletta del cliente e compila i campi qui sotto: consumo annuo, fasce, potenza e prezzo dell'offerta attuale. Puoi controllare tutto prima di applicarlo.</p>
+      <div class="drop" id="dropBill">
+        <span class="btn primary filebtn">Foto della bolletta<input type="file" id="fileImg" accept="image/*" capture="environment" multiple></span>
+        <span class="btn filebtn">PDF della bolletta<input type="file" id="filePdf" accept="application/pdf,.pdf"></span>
+        <span class="btn filebtn">Curva di carico (CSV)<input type="file" id="fileCsv" accept=".csv,.txt,text/csv"></span>
+        <span class="tiny">Oppure trascina qui il file.</span>
       </div>
+      <p class="tiny">La curva di carico si scarica gratis dal sito del distributore (per esempio e-distribuzione, area clienti, "Le mie misure"): con i dati ora per ora il calcolo delle fasce è esatto.</p>
+      <div id="extractOut" class="stack"></div>
     </div>
     <div class="panel stack">
       <div class="row">
@@ -364,18 +372,6 @@ footer.foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--l
       </div>
     </div>
 
-    <div class="panel stack">
-      <h2>Carica la bolletta</h2>
-      <p class="muted small">Claude legge la bolletta del cliente e compila i campi qui sotto: consumo annuo, fasce, potenza e prezzo dell'offerta attuale. Puoi controllare tutto prima di applicarlo.</p>
-      <div class="drop" id="dropBill">
-        <span class="btn primary filebtn">Foto della bolletta<input type="file" id="fileImg" accept="image/*" capture="environment" multiple></span>
-        <span class="btn filebtn">PDF della bolletta<input type="file" id="filePdf" accept="application/pdf,.pdf"></span>
-        <span class="btn filebtn">Curva di carico (CSV)<input type="file" id="fileCsv" accept=".csv,.txt,text/csv"></span>
-        <span class="tiny">Oppure trascina qui il file.</span>
-      </div>
-      <p class="tiny">La curva di carico si scarica gratis dal sito del distributore (per esempio e-distribuzione, area clienti, "Le mie misure"): con i dati ora per ora il calcolo delle fasce è esatto.</p>
-      <div id="extractOut" class="stack"></div>
-    </div>
 
     <div class="panel stack">
       <h2>Consumi</h2>
@@ -456,6 +452,14 @@ footer.foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--l
       <div class="callout warn row" id="backupConfirm" hidden><span id="backupConfirmText" class="grow"></span>
         <button class="btn small" type="button" id="btnBackupYes">Sì, sostituisci</button>
         <button class="btn small" type="button" id="btnBackupNo">Annulla</button></div>
+    </div>
+    <div class="panel stack">
+      <h2>I tuoi dati di consulente</h2>
+      <p class="small muted">Compaiono in testa alla proposta che consegni al cliente.</p>
+      <div class="grid2">
+        <label class="fld" for="inConsNome">Nome e cognome<input type="text" id="inConsNome" placeholder="Es. Claudia Rossi"></label>
+        <label class="fld" for="inConsRec">Recapiti<input type="text" id="inConsRec" placeholder="Telefono, email"></label>
+      </div>
     </div>
   </section>
 
@@ -1660,8 +1664,7 @@ function sampleErrorText(e) {
   if (c === "invalid_json") return "Claude non è riuscito a leggere i dati in modo ordinato: riprova o inserisci a mano.";
   return "Lettura non riuscita. Riprova tra poco o inserisci i dati a mano.";
 }
-function showBillResult(r, srcLabel) {
-  S.extracted = r;
+function billRowsHtml(r) {
   const rows = [];
   const add = (k, v) => { if (v != null && v !== "") rows.push("<tr><td>" + k + '</td><td class="n">' + esc(v) + "</td></tr>"); };
   add("Fornitore", r.fornitore); add("Offerta", r.offerta); add("Tipo di prezzo", r.tipo === "fisso" ? "fisso" : r.tipo === "indicizzato" ? "variabile" : null);
@@ -1670,7 +1673,7 @@ function showBillResult(r, srcLabel) {
   add("Potenza impegnata", r.potenzaKW != null ? numIt(r.potenzaKW, 1) + " kW" : null);
   add("Abitazione", r.residente === true ? "residenza" : r.residente === false ? "seconda casa" : null);
   const cp = r.consumiPeriodoKWh || {};
-  if (cp.f1 != null || cp.f2 != null || cp.f3 != null) add("Consumi del periodo", ["f1", "f2", "f3", "f23"].filter(k => cp[k] != null).map(k => k.toUpperCase() + " " + numIt(cp[k]) + " kWh").join(" · "));
+  if (cp.f1 != null || cp.f2 != null || cp.f3 != null) add("Consumi per fascia", ["f1", "f2", "f3", "f23"].filter(k => cp[k] != null).map(k => k.toUpperCase() + " " + numIt(cp[k]) + " kWh").join(" · "));
   const pe = r.prezzoEnergia || {};
   const pp = ["mono", "f1", "f2", "f3", "f23"].filter(k => pe[k] != null).map(k => (k === "mono" ? "" : k.toUpperCase() + " ") + kwhPrice(pe[k]) + " €/kWh");
   if (pp.length) add("Prezzo energia", pp.join(" · "));
@@ -1678,9 +1681,58 @@ function showBillResult(r, srcLabel) {
   add("Quota fissa", r.quotaFissaMese != null ? euro2(r.quotaFissaMese) + "/mese" : null);
   add("Prezzo bloccato fino al", r.scadenzaPrezzo ? dataIt(r.scadenzaPrezzo) : null);
   add("Totale bolletta", r.totaleBolletta != null ? euro2(r.totaleBolletta) : null);
-  extractUI('<div class="callout ok"><strong>Ecco cosa ho letto ' + esc(srcLabel) + ".</strong> " + esc(r.note || "") + '</div><div class="tbl-wrap"><table class="data">' + (rows.join("") || "<tr><td>Nessun dato riconosciuto.</td></tr>") + '</table></div><div class="row"><button class="btn primary" type="button" id="btnApplyBill">Usa questi dati</button><button class="btn" type="button" id="btnDropBill">Scarta</button></div>');
-  $("#btnApplyBill").onclick = applyBill;
-  $("#btnDropBill").onclick = () => { S.extracted = null; extractUI(""); };
+  return rows.join("") || "<tr><td>Nessun dato riconosciuto.</td></tr>";
+}
+/* Appena letta la bolletta: applico i dati e dico subito se l'offerta conviene ancora */
+function showBillResult(r, srcLabel) {
+  const u = U();
+  S.undoBill = { id: u.id, data: clone(u) };
+  S.lastRead = { r, srcLabel };
+  S.extracted = r;
+  applyBill(true);
+  renderBillVerdict();
+}
+function renderBillVerdict() {
+  const L = S.lastRead; if (!L) return;
+  const r = L.r, u = U(), p = S.lastPick || {};
+  const cur = p.cur, best = p.best;
+  let head = "";
+  if (cur && best) {
+    const d = cur.calc.totale - best.calc.totale;
+    const altro = esc(best.offer.fornitore + " " + best.offer.nome) + " (" + esc(prezzoTesto(best.offer)) + ")";
+    if (d <= Math.max(20, cur.calc.totale * 0.02)) {
+      head = '<div class="callout ok verdict-big"><strong>✓ La tua offerta conviene ancora.</strong><p>Con circa ' + numIt(u.kwhAnno) + " kWh l'anno spendi <strong>" + euro(cur.calc.totale) + "</strong> nei prossimi 12 mesi, tutto compreso. La migliore alternativa di oggi, " + altro + ", costerebbe " + euro(best.calc.totale) + ".</p>" + (cur.offer.scadenza ? "<p>Il prezzo è bloccato fino al " + dataIt(cur.offer.scadenza) + ": verso quella data rifai il controllo.</p>" : "") + "</div>";
+    } else {
+      head = '<div class="callout warn verdict-big"><strong>Puoi risparmiare circa ' + euro(d) + " l'anno.</strong><p>Con la tua offerta spendi " + euro(cur.calc.totale) + " nei prossimi 12 mesi. Con " + altro + " spenderesti " + euro(best.calc.totale) + ", cioè " + euro(d / 12) + " in meno al mese.</p><p>Cambiare fornitore è gratuito e la disdetta la fa il nuovo fornitore.</p></div>";
+    }
+  } else {
+    head = '<div class="callout warn verdict-big"><strong>Mi manca il prezzo della tua offerta.</strong><p>Ho letto i consumi ma non il prezzo. Lo trovi nella bolletta, nel riquadro dell\'offerta. Scrivilo qui e ti dico subito se conviene ancora.</p>' +
+      '<div class="grid3"><label class="fld" for="qfTipo">Tipo di prezzo<select id="qfTipo"><option value="fisso">Fisso</option><option value="indicizzato">Variabile (PUN + spread)</option></select></label>' +
+      '<label class="fld" for="qfPrezzo"><span id="qfPrezzoL">Prezzo energia (€/kWh)</span><input type="number" id="qfPrezzo" step="0.0001" min="0" placeholder="es. 0,1450"></label>' +
+      '<label class="fld" for="qfQf">Quota fissa (€/mese)<input type="number" id="qfQf" step="0.01" min="0" placeholder="es. 8,00"></label></div>' +
+      '<div class="row"><button class="btn primary" type="button" id="btnQf">Controlla la mia offerta</button></div></div>';
+  }
+  extractUI(head + '<div class="row"><button class="btn primary" type="button" id="btnGoRank">Vedi la classifica completa</button><button class="btn" type="button" id="btnUndoBill">Annulla i dati letti</button></div>' +
+    '<details class="panel"><summary class="small" style="cursor:pointer;font-weight:600">Dati letti ' + esc(L.srcLabel) + '</summary><div class="tbl-wrap" style="margin-top:10px"><table class="data">' + billRowsHtml(r) + '</table></div><p class="tiny" style="margin-top:6px">' + esc(r.note || "") + " Li trovi anche qui sotto, nei campi del cliente: puoi correggerli.</p></details>");
+  try { $("#extractOut").scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { /* ignora */ }
+  $("#btnGoRank").onclick = () => { showTab("classifica"); window.scrollTo(0, 0); };
+  $("#btnUndoBill").onclick = () => {
+    const b = S.undoBill; if (!b) return;
+    const i = S.user.utenze.findIndex(x => x.id === b.id); if (i >= 0) S.user.utenze[i] = b.data;
+    S.undoBill = null; S.lastRead = null; scheduleSave(); renderAll();
+    extractUI('<div class="callout">Ho rimesso i dati di prima.</div>');
+  };
+  const qt = $("#qfTipo");
+  if (qt) {
+    qt.onchange = () => { $("#qfPrezzoL").textContent = qt.value === "indicizzato" ? "Spread sul PUN (€/kWh)" : "Prezzo energia (€/kWh)"; };
+    $("#btnQf").onclick = () => {
+      const v = num($("#qfPrezzo")), q = num($("#qfQf"));
+      if (v == null) { toast("Scrivi il prezzo della tua offerta."); return; }
+      const uu = U(), tipo = qt.value;
+      uu.attuale = Object.assign({ fornitore: r.fornitore || "", nome: r.offerta || "", scadenza: r.scadenzaPrezzo || null, fasce: "mono", tipo, quotaFissaMese: q || 0 }, tipo === "indicizzato" ? { spread: { mono: v } } : { prezzo: { mono: v } });
+      scheduleSave(); renderCtx(); fillForm(); renderRanking(); renderBillVerdict();
+    };
+  }
 }
 /* Quota del consumo annuo tipico coperta da un periodo (profilo stagionale standard) */
 function periodCoverage(da, a) {
@@ -1694,7 +1746,7 @@ function periodCoverage(da, a) {
   }
   return cov;
 }
-function applyBill() {
+function applyBill(auto) {
   const r = S.extracted; if (!r) return;
   const u = U(); markEdited(u);
   if (r.consumoAnnuoKWh > 0) {
@@ -1720,7 +1772,8 @@ function applyBill() {
     else if (pe.mono != null) { a.tipo = "fisso"; a.fasce = "mono"; a.prezzo = { mono: pe.mono }; }
     if (a.tipo) u.attuale = a;
   }
-  S.extracted = null; extractUI('<div class="callout ok">Dati applicati. Controllali qui sotto: la classifica è già aggiornata.</div>');
+  S.extracted = null;
+  if (!auto) extractUI('<div class="callout ok">Dati applicati. Controllali qui sotto: la classifica è già aggiornata.</div>');
   scheduleSave(); renderCtx(); fillForm(); renderRanking();
 }
 async function toJpeg(file) {
