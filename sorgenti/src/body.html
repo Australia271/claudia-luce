@@ -10,6 +10,7 @@
   <nav class="tabs" role="tablist" aria-label="Sezioni">
     <button class="tab" role="tab" id="tab-classifica" aria-selected="true" data-tab="classifica">Classifica</button>
     <button class="tab" role="tab" id="tab-consumi" aria-selected="false" data-tab="consumi">Dati del cliente</button>
+    <button class="tab" role="tab" id="tab-proposta" aria-selected="false" data-tab="proposta">Proposta</button>
     <button class="tab" role="tab" id="tab-offerte" aria-selected="false" data-tab="offerte">Offerte</button>
     <button class="tab" role="tab" id="tab-mercato" aria-selected="false" data-tab="mercato">Mercato</button>
     <button class="tab" role="tab" id="tab-claude" aria-selected="false" data-tab="claude">Chiedi a Claude</button>
@@ -32,9 +33,9 @@
     <div id="current"></div>
     <div id="verdict"></div>
     <div id="advice" class="stack"></div>
-    <div class="row" id="reportRow" hidden>
-      <button class="btn primary" type="button" id="btnReport">Crea la proposta per il cliente (PDF)</button>
-      <span class="small muted" id="reportNote">Riassume consumi, le tre offerte migliori, il risparmio e i punti di attenzione.</span>
+    <div class="row" id="reportRow">
+      <button class="btn primary" type="button" data-goto="proposta">Prepara la proposta per il cliente</button>
+      <span class="small muted" id="reportNote">Due proposte (prezzo fisso e, se ha senso, variabile), la valutazione e il PDF pronto da inviare.</span>
     </div>
 
     <div class="panel stack">
@@ -114,7 +115,11 @@
         <label class="fld" for="anPod">POD<input type="text" id="anPod" autocomplete="off" placeholder="IT001E12345678"></label>
         <label class="fld" for="anCodCli">Codice cliente del fornitore attuale<input type="text" id="anCodCli" autocomplete="off"></label>
       </div>
-      <label class="fld" for="inNote">Note sul cliente<input type="text" id="inNote" placeholder="Telefono, email, appunti"><span class="hint">Questi dati si compilano da soli quando carichi la bolletta e restano solo a te. Nella proposta compaiono solo nome, indirizzo di fornitura e POD.</span></label>
+      <div class="grid2">
+        <label class="fld" for="anEmail">Email del cliente<input type="email" id="anEmail" autocomplete="off" placeholder="nome@esempio.it"></label>
+        <label class="fld" for="anTel">Cellulare del cliente<input type="tel" id="anTel" autocomplete="off" placeholder="Per WhatsApp e Telegram"></label>
+      </div>
+      <label class="fld" for="inNote">Note sul cliente<input type="text" id="inNote" placeholder="Appunti"><span class="hint">Questi dati restano solo a te. Nel PDF della proposta compaiono solo nome, indirizzo di fornitura e POD; email e cellulare servono per inviargliela.</span></label>
       <div class="row">
         <button class="btn small" type="button" id="btnDelUtenza">Elimina questo cliente</button>
         <span id="delConfirm" class="row" hidden><span class="small">Eliminarlo davvero?</span>
@@ -233,13 +238,63 @@
         </details>
       </div>
     </div>
-    <div class="panel stack">
-      <h2>I tuoi dati di consulente</h2>
-      <p class="small muted">Compaiono in testa alla proposta che consegni al cliente.</p>
-      <div class="grid2">
-        <label class="fld" for="inConsNome">Nome e cognome<input type="text" id="inConsNome" placeholder="Es. Claudia Rossi"></label>
-        <label class="fld" for="inConsRec">Recapiti<input type="text" id="inConsRec" placeholder="Telefono, email"></label>
+  </section>
+
+  <!-- ===== PROPOSTA ===== -->
+  <section class="section" id="sec-proposta" data-sec="proposta" hidden>
+    <div class="ctx">
+      <label class="fld" for="selUtenza3" style="flex-direction:row;align-items:center;gap:8px">Cliente
+        <select id="selUtenza3"></select>
+      </label>
+      <div class="facts" id="prFacts"></div>
+      <button class="btn ghost small" type="button" data-goto="consumi">Modifica dati del cliente</button>
+    </div>
+
+    <section class="promoter" aria-label="Il promotore">
+      <div>
+        <div class="eyebrow">Proposta preparata da</div>
+        <div class="pm-name" id="pmName">Claudia Caria</div>
+        <div class="pm-role" id="pmRole">Consulente energetica</div>
       </div>
+      <dl class="pm-contacts" id="pmContacts"></dl>
+      <details class="pm-edit" id="pmEdit">
+        <summary>Modifica i dati del promotore</summary>
+        <div class="grid2">
+          <label class="fld" for="pcNome">Nome e cognome<input type="text" id="pcNome" autocomplete="name"></label>
+          <label class="fld" for="pcRuolo">Qualifica<input type="text" id="pcRuolo" placeholder="Es. Consulente energetica"></label>
+          <label class="fld" for="pcTel">Telefono<input type="tel" id="pcTel" autocomplete="tel" placeholder="Es. 333 123 4567"></label>
+          <label class="fld" for="pcWa">WhatsApp<input type="tel" id="pcWa" placeholder="Solo se diverso dal telefono"></label>
+          <label class="fld" for="pcEmail">Email<input type="email" id="pcEmail" autocomplete="email" placeholder="nome@esempio.it"></label>
+          <label class="fld" for="pcTg">Telegram<input type="text" id="pcTg" placeholder="Es. @nomeutente"></label>
+        </div>
+        <label class="fld" for="pcAltro">Altro<input type="text" id="pcAltro" placeholder="Sito, indirizzo dell'ufficio, orari"></label>
+        <p class="tiny">Questi dati compaiono in testa al PDF e in fondo al messaggio per il cliente.</p>
+      </details>
+    </section>
+
+    <div id="prEval"></div>
+    <div class="prop-grid" id="prCards"></div>
+    <div id="prVarNote"></div>
+
+    <div class="panel stack" id="prSend">
+      <div class="row"><h2 class="grow">Invia al cliente</h2><span class="small muted" id="prSendFor"></span></div>
+      <div class="grid2">
+        <label class="fld" for="prEmail">Email del cliente<input type="email" id="prEmail" autocomplete="off" placeholder="nome@esempio.it"></label>
+        <label class="fld" for="prTel">Cellulare del cliente<input type="tel" id="prTel" autocomplete="off" placeholder="Per WhatsApp e Telegram"></label>
+      </div>
+      <div class="row">
+        <span class="small muted">Nel messaggio dai</span>
+        <div class="seg" role="group" aria-label="Tono del messaggio" id="prTono"><button type="button" data-v="lei" aria-pressed="true">del Lei</button><button type="button" data-v="tu" aria-pressed="false">del tu</button></div>
+      </div>
+      <label class="fld" for="prMsg">Messaggio per il cliente<textarea id="prMsg" rows="12"></textarea><span class="hint" id="prMsgHint"></span></label>
+      <div class="row">
+        <button class="btn primary" type="button" id="btnPrPdf">Scarica la proposta (PDF)</button>
+        <button class="btn primary" type="button" id="btnPrShare" hidden>Condividi il PDF</button>
+        <button class="btn" type="button" id="btnPrCopy">Copia il messaggio</button>
+        <button class="btn" type="button" id="btnPrRegen">Riscrivi il messaggio</button>
+      </div>
+      <div class="send-row" id="prLinks"></div>
+      <p class="tiny" id="prSendNote"></p>
     </div>
   </section>
 

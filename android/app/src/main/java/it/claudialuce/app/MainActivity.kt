@@ -379,6 +379,34 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        /**
+         * Scheda Proposta, «Condividi il PDF»: allega il PDF al messaggio già scritto
+         * per il cliente e apre il menu Condividi (WhatsApp, Telegram, email…).
+         */
+        @JavascriptInterface
+        fun shareFile(name: String, mime: String, base64: String, text: String?) {
+            runOnUiThread {
+                try {
+                    val dir = File(cacheDir, "shared").apply { mkdirs() }
+                    val safe = name.replace(Regex("[^A-Za-z0-9._-]"), "_")
+                    val f = File(dir, safe)
+                    f.writeBytes(Base64.decode(base64, Base64.DEFAULT))
+                    val uri = FileProvider.getUriForFile(this@MainActivity, "$packageName.files", f)
+                    val send = Intent(Intent.ACTION_SEND).apply {
+                        type = mime
+                        putExtra(Intent.EXTRA_STREAM, uri)
+                        putExtra(Intent.EXTRA_SUBJECT, "Proposta fornitura luce")
+                        if (!text.isNullOrBlank()) putExtra(Intent.EXTRA_TEXT, text)
+                        clipData = ClipData.newRawUri(safe, uri)
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
+                    startActivity(Intent.createChooser(send, "Invia la proposta"))
+                } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "Non riesco a condividere il PDF: scaricalo e allegalo al messaggio", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     companion object {

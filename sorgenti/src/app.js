@@ -323,6 +323,7 @@ function renderRanking() {
     $("#excludedList").innerHTML = out.map(r => offerRow(r, 0, scale, null, null, canone)).join("");
   }
   renderVerdict(best, cur, ok, canone, judge);
+  renderProposta();
   $("#calcNote").textContent = "Mercato: " + (mult === 1 ? "futures del " + dataIt(S.market.forward.rilevatoAl) : (mult > 1 ? "+" : "−") + Math.round(Math.abs(mult - 1) * 100) + "% sui futures") + ". Tariffe di rete ARERA " + dataIt(S.market.regolato.validoDal) + ".";
 }
 
@@ -440,104 +441,563 @@ function renderVerdict(best, cur, ok, canone, judge) {
     '<div class="side">' + side + "</div></div>";
 }
 
-/* ---------- Proposta per il cliente (PDF) ---------- */
+/* ---------- Proposta per il cliente ----------
+   Scheda "Proposta": dati del promotore, due proposte (la migliore a prezzo fisso e,
+   quando ha senso per il caso, la migliore variabile), valutazione della convenienza,
+   messaggio pronto e PDF da allegare. Tutti i numeri vengono dalla stessa classifica
+   (S.lastRows): spesa dei prossimi 12 mesi, tutto compreso. */
 let jspdfPromise = null;
-function loadJsPdf() { if (!jspdfPromise) jspdfPromise = loadScript(ANDROID ? "vendor/jspdf.umd.min.js" : "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js").then(() => window.jspdf.jsPDF); return jspdfPromise; }
-function pdfSafe(s) { return String(s == null ? "" : s).replace(/\u2212/g, "-").replace(/\u2026/g, "...").replace(/[\u2013\u2014]/g, "-").replace(/\u00a0|\u202f/g, " ").replace(/[^\x20-\x7E\u00A0-\u00FF\u20AC\u2019\u201C\u201D\u2018]/g, ""); }
-function reportData() {
-  const u = U(), p = S.lastPick || {};
-  const ok = (p.ok || []).filter(r => !r.scaduta && !r.offer.attuale);
-  const top = ok.slice(0, 3);
-  const cons = S.user.consulente || {};
-  const sp = normSplit(u.split || {});
-  return { u, cur: p.cur, top, tips: p.tips || [], cons, sp, oggi: new Date().toLocaleDateString("it-IT") };
+function loadJsPdf() { if (!jspdfPromise) jspdfPromise = loadScript(ANDROID ? "vendor/jspdf.umd.min.js" : "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js").then(() => window.jspdf.jsPDF).catch(e => { jspdfPromise = null; throw e; }); return jspdfPromise; }
+function pdfSafe(s) { return String(s == null ? "" : s).replace(/−/g, "-").replace(/…/g, "...").replace(/[–—]/g, "-").replace(/ | /g, " ").replace(/[^\x20-\x7E -ÿ€’“”‘]/g, ""); }
+
+const CONS_STD = { nome: "Claudia Caria", ruolo: "Consulente energetica" };
+function consulente() {
+  const c = S.user.consulente || {};
+  return {
+    nome: c.nome || CONS_STD.nome,
+    ruolo: c.ruolo != null ? c.ruolo : CONS_STD.ruolo,
+    telefono: c.telefono || "", whatsapp: c.whatsapp || "", email: c.email || "", telegram: c.telegram || "",
+    altro: c.altro != null ? c.altro : (c.recapiti || "")          // "recapiti": vecchio campo unico
+  };
 }
-function reportPlain(d) {
-  const L = [];
-  L.push("PROPOSTA OFFERTA LUCE");
-  if (d.cons.nome) L.push("Preparata da " + d.cons.nome + (d.cons.recapiti ? " - " + d.cons.recapiti : ""));
-  L.push("Cliente: " + d.u.nome + " - " + d.oggi);
-  const anP = d.u.anagrafica || {};
-  if (anP.indirizzo || anP.pod) L.push("Fornitura: " + [anP.indirizzo, anP.pod && "POD " + anP.pod].filter(Boolean).join(" - "));
+/* Numero per i link di WhatsApp: solo cifre, con il prefisso internazionale (Italia se manca) */
+function telWa(s) {
+  let d = String(s || "").replace(/[^\d+]/g, "");
+  if (d.startsWith("+")) d = d.slice(1); else if (d.startsWith("00")) d = d.slice(2);
+  else if (/^[03]\d{7,10}$/.test(d)) d = "39" + d;
+  return d.length >= 8 ? d : "";
+}
+function pctIt(p) { return Math.round(Math.abs(p) * 100) + "%"; }
+function tipoT(o) { return o.tipo === "fisso" ? "prezzo fisso" : o.tipo === "indicizzato" ? "prezzo variabile" : "prezzo ARERA"; }
+function giorniA(iso) { return Math.round((Date.parse(iso + "T00:00:00Z") - Date.parse(todayISO() + "T00:00:00Z")) / 864e5); }
+function nomeCliente(u) { const an = u.anagrafica || {}; return an.intestatario || (u.esempio ? "" : u.nome) || ""; }
+
+/* Prezzo all'ingrosso (PUN) medio previsto nei prossimi 12 mesi, pesato sui consumi del cliente */
+function punPrevisto(mult, start) {
+  const prof = normProfile(U().profiloMensile);
+  let s = 0;
+  for (let i = 0; i < 12; i++) { const k = addMonths(start, i); s += punMonoFor(k, S.market, mult) * prof[+k.slice(5, 7) - 1]; }
+  return s;
+}
+/* A quale livello dei prezzi di borsa (moltiplicatore sui futures) la variabile costa quanto il fisso */
+function pareggioVar(row, target, ctx) {
+  const u = U();
+  const f = m => computeOffer(row.offer, u, S.market, { mult: m, start: ctx.start, canoneRai: ctx.canone }).totale - target;
+  let lo = 0.3, hi = 3;
+  if (f(lo) > 0) return { mai: true };
+  if (f(hi) < 0) return { sempre: true };
+  for (let i = 0; i < 40; i++) { const mid = (lo + hi) / 2; if (f(mid) > 0) hi = mid; else lo = mid; }
+  return { m: (lo + hi) / 2 };
+}
+
+/* Le due proposte per il cliente aperto e la loro valutazione */
+function propostaCtx() {
+  const u = U(), v = S.user.vista;
+  const mult = parseFloat(v.scenario) || 1, start = nextMonthKey(), canone = !!v.canone && u.residente !== false;
+  const rows = (S.lastRows || []).slice().sort((a, b) => a.calc.totale - b.calc.totale);
+  const valide = rows.filter(r => !r.esclusa.length && !r.scaduta && !r.offer.attuale);
+  const cur = rows.find(r => r.offer.attuale) || null;
+  const fissi = valide.filter(r => r.offer.tipo === "fisso");
+  const variabili = valide.filter(r => r.offer.tipo === "indicizzato");
+  const pr = u.proposta || {};
+  const pick = (list, id) => (id && list.find(r => r.offer.id === id)) || list[0] || null;
+  const fisso = pick(fissi, pr.fisso);
+  const varia = pick(variabili, pr.variabile);
+  const tot = valide.map(r => r.calc.totale).sort((a, b) => a - b);
+  const ctx = {
+    u, mult, start, canone, rows, valide, cur, fissi, variabili, fisso, varia,
+    mediana: tot.length ? tot[Math.floor(tot.length / 2)] : null,
+    judge: cur ? judgeCurrent(cur, valide) : null
+  };
+  // La variabile entra nella proposta quando è coerente con il caso:
+  // il cliente ha già un prezzo variabile, oppure la variabile costa meno del miglior fisso.
+  const curVar = !!(cur && cur.offer.tipo === "indicizzato");
+  const diff = varia && fisso ? varia.calc.totale - fisso.calc.totale : null;
+  if (!varia) { ctx.conVar = false; ctx.varAuto = true; ctx.motivoVar = "Non ci sono offerte a prezzo variabile attivabili con le condizioni di questo cliente."; }
+  else if (pr.conVariabile === true) { ctx.conVar = true; ctx.varAuto = false; ctx.motivoVar = "Hai aggiunto tu la proposta a prezzo variabile."; }
+  else if (pr.conVariabile === false) { ctx.conVar = false; ctx.varAuto = false; ctx.motivoVar = "Hai tolto tu la proposta a prezzo variabile."; }
+  else if (curVar) { ctx.conVar = true; ctx.varAuto = true; ctx.motivoVar = "Variabile inclusa perché il cliente ha già un prezzo variabile: così può confrontarla con il fisso."; }
+  else if (diff == null || diff < 0) { ctx.conVar = true; ctx.varAuto = true; ctx.motivoVar = "Variabile inclusa perché, con le previsioni di borsa, costa meno del miglior prezzo fisso."; }
+  else {
+    ctx.conVar = false; ctx.varAuto = true;
+    ctx.motivoVar = (cur ? "Il cliente ha un prezzo fisso e la" : "La") + " migliore variabile (" + varia.offer.fornitore + " " + varia.offer.nome + ") costerebbe " + euro(diff) + " in più del miglior fisso, con il rischio di aumenti: per questo non la propongo. Al suo posto c'è un secondo prezzo fisso di un altro fornitore.";
+  }
+  ctx.secondo = ctx.conVar ? varia : pick(fissi.filter(r => r !== fisso && (!fisso || r.offer.fornitore !== fisso.offer.fornitore)), pr.fisso2);
+  ctx.kindB = ctx.conVar ? "variabile" : "fisso2";
+  ctx.A = fisso ? valuta(fisso, ctx) : null;
+  ctx.B = ctx.secondo ? valuta(ctx.secondo, ctx) : null;
+  ctx.rec = raccomanda(ctx);
+  ctx.motivi = motiviValutazione(ctx);
+  return ctx;
+}
+function valuta(r, ctx) {
+  const o = r.offer, c = r.calc.totale;
+  const e = { r, o, costo: c, mese: c / 12, pos: ctx.valide.indexOf(r) + 1, di: ctx.valide.length };
+  e.prezzoMedio = r.calc.energia / Math.max(1, +ctx.u.kwhAnno || 0);
+  if (ctx.cur) { e.risparmio = ctx.cur.calc.totale - c; e.pct = e.risparmio / ctx.cur.calc.totale; }
+  if (ctx.mediana) { e.vsMedia = ctx.mediana - c; e.pctMedia = e.vsMedia / ctx.mediana; }
+  if (ctx.cur) {
+    const s = e.risparmio;
+    e.grado = s <= 0 ? { k: "bad", t: "Non conviene" }
+      : (s >= 100 || e.pct >= 0.10) ? { k: "good", t: "Convenienza alta" }
+      : (s >= 30 || e.pct >= 0.04) ? { k: "good", t: "Convenienza buona" }
+      : { k: "warn", t: "Risparmio minimo", poco: true };
+  } else {
+    const p = e.pctMedia || 0;
+    e.grado = (e.pos <= 3 && p >= 0.06) ? { k: "good", t: "Tra le migliori" }
+      : p >= 0.02 ? { k: "good", t: "Sotto la media" }
+      : p > -0.02 ? { k: "warn", t: "Nella media" }
+      : { k: "bad", t: "Sopra la media" };
+  }
+  if (o.tipo === "indicizzato") {
+    e.basso = r.basso; e.alto = r.alto;
+    if (ctx.fisso && ctx.fisso !== r) e.pareggio = pareggioVar(r, ctx.fisso.calc.totale, ctx);
+    if (ctx.cur) e.peggioreVsAttuale = ctx.cur.calc.totale - r.alto;
+  }
+  return e;
+}
+/* La proposta consigliata: la meno cara, ma se la variabile costa meno del 4% in meno
+   del fisso consiglio il fisso, che protegge dagli aumenti. */
+function raccomanda(ctx) {
+  const A = ctx.A, B = ctx.B, cands = [A, B].filter(Boolean);
+  if (!cands.length) return { k: "none" };
+  let rec = cands.reduce((m, x) => x.costo < m.costo ? x : m), perche = "costo";
+  if (A && B && rec === B && B.o.tipo === "indicizzato" && A.costo - B.costo < A.costo * 0.04 && (!ctx.cur || A.risparmio > 0)) { rec = A; perche = "tranquillita"; }
+  const out = { rec, perche, n: rec === A ? 1 : 2 };
+  if (ctx.cur) out.k = !(rec.risparmio > 0) ? "resta" : rec.grado.poco ? "poco" : "cambia";
+  else out.k = "nuovo";
+  return out;
+}
+function motiviValutazione(ctx) {
+  const R = [], rec = ctx.rec, u = ctx.u, A = ctx.A, B = ctx.B, cur = ctx.cur;
+  if (rec.k === "none") return R;
+  const e = rec.rec, o = e.o;
+  const nome = x => x.o.fornitore + " " + x.o.nome;
+  if (cur) {
+    const j = ctx.judge;
+    R.push({ t: j.conviene ? "ok" : "bad", s: "Oggi il cliente spende " + euro(cur.calc.totale) + " in 12 mesi con " + cur.offer.fornitore + " (" + tipoT(cur.offer) + "): la sua offerta è " + j.pos + "ª su " + j.di + " per convenienza" + (j.conviene ? ", già tra le migliori." : ".") });
+  } else if (ctx.mediana) {
+    R.push({ t: "info", s: "Non ho l'offerta attuale del cliente: confronto le proposte con un'offerta nella media del mercato (" + euro(ctx.mediana) + " in 12 mesi). Con la bolletta il confronto è più preciso." });
+  }
+  if (rec.k === "resta") {
+    R.push({ t: "ok", s: "Nessuna proposta costa meno dell'offerta attuale: al cliente conviene restare dov'è. La proposta più vicina, " + nome(e) + ", costerebbe " + euro(-e.risparmio) + " in più l'anno." });
+    if (cur.offer.tipo === "indicizzato" && A) R.push({ t: "info", s: "Se il cliente preferisce un prezzo che non cambia ogni mese, il fisso di " + A.o.fornitore + " costa " + (A.risparmio >= 0 ? euro(A.risparmio) + " in meno" : euro(-A.risparmio) + " in più") + " l'anno e lo protegge dagli aumenti." });
+  }
+  if (rec.k === "resta") {
+    if (u.potenzaKW > 3) R.push({ t: "info", s: "Con " + numIt(u.potenzaKW, 1) + " kW di potenza il cliente paga circa " + euro(S.market.regolato.trasporto.quotaPotenzaKWAnno * (u.potenzaKW - 3) * 1.1) + " l'anno in più rispetto a 3 kW: se il contatore non salta mai, si può valutare di ridurla." });
+    if (cur.offer.scadenza && cur.offer.scadenza >= todayISO()) R.push({ t: "info", s: "Il prezzo attuale è bloccato fino al " + dataIt(cur.offer.scadenza) + ": verso quella data conviene rifare il confronto." });
+    return R;
+  }
+  if (rec.perche === "tranquillita") R.push({ t: "ok", s: "La variabile costerebbe solo " + euro(A.costo - B.costo) + " in meno nell'anno: per pochi euro conviene il prezzo bloccato, che protegge dagli aumenti." });
+  if (o.tipo === "fisso") {
+    const pun = punPrevisto(ctx.mult, ctx.start), pz = e.prezzoMedio;
+    R.push({ t: "ok", s: "Prezzo bloccato per " + (o.durataMesi || 12) + " mesi a " + kwhPrice(pz) + " €/kWh" + (pz < pun ? ": è sotto il prezzo all'ingrosso che la borsa prevede per i prossimi 12 mesi (" + kwhPrice(pun) + " €/kWh), quindi bloccarlo oggi conviene." : "; la borsa prevede " + kwhPrice(pun) + " €/kWh all'ingrosso per i prossimi 12 mesi.") });
+  } else if (o.tipo === "indicizzato") {
+    R.push({ t: "warn", s: "Prezzo variabile: segue la borsa mese per mese. Nei prossimi 12 mesi la spesa può andare da " + euro(e.basso) + " a " + euro(e.alto) + "." });
+  }
+  const V = [A, B].find(x => x && x.o.tipo === "indicizzato");
+  if (V && V.pareggio) {
+    const p = V.pareggio, chi = "La variabile di " + V.o.fornitore;
+    if (p.mai) R.push({ t: "info", s: chi + " costa più del fisso anche se i prezzi di borsa scendessero molto." });
+    else if (p.sempre) R.push({ t: "info", s: chi + " costa meno del fisso anche se i prezzi di borsa salissero molto." });
+    else {
+      const d = Math.round((p.m - 1) * 100);
+      R.push({ t: "info", s: d >= 0 ? chi + " resta più conveniente del fisso finché i prezzi di borsa non superano di oltre il " + d + "% le previsioni." : chi + " diventa più conveniente del fisso solo se i prezzi di borsa scendono di almeno il " + (-d) + "% rispetto alle previsioni." });
+    }
+  }
+  if (V && cur && V.risparmio > 0 && V.peggioreVsAttuale < -20) R.push({ t: "warn", s: "Se il mercato salisse molto, con la variabile il cliente arriverebbe a spendere " + euro(-V.peggioreVsAttuale) + " più di oggi." });
+  if (o.validoFino) { const g = giorniA(o.validoFino); if (g >= 0 && g <= 14) R.push({ t: "warn", s: "Il prezzo di " + nome(e) + " vale per chi aderisce entro il " + dataIt(o.validoFino) + ": dopo quella data va ricontrollato." }); }
+  const req = o.requisiti || [];
+  const cond = [req.includes("domiciliazione") && "addebito automatico su conto corrente", req.includes("bolletta_web") && "bolletta via email", req.includes("online") && "attivazione online"].filter(Boolean);
+  if (cond.length) R.push({ t: "info", s: "Condizioni dell'offerta consigliata: " + cond.join(", ") + "." });
+  if (o.note && /recesso|penal/i.test(o.note)) R.push({ t: "warn", s: o.note });
+  if (o.bonusUnaTantum) R.push({ t: "info", s: "Il bonus di " + euro(o.bonusUnaTantum) + " vale solo il primo anno: dal secondo anno la spesa sale." });
+  if (u.vulnerabile) { const reg = ctx.valide.find(r => r.offer.tipo === "regolato"); if (reg && reg.calc.totale < e.costo) R.push({ t: "info", s: "Il cliente è vulnerabile: il servizio di tutela ARERA costerebbe " + euro(reg.calc.totale) + ", cioè " + euro(e.costo - reg.calc.totale) + " meno della proposta consigliata." }); }
+  if (cur && cur.offer.scadenza && cur.offer.scadenza >= todayISO() && rec.k !== "resta") R.push({ t: "info", s: "Il prezzo attuale è bloccato fino al " + dataIt(cur.offer.scadenza) + ". Per i clienti domestici cambiare fornitore è gratuito: controlla solo eventuali costi di recesso nel contratto attuale." });
+  if (u.potenzaKW > 3) R.push({ t: "info", s: "Con " + numIt(u.potenzaKW, 1) + " kW di potenza il cliente paga circa " + euro(S.market.regolato.trasporto.quotaPotenzaKWAnno * (u.potenzaKW - 3) * 1.1) + " l'anno in più rispetto a 3 kW: se il contatore non salta mai, si può valutare di ridurla." });
+  return R;
+}
+
+/* ---------- Disegno della scheda ---------- */
+function renderPromoter() {
+  const c = consulente();
+  $("#pmName").textContent = c.nome;
+  $("#pmRole").textContent = c.ruolo;
+  $("#pmRole").hidden = !c.ruolo;
+  const row = (t, v, ph) => "<dt>" + t + "</dt>" + (v ? "<dd>" + esc(v) + "</dd>" : '<dd class="missing">' + ph + "</dd>");
+  $("#pmContacts").innerHTML = row("Telefono", c.telefono, "da aggiungere") + row("WhatsApp", c.whatsapp || c.telefono, "da aggiungere") +
+    row("Email", c.email, "da aggiungere") + (c.telegram ? row("Telegram", c.telegram) : "") + (c.altro ? row("Altro", c.altro) : "");
+  const set = (id, v) => { const el = $("#" + id); if (document.activeElement !== el) el.value = v; };
+  const raw = S.user.consulente || {};
+  set("pcNome", raw.nome || c.nome); set("pcRuolo", c.ruolo); set("pcTel", c.telefono); set("pcWa", c.whatsapp);
+  set("pcEmail", c.email); set("pcTg", c.telegram); set("pcAltro", c.altro);
+}
+function renderProposta() {
+  if (!$("#sec-proposta")) return;
+  const ctx = propostaCtx();
+  S.prCtx = ctx;
+  renderPromoter();
+  const u = ctx.u, an = u.anagrafica || {};
+  const set = (id, v) => { const el = $("#" + id); if (document.activeElement !== el) el.value = v || ""; };
+  set("prEmail", an.email); set("prTel", an.telefono);
+  renderEval(ctx);
+  $("#prCards").innerHTML = cardProposta(ctx.A, 1, ctx, "fisso") + cardProposta(ctx.B, 2, ctx, ctx.kindB);
+  renderVarNote(ctx);
+  const tono = (u.proposta && u.proposta.tono) || "lei";
+  $$("#prTono button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === tono)));
+  $("#prSendFor").textContent = "Per " + (nomeCliente(u) || u.nome);
+  aggiornaMsg();
+  $("#btnPrShare").hidden = !canSharePdf();
+  $("#btnPrPdf").disabled = ctx.rec.k === "none";
+}
+function renderEval(ctx) {
+  const el = $("#prEval"), rec = ctx.rec;
+  if (rec.k === "none") { el.innerHTML = '<div class="callout warn">Non ci sono offerte valide da proporre a questo cliente con le sue condizioni. Controlla i dati in <em>Dati del cliente</em> o il catalogo delle offerte.</div>'; return; }
+  const e = rec.rec, o = e.o, cur = ctx.cur;
+  const cls = rec.k === "cambia" || rec.k === "nuovo" ? "is-ok" : "is-warn";
+  const badge = { cambia: "✓ Conviene cambiare", poco: "≈ Risparmio minimo", resta: "✗ Meglio restare", nuovo: "Proposta consigliata" }[rec.k];
+  let digits, unit, sub, head, text;
+  if (rec.k === "cambia" || rec.k === "poco") {
+    digits = e.risparmio; unit = "€ risparmiati in 12 mesi";
+    sub = "−" + pctIt(e.pct) + " sulla spesa · " + euro(e.risparmio / 12) + " al mese in meno";
+    head = rec.k === "cambia" ? "Consiglio la proposta " + rec.n : "Il risparmio è piccolo: valutalo con il cliente";
+    text = "Con " + esc(o.fornitore + " " + o.nome) + " (" + tipoT(o) + ") il cliente spenderebbe " + euro(e.costo) + " invece di " + euro(cur.calc.totale) + " nei prossimi 12 mesi, tutto compreso." +
+      (rec.k === "poco" ? " Con una differenza così piccola il cambio conviene solo se al cliente interessano anche le altre condizioni dell'offerta." : "");
+  } else if (rec.k === "resta") {
+    digits = cur.calc.totale; unit = "€ in 12 mesi con l'offerta attuale";
+    sub = euro(cur.calc.totale / 12) + " al mese · " + cent(cur.calc.cKWh) + " tutto compreso";
+    head = "L'offerta attuale del cliente conviene già";
+    text = "Nessuna delle due proposte costa meno di quello che il cliente paga oggi con " + esc(cur.offer.fornitore) + ". Puoi comunque inviargli il confronto: è un buon motivo per fidarsi di te.";
+  } else {
+    digits = e.costo; unit = "€ in 12 mesi";
+    sub = euro(e.mese) + " al mese · " + cent(e.r.calc.cKWh) + " tutto compreso";
+    head = "Consiglio la proposta " + rec.n;
+    text = esc(o.fornitore + " " + o.nome) + " (" + tipoT(o) + ") è " + e.pos + "ª su " + e.di + " offerte per questo cliente" + (e.vsMedia > 5 ? " e costa " + euro(e.vsMedia) + " meno di un'offerta nella media." : ".");
+  }
+  const fact = (t, v) => "<div><dt>" + t + "</dt><dd>" + v + "</dd></div>";
+  const facts = rec.k === "resta"
+    ? fact("Consiglio", "Restare con l'offerta attuale") + fact("Prezzo energia attuale", esc(prezzoTesto(cur.offer))) +
+      fact("Quota fissa attuale", euro2(+cur.offer.quotaFissaMese || 0) + " al mese") + fact("Posizione", ctx.judge.pos + "ª su " + ctx.judge.di + " offerte") +
+      fact("Proposta più vicina", esc(o.fornitore) + " · " + euro(e.costo))
+    : fact("Proposta consigliata", "N. " + rec.n + " · " + tipoT(o)) +
+      fact("Prezzo energia", esc(prezzoTesto(o))) + fact("Quota fissa", euro2(+o.quotaFissaMese || 0) + " al mese") +
+      fact("Posizione", e.pos + "ª su " + e.di + " offerte") + (o.validoFino ? fact("Prezzo valido fino al", dataIt(o.validoFino)) : "");
+  el.innerHTML = '<section class="current ' + cls + '" aria-label="Valutazione della convenienza">' +
+    '<div class="cur-band"><span>Valutazione della convenienza</span><span class="cur-badge">' + badge + "</span></div>" +
+    '<div class="cur-main"><div><div class="cur-who">' + esc(rec.k === "resta" ? cur.offer.fornitore : o.fornitore) + "<small>" + esc(rec.k === "resta" ? (cur.offer.nome + " · offerta attuale") : (o.nome + " · " + tipoT(o))) + "</small></div>" +
+    '<div class="cur-digits">' + Math.round(Math.abs(digits)).toLocaleString("it-IT") + '<span class="u">' + unit + "</span></div>" +
+    '<div class="cur-sub">' + sub + "</div></div>" +
+    '<div class="cur-verdict"><strong>' + head + "</strong><p>" + text + "</p></div></div>" +
+    '<dl class="cur-facts">' + facts + "</dl>" +
+    '<div class="cur-why"><div class="eyebrow">Perché</div><ul class="notes">' + ctx.motivi.map(x => '<li class="' + x.t + '">' + esc(x.s) + "</li>").join("") + "</ul></div></section>";
+}
+function cardProposta(e, n, ctx, kind) {
+  const lab = kind === "variabile" ? "Prezzo variabile" : kind === "fisso" ? "Prezzo fisso" : "Alternativa a prezzo fisso";
+  if (!e) return '<article class="prop"><div class="prop-head"><span class="eyebrow">Proposta ' + n + " · " + lab + '</span></div><div class="prop-body"><p class="muted small">' + (kind === "fisso" ? "Nessuna offerta a prezzo fisso attivabile per questo cliente." : "Nessuna seconda proposta disponibile con le condizioni di questo cliente.") + "</p></div></article>";
+  const o = e.o, isRec = ctx.rec.rec === e && ctx.rec.k !== "resta";
+  const list = kind === "variabile" ? ctx.variabili : kind === "fisso" ? ctx.fissi : ctx.fissi.filter(r => r !== ctx.fisso);
+  const opts = list.map((r, i) => '<option value="' + esc(r.offer.id) + '"' + (r === e.r ? " selected" : "") + ">" + esc(r.offer.fornitore + " · " + r.offer.nome + " · " + euro(r.calc.totale)) + (i === 0 ? " · la più conveniente" : "") + "</option>").join("");
+  let save = "";
+  if (ctx.cur) save = e.risparmio > 0 ? '<div class="prop-save down">Risparmio ' + euro(e.risparmio) + " l'anno (−" + pctIt(e.pct) + ")</div>" : '<div class="prop-save up">Costa ' + euro(-e.risparmio) + " l'anno più dell'offerta attuale</div>";
+  else if (e.vsMedia != null) save = '<div class="prop-save ' + (e.vsMedia >= 0 ? "down" : "up") + '">' + (e.vsMedia >= 0 ? euro(e.vsMedia) + " meno" : euro(-e.vsMedia) + " più") + " di un'offerta media</div>";
+  const dd = (t, v) => "<dt>" + t + "</dt><dd>" + v + "</dd>";
+  const dl = dd("Prezzo energia", esc(prezzoTesto(o))) + dd("Quota fissa", euro2(+o.quotaFissaMese || 0) + "/mese") +
+    (o.tipo === "fisso" ? dd("Prezzo bloccato", (o.durataMesi || 12) + " mesi") : dd("Spesa possibile", euro(e.basso) + " – " + euro(e.alto))) +
+    dd("Posizione", e.pos + "ª su " + e.di) + (o.validoFino ? dd("Adesioni entro il", dataIt(o.validoFino)) : "");
+  const notes = consumerNotes(e.r, null, ctx.u).filter(x => x.t !== "ok" && !/^Prezzo variabile ogni mese/.test(x.s)).slice(0, 4);
+  return '<article class="prop' + (isRec ? " is-rec" : "") + '">' +
+    '<div class="prop-head"><span class="eyebrow">Proposta ' + n + " · " + lab + '</span><span class="row" style="gap:6px">' + (isRec ? '<span class="rec-flag">Consigliata</span>' : "") + '<span class="grade ' + e.grado.k + '">' + e.grado.t + "</span></span></div>" +
+    '<div class="prop-body"><div><div class="o-name">' + esc(o.fornitore) + '</div><div class="o-sup">' + esc(o.nome) + "</div></div>" +
+    '<div><div class="prop-cost">' + Math.round(e.costo).toLocaleString("it-IT") + '<span class="u">€ in 12 mesi</span></div><div class="prop-per">' + euro(e.mese) + " al mese · " + cent(e.r.calc.cKWh) + " tutto compreso</div></div>" +
+    save + "<dl>" + dl + "</dl>" +
+    (notes.length ? '<ul class="notes small">' + notes.map(x => '<li class="' + x.t + '">' + esc(x.s) + "</li>").join("") + "</ul>" : "") +
+    (list.length > 1 ? '<label class="fld" for="prSel' + n + '">Cambia offerta<select id="prSel' + n + '" data-kind="' + kind + '">' + opts + "</select></label>" : "") +
+    "</div></article>";
+}
+function renderVarNote(ctx) {
+  const el = $("#prVarNote");
+  if (!ctx.varia) { el.innerHTML = ""; return; }
+  let btn = "";
+  if (!ctx.conVar) btn = '<button class="btn small" type="button" data-var="si">Proponi comunque la variabile</button>';
+  else if (ctx.varAuto) btn = '<button class="btn small" type="button" data-var="no">Togli la variabile</button>';
+  if (!ctx.varAuto) btn += '<button class="btn small" type="button" data-var="auto">Lascia scegliere all\'app</button>';
+  el.innerHTML = '<div class="callout row"><span class="grow small">' + esc(ctx.motivoVar) + "</span>" + btn + "</div>";
+}
+
+/* ---------- Messaggio per il cliente ---------- */
+function oggettoEmail() { const u = U(); return "Proposta fornitura luce" + (nomeCliente(u) ? " – " + nomeCliente(u) : ""); }
+function messaggioCliente(ctx, tono) {
+  const u = ctx.u, c = consulente(), tu = tono === "tu", rec = ctx.rec, cur = ctx.cur;
+  const nc = nomeCliente(u), L = [];
+  L.push(tu ? "Ciao" + (nc ? " " + nc.split(" ")[0] : "") + "," : "Gentile" + (nc ? " " + nc : " cliente") + ",");
+  L.push(tu ? "come promesso ti mando la proposta per la luce, calcolata sui tuoi consumi (" + numIt(u.kwhAnno) + " kWh l'anno)."
+    : "come d'accordo le invio la proposta per la fornitura di luce, calcolata sui suoi consumi (" + numIt(u.kwhAnno) + " kWh l'anno).");
+  if (cur) L.push((tu ? "Oggi con " + cur.offer.fornitore + " spendi" : "Oggi con " + cur.offer.fornitore + " spende") + " circa " + euro(cur.calc.totale) + " l'anno, tutto compreso.");
   L.push("");
-  L.push("CONSUMI: " + numIt(d.u.kwhAnno) + " kWh l'anno, " + numIt(d.u.potenzaKW, 1) + " kW, " + (d.u.residente !== false ? "abitazione di residenza" : "seconda casa") + ". Fasce: F1 " + Math.round(d.sp.f1 * 100) + "%, F2 " + Math.round(d.sp.f2 * 100) + "%, F3 " + Math.round(d.sp.f3 * 100) + "%.");
-  if (d.cur) L.push("OFFERTA ATTUALE: " + d.cur.offer.fornitore + " " + d.cur.offer.nome + ": spesa stimata " + euro(d.cur.calc.totale) + " in 12 mesi.");
-  L.push("", "LE OFFERTE PIÙ CONVENIENTI");
-  d.top.forEach((r, i) => {
-    L.push((i + 1) + ". " + r.offer.fornitore + " - " + r.offer.nome + " (" + (r.offer.tipo === "fisso" ? "prezzo fisso" : "prezzo variabile") + ")");
-    L.push("   " + prezzoTesto(r.offer) + ", quota fissa " + euro2(+r.offer.quotaFissaMese || 0) + "/mese");
-    L.push("   Spesa stimata 12 mesi: " + euro(r.calc.totale) + " (" + euro(r.calc.totale / 12) + " al mese)" + (d.cur ? ", risparmio " + euro(d.cur.calc.totale - r.calc.totale) + " l'anno" : ""));
-    consumerNotes(r, null, d.u).slice(0, 3).forEach(n => L.push("   - " + n.s));
+  [[ctx.A, 1], [ctx.B, 2]].forEach(([e, n]) => {
+    if (!e) return;
+    let s = n + ") " + (e.o.tipo === "fisso" ? "Prezzo fisso" : "Prezzo variabile") + ": " + e.o.fornitore + " " + e.o.nome + ", circa " + euro(e.costo) + " in 12 mesi (" + euro(e.mese) + " al mese)";
+    if (cur && e.risparmio > 0) s += ", " + (tu ? "risparmi" : "risparmio stimato") + " " + euro(e.risparmio) + " l'anno";
+    if (e.o.tipo === "indicizzato") s += "; il prezzo segue il mercato, quindi la spesa può andare da " + euro(e.basso) + " a " + euro(e.alto);
+    else s += "; prezzo bloccato per " + (e.o.durataMesi || 12) + " mesi";
+    L.push(s + ".");
   });
-  if (d.tips.length) { L.push("", "IL CONSIGLIO"); d.tips.forEach(t => L.push("- " + t.s)); }
-  L.push("", "MERCATO: " + (S.market.notaMercato || "") + " Dati aggiornati al " + dataIt(S.market.updatedAt) + ".");
-  L.push("", "Stima su 12 mesi comprensiva di energia, perdite di rete, dispacciamento, quota fissa, trasporto, oneri, accise e IVA. Per le offerte variabili il prezzo futuro viene dai futures di borsa ed è una previsione. Prima di firmare verificare la scheda sintetica sul sito del fornitore. Cambiare fornitore è gratuito e la disdetta la fa il nuovo fornitore.");
+  L.push("");
+  if (rec.k === "resta") L.push(tu ? "La tua offerta attuale è già conveniente: per ora ti consiglio di restare così. Ti avviso io quando trovo di meglio."
+    : "La sua offerta attuale è già conveniente: per ora le consiglio di restare così. La avviserò quando ci sarà di meglio.");
+  else if (rec.k !== "none") {
+    const why = rec.rec.o.tipo === "fisso"
+      ? (rec.perche === "tranquillita" ? "perché per pochi euro di differenza il prezzo resta bloccato e non ci sono sorprese" : "perché costa meno e il prezzo resta bloccato")
+      : "perché con le previsioni di mercato costa meno, anche se il prezzo cambia ogni mese";
+    L.push((tu ? "Il mio consiglio è la proposta " : "Il mio consiglio è la proposta ") + rec.n + ", " + why + ".");
+  }
+  L.push(tu ? "Trovi tutti i dettagli nel PDF allegato. Cambiare è gratuito, la luce non si interrompe e alla disdetta pensa il nuovo fornitore."
+    : "Trova tutti i dettagli nel PDF allegato. Cambiare è gratuito, la luce non si interrompe e alla disdetta pensa il nuovo fornitore.");
+  const tel = c.telefono || c.whatsapp;
+  if (tel) L.push((tu ? "Per attivarla o per qualsiasi domanda chiamami o scrivimi al " : "Per attivarla o per qualsiasi domanda può chiamarmi o scrivermi al ") + tel + " (anche su WhatsApp).");
+  else if (c.email) L.push((tu ? "Per attivarla o per qualsiasi domanda scrivimi a " : "Per attivarla o per qualsiasi domanda può scrivermi a ") + c.email + ".");
+  L.push("", tu ? "A presto," : "Cordiali saluti,", c.nome);
+  if (c.ruolo) L.push(c.ruolo);
+  const rec2 = [c.telefono && "Tel. " + c.telefono, c.whatsapp && c.whatsapp !== c.telefono && "WhatsApp " + c.whatsapp, c.email, c.telegram && "Telegram " + c.telegram].filter(Boolean);
+  if (rec2.length) L.push(rec2.join(" · "));
   return L.join("\n");
 }
-async function makeReport() {
-  const dl = S.caps.downloads; if (!dl) return;
-  const d = reportData();
-  if (!d.top.length) { toast("Non ci sono offerte valide da proporre con questi filtri."); return; }
-  const btn = $("#btnReport"); btn.disabled = true;
-  const fname = "proposta-luce-" + (d.u.nome || "cliente").toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+function aggiornaMsg() {
+  const u = U(), ctx = S.prCtx; if (!ctx) return;
+  const pr = u.proposta || {}, el = $("#prMsg");
+  if (!pr.msg && document.activeElement !== el) el.value = ctx.rec.k === "none" ? "" : messaggioCliente(ctx, pr.tono || "lei");
+  else if (pr.msg && document.activeElement !== el) el.value = pr.msg;
+  $("#prMsgHint").textContent = pr.msg ? "Hai modificato il testo a mano: se cambi le proposte, premi «Riscrivi il messaggio» per aggiornare i numeri." : "Il testo si aggiorna da solo con le proposte. Puoi correggerlo prima di inviarlo.";
+  renderLinks();
+}
+function renderLinks() {
+  const u = U(), an = u.anagrafica || {}, msg = $("#prMsg").value, subj = oggettoEmail();
+  const wa = telWa(an.telefono), mail = String(an.email || "").replace(/\s/g, "");
+  const L = [
+    ["WhatsApp", "https://wa.me/" + wa + "?text=" + encodeURIComponent(msg), "Apre WhatsApp con il messaggio già scritto" + (wa ? "" : ": scegli tu il contatto")],
+    ["Telegram", "https://t.me/share/url?url=" + encodeURIComponent(msg), "Apre Telegram con il messaggio già scritto: scegli tu il contatto"],
+    ["Email", "mailto:" + mail + "?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(msg), "Apre il programma di posta del dispositivo"],
+    ["Gmail", "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(mail) + "&su=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(msg), "Apre Gmail nel browser"]
+  ];
+  $("#prLinks").innerHTML = '<span class="small muted">Invia con</span>' + L.map(([t, h, tt]) => '<a class="btn" href="' + esc(h) + '" target="_blank" rel="noopener" title="' + esc(tt) + '">' + t + "</a>").join("");
+  $("#prSendNote").textContent = (mail || wa ? "" : "Aggiungi email o cellulare del cliente per aprire il messaggio già indirizzato. ") +
+    "Il PDF va allegato al messaggio: prima scaricalo con «Scarica la proposta», poi aggiungilo nella chat o nell'email" + (canSharePdf() ? ", oppure usa «Condividi il PDF» per allegarlo direttamente." : ".");
+}
+
+/* ---------- PDF della proposta ---------- */
+function canSharePdf() {
+  if (ANDROID && window.ClaudiaAndroid && typeof window.ClaudiaAndroid.shareFile === "function") return "android";
+  if (!window.claude && navigator.canShare && typeof File !== "undefined") {
+    try { if (navigator.canShare({ files: [new File(["x"], "x.pdf", { type: "application/pdf" })] })) return "web"; } catch (e) { /* non disponibile */ }
+  }
+  return null;
+}
+function nomeFilePdf(u) { return "proposta-luce-" + ((nomeCliente(u) || u.nome || "cliente").toLowerCase().normalize("NFD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "cliente"); }
+async function buildPdf(ctx) {
+  if (ctx.rec.k === "none") { toast("Non ci sono offerte valide da proporre a questo cliente."); return null; }
+  const JsPDF = await loadJsPdf();
+  const doc = new JsPDF({ unit: "mm", format: "a4" });
+  const u = ctx.u, an = u.anagrafica || {}, c = consulente(), cur = ctx.cur, rec = ctx.rec;
+  const M = 16, W = 210 - 2 * M, BOT = 278;
+  let y = 20;
+  const INK = [19, 33, 43], SOFT = [84, 98, 110], ACC = [11, 92, 173], GOOD = [29, 122, 76], BAD = [178, 58, 46], WARN = [154, 91, 0], LINE = [212, 219, 224];
+  const font = (size, bold, color) => { doc.setFont("helvetica", bold ? "bold" : "normal"); doc.setFontSize(size); doc.setTextColor.apply(doc, color || INK); };
+  const LH = size => size * 0.42;
+  const need = h => { if (y + h > BOT) { doc.addPage(); y = 20; } };
+  const text = (t, size, opt) => {
+    opt = opt || {}; font(size, opt.bold, opt.color);
+    const lines = doc.splitTextToSize(pdfSafe(t), opt.w || W);
+    need(lines.length * LH(size));
+    doc.text(lines, opt.x || M, y); y += lines.length * LH(size) + (opt.gap == null ? 1.5 : opt.gap);
+  };
+  const titolo = t => { need(14); y += 2; font(8.5, true, ACC); doc.text(pdfSafe(t.toUpperCase()), M, y); y += 2; doc.setDrawColor.apply(doc, LINE); doc.line(M, y, M + W, y); y += 4.5; };
+  const bullet = (t, size, color) => {
+    font(size, false, color || INK);
+    const lines = doc.splitTextToSize(pdfSafe(t), W - 5); need(lines.length * LH(size));
+    doc.text("-", M + 1, y); doc.text(lines, M + 5, y); y += lines.length * LH(size) + 1.2;
+  };
+
+  // Intestazione: titolo a sinistra, promotore a destra (ben in vista)
+  const xR = M + W, colL = W - 74;
+  let yR = y - 1;
+  font(13, true, INK); doc.text(pdfSafe(c.nome), xR, yR, { align: "right" }); yR += 5;
+  if (c.ruolo) { font(9, false, SOFT); doc.text(pdfSafe(c.ruolo), xR, yR, { align: "right" }); yR += 5; }
+  [c.telefono && "Tel. " + c.telefono, (c.whatsapp || c.telefono) && "WhatsApp " + (c.whatsapp || c.telefono), c.email, c.telegram && "Telegram " + c.telegram, c.altro].filter(Boolean)
+    .forEach(s => { font(9.5, true, ACC); doc.text(pdfSafe(s), xR, yR, { align: "right" }); yR += 4.6; });
+  font(8.5, true, ACC); doc.text("CLAUDIA LUCE · CONSULENZA ENERGETICA", M, y);
+  y += 8;
+  text("Proposta fornitura luce", 21, { bold: true, w: colL, gap: 2 });
+  text("Per " + (nomeCliente(u) || u.nome) + (u.esempio ? " (dati di esempio)" : ""), 12, { bold: true, w: colL, gap: 1 });
+  text("Preparata il " + new Date().toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" }), 9, { color: SOFT, w: colL, gap: 1 });
+  y = Math.max(y, yR) + 3;
+  doc.setDrawColor.apply(doc, LINE); doc.setLineWidth(0.4); doc.line(M, y, M + W, y); y += 7;
+
+  // Fornitura e situazione di oggi
+  const sp = normSplit(u.split || {});
+  if (an.indirizzo || an.pod) text("Fornitura: " + [an.indirizzo, an.pod && "POD " + an.pod].filter(Boolean).join(" · "), 9.5, { color: SOFT, gap: 1 });
+  text("Consumi considerati: " + numIt(u.kwhAnno) + " kWh l'anno · potenza " + numIt(u.potenzaKW, 1) + " kW · " + (u.residente !== false ? "abitazione di residenza" : "seconda casa") + " · fasce F1 " + Math.round(sp.f1 * 100) + "%, F2 " + Math.round(sp.f2 * 100) + "%, F3 " + Math.round(sp.f3 * 100) + "%", 9.5, { color: SOFT, gap: 2 });
+  if (cur) text("Oggi: " + cur.offer.fornitore + (cur.offer.nome && cur.offer.nome !== "Offerta attuale" ? " " + cur.offer.nome : "") + " (" + tipoT(cur.offer) + "), spesa stimata " + euro(cur.calc.totale) + " nei prossimi 12 mesi.", 10.5, { bold: true, gap: 2 });
+
+  // Le due proposte, affiancate
+  titolo("Le proposte");
+  const props = [[ctx.A, 1, "Prezzo fisso"], [ctx.B, 2, ctx.kindB === "variabile" ? "Prezzo variabile" : "Alternativa a prezzo fisso"]].filter(p => p[0]);
+  const gapC = 6, bw = props.length > 1 ? (W - gapC) / 2 : W, pad = 4;
+  const boxLines = ([e, n, lab]) => {
+    const o = e.o, isRec = rec.rec === e && rec.k !== "resta", L = [];
+    const add = (t, size, bold, color, gap) => { font(size, bold); doc.splitTextToSize(pdfSafe(t), bw - 2 * pad).forEach((ln, i, a) => L.push({ t: ln, size, bold, color, gap: i === a.length - 1 ? (gap || 0) : 0 })); };
+    add(("Proposta " + n + " · " + lab).toUpperCase() + (isRec ? "  ·  CONSIGLIATA" : ""), 8, true, isRec ? GOOD : ACC, 2.5);
+    add(o.fornitore, 13, true, INK, 0.5);
+    add(o.nome, 10, false, SOFT, 3);
+    add(euro(e.costo) + " in 12 mesi", 17, true, INK, 1);
+    add(euro(e.mese) + " al mese · " + cent(e.r.calc.cKWh) + " tutto compreso", 8.5, false, SOFT, 2);
+    if (cur) add(e.risparmio > 0 ? "Risparmio " + euro(e.risparmio) + " l'anno (-" + pctIt(e.pct) + ")" : "Costa " + euro(-e.risparmio) + " l'anno più di oggi", 10.5, true, e.risparmio > 0 ? GOOD : BAD, 2.5);
+    else if (e.vsMedia != null) add((e.vsMedia >= 0 ? euro(e.vsMedia) + " meno" : euro(-e.vsMedia) + " più") + " di un'offerta nella media", 10, true, e.vsMedia >= 0 ? GOOD : BAD, 2.5);
+    add("Valutazione: " + e.grado.t, 9, true, e.grado.k === "good" ? GOOD : e.grado.k === "warn" ? WARN : BAD, 2.5);
+    add("Prezzo energia: " + prezzoTesto(o), 8.5, false, INK, 1);
+    add("Quota fissa: " + euro2(+o.quotaFissaMese || 0) + " al mese", 8.5, false, INK, 1);
+    if (o.tipo === "fisso") add("Prezzo bloccato per " + (o.durataMesi || 12) + " mesi", 8.5, false, INK, 1);
+    else add("Il prezzo segue la borsa: in 12 mesi la spesa può andare da " + euro(e.basso) + " a " + euro(e.alto), 8.5, false, INK, 1);
+    if (o.validoFino) add("Prezzo valido per adesioni entro il " + dataIt(o.validoFino), 8.5, false, SOFT, 1);
+    return { L, isRec };
+  };
+  const boxes = props.map(boxLines);
+  const hBox = Math.max(...boxes.map(b => b.L.reduce((s, l) => s + LH(l.size) + l.gap, 0))) + 6.5;
+  need(hBox + 2);
+  boxes.forEach((b, i) => {
+    const x = M + i * (bw + gapC);
+    if (b.isRec) { doc.setFillColor(230, 244, 236); doc.setDrawColor.apply(doc, GOOD); doc.setLineWidth(0.6); doc.roundedRect(x, y - 2, bw, hBox, 2.5, 2.5, "FD"); }
+    else { doc.setFillColor(245, 247, 248); doc.setDrawColor.apply(doc, LINE); doc.setLineWidth(0.3); doc.roundedRect(x, y - 2, bw, hBox, 2.5, 2.5, "FD"); }
+    let yy = y + pad + 1;
+    b.L.forEach(l => { font(l.size, l.bold, l.color); doc.text(l.t, x + pad, yy); yy += LH(l.size) + l.gap; });
+  });
+  y += hBox + 4;
+
+  // La valutazione
+  titolo("La nostra valutazione");
+  const e = rec.rec;
+  const head = rec.k === "resta" ? "L'offerta attuale è già conveniente: oggi non conviene cambiare."
+    : rec.k === "poco" ? "Consigliata la proposta " + rec.n + " (" + e.o.fornitore + "), ma il risparmio è piccolo: " + euro(e.risparmio) + " l'anno."
+    : rec.k === "cambia" ? "Consigliata la proposta " + rec.n + " (" + e.o.fornitore + "): risparmio stimato " + euro(e.risparmio) + " l'anno, " + euro(e.risparmio / 12) + " al mese."
+    : "Consigliata la proposta " + rec.n + " (" + e.o.fornitore + " " + e.o.nome + "): " + euro(e.costo) + " in 12 mesi.";
+  text(head, 11.5, { bold: true, color: rec.k === "cambia" || rec.k === "nuovo" ? GOOD : WARN, gap: 2.5 });
+  ctx.motivi.forEach(m => bullet(m.s, 9));
+
+  // Cosa sapere sulle proposte
+  const noteP = props.map(([pe, n]) => consumerNotes(pe.r, null, u).filter(x => x.t !== "ok" && !/^Prezzo variabile ogni mese/.test(x.s)).slice(0, 3).map(x => "Proposta " + n + ": " + x.s)).flat();
+  if (noteP.length) { titolo("Da sapere"); noteP.forEach(s => bullet(s, 9)); }
+
+  // Come si attiva
+  titolo("Come si attiva");
+  ["Servono un documento d'identità, il codice fiscale e il codice POD" + (an.pod ? " (" + an.pod + ")" : ", che si trova in bolletta") + ". Per l'addebito automatico serve anche l'IBAN.",
+   "Il cambio è gratuito, la luce non si interrompe e alla disdetta con il vecchio fornitore pensa il nuovo.",
+   "Prima di firmare si legge insieme la scheda sintetica dell'offerta, con prezzi e condizioni ufficiali.",
+   "Per attivare la proposta o per qualsiasi domanda: " + [c.nome, c.telefono && "tel. " + c.telefono, c.email].filter(Boolean).join(", ") + "."].forEach(s => bullet(s, 9));
+
+  // Mercato e metodo, in piccolo in fondo
+  y += 3;
+  const pc = S.market.pun.meseCorrente || S.market.pun.storico[S.market.pun.storico.length - 1];
+  text("Prezzo all'ingrosso dell'energia (PUN) di " + MESI_LUNGHI[+pc.mese.slice(5, 7) - 1] + ": " + kwhPrice(pc.mono, 3) + " €/kWh. La borsa prevede in media " + kwhPrice(punPrevisto(ctx.mult, ctx.start), 3) + " €/kWh nei prossimi 12 mesi (futures del " + dataIt(S.market.forward.rilevatoAl) + ")." +
+    (ctx.mult !== 1 ? " Calcolo fatto con lo scenario: prezzi " + (ctx.mult > 1 ? "in salita del " : "in discesa del ") + Math.round(Math.abs(ctx.mult - 1) * 100) + "%." : ""), 7.5, { color: SOFT, gap: 1 });
+  text("Le cifre sono la spesa stimata dei prossimi 12 mesi e comprendono energia, perdite di rete, dispacciamento, quota fissa, trasporto, oneri di sistema, accise e IVA" + (ctx.canone ? ", più il canone RAI" : "") + ". Per le offerte variabili il prezzo futuro viene dai futures di borsa ed è una previsione, non una certezza. Dati di mercato aggiornati al " + dataIt(S.market.updatedAt) + ".", 7.5, { color: SOFT });
+
+  // Piè di pagina con i contatti del promotore su ogni pagina
+  const n = doc.getNumberOfPages();
+  const piede = [c.nome, c.telefono && "Tel. " + c.telefono, c.email].filter(Boolean).join(" · ");
+  for (let i = 1; i <= n; i++) {
+    doc.setPage(i); doc.setDrawColor.apply(doc, LINE); doc.setLineWidth(0.3); doc.line(M, 287, M + W, 287);
+    font(8, false, SOFT); doc.text(pdfSafe(piede), M, 291); doc.text("Pagina " + i + " di " + n, M + W, 291, { align: "right" });
+  }
+  return { blob: doc.output("blob"), fname: nomeFilePdf(u) + ".pdf" };
+}
+function propostaTesto(ctx) {
+  const c = consulente(), u = ctx.u, an = u.anagrafica || {};
+  const L = ["PROPOSTA FORNITURA LUCE", "Preparata da " + [c.nome, c.ruolo, c.telefono && "tel. " + c.telefono, c.email].filter(Boolean).join(" - "), "Per " + (nomeCliente(u) || u.nome) + " - " + new Date().toLocaleDateString("it-IT")];
+  if (an.indirizzo || an.pod) L.push("Fornitura: " + [an.indirizzo, an.pod && "POD " + an.pod].filter(Boolean).join(" - "));
+  L.push("", messaggioCliente(ctx, (u.proposta && u.proposta.tono) || "lei"), "", "VALUTAZIONE");
+  ctx.motivi.forEach(m => L.push("- " + m.s));
+  L.push("", "Stima su 12 mesi comprensiva di energia, perdite di rete, dispacciamento, quota fissa, trasporto, oneri, accise e IVA. Dati di mercato aggiornati al " + dataIt(S.market.updatedAt) + ".");
+  return L.join("\n");
+}
+async function scaricaPdf() {
+  const dl = S.caps.downloads;
+  if (!dl) { toast("Il salvataggio dei file non è disponibile in questa vista."); return; }
+  const ctx = S.prCtx || propostaCtx();
+  const btn = $("#btnPrPdf"); btn.disabled = true;
+  let r = null;
   try {
-    const JsPDF = await loadJsPdf();
-    const doc = new JsPDF({ unit: "mm", format: "a4" });
-    const M = 18, W = 210 - 2 * M; let y = 20;
-    const ink = [19, 33, 43], soft = [90, 104, 116], acc = [11, 92, 173], good = [29, 122, 76];
-    const need = h => { if (y + h > 280) { doc.addPage(); y = 20; } };
-    const text = (t, size, opt) => { opt = opt || {}; doc.setFont("helvetica", opt.bold ? "bold" : "normal"); doc.setFontSize(size); doc.setTextColor.apply(doc, opt.color || ink); const lines = doc.splitTextToSize(pdfSafe(t), opt.w || W); need(lines.length * size * 0.42 + 1); doc.text(lines, opt.x || M, y); y += lines.length * size * 0.42 + (opt.gap == null ? 2 : opt.gap); };
-    text("Claudia Luce", 10, { bold: true, color: acc, gap: 6 });
-    text("Proposta offerta luce", 20, { bold: true, gap: 3 });
-    if (d.cons.nome) text("Preparata da " + d.cons.nome + (d.cons.recapiti ? " · " + d.cons.recapiti : ""), 10, { color: soft, gap: 1 });
-    const anP = d.u.anagrafica || {};
-    text("Per " + d.u.nome + " · " + d.oggi, 10, { color: soft, gap: anP.indirizzo || anP.pod ? 1 : 2 });
-    if (anP.indirizzo || anP.pod) text("Fornitura: " + [anP.indirizzo, anP.pod && "POD " + anP.pod].filter(Boolean).join(" · "), 10, { color: soft, gap: 2 });
-    doc.setDrawColor(212, 219, 224); doc.line(M, y, M + W, y); y += 8;
-    text("I consumi considerati", 12, { bold: true });
-    text(numIt(d.u.kwhAnno) + " kWh l'anno · potenza " + numIt(d.u.potenzaKW, 1) + " kW · " + (d.u.residente !== false ? "abitazione di residenza" : "seconda casa") + " · fasce F1 " + Math.round(d.sp.f1 * 100) + "%, F2 " + Math.round(d.sp.f2 * 100) + "%, F3 " + Math.round(d.sp.f3 * 100) + "%", 10, { gap: 2 });
-    if (d.cur) text("Offerta attuale: " + d.cur.offer.fornitore + " " + d.cur.offer.nome + ". Spesa stimata nei prossimi 12 mesi: " + euro(d.cur.calc.totale) + ".", 10, { gap: 2 });
-    y += 3;
-    text("Le offerte più convenienti", 12, { bold: true, gap: 3 });
-    d.top.forEach((r, i) => {
-      need(34);
-      const o = r.offer;
-      doc.setFillColor(i === 0 ? 222 : 245, i === 0 ? 240 : 247, i === 0 ? 229 : 248); doc.roundedRect(M, y - 5, W, 15, 2, 2, "F");
-      doc.setFont("helvetica", "bold"); doc.setFontSize(12); doc.setTextColor.apply(doc, ink);
-      doc.text(pdfSafe((i + 1) + ". " + o.fornitore + " · " + o.nome), M + 3, y);
-      doc.setFontSize(14); doc.text(pdfSafe(euro(r.calc.totale)), M + W - 3, y, { align: "right" });
-      doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor.apply(doc, soft);
-      doc.text(pdfSafe((o.tipo === "fisso" ? "Prezzo fisso" + (o.durataMesi ? " " + o.durataMesi + " mesi" : "") : "Prezzo variabile") + " · " + prezzoTesto(o) + " · quota fissa " + euro2(+o.quotaFissaMese || 0) + "/mese"), M + 3, y + 6);
-      doc.text(pdfSafe(euro(r.calc.totale / 12) + " al mese · 12 mesi"), M + W - 3, y + 6, { align: "right" });
-      y += 15;
-      if (d.cur) { const s = d.cur.calc.totale - r.calc.totale; text(s > 0 ? "Risparmio rispetto all'offerta attuale: " + euro(s) + " l'anno" : "Costa " + euro(-s) + " in più dell'offerta attuale", 10, { bold: true, color: s > 0 ? good : [178, 58, 46], gap: 1 }); }
-      if (o.tipo === "indicizzato") text("Con il prezzo variabile la spesa può andare da " + euro(r.basso) + " a " + euro(r.alto) + ".", 9, { color: soft, gap: 1 });
-      consumerNotes(r, null, d.u).filter(n => n.t !== "ok").slice(0, 3).forEach(n => text("- " + n.s, 9, { color: soft, gap: 0.5, x: M + 3, w: W - 3 }));
-      y += 4;
-    });
-    if (d.tips.length) { text("Il consiglio", 12, { bold: true, gap: 2 }); d.tips.forEach(t => text("- " + t.s, 10, { gap: 1 })); y += 3; }
-    text("Il mercato", 12, { bold: true, gap: 2 });
-    text((S.market.notaMercato || "") + " Dati aggiornati al " + dataIt(S.market.updatedAt) + ".", 10, { gap: 5 });
-    text("Come è fatta la stima: spesa dei prossimi 12 mesi comprensiva di energia, perdite di rete, dispacciamento, quota fissa, trasporto, oneri di sistema, accise e IVA. Per le offerte variabili il prezzo futuro dell'energia viene dai futures di borsa ed è una previsione. Prima di firmare verificare la scheda sintetica sul sito del fornitore. Per i clienti domestici cambiare fornitore è gratuito e la disdetta la fa il nuovo fornitore.", 8, { color: soft });
-    await dl.save({ filename: fname + ".pdf", data: doc.output("blob") });
+    r = await buildPdf(ctx); if (!r) return;
+    await dl.save({ filename: r.fname, data: r.blob });
+    toast("PDF salvato: ora allegalo al messaggio per il cliente.");
   } catch (e) {
     const c = e && e.code;
     if (c === "declined") { /* annullato */ }
-    else if (c === "extension_not_enabled" || c === "rejected_extension" || !c) {
-      try { await dl.save({ filename: fname + ".txt", data: reportPlain(d) }); toast("Il PDF non è disponibile qui: ho preparato la proposta come testo."); }
+    else if (!c || c === "extension_not_enabled" || c === "rejected_extension") {
+      try { await dl.save({ filename: nomeFilePdf(ctx.u) + ".txt", data: propostaTesto(ctx) }); toast("Il PDF non è disponibile qui: ho preparato la proposta come testo."); }
       catch (e2) { if (!e2 || e2.code !== "declined") toast("Non è stato possibile creare la proposta in questa vista."); }
-    } else toast("Non è stato possibile creare la proposta in questa vista.");
+    } else toast("Non è stato possibile salvare il PDF in questa vista.");
   } finally { btn.disabled = false; }
+}
+async function condividiPdf() {
+  const how = canSharePdf(); if (!how) return;
+  const ctx = S.prCtx || propostaCtx();
+  try {
+    const r = await buildPdf(ctx); if (!r) return;
+    const msg = $("#prMsg").value;
+    if (how === "android") { window.ClaudiaAndroid.shareFile(r.fname, "application/pdf", await blobToBase64(r.blob), msg); return; }
+    await navigator.share({ files: [new File([r.blob], r.fname, { type: "application/pdf" })], title: oggettoEmail(), text: msg });
+  } catch (e) {
+    if (e && e.name === "AbortError") return;
+    toast("Condivisione non riuscita: scarica il PDF e allegalo al messaggio.");
+  }
+}
+async function copiaMsg() {
+  const t = $("#prMsg");
+  try { await navigator.clipboard.writeText(t.value); toast("Messaggio copiato: incollalo nella chat o nell'email."); }
+  catch (e) { t.focus(); t.select(); toast("Il testo è selezionato: copialo con Ctrl+C, oppure tieni premuto e scegli Copia."); }
+}
+function onPropostaInput(e) {
+  const id = e.target.id, u = U();
+  if (/^pc[A-Z]/.test(id)) {
+    S.user.consulente = { nome: $("#pcNome").value.trim(), ruolo: $("#pcRuolo").value.trim(), telefono: $("#pcTel").value.trim(), whatsapp: $("#pcWa").value.trim(), email: $("#pcEmail").value.trim(), telegram: $("#pcTg").value.trim(), altro: $("#pcAltro").value.trim() };
+    scheduleSave(); renderPromoter(); aggiornaMsg(); return;
+  }
+  if (id === "prEmail" || id === "prTel") {
+    u.anagrafica = Object.assign({}, u.anagrafica, { [id === "prEmail" ? "email" : "telefono"]: e.target.value.trim() || null });
+    scheduleSave(); renderLinks(); return;
+  }
+  if (id === "prMsg") { u.proposta = Object.assign({}, u.proposta, { msg: e.target.value }); scheduleSave(); $("#prMsgHint").textContent = "Hai modificato il testo a mano: se cambi le proposte, premi «Riscrivi il messaggio» per aggiornare i numeri."; renderLinks(); }
+}
+function wireProposta() {
+  $("#sec-proposta").addEventListener("input", e => { if (e.target.matches("input,textarea")) onPropostaInput(e); });
+  $("#prCards").addEventListener("change", e => {
+    const s = e.target.closest("select[data-kind]"); if (!s) return;
+    const u = U(), k = s.dataset.kind === "fisso" ? "fisso" : s.dataset.kind === "variabile" ? "variabile" : "fisso2";
+    u.proposta = Object.assign({}, u.proposta, { [k]: s.value }); scheduleSave(); renderProposta();
+  });
+  $("#prVarNote").addEventListener("click", e => {
+    const b = e.target.closest("[data-var]"); if (!b) return;
+    const u = U(); u.proposta = Object.assign({}, u.proposta, { conVariabile: b.dataset.var === "si" ? true : b.dataset.var === "no" ? false : null });
+    scheduleSave(); renderProposta();
+  });
+  $("#prTono").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const u = U(); u.proposta = Object.assign({}, u.proposta, { tono: b.dataset.v, msg: null }); scheduleSave(); renderProposta();
+  });
+  $("#btnPrRegen").addEventListener("click", () => { const u = U(); u.proposta = Object.assign({}, u.proposta, { msg: null }); scheduleSave(); $("#prMsg").value = ""; $("#prMsg").blur(); aggiornaMsg(); toast("Messaggio riscritto con i numeri aggiornati."); });
+  $("#btnPrCopy").addEventListener("click", copiaMsg);
+  $("#btnPrPdf").addEventListener("click", scaricaPdf);
+  $("#btnPrShare").addEventListener("click", condividiPdf);
 }
 
 function renderCtx() {
   const opts = S.user.utenze.map(u => '<option value="' + esc(u.id) + '"' + (u.id === S.user.attivaId ? " selected" : "") + ">" + esc(u.nome) + "</option>").join("");
-  $("#selUtenza").innerHTML = opts; $("#selUtenza2").innerHTML = opts;
+  $("#selUtenza").innerHTML = opts; $("#selUtenza2").innerHTML = opts; $("#selUtenza3").innerHTML = opts;
   const u = U(), sp = normSplit(u.split || {});
   $("#ctxFacts").innerHTML = (u.esempio ? '<span class="example-tag">Dati di esempio</span>' : "") +
     '<span class="fact">' + numIt(u.kwhAnno) + " kWh/anno</span>" + '<span class="fact">' + numIt(u.potenzaKW, 1) + " kW</span>" +
     '<span class="fact">' + (u.residente !== false ? "residente" : "seconda casa") + "</span>" +
     '<span class="fact">F1 ' + Math.round(sp.f1 * 100) + "% · F2 " + Math.round(sp.f2 * 100) + "% · F3 " + Math.round(sp.f3 * 100) + "%</span>";
+  $("#prFacts").innerHTML = $("#ctxFacts").innerHTML;
 }
 
 function renderAll() {
@@ -564,9 +1024,6 @@ function fillForm() {
   $("#inNote").value = u.noteCliente || "";
   const an = u.anagrafica || {};
   for (const [id, k] of ANAG_CAMPI) { const el = $("#" + id); if (document.activeElement !== el) el.value = an[k] || ""; }
-  const cons = S.user.consulente || {};
-  if (document.activeElement !== $("#inConsNome")) $("#inConsNome").value = cons.nome || "";
-  if (document.activeElement !== $("#inConsRec")) $("#inConsRec").value = cons.recapiti || "";
   setNum($("#inKwh"), Math.round(u.kwhAnno));
   $("#inKw").value = String(u.potenzaKW);
   $("#inRes").value = u.residente !== false ? "1" : "0";
@@ -615,7 +1072,7 @@ function readCurrent() {
   o.incompleta = !tipo || Object.values(vals).some(x => x == null);
   u.attuale = (!tipo && !o.fornitore && !o.nome) ? null : o;
 }
-const ANAG_CAMPI = [["anIntest", "intestatario"], ["anCF", "codiceFiscale"], ["anIndirizzo", "indirizzo"], ["anPod", "pod"], ["anCodCli", "codiceCliente"]];
+const ANAG_CAMPI = [["anIntest", "intestatario"], ["anCF", "codiceFiscale"], ["anIndirizzo", "indirizzo"], ["anPod", "pod"], ["anCodCli", "codiceCliente"], ["anEmail", "email"], ["anTel", "telefono"]];
 function markEdited(u) { if (u.esempio) { u.esempio = false; if (/^Esempio/.test(u.nome)) { u.nome = "Nuovo cliente"; $("#inNome").value = u.nome; } } }
 function onFormChange(e) {
   const u = U(), id = e.target.id;
@@ -628,7 +1085,6 @@ function onFormChange(e) {
     u.anagrafica = Object.assign({}, u.anagrafica, { [campo[1]]: v || null });
     scheduleSave(); return;
   }
-  if (id === "inConsNome" || id === "inConsRec") { S.user.consulente = { nome: $("#inConsNome").value.trim(), recapiti: $("#inConsRec").value.trim() }; scheduleSave(); return; }
   markEdited(u);
   if (id === "inKwh") u.kwhAnno = Math.max(0, num($("#inKwh")) || 0);
   if (id === "inKw") u.potenzaKW = parseFloat($("#inKw").value);
@@ -1326,7 +1782,7 @@ function initCaps() {
     $("#chatNote").textContent = s ? "Le risposte usano il tuo account Claude." : "Claude non è disponibile in questa vista.";
   });
   c.use("mcp").then(m => { S.caps.mcp = m; updateRefreshBtn(); });
-  c.use("downloads").then(d => { S.caps.downloads = d; $("#btnExport").hidden = !d; $("#reportRow").hidden = !d; });
+  c.use("downloads").then(d => { S.caps.downloads = d; $("#btnExport").hidden = !d; renderProposta(); });
 }
 
 /* ---------- Versione Android ---------- */
@@ -1372,7 +1828,7 @@ async function loadRemoteData(manual) {
 function initAndroid() {
   S.dbState = "android";
   S.caps.downloads = androidDownloads;
-  $("#btnExport").hidden = false; $("#reportRow").hidden = false;
+  $("#btnExport").hidden = false;
   $("#tab-claude").hidden = true;
   $("#androidData").hidden = false;
   loadLocal();
@@ -1427,12 +1883,17 @@ function showTab(t) {
   $$("[data-sec]").forEach(s => { s.hidden = s.dataset.sec !== t; });
   lsSet("wattgiusto.tab", t);
   if (t === "mercato") renderPunChart();
+  if (t === "proposta") {
+    renderProposta(); loadJsPdf().catch(() => {});
+    // la prima volta, se mancano i contatti del promotore, apro subito i campi per inserirli
+    if (!S.pmAperto) { S.pmAperto = true; const c = consulente(); $("#pmEdit").open = !c.telefono && !c.email; }
+  }
 }
 function boot() {
   $$(".tab").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
   document.addEventListener("click", e => { const b = e.target.closest && e.target.closest("[data-goto]"); if (b) { showTab(b.dataset.goto); window.scrollTo(0, 0); } });
   const onSel = e => { S.user.attivaId = e.target.value; scheduleSave(); renderAll(); };
-  $("#selUtenza").addEventListener("change", onSel); $("#selUtenza2").addEventListener("change", onSel);
+  $("#selUtenza").addEventListener("change", onSel); $("#selUtenza2").addEventListener("change", onSel); $("#selUtenza3").addEventListener("change", onSel);
   $("#segTipo").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.user.vista.tipo = b.dataset.v; $$("#segTipo button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); scheduleSave(); renderRanking(); });
   $("#selOrdina").addEventListener("change", e => { S.user.vista.ordina = e.target.value; scheduleSave(); renderRanking(); });
   $("#selScenario").addEventListener("change", e => { S.user.vista.scenario = e.target.value; scheduleSave(); renderRanking(); });
@@ -1474,7 +1935,7 @@ function boot() {
   $("#offSearch").addEventListener("input", renderOffersTable);
   $("#offTable").addEventListener("click", e => { const b = e.target.closest("[data-del-offer]"); if (!b) return; S.user.offerteMie = S.user.offerteMie.filter(o => o.id !== b.dataset.delOffer); scheduleSave(); renderOffersTable(); renderRanking(); toast("Offerta eliminata."); });
   $("#btnExport").addEventListener("click", exportCsv);
-  $("#btnReport").addEventListener("click", makeReport);
+  wireProposta();
   $("#btnRefresh").addEventListener("click", () => ANDROID ? loadRemoteData(true) : refreshNow());
   $("#btnBackupOut").addEventListener("click", exportBackup);
   $("#fileBackup").addEventListener("change", e => { importBackup(e.target.files[0]); e.target.value = ""; });

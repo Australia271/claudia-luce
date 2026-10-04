@@ -23,6 +23,7 @@
   --bad-soft: #f7e1de;
   --on-good: #ffffff;
   --on-bad: #ffffff;
+  --on-warn: #ffffff;
   --f1: #eb6834;
   --f2: #2a78d6;
   --f3: #1baf7a;
@@ -41,7 +42,7 @@
     --bg: #0e161c; --surface: #15202a; --surface-2: #1b2833; --ink: #e5ecf1; --ink-2: #aab8c3; --ink-3: #8696a2; --line: #2a3a46;
     --accent: #5aa2ee; --accent-ink: #08131c; --accent-soft: #19344f;
     --lcd-bg: #1d2a23; --lcd-ink: #cfe7b6; --lcd-dim: #86a07a; --lcd-edge: #33463a;
-    --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b; --on-good: #08131c; --on-bad: #1c0b08;
+    --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b; --on-good: #08131c; --on-bad: #1c0b08; --on-warn: #1c1408;
     --f1: #d95926; --f2: #3987e5; --f3: #199e70;
     --seg-materia: #5aa2ee; --seg-fissa: #d95926; --seg-rete: #5d6d79; --seg-tasse: #3c4a55;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
@@ -52,7 +53,7 @@
   --bg: #0e161c; --surface: #15202a; --surface-2: #1b2833; --ink: #e5ecf1; --ink-2: #aab8c3; --ink-3: #8696a2; --line: #2a3a46;
   --accent: #5aa2ee; --accent-ink: #08131c; --accent-soft: #19344f;
   --lcd-bg: #1d2a23; --lcd-ink: #cfe7b6; --lcd-dim: #86a07a; --lcd-edge: #33463a;
-  --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b; --on-good: #08131c; --on-bad: #1c0b08;
+  --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b; --on-good: #08131c; --on-bad: #1c0b08; --on-warn: #1c1408;
   --f1: #d95926; --f2: #3987e5; --f3: #199e70;
   --seg-materia: #5aa2ee; --seg-fissa: #d95926; --seg-rete: #5d6d79; --seg-tasse: #3c4a55;
   --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
@@ -110,7 +111,7 @@ a { color: var(--accent); }
 .seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--ink); }
 label.fld { display: flex; flex-direction: column; gap: 4px; font-size: .85rem; font-weight: 600; color: var(--ink-2); min-width: 0; }
 label.fld .hint { font-weight: 400; color: var(--ink-3); font-size: .78rem; }
-input[type="text"], input[type="number"], input[type="date"], select, textarea {
+input[type="text"], input[type="number"], input[type="date"], input[type="tel"], input[type="email"], select, textarea {
   font: inherit; font-size: 1rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-height: 40px; width: 100%; min-width: 0;
 }
 input[type="number"] { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
@@ -282,6 +283,44 @@ footer.foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--l
 .cur-why .eyebrow { margin-bottom: 8px; }
 .current.is-none .cur-why { padding-top: 14px; }
 @media (max-width: 720px) { .cur-main { grid-template-columns: 1fr; } }
+
+/* Scheda Proposta: biglietto del promotore, valutazione, due proposte affiancate, invio */
+.promoter { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 14px 28px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; box-shadow: var(--shadow); }
+.pm-name { font-family: var(--font-display); font-stretch: 112%; font-size: clamp(1.6rem, 4.6vw, 2.15rem); font-weight: 800; line-height: 1.08; margin-top: 4px; overflow-wrap: anywhere; }
+.pm-role { color: var(--ink-2); font-weight: 600; margin-top: 2px; }
+.pm-contacts { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; align-content: start; }
+.pm-contacts dt { font-family: var(--font-display); font-stretch: 118%; font-size: .72rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-3); padding-top: 4px; }
+.pm-contacts dd { margin: 0; font-family: var(--font-data); font-size: 1rem; font-weight: 500; overflow-wrap: anywhere; user-select: all; }
+.pm-contacts dd.missing { font-family: var(--font-body); font-size: .92rem; color: var(--ink-3); font-style: italic; user-select: auto; }
+.pm-edit { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 12px; }
+.pm-edit summary { cursor: pointer; font-weight: 600; color: var(--accent); font-size: .9rem; }
+@media (max-width: 640px) { .promoter { grid-template-columns: 1fr; } }
+.prop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+.prop { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); display: flex; flex-direction: column; min-width: 0; }
+.prop.is-rec { border-color: var(--good); box-shadow: 0 0 0 1px var(--good); }
+.prop-head { display: flex; justify-content: space-between; gap: 8px; align-items: center; flex-wrap: wrap; padding: 11px 16px; border-bottom: 1px solid var(--line); }
+.prop-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.prop .o-name { font-size: 1.25rem; }
+.prop-cost { font-family: var(--font-data); font-size: 2.1rem; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
+.prop-cost .u { font-size: .4em; color: var(--ink-2); margin-left: 6px; font-weight: 500; letter-spacing: 0; }
+.prop-per { font-family: var(--font-data); font-size: .82rem; color: var(--ink-2); margin-top: 6px; }
+.prop-save { font-family: var(--font-data); font-weight: 600; font-size: .98rem; }
+.prop-save.down { color: var(--good); }
+.prop-save.up { color: var(--bad); }
+.prop dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 5px 12px; font-size: .9rem; border-top: 1px solid var(--line); padding-top: 10px; }
+.prop dt { color: var(--ink-2); }
+.prop dd { margin: 0; font-family: var(--font-data); text-align: right; overflow-wrap: anywhere; }
+.grade { display: inline-flex; align-items: center; font-size: .74rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; padding: 2px 10px; border-radius: 999px; white-space: nowrap; }
+.grade.good { background: var(--good-soft); color: var(--good); }
+.grade.warn { background: var(--warn-soft); color: var(--warn); }
+.grade.bad { background: var(--bad-soft); color: var(--bad); }
+.rec-flag { font-family: var(--font-display); font-stretch: 112%; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--on-good); background: var(--good); padding: 2px 8px; border-radius: 4px; }
+.send-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+a.btn { text-decoration: none; }
+#prMsg { min-height: 260px; font-size: .95rem; line-height: 1.45; }
+.current.is-warn { border-color: var(--warn); background: var(--warn-soft); }
+.current.is-warn .cur-band { background: var(--warn); color: var(--on-warn); }
+.current.is-warn .cur-digits, .current.is-warn .cur-verdict strong { color: var(--warn); }
 
 /* Schermata del codice di accesso */
 .lock { position: fixed; inset: 0; z-index: 1000; background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 16px; overflow-y: auto; }
