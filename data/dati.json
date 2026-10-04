@@ -1271,8 +1271,8 @@
   "runs": [
    {
     "at": "2026-10-04T06:56:00+02:00",
-    "esito": "parziale",
-    "note": "Controllo completo (domenica): PUN parziale di ottobre invariato (a4energie, dati al 2/10; nessun mese nuovo), futures ICE invariati (mercato chiuso), tariffe regolate ott-dic confermate su SEN. Offerte ricontrollate su luce-gas.it: nessun prezzo cambiato, nessuna offerta nuova. Octopus Fissa 12M risulta scaduta il 2/10 senza nuovo prezzo pubblicato: valore lasciato com'era. Push su GitHub NON riuscito: il repository Australia271/claudia-luce non è autorizzato in questa sessione (strumento add_repo non disponibile, proxy 403). data/dati.json per l'app Android è fermo al 3/10 12:30 (22 offerte invece di 36)."
+    "esito": "ok",
+    "note": "Controllo completo (domenica): PUN parziale di ottobre invariato (a4energie, dati al 2/10; nessun mese nuovo), futures ICE invariati (mercato chiuso), tariffe regolate ott-dic confermate su SEN. Offerte ricontrollate su luce-gas.it: nessun prezzo cambiato, nessuna offerta nuova. Octopus Fissa 12M risulta scaduta il 2/10 senza nuovo prezzo pubblicato: valore lasciato com'era. File dei prezzi per l'app Android pubblicato alle 7:45 (36 offerte)."
    },
    {
     "at": "2026-10-03T13:58:00+02:00",

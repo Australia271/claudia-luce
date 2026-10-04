@@ -2156,7 +2156,7 @@ async function loadRemoteData(manual) {
     const txt = await r.text();
     if (!applyRemote(JSON.parse(txt))) throw new Error("formato");
     lsSet("claudia.dataCache", txt);
-    S.source = "remote"; S.remoteState = "ok";
+    S.source = "remote"; S.remoteState = "ok"; S.lastFetch = Date.now();
     if (manual) toast("Prezzi aggiornati al " + dataIt(S.market.updatedAt) + ".");
   } catch (e) {
     S.remoteState = "offline";
@@ -2174,6 +2174,11 @@ function initAndroid() {
   if (cache) { try { if (applyRemote(JSON.parse(cache))) S.source = "cache"; } catch (e) { /* ignora */ } }
   renderAll();
   loadRemoteData(false);
+  // anche quando l'app torna in primo piano dopo essere rimasta aperta in sottofondo:
+  // riscarica i prezzi se l'ultimo download riuscito è di più di un'ora fa (o non è mai riuscito)
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && Date.now() - (S.lastFetch || 0) > 3600e3) loadRemoteData(false);
+  });
 }
 
 /* ---------- Backup dei dati ---------- */
