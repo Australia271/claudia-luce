@@ -1093,21 +1093,21 @@
    "validoFino": "2026-10-06"
   },
   {
-   "aggiornato": "2026-10-03",
+   "aggiornato": "2026-10-04",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-01",
+    "data": "2026-10-03",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
+    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte/fissa-12m-luce"
    },
    "fornitore": "Octopus Energy",
    "id": "octopus-fissa-12m",
    "nome": "Fissa 12M",
-   "note": "Octopus aggiorna il prezzo fisso ogni settimana: controlla quello del giorno prima di firmare.",
+   "note": "Octopus aggiorna il prezzo fisso ogni settimana: controlla quello del giorno prima di firmare. Prezzo da luce-gas.it aggiornato al 3/10 (papernest.it al 2/10 riportava 0,1298 €/kWh: usata la fonte più recente). Nuova scadenza del prezzo non indicata dalle fonti.",
    "prezzo": {
-    "mono": 0.1683
+    "mono": 0.176
    },
    "quotaFissaMese": 6,
    "requisiti": [
@@ -1292,9 +1292,9 @@
   ],
   "schedule": "ogni giorno alle 6:55",
   "verifica": {
-   "at": "2026-10-04T09:08:00+02:00",
+   "at": "2026-10-04T09:31:00+02:00",
    "esito": "ok",
-   "note": "Prima verifica: aggiornamento di oggi fatto, tariffe ARERA valide, PUN ufficiale fino a settembre, futures del 4/10, 35 offerte attive, calcolo coerente, file dell'app Android uguale al database. Da controllare: prezzo Octopus Fissa 12M scaduto il 2/10."
+   "note": "Aggiornamento delle 6:56 presente, tariffe ARERA valide, PUN fino a settembre, futures del 4/10, 35 offerte attive, calcolo coerente, dati.json pubblicato e uguale al database. Avviso: prezzo Octopus Fissa 12M scaduto il 2/10, fonte non raggiungibile in questa verifica."
   }
  }
 }
