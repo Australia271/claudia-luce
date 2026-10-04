@@ -73,7 +73,7 @@ function normCliente(c) {
   return out;
 }
 function localClientParse(raw) {
-  const lines = raw.split("\n").map(s => s.trim());
+  const lines = raw.split("\n").map(s => s.trim()).filter(Boolean);
   const flat = raw.replace(/\s*\n\s*/g, " ");
   const c = { nome: null, codiceFiscale: null, indirizzo: null, pod: null, codiceCliente: null };
   // valore dopo un'etichetta: sulla stessa riga o, se lì non c'è niente, sulla riga dopo

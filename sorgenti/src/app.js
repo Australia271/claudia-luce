@@ -1215,7 +1215,7 @@ function blobToBase64(blob) { return new Promise((res, rej) => { const r = new F
 async function ocrBlob(blob) {
   const b64 = await blobToBase64(blob);
   const id = "o" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-  return new Promise((resolve, reject) => { _ocrCb[id] = { resolve, reject }; window.ClaudiaAndroid.ocr(b64, id); setTimeout(() => { if (_ocrCb[id]) { delete _ocrCb[id]; reject(new Error("timeout")); } }, 60000); });
+  return new Promise((resolve, reject) => { _ocrCb[id] = { resolve, reject }; window.ClaudiaAndroid.ocr(b64, id); setTimeout(() => { if (_ocrCb[id]) { delete _ocrCb[id]; reject(new Error("timeout")); } }, window.CLAUDIA_WEBAPP ? 240000 : 60000); });
 }
 function mimeFor(name) { return /\.pdf$/i.test(name) ? "application/pdf" : /\.csv$/i.test(name) ? "text/csv" : /\.json$/i.test(name) ? "application/json" : "text/plain"; }
 const androidDownloads = {

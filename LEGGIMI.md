@@ -10,6 +10,7 @@ App per confrontare le offerte luce, con lo stesso motore di calcolo della versi
 - `.github/workflows/android.yml`: compila l'APK in automatico su GitHub (facoltativo).
 - `sorgenti/`: i file da cui nascono la versione web e quella Android (`src/`) e lo script che le costruisce (`cd sorgenti && npm install && python3 build.py`).
 - `strumenti/`: aggiornamento e verifica quotidiana dei prezzi (`pubblica_dati.py`, `verifica.py`, `VERIFICA.md`).
+- `sorgenti/webapp/`: i file in più della versione con link per iPhone e PC (servizi del browser, icone, funzionamento senza internet). La pubblica `.github/workflows/sito.yml` su https://australia271.github.io/claudia-luce/
 
 ## Aggiornamento e controllo di ogni giorno
 

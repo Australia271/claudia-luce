@@ -1,6 +1,8 @@
-# Costruisce le due versioni di Claudia Luce dai file in src/:
-#   ../web/claudia-luce.html                      pagina per l'artifact (PC)
+# Costruisce le versioni di Claudia Luce dai file in src/:
+#   ../web/claudia-luce.html                      pagina per l'artifact dentro Claude (PC)
 #   ../android/app/src/main/assets/www/index.html pagina dell'app Android
+#   ../_sito/                                     versione da aprire con un link (iPhone, PC
+#                                                 di chiunque): la pubblica GitHub Pages
 # Uso: cd sorgenti && npm install && python3 build.py
 import pathlib, shutil, json, subprocess, os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -43,4 +45,33 @@ html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}
 '''
 andr='<!doctype html>\n<html lang="it">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width,initial-scale=1">\n'+title+'<style>\n'+ff+css+'</style>\n</head>\n<body>\n'+body+'\n<script>\n'+js+'\n</script>\n</body>\n</html>\n'
 (www/'index.html').write_text(andr)
-print('web',len(web),'android',len(andr))
+# --- versione con link (GitHub Pages): stessa pagina di Android + servizi del browser ---
+import hashlib
+sito=pathlib.Path('../_sito')
+if sito.exists(): shutil.rmtree(sito)
+shutil.copytree(www, sito)
+wa=pathlib.Path('webapp')
+for f in ['manifest.webmanifest','servizi-web.js']: shutil.copy(wa/f, sito/f)
+shutil.copytree(wa/'icons', sito/'icons')
+tv=sito/'vendor/tesseract'; (tv/'lang').mkdir(parents=True)
+shutil.copy(nm/'tesseract.js/dist/tesseract.min.js', tv); shutil.copy(nm/'tesseract.js/dist/worker.min.js', tv)
+for f in ['tesseract-core-lstm.wasm.js','tesseract-core-simd-lstm.wasm.js']: shutil.copy(nm/'tesseract.js-core'/f, tv)
+shutil.copy(nm/'@tesseract.js-data/ita/4.0.0_best_int/ita.traineddata.gz', tv/'lang/ita.traineddata.gz')
+testa='''<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="description" content="Confronta le offerte luce e trova la più conveniente per ogni cliente, con prezzi aggiornati ogni giorno.">
+<meta name="theme-color" content="#edf1f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e161c" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Claudia Luce">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<script src="servizi-web.js"></script>
+'''
+pagina=andr.replace(title, title+testa, 1)
+(sito/'index.html').write_text(pagina)
+fissi=['./','index.html','manifest.webmanifest','servizi-web.js','vendor/pdf.min.js','vendor/pdf.worker.min.js','vendor/jspdf.umd.min.js']+['fonts/'+k for k in fonts]+['icons/'+f.name for f in sorted((wa/'icons').iterdir())]
+ver=hashlib.sha1((pagina+(wa/'servizi-web.js').read_text()).encode()).hexdigest()[:12]
+(sito/'sw.js').write_text((wa/'sw.js').read_text().replace('__VERSIONE__','claudia-'+ver).replace('__FILE__',json.dumps(fissi)))
+print('web',len(web),'android',len(andr),'sito',sum(f.stat().st_size for f in sito.rglob('*') if f.is_file())//1024,'KB')
