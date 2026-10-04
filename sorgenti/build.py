@@ -51,8 +51,13 @@ sito=pathlib.Path('../_sito')
 if sito.exists(): shutil.rmtree(sito)
 shutil.copytree(www, sito)
 wa=pathlib.Path('webapp')
-for f in ['manifest.webmanifest','servizi-web.js']: shutil.copy(wa/f, sito/f)
+shutil.copy(wa/'servizi-web.js', sito/'servizi-web.js')
 shutil.copytree(wa/'icons', sito/'icons')
+# icone e manifest si chiamano con ?v=... che cambia quando cambiano: così Chrome/Edge sul PC,
+# la scheda del browser e la copia salvata per l'uso senza internet riscaricano quelli nuovi
+iv=hashlib.sha1((wa/'manifest.webmanifest').read_bytes()+b''.join(f.read_bytes() for f in sorted((wa/'icons').iterdir()))).hexdigest()[:8]
+conv=lambda t: t.replace('.png"', '.png?v='+iv+'"').replace('manifest.webmanifest"', 'manifest.webmanifest?v='+iv+'"')
+(sito/'manifest.webmanifest').write_text(conv((wa/'manifest.webmanifest').read_text()))
 tv=sito/'vendor/tesseract'; (tv/'lang').mkdir(parents=True)
 shutil.copy(nm/'tesseract.js/dist/tesseract.min.js', tv); shutil.copy(nm/'tesseract.js/dist/worker.min.js', tv)
 for f in ['tesseract-core-lstm.wasm.js','tesseract-core-simd-lstm.wasm.js']: shutil.copy(nm/'tesseract.js-core'/f, tv)
@@ -69,9 +74,10 @@ testa='''<link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <script src="servizi-web.js"></script>
 '''
+testa=conv(testa)
 pagina=andr.replace(title, title+testa, 1)
 (sito/'index.html').write_text(pagina)
-fissi=['./','index.html','manifest.webmanifest','servizi-web.js','vendor/pdf.min.js','vendor/pdf.worker.min.js','vendor/jspdf.umd.min.js']+['fonts/'+k for k in fonts]+['icons/'+f.name for f in sorted((wa/'icons').iterdir())]
+fissi=['./','index.html','manifest.webmanifest?v='+iv,'servizi-web.js','vendor/pdf.min.js','vendor/pdf.worker.min.js','vendor/jspdf.umd.min.js']+['fonts/'+k for k in fonts]+['icons/'+f.name+'?v='+iv for f in sorted((wa/'icons').iterdir())]
 # anche icone e manifest entrano nella versione: se cambiano, l'app installata sul PC li riscarica
 ver=hashlib.sha1((pagina+(wa/'servizi-web.js').read_text()).encode()+(wa/'manifest.webmanifest').read_bytes()+b''.join(f.read_bytes() for f in sorted((wa/'icons').iterdir()))).hexdigest()[:12]
 (sito/'sw.js').write_text((wa/'sw.js').read_text().replace('__VERSIONE__','claudia-'+ver).replace('__FILE__',json.dumps(fissi)))
