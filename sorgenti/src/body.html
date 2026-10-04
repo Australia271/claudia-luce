@@ -1,0 +1,299 @@
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><h1>Claudia Luce</h1><span class="kw">consulenza energetica</span></div>
+    <div class="status">
+      <span class="pill" id="dataPill"><span class="dot"></span><span id="dataPillText">Dati incorporati</span></span>
+      <button class="btn small" id="btnRefresh" type="button" hidden>Aggiorna adesso</button>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Sezioni">
+    <button class="tab" role="tab" id="tab-classifica" aria-selected="true" data-tab="classifica">Classifica</button>
+    <button class="tab" role="tab" id="tab-consumi" aria-selected="false" data-tab="consumi">Dati del cliente</button>
+    <button class="tab" role="tab" id="tab-offerte" aria-selected="false" data-tab="offerte">Offerte</button>
+    <button class="tab" role="tab" id="tab-mercato" aria-selected="false" data-tab="mercato">Mercato</button>
+    <button class="tab" role="tab" id="tab-claude" aria-selected="false" data-tab="claude">Chiedi a Claude</button>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div id="banner" class="callout warn" style="margin-top:16px" hidden></div>
+
+  <!-- ===== CLASSIFICA ===== -->
+  <section class="section" id="sec-classifica" data-sec="classifica">
+    <div class="ctx">
+      <label class="fld" for="selUtenza" style="flex-direction:row;align-items:center;gap:8px">Cliente
+        <select id="selUtenza"></select>
+      </label>
+      <div class="facts" id="ctxFacts"></div>
+      <button class="btn ghost small" type="button" data-goto="consumi">Modifica dati del cliente</button>
+    </div>
+
+    <div id="current"></div>
+    <div id="verdict"></div>
+    <div id="advice" class="stack"></div>
+    <div class="row" id="reportRow" hidden>
+      <button class="btn primary" type="button" id="btnReport">Crea la proposta per il cliente (PDF)</button>
+      <span class="small muted" id="reportNote">Riassume consumi, le tre offerte migliori, il risparmio e i punti di attenzione.</span>
+    </div>
+
+    <div class="panel stack">
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Tipo di prezzo" id="segTipo">
+          <button type="button" data-v="tutte" aria-pressed="true">Tutte</button>
+          <button type="button" data-v="fisso" aria-pressed="false">Prezzo fisso</button>
+          <button type="button" data-v="indicizzato" aria-pressed="false">Prezzo variabile</button>
+        </div>
+        <label class="fld" for="selOrdina" style="flex-direction:row;align-items:center;gap:8px">Ordina per
+          <select id="selOrdina">
+            <option value="previsto">Spesa prevista</option>
+            <option value="prudente">Spesa nel caso peggiore</option>
+          </select>
+        </label>
+        <label class="fld" for="selScenario" style="flex-direction:row;align-items:center;gap:8px">Mercato
+          <select id="selScenario">
+            <option value="1">Come prevedono i futures</option>
+            <option value="1.2">Prezzi in salita (+20%)</option>
+            <option value="0.8">Prezzi in discesa (−20%)</option>
+          </select>
+        </label>
+        <label class="check" for="chkCanone"><input type="checkbox" id="chkCanone"> Includi canone RAI</label>
+      </div>
+      <div class="legend" aria-hidden="true">
+        <span><i style="background:var(--seg-materia)"></i>Energia (cambia da offerta a offerta)</span>
+        <span><i style="background:var(--seg-fissa)"></i>Quota fissa del fornitore</span>
+        <span><i style="background:var(--seg-rete)"></i>Rete e oneri (uguali per tutti)</span>
+        <span><i style="background:var(--seg-tasse)"></i>Accise e IVA</span>
+        <span><i style="background:var(--ink-2);height:2px;vertical-align:4px"></i>Variabili: da prezzi −25% a +35%</span>
+      </div>
+      <p class="small muted" id="rankIntro"></p>
+    </div>
+
+    <ol class="rank" id="rankList"></ol>
+
+    <details class="panel" id="excludedBox" hidden>
+      <summary class="small" style="cursor:pointer;font-weight:600" id="excludedSum"></summary>
+      <ol class="rank" id="excludedList" style="margin-top:12px"></ol>
+    </details>
+
+    <div class="row">
+      <button class="btn small" type="button" id="btnExport" hidden>Scarica la classifica (CSV)</button>
+      <span class="tiny" id="calcNote"></span>
+    </div>
+  </section>
+
+  <!-- ===== I TUOI CONSUMI ===== -->
+  <section class="section" id="sec-consumi" data-sec="consumi" hidden>
+    <div class="panel stack">
+      <h2>Carica la bolletta</h2>
+      <p class="muted small">Claude legge la bolletta del cliente e compila i campi qui sotto: consumo annuo, fasce, potenza e prezzo dell'offerta attuale. Puoi controllare tutto prima di applicarlo.</p>
+      <div class="drop" id="dropBill">
+        <span class="btn primary filebtn">Foto della bolletta<input type="file" id="fileImg" accept="image/*" capture="environment" multiple></span>
+        <span class="btn filebtn">PDF della bolletta<input type="file" id="filePdf" accept="application/pdf,.pdf"></span>
+        <span class="btn filebtn">Curva di carico (CSV)<input type="file" id="fileCsv" accept=".csv,.txt,text/csv"></span>
+        <span class="tiny">Oppure trascina qui il file.</span>
+      </div>
+      <p class="tiny">La curva di carico si scarica gratis dal sito del distributore (per esempio e-distribuzione, area clienti, "Le mie misure"): con i dati ora per ora il calcolo delle fasce è esatto.</p>
+      <div id="extractOut" class="stack"></div>
+    </div>
+    <div class="panel stack">
+      <div class="row">
+        <h2 class="grow">Clienti</h2>
+        <button class="btn small" type="button" id="btnNewUtenza">Nuovo cliente</button>
+      </div>
+      <div class="grid2">
+        <label class="fld" for="selUtenza2">Cliente che stai modificando<select id="selUtenza2"></select></label>
+        <label class="fld" for="inNome">Nome del cliente<input type="text" id="inNome" placeholder="Es. Mario Rossi"></label>
+      </div>
+      <label class="fld" for="inNote">Note sul cliente<input type="text" id="inNote" placeholder="Recapiti, indirizzo di fornitura, POD"><span class="hint">Restano nel tuo account: non compaiono nella proposta.</span></label>
+      <div class="row">
+        <button class="btn small" type="button" id="btnDelUtenza">Elimina questo cliente</button>
+        <span id="delConfirm" class="row" hidden><span class="small">Eliminarlo davvero?</span>
+          <button class="btn small" type="button" id="btnDelYes">Sì, elimina</button>
+          <button class="btn small" type="button" id="btnDelNo">Annulla</button></span>
+      </div>
+    </div>
+
+
+    <div class="panel stack">
+      <h2>Consumi</h2>
+      <div class="grid3">
+        <label class="fld" for="inKwh">Consumo annuo (kWh)<input type="number" id="inKwh" min="0" step="10" inputmode="numeric"><span class="hint">In bolletta: "consumo annuo"</span></label>
+        <label class="fld" for="inKw">Potenza impegnata<select id="inKw">
+          <option value="1.5">1,5 kW</option><option value="2">2 kW</option><option value="3">3 kW</option><option value="3.5">3,5 kW</option><option value="4">4 kW</option><option value="4.5">4,5 kW</option><option value="5">5 kW</option><option value="5.5">5,5 kW</option><option value="6">6 kW</option><option value="7">7 kW</option><option value="8">8 kW</option><option value="10">10 kW</option>
+        </select></label>
+        <label class="fld" for="inRes">Tipo di abitazione<select id="inRes"><option value="1">Residenza</option><option value="0">Seconda casa</option></select></label>
+      </div>
+      <div class="stack" style="gap:8px">
+        <div class="eyebrow">Ripartizione nelle fasce orarie</div>
+        <div class="grid3">
+          <label class="fld" for="inF1">F1 (%)<input type="number" id="inF1" min="0" max="100" step="1"><span class="hint">Lun-ven 8-19</span></label>
+          <label class="fld" for="inF2">F2 (%)<input type="number" id="inF2" min="0" max="100" step="1"><span class="hint">Lun-ven 7-8 e 19-23, sab 7-23</span></label>
+          <label class="fld" for="inF3">F3 (%)<input type="number" id="inF3" min="0" max="100" step="1"><span class="hint">Notte, domenica e festivi</span></label>
+        </div>
+        <div class="fsplit" id="splitBar" aria-hidden="true"></div>
+        <p class="tiny" id="splitNote"></p>
+      </div>
+      <div class="stack" style="gap:8px">
+        <div class="eyebrow">Condizioni che il cliente accetta</div>
+        <label class="check" for="chkDom"><input type="checkbox" id="chkDom"> Addebito automatico su conto corrente</label>
+        <label class="check" for="chkWeb"><input type="checkbox" id="chkWeb"> Bolletta solo via email</label>
+        <label class="check" for="chkVul"><input type="checkbox" id="chkVul"> Cliente vulnerabile (over 75, bonus sociale, disabilità o apparecchi salvavita)</label>
+      </div>
+    </div>
+
+    <div class="panel stack">
+      <div class="row"><h2 class="grow">Abitudini in casa</h2><span class="tiny">Servono a stimare le fasce se la bolletta non le riporta</span></div>
+      <div class="grid2">
+        <label class="fld" for="hPersone">Persone in casa<select id="hPersone"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+        <label class="fld" for="hPresenza">Nei giorni feriali di giorno<select id="hPresenza"><option value="fuori">Casa vuota (tutti al lavoro o a scuola)</option><option value="meta">Qualcuno rientra nel pomeriggio</option><option value="casa">Qualcuno è sempre in casa</option></select></label>
+        <label class="fld" for="hLavaggi">Lavatrice e lavastoviglie<select id="hLavaggi"><option value="giorno">Di giorno nei feriali</option><option value="sera">La sera dopo le 19</option><option value="notte">Di notte o nel weekend</option></select></label>
+        <label class="fld" for="hCucina">Fornelli<select id="hCucina"><option value="gas">A gas</option><option value="induzione">A induzione</option></select></label>
+        <label class="fld" for="hAcqua">Acqua calda<select id="hAcqua"><option value="gas">Caldaia a gas</option><option value="boiler">Scaldabagno elettrico sempre acceso</option><option value="boiler_timer">Scaldabagno elettrico con timer notturno</option><option value="pdc">Pompa di calore</option></select></label>
+        <label class="fld" for="hRisc">Riscaldamento<select id="hRisc"><option value="no">Non elettrico</option><option value="pdc">Pompa di calore / climatizzatore</option><option value="stufe">Stufette elettriche</option></select></label>
+        <label class="fld" for="hClima">Condizionatore d'estate<select id="hClima"><option value="no">No</option><option value="poco">Poco</option><option value="molto">Molto</option></select></label>
+        <label class="fld" for="hAuto">Auto elettrica<select id="hAuto"><option value="no">No</option><option value="notte">Sì, ricarico di notte</option><option value="giorno">Sì, ricarico di giorno</option></select></label>
+        <label class="fld" for="hFv">Fotovoltaico<select id="hFv"><option value="no">No</option><option value="si">Sì</option></select></label>
+      </div>
+      <div class="stack" style="gap:6px">
+        <div class="eyebrow">Settimana tipo, ora per ora</div>
+        <div class="week" id="weekGrid" aria-label="Consumo stimato per giorno e ora, colorato per fascia"></div>
+        <div class="legend"><span><i style="background:var(--f1)"></i>F1</span><span><i style="background:var(--f2)"></i>F2</span><span><i style="background:var(--f3)"></i>F3</span><span>Colore più intenso = più consumo</span></div>
+      </div>
+      <div class="callout" id="habitsOut"></div>
+      <div class="row">
+        <button class="btn" type="button" id="btnApplyHabits">Usa queste fasce</button>
+        <button class="btn" type="button" id="btnApplyHabitsKwh">Usa fasce e consumo stimato</button>
+      </div>
+    </div>
+
+    <div class="panel stack">
+      <h2>Offerta attuale del cliente</h2>
+      <p class="small muted">Inseriscila per calcolare quanto risparmia cambiando. I prezzi sono quelli della voce "spesa per la materia energia", senza IVA.</p>
+      <div class="grid2">
+        <label class="fld" for="cFornitore">Fornitore<input type="text" id="cFornitore" placeholder="Es. Engie"></label>
+        <label class="fld" for="cNome">Nome offerta<input type="text" id="cNome" placeholder="Es. PuntoFisso 24"></label>
+        <label class="fld" for="cTipo">Tipo di prezzo<select id="cTipo"><option value="">Non la inserisco</option><option value="fisso">Fisso</option><option value="indicizzato">Variabile (PUN + spread)</option></select></label>
+        <label class="fld" for="cFasce">Fasce<select id="cFasce"><option value="mono">Monoraria (prezzo unico)</option><option value="bi">Bioraria (F1 / F23)</option><option value="tri">Multioraria (F1 / F2 / F3)</option></select></label>
+      </div>
+      <div class="grid3" id="cPrezzi">
+        <label class="fld" for="cP1"><span id="cP1l">Prezzo €/kWh</span><input type="number" id="cP1" step="0.0001" min="0"></label>
+        <label class="fld" for="cP2"><span id="cP2l">F2 €/kWh</span><input type="number" id="cP2" step="0.0001" min="0"></label>
+        <label class="fld" for="cP3"><span id="cP3l">F3 €/kWh</span><input type="number" id="cP3" step="0.0001" min="0"></label>
+        <label class="fld" for="cQf">Quota fissa (€/mese)<input type="number" id="cQf" step="0.01" min="0"></label>
+        <label class="fld" for="cScad">Prezzo bloccato fino al<input type="date" id="cScad"></label>
+      </div>
+    </div>
+    <div class="panel stack">
+      <h2>Backup dei dati</h2>
+      <p class="small muted">Salva in un file tutti i clienti e le offerte che hai aggiunto, per spostarli su un altro dispositivo o non perderli.</p>
+      <div class="row">
+        <button class="btn" type="button" id="btnBackupOut">Salva backup</button>
+        <span class="btn filebtn">Ripristina da file<input type="file" id="fileBackup" accept=".json,application/json"></span>
+      </div>
+      <div class="callout warn row" id="backupConfirm" hidden><span id="backupConfirmText" class="grow"></span>
+        <button class="btn small" type="button" id="btnBackupYes">Sì, sostituisci</button>
+        <button class="btn small" type="button" id="btnBackupNo">Annulla</button></div>
+    </div>
+    <div class="panel stack">
+      <h2>I tuoi dati di consulente</h2>
+      <p class="small muted">Compaiono in testa alla proposta che consegni al cliente.</p>
+      <div class="grid2">
+        <label class="fld" for="inConsNome">Nome e cognome<input type="text" id="inConsNome" placeholder="Es. Claudia Rossi"></label>
+        <label class="fld" for="inConsRec">Recapiti<input type="text" id="inConsRec" placeholder="Telefono, email"></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OFFERTE ===== -->
+  <section class="section" id="sec-offerte" data-sec="offerte" hidden>
+    <div class="row">
+      <h2 class="grow">Catalogo offerte</h2>
+      <input type="text" id="offSearch" placeholder="Cerca fornitore o offerta" style="max-width:280px">
+    </div>
+    <p class="small muted" id="offIntro"></p>
+    <div class="tbl-wrap"><table class="data" id="offTable"></table></div>
+
+    <div class="panel stack">
+      <h2>Aggiungi un'offerta</h2>
+      <p class="small muted">Hai ricevuto una proposta da un venditore o hai trovato un'offerta che qui manca? Carica la scheda sintetica (PDF o foto) e Claude la legge, oppure compila i campi. Le offerte che aggiungi restano solo tue.</p>
+      <div class="drop" id="dropOffer">
+        <span class="btn filebtn">Scheda sintetica: foto<input type="file" id="offImg" accept="image/*" multiple></span>
+        <span class="btn filebtn">Scheda sintetica: PDF<input type="file" id="offPdf" accept="application/pdf,.pdf"></span>
+      </div>
+      <div id="offExtractOut" class="small"></div>
+      <form id="offForm" class="stack" novalidate>
+        <div class="grid2">
+          <label class="fld" for="nFornitore">Fornitore<input type="text" id="nFornitore" required></label>
+          <label class="fld" for="nNome">Nome offerta<input type="text" id="nNome" required></label>
+          <label class="fld" for="nTipo">Tipo di prezzo<select id="nTipo"><option value="fisso">Fisso</option><option value="indicizzato">Variabile (PUN + spread)</option></select></label>
+          <label class="fld" for="nFasce">Fasce<select id="nFasce"><option value="mono">Monoraria</option><option value="bi">Bioraria (F1 / F23)</option><option value="tri">Multioraria (F1 / F2 / F3)</option></select></label>
+        </div>
+        <div class="grid3">
+          <label class="fld" for="nP1"><span id="nP1l">Prezzo €/kWh</span><input type="number" id="nP1" step="0.0001" min="0"></label>
+          <label class="fld" for="nP2"><span id="nP2l">F2 €/kWh</span><input type="number" id="nP2" step="0.0001" min="0"></label>
+          <label class="fld" for="nP3"><span id="nP3l">F3 €/kWh</span><input type="number" id="nP3" step="0.0001" min="0"></label>
+          <label class="fld" for="nQf">Quota fissa (€/mese)<input type="number" id="nQf" step="0.01" min="0"></label>
+          <label class="fld" for="nSconto">Sconti (€/anno)<input type="number" id="nSconto" step="1" min="0"></label>
+          <label class="fld" for="nDurata">Prezzo bloccato (mesi)<input type="number" id="nDurata" step="1" min="0"></label>
+        </div>
+        <label class="fld" for="nNote">Note<input type="text" id="nNote" placeholder="Condizioni, bonus, penali"></label>
+        <div class="row"><button class="btn primary" type="submit">Aggiungi alla classifica</button><span class="small" id="offFormMsg"></span></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== MERCATO ===== -->
+  <section class="section" id="sec-mercato" data-sec="mercato" hidden>
+    <div class="panel stack">
+      <div class="row"><h2 class="grow">Prezzo all'ingrosso dell'energia (PUN)</h2><span class="tiny" id="punAsOf"></span></div>
+      <p class="small muted" id="mktNote"></p>
+      <div class="chart-box" id="punChartBox"></div>
+      <div class="legend"><span><i style="background:var(--accent);height:3px;vertical-align:3px"></i>PUN mensile (GME)</span><span><i style="background:var(--ink-3);height:3px;vertical-align:3px"></i>Futures: cosa si aspetta il mercato</span></div>
+    </div>
+    <div class="panel stack">
+      <h3>Ultimi mesi per fascia (€/kWh, senza perdite di rete)</h3>
+      <div class="tbl-wrap"><table class="data" id="punTable"></table></div>
+    </div>
+    <div class="panel stack">
+      <h3>Voci uguali per tutti i fornitori</h3>
+      <p class="small muted">Le fissa ARERA. Le paghi qualunque offerta scegli, quindi non spostano la classifica ma pesano sul totale.</p>
+      <div class="tbl-wrap"><table class="data" id="regTable"></table></div>
+    </div>
+    <div class="panel stack">
+      <h3>Aggiornamenti</h3>
+      <div class="stack" id="androidData" hidden>
+        <label class="fld" for="inDataUrl">Indirizzo del file prezzi<input type="text" id="inDataUrl" placeholder="https://raw.githubusercontent.com/…/dati.json"><span class="hint">L'app scarica da qui i prezzi aggiornati ogni volta che si apre.</span></label>
+        <div class="row"><button class="btn small" type="button" id="btnDataUrl">Salva e scarica</button></div>
+      </div>
+      <div id="runLog" class="small"></div>
+      <div id="srcList" class="small"></div>
+    </div>
+  </section>
+
+  <!-- ===== CHIEDI A CLAUDE ===== -->
+  <section class="section" id="sec-claude" data-sec="claude" hidden>
+    <div class="panel stack">
+      <h2>Chiedi a Claude</h2>
+      <p class="small muted">Claude vede i dati del cliente selezionato, la classifica e i dati di mercato. Usalo per approfondire prima di parlare con il cliente.</p>
+      <div class="chips" id="chatChips">
+        <button type="button" class="chip">Per questo cliente meglio il fisso o il variabile?</button>
+        <button type="button" class="chip">Spiegami la bolletta del cliente voce per voce</button>
+        <button type="button" class="chip">Conviene spostare i consumi in F3?</button>
+        <button type="button" class="chip">Gli conviene ridurre o aumentare la potenza?</button>
+      </div>
+      <div class="chat" id="chatLog"></div>
+      <form id="chatForm" class="row" novalidate>
+        <label for="chatIn" class="grow" style="display:flex"><textarea id="chatIn" placeholder="Scrivi la tua domanda" rows="2"></textarea></label>
+        <button class="btn primary" type="submit" id="chatSend">Invia</button>
+        <button class="btn" type="button" id="chatStop" hidden>Ferma</button>
+      </form>
+      <p class="tiny" id="chatNote"></p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>Le stime coprono i prossimi 12 mesi e includono materia energia, perdite di rete, dispacciamento, quota fissa, trasporto, oneri, accise e IVA. Per le offerte variabili il prezzo futuro del PUN viene preso dai futures di borsa: è una previsione, non una certezza.</p>
+    <p>Prima di firmare controlla sempre la scheda sintetica dell'offerta sul sito del fornitore. Per i clienti domestici cambiare fornitore è gratuito e la disdetta la fa il nuovo fornitore.</p>
+  </footer>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>

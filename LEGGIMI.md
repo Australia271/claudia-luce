@@ -8,6 +8,13 @@ App per confrontare le offerte luce, con lo stesso motore di calcolo della versi
 - `data/dati.json`: i prezzi di partenza. L'app li scarica da qui quando questo file sta in un indirizzo pubblico, per esempio GitHub.
 - `web/claudia-luce.html`: la versione web, la stessa che gira dentro Claude.
 - `.github/workflows/android.yml`: compila l'APK in automatico su GitHub (facoltativo).
+- `sorgenti/`: i file da cui nascono la versione web e quella Android (`src/`) e lo script che le costruisce (`cd sorgenti && npm install && python3 build.py`).
+- `strumenti/`: aggiornamento e verifica quotidiana dei prezzi (`pubblica_dati.py`, `verifica.py`, `VERIFICA.md`).
+
+## Aggiornamento e controllo di ogni giorno
+
+- **6:55:** un'attività programmata di Claude ricontrolla PUN (GME), futures, tariffe ARERA, dispacciamento e offerte dei fornitori, e scrive tutto nel database della versione web.
+- **7:20:** Claude verifica che i dati siano di oggi, completi e sensati (`strumenti/verifica.py`), corregge quello che manca, pubblica `data/dati.json` per l'app Android e avvisa Filippo solo se resta un problema.
 
 ## Creare l'APK con Android Studio
 
