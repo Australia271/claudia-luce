@@ -15,6 +15,7 @@ App per confrontare le offerte luce, con lo stesso motore di calcolo della versi
 
 - **6:55:** un'attività programmata di Claude ricontrolla PUN (GME), futures, tariffe ARERA, dispacciamento e offerte dei fornitori, e scrive tutto nel database della versione web.
 - **7:20:** Claude verifica che i dati siano di oggi, completi e sensati (`strumenti/verifica.py`), corregge quello che manca, pubblica `data/dati.json` per l'app Android e avvisa Filippo solo se resta un problema.
+- **9:30 circa:** GitHub Actions ("Controllo prezzi giornaliero") ricontrolla `data/dati.json` senza Claude: se i prezzi sono vecchi apre una segnalazione (Issue) e GitHub manda un'email al proprietario del repository.
 
 ## Creare l'APK con Android Studio
 

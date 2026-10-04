@@ -1,22 +1,20 @@
 # Verifica quotidiana di Claudia Luce (ogni mattina alle 7:20)
 
-Filippo vuole che i prezzi siano aggiornati ogni giorno e che il controllo lo faccia Claude,
-senza che lui debba pensarci. L'aggiornamento lo fa l'attività "Aggiorna Claudia Luce"
-alle 6:55 (sessione nuova, scrive nel database dell'artifact). Questa verifica gira nella
-conversazione di Claudia Luce, l'unica che può scrivere su GitHub.
+Filippo vuole che i prezzi siano aggiornati ogni giorno, per anni, e che il controllo lo
+faccia Claude senza che lui debba pensarci.
+- 6:55, attività "Aggiorna Claudia Luce": aggiorna il database dell'artifact.
+- 7:20, attività "Verifica quotidiana Claudia Luce": segue questo file, corregge e pubblica
+  data/dati.json per l'app Android (questa attività può scrivere su GitHub).
+- 9:30 circa, GitHub Actions "Controllo prezzi giornaliero": controllo indipendente da Claude
+  su data/dati.json; se è vecchio apre una Issue e GitHub manda un'email a Filippo.
 
 Artifact: https://claude.ai/artifact/Kjs8kp1ZwL2GwhRdPyobbm
-Repository: Australia271/claudia-luce, clone in /home/claude/claudia-luce
+Repository: Australia271/claudia-luce, di solito già clonato in /home/claude/claudia-luce
 (se la cartella manca, clonalo lì; per il controllo del calcolo serve `node`).
 
-## 0. Tieni viva la catena
-Con `list_triggers` guarda le attività "Verifica quotidiana Claudia Luce" ancora da eseguire.
-Ci deve essere una verifica per ciascuno dei prossimi 3 giorni alle 7:20 ora di Roma
-(05:20Z con l'ora legale, 06:20Z con l'ora solare: calcolala con Europe/Rome).
-Crea con `send_later` (name "Verifica quotidiana Claudia Luce", initiation own_followup)
-quelle che mancano, con questo messaggio esatto:
-"Verifica quotidiana di Claudia Luce: segui strumenti/VERIFICA.md nel repository /home/claude/claudia-luce (se manca, clona Australia271/claudia-luce lì)."
-Non creare doppioni per lo stesso giorno.
+## 0. Controlla che l'aggiornamento delle 6:55 esista ancora
+Con `list_triggers` verifica che "Aggiorna Claudia Luce" sia attiva (enabled) e programmata
+per domani. Se è stata disattivata o sospesa, avvisa Filippo (passo 6).
 
 ## 1. Scarica i dati
 Con ArtifactData salva in una cartella NUOVA e vuota dello scratchpad, con `out_dir`:
@@ -53,4 +51,5 @@ Aggiorna meta/status con "update" (if_version) del solo campo
 ## 6. Avvisa solo se serve
 Se tutto è a posto non scrivere niente a Filippo.
 Se resta un problema che non hai potuto correggere, avvisalo con una riga in italiano
-semplice: con `SendUserMessage` e con `PushNotification` (caricali con ToolSearch).
+semplice con `PushNotification` (caricala con ToolSearch), che arriva sul suo telefono.
+Nel riassunto finale scrivi in 3 righe cosa hai controllato e cosa hai corretto.
