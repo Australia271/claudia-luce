@@ -74,4 +74,8 @@ pagina=andr.replace(title, title+testa, 1)
 fissi=['./','index.html','manifest.webmanifest','servizi-web.js','vendor/pdf.min.js','vendor/pdf.worker.min.js','vendor/jspdf.umd.min.js']+['fonts/'+k for k in fonts]+['icons/'+f.name for f in sorted((wa/'icons').iterdir())]
 ver=hashlib.sha1((pagina+(wa/'servizi-web.js').read_text()).encode()).hexdigest()[:12]
 (sito/'sw.js').write_text((wa/'sw.js').read_text().replace('__VERSIONE__','claudia-'+ver).replace('__FILE__',json.dumps(fissi)))
+# l'app Android controlla questo file e, se la versione è nuova, scarica la pagina
+# (minApk: alzarlo se la pagina nuova ha bisogno di servizi del telefono che le app vecchie non hanno)
+(sito/'versione.json').write_text(json.dumps({'versione':'claudia-'+ver,'file':['index.html','servizi-web.js'],'minApk':1}))
+(www/'versione.txt').write_text('claudia-'+ver)
 print('web',len(web),'android',len(andr),'sito',sum(f.stat().st_size for f in sito.rglob('*') if f.is_file())//1024,'KB')

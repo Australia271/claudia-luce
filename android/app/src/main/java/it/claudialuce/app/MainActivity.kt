@@ -33,12 +33,23 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import org.json.JSONObject
 import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
+import java.net.URLConnection
 
 /**
  * Claudia Luce: l'interfaccia è la stessa pagina della versione web
  * (assets/www/index.html), servita in locale. Qui ci sono solo i servizi
  * del telefono: scelta di file e fotocamera, lettura del testo dalle foto
  * (ML Kit, sul dispositivo) e condivisione dei file creati dall'app.
+ *
+ * Aggiornamento da solo: a ogni apertura l'app controlla se sul sito c'è una
+ * versione più nuova della pagina e la scarica; dalla volta dopo usa quella.
+ * La pagina resta servita dallo stesso indirizzo interno, quindi clienti e
+ * dati salvati non cambiano. Senza internet usa l'ultima versione scaricata
+ * o quella inclusa nell'app.
  */
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +57,10 @@ class MainActivity : AppCompatActivity() {
     private var fileCallback: ValueCallback<Array<Uri>>? = null
     private var cameraUri: Uri? = null
     private val recognizer by lazy { TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS) }
+    private val cartellaWeb by lazy { File(filesDir, "web") }
+    @Volatile private var paginaScaricata: File? = null
+    @Volatile private var aggiornamentoPronto = false
+    private var inSottofondoDal = 0L
 
     private val pickFiles = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
         val cb = fileCallback ?: return@registerForActivityResult
@@ -93,8 +108,9 @@ class MainActivity : AppCompatActivity() {
             WindowInsetsCompat.CONSUMED
         }
 
+        paginaScaricata = preparaVersione()
         val loader = WebViewAssetLoader.Builder()
-            .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this))
+            .addPathHandler("/assets/", PaginaAggiornabile())
             .build()
 
         web.settings.apply {
@@ -172,6 +188,137 @@ class MainActivity : AppCompatActivity() {
         web.addJavascriptInterface(Bridge(), "ClaudiaAndroid")
         // i dati (clienti, prezzi scaricati) stanno nella memoria locale della pagina
         web.loadUrl("https://$ASSET_HOST/assets/www/index.html")
+        controllaAggiornamento()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        inSottofondoDal = System.currentTimeMillis()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // se nel frattempo è arrivata una versione nuova e l'app è rimasta chiusa
+        // per un po', la carico adesso (i dati sono già salvati nella pagina)
+        if (aggiornamentoPronto && inSottofondoDal > 0 && System.currentTimeMillis() - inSottofondoDal > 10 * 60 * 1000L) {
+            aggiornamentoPronto = false
+            paginaScaricata = preparaVersione()
+            web.reload()
+        }
+    }
+
+    /* ---------- aggiornamento della pagina senza reinstallare l'app ---------- */
+
+    private fun versioneInclusa(): String = try {
+        assets.open("www/versione.txt").bufferedReader().use { it.readText().trim() }
+    } catch (e: Exception) { "" }
+
+    /** Cartella dell'ultima versione scaricata, se valida; pulisce quelle vecchie. */
+    private fun preparaVersione(): File? {
+        try {
+            cartellaWeb.mkdirs()
+            // app reinstallata con una pagina diversa inclusa: riparto da quella
+            val segno = File(cartellaWeb, "inclusa.txt")
+            val inclusa = versioneInclusa()
+            if (!segno.isFile || segno.readText().trim() != inclusa) {
+                cartellaWeb.listFiles()?.forEach { it.deleteRecursively() }
+                cartellaWeb.mkdirs()
+                segno.writeText(inclusa)
+                return null
+            }
+            val v = File(cartellaWeb, "attiva.txt").takeIf { it.isFile }?.readText()?.trim().orEmpty()
+            val d = if (v.isNotEmpty()) File(cartellaWeb, v) else null
+            val ok = d != null && File(d, "www/index.html").isFile
+            cartellaWeb.listFiles()?.forEach {
+                if (it.isDirectory && (!ok || it.name != v)) it.deleteRecursively()
+            }
+            return if (ok) d else null
+        } catch (e: Exception) {
+            return null
+        }
+    }
+
+    private fun scarica(indirizzo: String): ByteArray {
+        val c = URL(indirizzo).openConnection() as HttpURLConnection
+        c.connectTimeout = 15000
+        c.readTimeout = 30000
+        c.useCaches = false
+        try {
+            if (c.responseCode != 200) throw IOException("http " + c.responseCode)
+            return c.inputStream.use { it.readBytes() }
+        } finally {
+            c.disconnect()
+        }
+    }
+
+    private fun controllaAggiornamento() {
+        Thread {
+            try {
+                val info = JSONObject(String(scarica(SITO + "versione.json?t=" + System.currentTimeMillis()), Charsets.UTF_8))
+                val v = info.getString("versione")
+                if (!v.matches(Regex("[A-Za-z0-9._-]{4,60}"))) return@Thread
+                if (BuildConfig.VERSION_CODE < info.optInt("minApk", 0)) return@Thread
+                val attiva = File(cartellaWeb, "attiva.txt").takeIf { it.isFile }?.readText()?.trim().orEmpty()
+                val corrente = attiva.ifEmpty { versioneInclusa() }
+                if (v == corrente) return@Thread
+                if (v == versioneInclusa()) {
+                    File(cartellaWeb, "attiva.txt").delete()
+                    aggiornamentoPronto = true
+                    return@Thread
+                }
+                val tmp = File(cartellaWeb, "$v.parziale")
+                tmp.deleteRecursively()
+                val file = info.getJSONArray("file")
+                for (i in 0 until file.length()) {
+                    val nome = file.getString(i)
+                    if (!nome.matches(Regex("[A-Za-z0-9._/-]{1,80}")) || nome.contains("..")) return@Thread
+                    val dati = scarica(SITO + nome + "?v=" + v)
+                    if (dati.isEmpty()) return@Thread
+                    val f = File(tmp, "www/$nome")
+                    f.parentFile?.mkdirs()
+                    f.writeBytes(dati)
+                }
+                val indice = File(tmp, "www/index.html")
+                if (!indice.isFile || !indice.readText().contains("</html>")) {
+                    tmp.deleteRecursively()
+                    return@Thread
+                }
+                val finale = File(cartellaWeb, v)
+                finale.deleteRecursively()
+                if (!tmp.renameTo(finale)) return@Thread
+                File(cartellaWeb, "attiva.txt").writeText(v)
+                aggiornamentoPronto = true
+            } catch (e: Exception) {
+                // senza internet o sito non raggiungibile: riprovo alla prossima apertura
+            }
+        }.start()
+    }
+
+    /** Serve la pagina scaricata, se c'è; tutto il resto (librerie, caratteri) dall'app. */
+    private inner class PaginaAggiornabile : WebViewAssetLoader.PathHandler {
+        private val inclusi = WebViewAssetLoader.AssetsPathHandler(this@MainActivity)
+        override fun handle(path: String): WebResourceResponse? {
+            val d = paginaScaricata
+            if (d != null) {
+                try {
+                    val f = File(d, path)
+                    if (f.isFile && f.canonicalPath.startsWith(d.canonicalPath + File.separator)) {
+                        val tipo = when (f.extension.lowercase()) {
+                            "html" -> "text/html"
+                            "js" -> "text/javascript"
+                            "css" -> "text/css"
+                            "json" -> "application/json"
+                            else -> URLConnection.guessContentTypeFromName(f.name) ?: "application/octet-stream"
+                        }
+                        val testo = tipo.startsWith("text/") || tipo == "application/json"
+                        return WebResourceResponse(tipo, if (testo) "utf-8" else null, FileInputStream(f))
+                    }
+                } catch (e: Exception) {
+                    // in caso di problemi uso la copia inclusa nell'app
+                }
+            }
+            return inclusi.handle(path)
+        }
     }
 
     private fun cameraFile() = File(File(cacheDir, "camera"), "bolletta.jpg")
@@ -236,5 +383,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val ASSET_HOST = "appassets.androidplatform.net"
+        private const val SITO = "https://australia271.github.io/claudia-luce/"
     }
 }

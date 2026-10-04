@@ -4,9 +4,12 @@
    - prezzi aggiornati scaricati dallo stesso file pubblico dell'app;
    - lettura del testo di foto e PDF scansionati sul dispositivo (Tesseract, italiano);
    - salvataggio dei file creati (backup, proposta PDF, CSV).
-   Più: funzionamento senza internet e invito a installarla come app. */
+   Più: funzionamento senza internet e invito a installarla come app.
+   Dentro l'app Android (che scarica questa stessa pagina per aggiornarsi da sola)
+   i servizi veri del telefono ci sono già: in quel caso qui non si fa niente. */
 (function () {
   "use strict";
+  if (window.ClaudiaAndroid) return;
   window.CLAUDIA_WEBAPP = true;
   var DATA_URL = "https://raw.githubusercontent.com/Australia271/claudia-luce/main/data/dati.json";
   var abs = function (p) { return new URL(p, location.href).href; };
