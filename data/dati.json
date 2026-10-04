@@ -1290,6 +1290,11 @@
     "note": "Prima raccolta dati: PUN GME gen-set 2026, futures ICE, tariffe ARERA ott-dic 2026, 22 offerte."
    }
   ],
-  "schedule": "ogni giorno alle 6:55"
+  "schedule": "ogni giorno alle 6:55",
+  "verifica": {
+   "at": "2026-10-04T09:08:00+02:00",
+   "esito": "ok",
+   "note": "Prima verifica: aggiornamento di oggi fatto, tariffe ARERA valide, PUN ufficiale fino a settembre, futures del 4/10, 35 offerte attive, calcolo coerente, file dell'app Android uguale al database. Da controllare: prezzo Octopus Fissa 12M scaduto il 2/10."
+  }
  }
 }
