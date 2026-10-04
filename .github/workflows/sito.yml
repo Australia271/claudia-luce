@@ -1,0 +1,45 @@
+name: Pubblica la versione con link (iPhone e PC)
+
+# Costruisce Claudia Luce dai sorgenti e la pubblica su GitHub Pages:
+# https://australia271.github.io/claudia-luce/
+# I prezzi non sono dentro la pagina: li scarica ogni volta da data/dati.json.
+on:
+  push:
+    branches: [main]
+    paths: ["sorgenti/**", ".github/workflows/sito.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  costruisci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Costruisci la pagina
+        run: |
+          cd sorgenti
+          npm ci --no-audit --no-fund
+          python3 build.py
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _sito
+  pubblica:
+    needs: costruisci
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.pagina.outputs.page_url }}
+    steps:
+      - id: pagina
+        uses: actions/deploy-pages@v4
