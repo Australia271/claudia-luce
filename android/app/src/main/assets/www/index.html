@@ -352,7 +352,7 @@ body.bloccato > :not(.lock):not(.toast) { visibility: hidden; }
     <div class="brand"><h1>Claudia Luce</h1><span class="kw">consulenza energetica</span></div>
     <div class="status">
       <span class="pill" id="dataPill"><span class="dot"></span><span id="dataPillText">Dati incorporati</span></span>
-      <button class="btn small" id="btnRefresh" type="button" hidden>Aggiorna adesso</button>
+      <button class="btn small" id="btnRefresh" type="button" hidden>Aggiorna prezzi</button>
       <button class="btn small" id="btnLock" type="button" hidden title="Blocca i dati dei clienti">Blocca</button>
     </div>
   </div>
@@ -1541,8 +1541,11 @@ function renderStatus() {
 }
 function updateRefreshBtn() {
   const btn = $("#btnRefresh");
+  // App Android e versione per PC: riscarica il file dei prezzi già pubblicato (non consuma Claude).
+  // Nella versione dentro Claude il pulsante non c'è: ogni avvio dell'aggiornamento consumerebbe
+  // l'utilizzo del piano, e i prezzi li aggiorna già l'attività delle 6:55.
   if (ANDROID) { btn.hidden = false; btn.textContent = "Aggiorna prezzi"; return; }
-  btn.hidden = !(S.caps.mcp && S.caps.isOwner && S.status && S.status.triggerId);
+  btn.hidden = true;
 }
 
 /* ---------- Classifica ---------- */
@@ -3062,21 +3065,6 @@ async function sendChat(text) {
   }
 }
 
-/* ---------- Aggiorna adesso ---------- */
-async function refreshNow() {
-  const btn = $("#btnRefresh"); btn.disabled = true;
-  try {
-    await S.caps.mcp.callTool("Claude Code Remote", "fire_trigger", { trigger_id: S.status.triggerId, text: "Aggiornamento richiesto dall'app alle " + new Date().toLocaleString("it-IT") });
-    toast("Aggiornamento avviato: i nuovi dati compaiono qui da soli tra qualche minuto.");
-  } catch (e) {
-    const c = e && e.code;
-    if (c === "server_not_connected" || c === "needs_reauth") toast("Collega 'Claude Code Remote' nelle impostazioni dei connettori di Claude per aggiornare da qui.");
-    else if (c === "not_in_manifest" || c === "not_granted") toast("Permesso non concesso: l'aggiornamento automatico quotidiano resta attivo.");
-    else if (c === "tool_error") toast("L'aggiornamento non è partito: " + (e.message || "errore del servizio") + ".");
-    else toast("L'aggiornamento non è partito. Riprova più tardi: quello quotidiano resta attivo.");
-  } finally { setTimeout(() => { btn.disabled = false; }, 60000); }
-}
-
 /* ---------- Collegamento alle capacità della pagina ---------- */
 function initCaps() {
   if (ANDROID) { initAndroid(); return; }
@@ -3103,7 +3091,6 @@ function initCaps() {
     if (s) { const lim = await s.limits().catch(() => null); S.caps.images = lim && lim.images ? lim.images : null; }
     $("#chatNote").textContent = s ? "Le risposte usano il tuo account Claude." : "Claude non è disponibile in questa vista.";
   });
-  c.use("mcp").then(m => { S.caps.mcp = m; updateRefreshBtn(); });
   c.use("downloads").then(d => { S.caps.downloads = d; $("#btnExport").hidden = !d; renderProposta(); });
 }
 
@@ -3258,7 +3245,7 @@ function boot() {
   $("#offTable").addEventListener("click", e => { const b = e.target.closest("[data-del-offer]"); if (!b) return; S.user.offerteMie = S.user.offerteMie.filter(o => o.id !== b.dataset.delOffer); scheduleSave(); renderOffersTable(); renderRanking(); toast("Offerta eliminata."); });
   $("#btnExport").addEventListener("click", exportCsv);
   wireProposta();
-  $("#btnRefresh").addEventListener("click", () => ANDROID ? loadRemoteData(true) : refreshNow());
+  $("#btnRefresh").addEventListener("click", () => loadRemoteData(true));
   $("#btnBackupOut").addEventListener("click", exportBackup);
   $("#fileBackup").addEventListener("change", e => { importBackup(e.target.files[0]); e.target.value = ""; });
   $("#btnDataUrl").addEventListener("click", () => { lsSet("claudia.dataUrl", $("#inDataUrl").value.trim()); loadRemoteData(true); });
