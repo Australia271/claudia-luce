@@ -1,224 +1,8 @@
 {
  "schema": 1,
  "market": {
-  "schema": 1,
-  "updatedAt": "2026-10-03T12:30:00+02:00",
-  "regolato": {
-   "validoDal": "2026-10-01",
-   "validoAl": "2026-12-31",
-   "trasporto": {
-    "quotaFissaAnno": 23.04,
-    "quotaPotenzaKWAnno": 23.7192,
-    "quotaEnergiaKWh": 0.01473
-   },
-   "oneri": {
-    "residente": {
-     "quotaFissaAnno": 0,
-     "quotaEnergiaKWh": 0.033153
-    },
-    "nonResidente": {
-     "quotaFissaAnno": 95.0916,
-     "quotaEnergiaKWh": 0.033153
-    }
-   },
-   "accise": {
-    "aliquotaKWh": 0.0227,
-    "franchigiaMeseKWh": 150,
-    "soglia1MeseKWh": 220,
-    "potenzaMaxKW": 3
-   },
-   "iva": 0.1,
-   "perdite": 0.1,
-   "dispacciamento": {
-    "energiaKWh": 0.0117,
-    "capacitaKWh": 0.0085,
-    "dispBTAnno": 1.2311,
-    "nota": "Componenti ARERA (uplift, essenzialità, modulazione, altri) del I trim. 2026 più stima media del corrispettivo mercato capacità."
-   },
-   "canoneRaiAnno": 90,
-   "fonti": [
-    {
-     "nome": "Servizio Elettrico Nazionale, tariffe ott-dic 2026 (trasporto, oneri)",
-     "url": "https://www.servizioelettriconazionale.it/it-IT/tariffe/uso-domestico/biorarie/residente"
-    },
-    {
-     "nome": "ARERA, comunicato IV trimestre 2026",
-     "url": "https://www.arera.it/comunicati-stampa/dettaglio/elettricita-maggior-tutela-373-nel-iv-trimestre-2026-per-i-clienti-vulnerabili"
-    },
-    {
-     "nome": "Pulsee, CTE con componenti di dispacciamento",
-     "url": "https://pulsee.it/assets/pulsee/data/it/cte_12_01/Pulsee%20Luce%20Limit.e%20-%20Condizioni%20tecnico-economiche%20e%20Scheda%20Sintetica.pdf"
-    }
-   ]
-  },
-  "pun": {
-   "fonte": "GME, Prezzo medio per fasce (PUN Index)",
-   "url": "https://gme.mercatoelettrico.org/it-it/Home/Pubblicazioni/PrezzoMedioFasce",
-   "storico": [
-    {
-     "mese": "2025-01",
-     "mono": 0.14305,
-     "f1": 0.1583,
-     "f2": 0.1516,
-     "f3": 0.1286
-    },
-    {
-     "mese": "2025-02",
-     "mono": 0.15039,
-     "f1": 0.1577,
-     "f2": 0.159,
-     "f3": 0.1399
-    },
-    {
-     "mese": "2025-03",
-     "mono": 0.12057,
-     "f1": 0.1217,
-     "f2": 0.1349,
-     "f3": 0.1117
-    },
-    {
-     "mese": "2025-04",
-     "mono": 0.0999,
-     "f1": 0.0959,
-     "f2": 0.1151,
-     "f3": 0.0951
-    },
-    {
-     "mese": "2025-05",
-     "mono": 0.09356,
-     "f1": 0.0891,
-     "f2": 0.1106,
-     "f3": 0.0871
-    },
-    {
-     "mese": "2025-06",
-     "mono": 0.11179,
-     "f1": 0.1131,
-     "f2": 0.1268,
-     "f3": 0.1036
-    },
-    {
-     "mese": "2025-07",
-     "mono": 0.11315,
-     "f1": 0.109,
-     "f2": 0.1271,
-     "f3": 0.1085
-    },
-    {
-     "mese": "2025-08",
-     "mono": 0.10878,
-     "f1": 0.1056,
-     "f2": 0.118,
-     "f3": 0.106
-    },
-    {
-     "mese": "2025-09",
-     "mono": 0.10908,
-     "f1": 0.1096,
-     "f2": 0.1209,
-     "f3": 0.1019
-    },
-    {
-     "mese": "2025-10",
-     "mono": 0.11106,
-     "f1": 0.1178,
-     "f2": 0.1217,
-     "f3": 0.0995
-    },
-    {
-     "mese": "2025-11",
-     "mono": 0.11708,
-     "f1": 0.1296,
-     "f2": 0.124,
-     "f3": 0.1055
-    },
-    {
-     "mese": "2025-12",
-     "mono": 0.11373,
-     "f1": 0.13009,
-     "f2": 0.112,
-     "f3": 0.10452
-    },
-    {
-     "mese": "2026-01",
-     "mono": 0.13266,
-     "f1": 0.15126,
-     "f2": 0.1374,
-     "f3": 0.11829
-    },
-    {
-     "mese": "2026-02",
-     "mono": 0.11441,
-     "f1": 0.12228,
-     "f2": 0.11984,
-     "f3": 0.1053
-    },
-    {
-     "mese": "2026-03",
-     "mono": 0.1434,
-     "f1": 0.14302,
-     "f2": 0.15391,
-     "f3": 0.13809
-    },
-    {
-     "mese": "2026-04",
-     "mono": 0.11946,
-     "f1": 0.11114,
-     "f2": 0.13826,
-     "f3": 0.11663
-    },
-    {
-     "mese": "2026-05",
-     "mono": 0.11935,
-     "f1": 0.10717,
-     "f2": 0.13144,
-     "f3": 0.12081
-    },
-    {
-     "mese": "2026-06",
-     "mono": 0.13251,
-     "f1": 0.12576,
-     "f2": 0.1517,
-     "f3": 0.12724
-    },
-    {
-     "mese": "2026-07",
-     "mono": 0.15704,
-     "f1": 0.1542,
-     "f2": 0.16938,
-     "f3": 0.15226
-    },
-    {
-     "mese": "2026-08",
-     "mono": 0.18,
-     "f1": 0.17452,
-     "f2": 0.20435,
-     "f3": 0.17172
-    },
-    {
-     "mese": "2026-09",
-     "mono": 0.20754,
-     "f1": 0.20635,
-     "f2": 0.22758,
-     "f3": 0.19702
-    }
-   ],
-   "meseCorrente": {
-    "mese": "2026-10",
-    "parziale": true,
-    "aggiornatoAl": "2026-10-02",
-    "mono": 0.213061,
-    "f1": 0.21057,
-    "f2": 0.251871,
-    "f3": 0.192231,
-    "fonte": "a4energie.it su dati GME"
-   }
-  },
   "forward": {
-   "rilevatoAl": "2026-10-03",
    "fonte": "ICE Endex, Italian Power Base futures (quotazioni via TradingView)",
-   "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts",
-   "unita": "€/MWh",
    "mesi": [
     {
      "mese": "2026-10",
@@ -328,7 +112,174 @@
      "mese": "2028-12",
      "v": 114.57
     }
-   ]
+   ],
+   "rilevatoAl": "2026-10-04",
+   "unita": "€/MWh",
+   "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
+  },
+  "notaMercato": "Il PUN è a circa 0,21 €/kWh: settembre ha chiuso a 0,208 €/kWh e i primi giorni di ottobre sono sullo stesso livello. I futures prevedono un inverno caro, intorno a 0,20 €/kWh fino a febbraio, poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene di più il prezzo fisso: le migliori offerte fisse (0,13-0,16 €/kWh) costano meno del PUN atteso per i prossimi 12 mesi.",
+  "pun": {
+   "fonte": "GME, Prezzo medio per fasce (PUN Index)",
+   "meseCorrente": {
+    "aggiornatoAl": "2026-10-02",
+    "f1": 0.21057,
+    "f2": 0.251871,
+    "f3": 0.192231,
+    "fonte": "a4energie.it su dati GME (verificato il 3/10)",
+    "mese": "2026-10",
+    "mono": 0.213061,
+    "parziale": true
+   },
+   "storico": [
+    {
+     "f1": 0.1583,
+     "f2": 0.1516,
+     "f3": 0.1286,
+     "mese": "2025-01",
+     "mono": 0.14305
+    },
+    {
+     "f1": 0.1577,
+     "f2": 0.159,
+     "f3": 0.1399,
+     "mese": "2025-02",
+     "mono": 0.15039
+    },
+    {
+     "f1": 0.1217,
+     "f2": 0.1349,
+     "f3": 0.1117,
+     "mese": "2025-03",
+     "mono": 0.12057
+    },
+    {
+     "f1": 0.0959,
+     "f2": 0.1151,
+     "f3": 0.0951,
+     "mese": "2025-04",
+     "mono": 0.0999
+    },
+    {
+     "f1": 0.0891,
+     "f2": 0.1106,
+     "f3": 0.0871,
+     "mese": "2025-05",
+     "mono": 0.09356
+    },
+    {
+     "f1": 0.1131,
+     "f2": 0.1268,
+     "f3": 0.1036,
+     "mese": "2025-06",
+     "mono": 0.11179
+    },
+    {
+     "f1": 0.109,
+     "f2": 0.1271,
+     "f3": 0.1085,
+     "mese": "2025-07",
+     "mono": 0.11315
+    },
+    {
+     "f1": 0.1056,
+     "f2": 0.118,
+     "f3": 0.106,
+     "mese": "2025-08",
+     "mono": 0.10878
+    },
+    {
+     "f1": 0.1096,
+     "f2": 0.1209,
+     "f3": 0.1019,
+     "mese": "2025-09",
+     "mono": 0.10908
+    },
+    {
+     "f1": 0.1178,
+     "f2": 0.1217,
+     "f3": 0.0995,
+     "mese": "2025-10",
+     "mono": 0.11106
+    },
+    {
+     "f1": 0.1296,
+     "f2": 0.124,
+     "f3": 0.1055,
+     "mese": "2025-11",
+     "mono": 0.11708
+    },
+    {
+     "f1": 0.13009,
+     "f2": 0.112,
+     "f3": 0.10452,
+     "mese": "2025-12",
+     "mono": 0.11373
+    },
+    {
+     "f1": 0.15126,
+     "f2": 0.1374,
+     "f3": 0.11829,
+     "mese": "2026-01",
+     "mono": 0.13266
+    },
+    {
+     "f1": 0.12228,
+     "f2": 0.11984,
+     "f3": 0.1053,
+     "mese": "2026-02",
+     "mono": 0.11441
+    },
+    {
+     "f1": 0.14302,
+     "f2": 0.15391,
+     "f3": 0.13809,
+     "mese": "2026-03",
+     "mono": 0.1434
+    },
+    {
+     "f1": 0.11114,
+     "f2": 0.13826,
+     "f3": 0.11663,
+     "mese": "2026-04",
+     "mono": 0.11946
+    },
+    {
+     "f1": 0.10717,
+     "f2": 0.13144,
+     "f3": 0.12081,
+     "mese": "2026-05",
+     "mono": 0.11935
+    },
+    {
+     "f1": 0.12576,
+     "f2": 0.1517,
+     "f3": 0.12724,
+     "mese": "2026-06",
+     "mono": 0.13251
+    },
+    {
+     "f1": 0.1542,
+     "f2": 0.16938,
+     "f3": 0.15226,
+     "mese": "2026-07",
+     "mono": 0.15704
+    },
+    {
+     "f1": 0.17452,
+     "f2": 0.20435,
+     "f3": 0.17172,
+     "mese": "2026-08",
+     "mono": 0.18
+    },
+    {
+     "f1": 0.20635,
+     "f2": 0.22758,
+     "f3": 0.19702,
+     "mese": "2026-09",
+     "mono": 0.20754
+    }
+   ],
+   "url": "https://gme.mercatoelettrico.org/it-it/Home/Pubblicazioni/PrezzoMedioFasce"
   },
   "rapportiFasce": {
    "10": {
@@ -392,130 +343,206 @@
     "f3": 0.942
    }
   },
-  "notaMercato": "Il PUN è salito da 0,13 €/kWh di gennaio a 0,21 €/kWh di settembre per la tensione sul gas (PSV intorno a 0,80 €/Smc). I futures prezzano un inverno ancora caro, intorno a 0,20 €/kWh, e un calo dalla primavera 2027 verso 0,14 €/kWh. Le offerte a prezzo fisso oggi sul mercato costano meno del PUN atteso per i prossimi 12 mesi."
+  "regolato": {
+   "accise": {
+    "aliquotaKWh": 0.0227,
+    "franchigiaMeseKWh": 150,
+    "potenzaMaxKW": 3,
+    "soglia1MeseKWh": 220
+   },
+   "canoneRaiAnno": 90,
+   "dispacciamento": {
+    "capacitaKWh": 0.0085,
+    "dispBTAnno": 1.2311,
+    "energiaKWh": 0.0117,
+    "nota": "Componenti ARERA (uplift, essenzialità, modulazione, altri) del I trim. 2026 più stima media del corrispettivo mercato capacità."
+   },
+   "fonti": [
+    {
+     "nome": "Servizio Elettrico Nazionale, tariffe ott-dic 2026 (trasporto, oneri)",
+     "url": "https://www.servizioelettriconazionale.it/it-IT/tariffe/uso-domestico/biorarie/residente"
+    },
+    {
+     "nome": "ARERA, comunicato IV trimestre 2026",
+     "url": "https://www.arera.it/comunicati-stampa/dettaglio/elettricita-maggior-tutela-373-nel-iv-trimestre-2026-per-i-clienti-vulnerabili"
+    },
+    {
+     "nome": "Pulsee, CTE con componenti di dispacciamento",
+     "url": "https://pulsee.it/assets/pulsee/data/it/cte_12_01/Pulsee%20Luce%20Limit.e%20-%20Condizioni%20tecnico-economiche%20e%20Scheda%20Sintetica.pdf"
+    }
+   ],
+   "iva": 0.1,
+   "oneri": {
+    "nonResidente": {
+     "quotaEnergiaKWh": 0.033153,
+     "quotaFissaAnno": 95.0916
+    },
+    "residente": {
+     "quotaEnergiaKWh": 0.033153,
+     "quotaFissaAnno": 0
+    }
+   },
+   "perdite": 0.1,
+   "trasporto": {
+    "quotaEnergiaKWh": 0.01473,
+    "quotaFissaAnno": 23.04,
+    "quotaPotenzaKWAnno": 23.7192
+   },
+   "validoAl": "2026-12-31",
+   "validoDal": "2026-10-01"
+  },
+  "schema": 1,
+  "updatedAt": "2026-10-04T06:56:00+02:00"
  },
  "offers": [
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "octopus-fissa-12m",
-   "fornitore": "Octopus Energy",
-   "nome": "Fissa 12M",
-   "tipo": "fisso",
+   "attiva": true,
    "fasce": "mono",
-   "prezzo": {
-    "mono": 0.1683
-   },
-   "quotaFissaMese": 6,
-   "durataMesi": 12,
-   "validoFino": "2026-10-02",
-   "requisiti": [
-    "online"
-   ],
-   "verde": true,
    "fonte": {
+    "data": "2026-10-01",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte",
-    "data": "2026-10-01"
+    "url": "https://luce-gas.it/fornitori/a2a/offerte"
    },
-   "note": "Octopus aggiorna il prezzo fisso ogni settimana: controlla quello del giorno prima di firmare."
-  },
-  {
-   "attiva": true,
-   "aggiornato": "2026-10-03",
-   "id": "octopus-flex",
-   "fornitore": "Octopus Energy",
-   "nome": "Flex Luce",
-   "tipo": "indicizzato",
-   "fasce": "mono",
+   "fornitore": "A2A Energia",
+   "id": "a2a-easy-luce",
+   "nome": "Easy Luce",
+   "quotaFissaMese": 12.5,
+   "sconti": [],
    "spread": {
-    "mono": 0.0088
+    "mono": 0
    },
-   "quotaFissaMese": 6,
-   "validoFino": "2026-10-31",
-   "requisiti": [
-    "online"
-   ],
-   "verde": true,
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte",
-    "data": "2026-10-01"
-   }
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-28"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "edison-web-luce",
-   "fornitore": "Edison Energia",
-   "nome": "Web Luce",
-   "tipo": "fisso",
+   "attiva": true,
    "fasce": "mono",
-   "prezzo": {
-    "mono": 0.168
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/a2a/offerte"
    },
-   "quotaFissaMese": 8,
+   "fornitore": "A2A Energia",
+   "id": "a2a-full-luce",
+   "nome": "Full Luce",
+   "note": "Disponibile anche bioraria: F1 0,1845 e F23 0,1764 €/kWh.",
+   "prezzo": {
+    "mono": 0.179
+   },
+   "quotaFissaMese": 11.3,
    "sconti": [
     {
      "descrizione": "Sconto annuo",
-     "euroAnno": 30
+     "euroAnno": 15
     }
    ],
-   "durataMesi": 12,
-   "validoFino": "2026-10-07",
-   "requisiti": [
-    "online",
-    "bolletta_web"
-   ],
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte",
-    "data": "2026-10-01"
-   },
-   "note": "Disponibile anche bioraria: F1 0,172 e F23 0,167 €/kWh."
+   "tipo": "fisso",
+   "validoFino": "2026-10-14"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "edison-easy-fix",
-   "fornitore": "Edison Energia",
-   "nome": "Easy Fix Luce (bioraria)",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/a2a/offerte"
+   },
+   "fornitore": "A2A Energia",
+   "id": "a2a-smart-casa-luce",
+   "nome": "Smart Casa Luce",
+   "quotaFissaMese": 9.5,
+   "sconti": [],
+   "spread": {
+    "mono": 0.025
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-28"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/acea/offerte"
+   },
+   "fornitore": "Acea Energia",
+   "id": "acea-sprint-web-luce",
+   "nome": "Sprint Web Luce",
+   "quotaFissaMese": 10,
+   "requisiti": [
+    "online"
+   ],
+   "sconti": [],
+   "spread": {
+    "mono": 0.008
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-12-06",
+   "verde": true
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "durataMesi": 12,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-09-24",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/confronto/offerte-luce"
+   },
+   "fornitore": "Alperia Energia",
+   "id": "alperia-smile-easy",
+   "nome": "Smile Easy Luce",
+   "prezzo": {
+    "mono": 0.1298
+   },
+   "quotaFissaMese": 9.1,
    "tipo": "fisso",
+   "validoFino": "2026-10-10"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "dispacciamento": "incluso",
+   "durataMesi": 3,
    "fasce": "bi",
-   "prezzo": {
-    "f1": 0.172,
-    "f23": 0.167
-   },
-   "quotaFissaMese": 12,
-   "sconti": [
-    {
-     "descrizione": "Sconto annuo",
-     "euroAnno": 30
-    }
-   ],
-   "durataMesi": 12,
-   "validoFino": "2026-10-07",
    "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte",
-    "data": "2026-10-01"
-   }
+    "data": "2026-10-01",
+    "nome": "Servizio Elettrico Nazionale",
+    "url": "https://www.servizioelettriconazionale.it/it-IT/tariffe/uso-domestico/biorarie/residente"
+   },
+   "fornitore": "Servizio di tutela (ARERA)",
+   "id": "arera-vulnerabilita",
+   "nome": "Tutela della vulnerabilità ott-dic 2026",
+   "note": "Solo per clienti vulnerabili (over 75, bonus sociale, disabilità, ecc.). Prezzo aggiornato da ARERA ogni trimestre: qui è applicato a tutti i 12 mesi.",
+   "perdite": "incluse",
+   "prezzo": {
+    "f1": 0.27379,
+    "f23": 0.27781
+   },
+   "quotaFissaMese": 3.524,
+   "solo": "vulnerabili",
+   "tipo": "regolato",
+   "validoFino": "2026-12-31"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "edison-dynamic",
-   "fornitore": "Edison Energia",
-   "nome": "Dynamic Luce",
-   "tipo": "indicizzato",
+   "attiva": true,
    "fasce": "mono",
-   "spread": {
-    "mono": 0.018
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
-   "spreadOltre": {
-    "sogliaAnnoKWh": 2200,
-    "spread": 0.023
-   },
+   "fornitore": "Edison Energia",
+   "id": "edison-dynamic",
+   "nome": "Dynamic Luce",
+   "note": "Spread 0,018 €/kWh fino a 2.200 kWh l'anno, 0,023 €/kWh oltre.",
    "quotaFissaMese": 8.3,
    "sconti": [
     {
@@ -523,24 +550,33 @@
      "euroAnno": 30
     }
    ],
-   "validoFino": "2026-10-07",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte",
-    "data": "2026-10-01"
+   "spread": {
+    "mono": 0.018
    },
-   "note": "Spread 0,018 €/kWh fino a 2.200 kWh l'anno, 0,023 €/kWh oltre."
+   "spreadOltre": {
+    "sogliaAnnoKWh": 2200,
+    "spread": 0.023
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-07"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "edison-super-flex",
+   "attiva": true,
+   "durataMesi": 12,
+   "fasce": "bi",
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
+   },
    "fornitore": "Edison Energia",
-   "nome": "Super Flex Luce",
-   "tipo": "indicizzato",
-   "fasce": "mono",
-   "spread": {
-    "mono": 0.022
+   "id": "edison-easy-fix",
+   "nome": "Easy Fix Luce (bioraria)",
+   "note": "Monoraria: 0,21 €/kWh. Prezzi bi corretti il 3/10 (prima erano quelli di Web Luce).",
+   "prezzo": {
+    "f1": 0.2125,
+    "f23": 0.2087
    },
    "quotaFissaMese": 12,
    "sconti": [
@@ -549,24 +585,77 @@
      "euroAnno": 30
     }
    ],
-   "validoFino": "2026-10-07",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte",
-    "data": "2026-10-01"
-   }
+   "tipo": "fisso",
+   "validoFino": "2026-10-07"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "edison-world",
-   "fornitore": "Edison Energia",
-   "nome": "World Luce",
-   "tipo": "indicizzato",
+   "attiva": true,
    "fasce": "mono",
-   "spread": {
-    "mono": 0
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
+   "fornitore": "Edison Energia",
+   "id": "edison-super-flex",
+   "nome": "Super Flex Luce",
+   "quotaFissaMese": 12,
+   "sconti": [
+    {
+     "descrizione": "Sconto annuo",
+     "euroAnno": 30
+    }
+   ],
+   "spread": {
+    "mono": 0.022
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-07"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "durataMesi": 12,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
+   },
+   "fornitore": "Edison Energia",
+   "id": "edison-web-luce",
+   "nome": "Web Luce",
+   "note": "Disponibile anche bioraria: F1 0,172 e F23 0,167 €/kWh.",
+   "prezzo": {
+    "mono": 0.168
+   },
+   "quotaFissaMese": 8,
+   "requisiti": [
+    "online",
+    "bolletta_web"
+   ],
+   "sconti": [
+    {
+     "descrizione": "Sconto annuo",
+     "euroAnno": 30
+    }
+   ],
+   "tipo": "fisso",
+   "validoFino": "2026-10-07"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
+   },
+   "fornitore": "Edison Energia",
+   "id": "edison-world",
+   "nome": "World Luce",
    "quotaFissaMese": 20,
    "sconti": [
     {
@@ -574,95 +663,162 @@
      "euroAnno": 30
     }
    ],
-   "validoFino": "2026-10-07",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte",
-    "data": "2026-10-01"
-   }
+   "spread": {
+    "mono": 0
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-07"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "lene-leggera-24",
-   "fornitore": "Lene",
-   "nome": "Leggera Luce 24",
-   "tipo": "fisso",
+   "attiva": true,
+   "durataMesi": 12,
    "fasce": "mono",
-   "prezzo": {
-    "mono": 0.1604
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/enel/offerte"
    },
-   "quotaFissaMese": 7,
+   "fornitore": "Enel Energia",
+   "id": "enel-fix-web",
+   "nome": "Fix Web Luce",
+   "prezzo": {
+    "mono": 0.1817
+   },
+   "quotaFissaMese": 12,
+   "requisiti": [
+    "online",
+    "bolletta_web",
+    "domiciliazione"
+   ],
    "sconti": [
     {
      "descrizione": "Sconto annuo",
      "euroAnno": 50
     }
    ],
-   "durataMesi": 24,
-   "validoFino": "2026-10-05",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce",
-    "data": "2026-10-02"
-   }
-  },
-  {
-   "attiva": true,
-   "aggiornato": "2026-10-03",
-   "id": "alperia-smile-easy",
-   "fornitore": "Alperia Energia",
-   "nome": "Smile Easy Luce",
    "tipo": "fisso",
-   "fasce": "mono",
-   "prezzo": {
-    "mono": 0.1298
-   },
-   "quotaFissaMese": 9.1,
-   "durataMesi": 12,
-   "validoFino": "2026-10-10",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce",
-    "data": "2026-09-24"
-   }
+   "validoFino": "2026-10-22"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "sorgenia-puntuale",
-   "fornitore": "Sorgenia",
-   "nome": "Next Energy PUNtuale Luce",
-   "tipo": "indicizzato",
+   "attiva": true,
    "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/enel/offerte"
+   },
+   "fornitore": "Enel Energia",
+   "id": "enel-flex-box",
+   "nome": "Flex Box",
+   "note": "Secondo Selectra (1 ott.) Flex Box vale solo per usi non residenziali con IVA 22%: verifica prima di sceglierla per casa.",
+   "quotaFissaMese": 6,
    "spread": {
-    "mono": 0
+    "mono": 0.041
    },
-   "quotaFissaMese": 6.7,
-   "sconti": [
-    {
-     "descrizione": "Sconto annuo",
-     "euroAnno": 40
-    }
-   ],
-   "validoFino": "2026-10-08",
-   "requisiti": [
-    "online"
-   ],
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/sorgenia/offerte",
-    "data": "2026-10-02"
-   }
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-22"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "eon-luce-premia",
-   "fornitore": "E.ON",
-   "nome": "Luce Premia",
-   "tipo": "fisso",
+   "attiva": true,
+   "durataMesi": 12,
    "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/enel/offerte"
+   },
+   "fornitore": "Enel Energia",
+   "id": "enel-move",
+   "nome": "Move Luce",
+   "note": "Include il servizio Enel Move Plus (riparazioni elettriche) per 36 mesi.",
+   "prezzo": {
+    "mono": 0.211
+   },
+   "quotaFissaMese": 14,
+   "tipo": "fisso",
+   "validoFino": "2026-10-22"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "durataMesi": 12,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/engie/offerte"
+   },
+   "fornitore": "Engie",
+   "id": "engie-punto-fisso-12-luce",
+   "nome": "Energia Punto Fisso 12 Luce",
+   "note": "Disponibile anche trioraria: F1 0,2048, F2 0,2093, F3 0,1858 €/kWh.",
+   "prezzo": {
+    "mono": 0.199
+   },
+   "quotaFissaMese": 9,
+   "sconti": [],
+   "tipo": "fisso",
+   "validoFino": "2026-10-07"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/engie/offerte"
+   },
+   "fornitore": "Engie",
+   "id": "engie-vedo-chiaro-luce",
+   "nome": "Energia Vedo Chiaro Luce",
+   "note": "Papernest riporta spread 0,008 €/kWh e 59 €/anno, ma con dati di luglio: usato Selectra del 2 ottobre.",
+   "quotaFissaMese": 4,
+   "sconti": [],
+   "spread": {
+    "mono": 0.009
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-07"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "durataMesi": 12,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/confronto/offerte-luce"
+   },
+   "fornitore": "E.ON",
+   "id": "eon-insieme",
+   "nome": "Insieme Luce",
+   "note": "Prevede costi in caso di recesso anticipato: leggi le condizioni.",
+   "prezzo": {
+    "mono": 0.1559
+   },
+   "quotaFissaMese": 9,
+   "tipo": "fisso",
+   "validoFino": "2026-10-08"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "durataMesi": 12,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/confronto/offerte-luce"
+   },
+   "fornitore": "E.ON",
+   "id": "eon-luce-premia",
+   "nome": "Luce Premia",
+   "note": "Prevede costi in caso di recesso anticipato: leggi le condizioni.",
    "prezzo": {
     "mono": 0.146
    },
@@ -673,281 +829,467 @@
      "euroAnno": 20
     }
    ],
-   "durataMesi": 12,
-   "validoFino": "2026-10-08",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce",
-    "data": "2026-10-02"
-   },
-   "note": "Prevede costi in caso di recesso anticipato: leggi le condizioni."
+   "tipo": "fisso",
+   "validoFino": "2026-10-08"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "eon-insieme",
-   "fornitore": "E.ON",
-   "nome": "Insieme Luce",
-   "tipo": "fisso",
+   "attiva": true,
+   "bonusUnaTantum": 30,
    "fasce": "mono",
-   "prezzo": {
-    "mono": 0.1559
-   },
-   "quotaFissaMese": 9,
-   "durataMesi": 12,
-   "validoFino": "2026-10-08",
    "fonte": {
+    "data": "2026-10-01",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce",
-    "data": "2026-10-02"
+    "url": "https://luce-gas.it/fornitori/hera/offerte"
    },
-   "note": "Prevede costi in caso di recesso anticipato: leggi le condizioni."
+   "fornitore": "Hera Comm",
+   "id": "hera-special-active",
+   "nome": "Più Controllo Special Active Luce",
+   "note": "Bonus digitale di 30 € per chi attiva online.",
+   "quotaFissaMese": 12,
+   "requisiti": [
+    "online"
+   ],
+   "spread": {
+    "mono": 0.005
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-11-04"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "enel-fix-web",
-   "fornitore": "Enel Energia",
-   "nome": "Fix Web Luce",
-   "tipo": "fisso",
+   "attiva": true,
+   "durataMesi": 12,
    "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/hera/offerte"
+   },
+   "fornitore": "Hera Comm",
+   "id": "hera-special-flat",
+   "nome": "Più Controllo Special Flat Luce",
    "prezzo": {
-    "mono": 0.1785
+    "mono": 0.1777
    },
    "quotaFissaMese": 12,
+   "tipo": "fisso",
+   "validoFino": "2026-10-07"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-09-14",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/illumia/offerte"
+   },
+   "fornitore": "Illumia",
+   "id": "illumia-sicurinsieme-luce",
+   "nome": "SicurInsieme Luce",
+   "note": "Prevede un tetto agli aumenti della materia prima nel primo anno: valore non indicato dalla fonte.",
+   "quotaFissaMese": 10,
+   "sconti": [],
+   "spread": {
+    "mono": 0.01
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-10",
+   "verde": true
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-09-14",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/iren/offerte"
+   },
+   "fornitore": "Iren",
+   "id": "iren-10x2-luce-servizi-variabile",
+   "nome": "10x2 Luce Servizi Variabile",
+   "quotaFissaMese": 6,
+   "sconti": [
+    {
+     "descrizione": "Sconto annuo",
+     "euroAnno": 20
+    }
+   ],
+   "spread": {
+    "mono": 0.0199
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-12-14"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/iren/offerte"
+   },
+   "fornitore": "Iren",
+   "id": "iren-10x3-luce-verde-variabile",
+   "nome": "10x3 Luce Verde Variabile",
+   "quotaFissaMese": 13.3,
+   "sconti": [
+    {
+     "descrizione": "Sconto annuo",
+     "euroAnno": 30
+    }
+   ],
+   "spread": {
+    "mono": 0.0332
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-12-14",
+   "verde": true
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-09-29",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/iren/offerte"
+   },
+   "fornitore": "Iren",
+   "id": "iren-quick-luce-new",
+   "nome": "Quick Luce New",
+   "prezzo": {
+    "mono": 0.1616
+   },
+   "quotaFissaMese": 12.3,
+   "sconti": [
+    {
+     "descrizione": "Sconto annuo",
+     "euroAnno": 12
+    }
+   ],
+   "tipo": "fisso",
+   "validoFino": "2026-10-11"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-09-30",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/iren/offerte"
+   },
+   "fornitore": "Iren",
+   "id": "iren-revolution-salute-luce",
+   "nome": "Revolution Salute Luce",
+   "note": "Offerta abbinata a servizi per la salute: leggi le condizioni.",
+   "prezzo": {
+    "mono": 0.1961
+   },
+   "quotaFissaMese": 13.8,
+   "sconti": [],
+   "tipo": "fisso",
+   "validoFino": "2026-10-11"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-09-30",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/iren/offerte"
+   },
+   "fornitore": "Iren",
+   "id": "iren-smart-no-stress-luce",
+   "nome": "Smart No Stress Luce",
+   "prezzo": {
+    "mono": 0.1647
+   },
+   "quotaFissaMese": 13.3,
+   "sconti": [],
+   "tipo": "fisso",
+   "validoFino": "2026-10-11"
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-09-30",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/iren/offerte"
+   },
+   "fornitore": "Iren",
+   "id": "iren-stay-luce-verde-prezzo-fisso-connettivita",
+   "nome": "Stay Luce Verde Prezzo Fisso Connettività",
+   "note": "Offerta abbinata a un servizio di connettività: leggi le condizioni.",
+   "prezzo": {
+    "mono": 0.159
+   },
+   "quotaFissaMese": 13.3,
+   "sconti": [],
+   "tipo": "fisso",
+   "validoFino": "2026-10-11",
+   "verde": true
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "durataMesi": 24,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/confronto/offerte-luce"
+   },
+   "fornitore": "Lene",
+   "id": "lene-leggera-24",
+   "nome": "Leggera Luce 24",
+   "prezzo": {
+    "mono": 0.1604
+   },
+   "quotaFissaMese": 7,
    "sconti": [
     {
      "descrizione": "Sconto annuo",
      "euroAnno": 50
     }
    ],
-   "durataMesi": 12,
-   "validoFino": "2026-10-01",
-   "requisiti": [
-    "online",
-    "bolletta_web",
-    "domiciliazione"
-   ],
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/enel/offerte",
-    "data": "2026-10-01"
-   }
-  },
-  {
-   "attiva": true,
-   "aggiornato": "2026-10-03",
-   "id": "enel-move",
-   "fornitore": "Enel Energia",
-   "nome": "Move Luce",
    "tipo": "fisso",
-   "fasce": "mono",
-   "prezzo": {
-    "mono": 0.208
-   },
-   "quotaFissaMese": 14,
-   "durataMesi": 12,
-   "validoFino": "2026-10-01",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/enel/offerte",
-    "data": "2026-09-30"
-   },
-   "note": "Include il servizio Enel Move Plus (riparazioni elettriche) per 36 mesi."
+   "validoFino": "2026-10-05"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "enel-flex-box",
-   "fornitore": "Enel Energia",
-   "nome": "Flex Box",
-   "tipo": "indicizzato",
+   "attiva": true,
    "fasce": "mono",
-   "spread": {
-    "mono": 0.041
-   },
-   "quotaFissaMese": 6,
-   "validoFino": "2026-10-22",
    "fonte": {
+    "data": "2026-09-30",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/enel/offerte",
-    "data": "2026-10-01"
-   }
-  },
-  {
-   "attiva": true,
-   "aggiornato": "2026-10-03",
-   "id": "plenitude-trend-casa",
-   "fornitore": "Plenitude",
-   "nome": "Trend Casa Luce",
-   "tipo": "indicizzato",
-   "fasce": "mono",
-   "spread": {
-    "mono": 0.022
+    "url": "https://luce-gas.it/fornitori/nen/offerte"
    },
+   "fornitore": "NeN",
+   "id": "nen-surf",
+   "nome": "Surf Luce",
+   "note": "Solo per cambio fornitore.",
    "quotaFissaMese": 12,
+   "requisiti": [
+    "online"
+   ],
    "sconti": [
     {
-     "descrizione": "Sconto con domiciliazione",
-     "euroAnno": 12,
-     "condizione": "domiciliazione"
+     "descrizione": "Sconto annuo",
+     "euroAnno": 12
     }
    ],
-   "validoFino": "2026-10-14",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/eni/offerte",
-    "data": "2026-10-02"
-   }
+   "spread": {
+    "mono": 0
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-06"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "plenitude-fixa-time-24",
-   "fornitore": "Plenitude",
-   "nome": "Fixa Time 24 Luce",
-   "tipo": "fisso",
+   "attiva": true,
+   "durataMesi": 12,
    "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
+   },
+   "fornitore": "Octopus Energy",
+   "id": "octopus-fissa-12m",
+   "nome": "Fissa 12M",
+   "note": "Octopus aggiorna il prezzo fisso ogni settimana: controlla quello del giorno prima di firmare.",
+   "prezzo": {
+    "mono": 0.1683
+   },
+   "quotaFissaMese": 6,
+   "requisiti": [
+    "online"
+   ],
+   "tipo": "fisso",
+   "validoFino": "2026-10-02",
+   "verde": true
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
+   },
+   "fornitore": "Octopus Energy",
+   "id": "octopus-flex",
+   "nome": "Flex Luce",
+   "quotaFissaMese": 6,
+   "requisiti": [
+    "online"
+   ],
+   "spread": {
+    "mono": 0.0088
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-31",
+   "verde": true
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "durataMesi": 24,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/eni/offerte"
+   },
+   "fornitore": "Plenitude",
+   "id": "plenitude-fixa-time-24",
+   "nome": "Fixa Time 24 Luce",
+   "note": "Bioraria: F1 0,2165 e F23 0,2029 €/kWh. Durata del prezzo bloccato da verificare (12 o 24 mesi).",
    "prezzo": {
     "mono": 0.2079
    },
    "quotaFissaMese": 12,
    "scontoEnergiaPct": {
-    "pct": 5,
-    "condizione": "domiciliazione"
+    "condizione": "domiciliazione",
+    "pct": 5
    },
-   "durataMesi": 24,
-   "validoFino": "2026-10-14",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/eni/offerte",
-    "data": "2026-10-02"
-   },
-   "note": "Bioraria: F1 0,2165 e F23 0,2029 €/kWh. Durata del prezzo bloccato da verificare (12 o 24 mesi)."
-  },
-  {
-   "attiva": true,
-   "aggiornato": "2026-10-03",
-   "id": "hera-special-active",
-   "fornitore": "Hera Comm",
-   "nome": "Più Controllo Special Active Luce",
-   "tipo": "indicizzato",
-   "fasce": "mono",
-   "spread": {
-    "mono": 0.005
-   },
-   "quotaFissaMese": 12,
-   "bonusUnaTantum": 30,
-   "validoFino": "2026-11-04",
-   "requisiti": [
-    "online"
-   ],
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/hera/offerte",
-    "data": "2026-10-01"
-   },
-   "note": "Bonus digitale di 30 € per chi attiva online."
-  },
-  {
-   "attiva": true,
-   "aggiornato": "2026-10-03",
-   "id": "hera-special-flat",
-   "fornitore": "Hera Comm",
-   "nome": "Più Controllo Special Flat Luce",
    "tipo": "fisso",
-   "fasce": "mono",
-   "prezzo": {
-    "mono": 0.1777
-   },
-   "quotaFissaMese": 12,
-   "durataMesi": 12,
-   "validoFino": "2026-10-07",
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/hera/offerte",
-    "data": "2026-10-01"
-   }
+   "validoFino": "2026-10-14"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "nen-surf",
-   "fornitore": "NeN",
-   "nome": "Surf Luce",
-   "tipo": "indicizzato",
+   "attiva": true,
    "fasce": "mono",
-   "spread": {
-    "mono": 0
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/eni/offerte"
    },
+   "fornitore": "Plenitude",
+   "id": "plenitude-trend-casa",
+   "nome": "Trend Casa Luce",
    "quotaFissaMese": 12,
-   "requisiti": [
-    "online"
+   "sconti": [
+    {
+     "condizione": "domiciliazione",
+     "descrizione": "Sconto con domiciliazione",
+     "euroAnno": 12
+    }
    ],
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/meglio-nen-o-pulsee",
-    "data": "2026-10-02"
+   "spread": {
+    "mono": 0.022
    },
-   "note": "Quota fissa riportata da un confronto Selectra: verificala sul sito NeN."
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-14"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "pulsee-limite",
-   "fornitore": "Pulsee",
-   "nome": "Luce Limit.e",
-   "tipo": "indicizzato",
+   "attiva": true,
    "fasce": "mono",
-   "spread": {
-    "mono": 0
+   "fonte": {
+    "data": "2026-09-30",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/pulsee/offerte"
    },
+   "fornitore": "Pulsee",
+   "id": "pulsee-limite",
+   "nome": "Luce Limit.e",
+   "note": "In passato includeva un tetto massimo al prezzo per 12 mesi: controlla se è ancora previsto, perché con il PUN alto conviene molto.",
    "quotaFissaMese": 15,
    "requisiti": [
     "online"
    ],
-   "fonte": {
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/meglio-nen-o-pulsee",
-    "data": "2026-10-02"
+   "spread": {
+    "mono": 0
    },
-   "note": "In passato includeva un tetto massimo al prezzo per 12 mesi: controlla se è ancora previsto, perché con il PUN alto conviene molto."
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-07"
   },
   {
-   "attiva": true,
    "aggiornato": "2026-10-03",
-   "id": "arera-vulnerabilita",
-   "fornitore": "Servizio di tutela (ARERA)",
-   "nome": "Tutela della vulnerabilità ott-dic 2026",
-   "tipo": "regolato",
-   "fasce": "bi",
-   "prezzo": {
-    "f1": 0.27379,
-    "f23": 0.27781
-   },
-   "quotaFissaMese": 3.524,
-   "perdite": "incluse",
-   "dispacciamento": "incluso",
-   "durataMesi": 3,
-   "validoFino": "2026-12-31",
-   "solo": "vulnerabili",
+   "attiva": true,
+   "durataMesi": 12,
+   "fasce": "mono",
    "fonte": {
-    "nome": "Servizio Elettrico Nazionale",
-    "url": "https://www.servizioelettriconazionale.it/it-IT/tariffe/uso-domestico/biorarie/residente",
-    "data": "2026-10-01"
+    "data": "2026-10-01",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/pulsee/offerte"
    },
-   "note": "Solo per clienti vulnerabili (over 75, bonus sociale, disabilità, ecc.). Prezzo aggiornato da ARERA ogni trimestre: qui è applicato a tutti i 12 mesi."
+   "fornitore": "Pulsee",
+   "id": "pulsee-relax-fix-luce",
+   "nome": "Relax Fix Luce",
+   "prezzo": {
+    "mono": 0.1707
+   },
+   "quotaFissaMese": 12,
+   "sconti": [],
+   "tipo": "fisso",
+   "validoFino": "2026-10-07",
+   "verde": true
+  },
+  {
+   "aggiornato": "2026-10-03",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-02",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/sorgenia/offerte"
+   },
+   "fornitore": "Sorgenia",
+   "id": "sorgenia-puntuale",
+   "nome": "Next Energy PUNtuale Luce",
+   "quotaFissaMese": 6.7,
+   "requisiti": [
+    "online"
+   ],
+   "sconti": [
+    {
+     "descrizione": "Sconto annuo",
+     "euroAnno": 40
+    }
+   ],
+   "spread": {
+    "mono": 0
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-08"
   }
  ],
  "status": {
-  "lastRun": "2026-10-03T12:30:00+02:00",
-  "lastFull": "2026-10-03T12:30:00+02:00",
+  "lastFull": "2026-10-04T06:56:00+02:00",
+  "lastRun": "2026-10-04T06:56:00+02:00",
   "runs": [
+   {
+    "at": "2026-10-04T06:56:00+02:00",
+    "esito": "parziale",
+    "note": "Controllo completo (domenica): PUN parziale di ottobre invariato (a4energie, dati al 2/10; nessun mese nuovo), futures ICE invariati (mercato chiuso), tariffe regolate ott-dic confermate su SEN. Offerte ricontrollate su luce-gas.it: nessun prezzo cambiato, nessuna offerta nuova. Octopus Fissa 12M risulta scaduta il 2/10 senza nuovo prezzo pubblicato: valore lasciato com'era. Push su GitHub NON riuscito: il repository Australia271/claudia-luce non è autorizzato in questa sessione (strumento add_repo non disponibile, proxy 403). data/dati.json per l'app Android è fermo al 3/10 12:30 (22 offerte invece di 36)."
+   },
+   {
+    "at": "2026-10-03T13:58:00+02:00",
+    "esito": "ok",
+    "note": "Richiesta dall'app: ricontrollati PUN, futures, tariffe e offerte. PUN parziale di ottobre confermato da a4energie (0,2131 €/kWh al 2/10). Futures invariati (sabato). Nessun prezzo cambiato rispetto al run precedente."
+   },
+   {
+    "at": "2026-10-03T13:56:00+02:00",
+    "esito": "parziale",
+    "note": "14 offerte nuove (A2A, Iren, Engie, Acea, Illumia, Pulsee), 3 prezzi cambiati (Enel Fix Web 0,1817, Enel Move 0,211, Edison Easy Fix bioraria corretta), scadenze NeN/Pulsee aggiornate. Nessun nuovo mese PUN (settembre già presente); PUN di ottobre non aggiornato (fonte non raggiungibile). Futures invariati (sabato), tariffe regolate ott-dic confermate."
+   },
    {
     "at": "2026-10-03T12:30:00+02:00",
     "esito": "ok",
     "note": "Prima raccolta dati: PUN GME gen-set 2026, futures ICE, tariffe ARERA ott-dic 2026, 22 offerte."
    }
-  ]
+  ],
+  "schedule": "ogni giorno alle 6:55"
  }
 }
