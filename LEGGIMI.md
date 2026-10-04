@@ -9,13 +9,15 @@ App per confrontare le offerte luce, con lo stesso motore di calcolo della versi
 - `web/claudia-luce.html`: la versione web, la stessa che gira dentro Claude.
 - `.github/workflows/android.yml`: compila l'APK in automatico su GitHub (facoltativo).
 - `sorgenti/`: i file da cui nascono la versione web e quella Android (`src/`) e lo script che le costruisce (`cd sorgenti && npm install && python3 build.py`).
-- `strumenti/`: aggiornamento e verifica quotidiana dei prezzi (`pubblica_dati.py`, `verifica.py`, `VERIFICA.md`).
+- `strumenti/`: aggiornamento e verifica quotidiana dei prezzi (`AGGIORNAMENTO.md`, `verifica.py`, `pubblica_dati.py`).
 - `sorgenti/webapp/`: i file in più della versione con link per iPhone e PC (servizi del browser, icone, funzionamento senza internet). La pubblica `.github/workflows/sito.yml` su https://australia271.github.io/claudia-luce/
 
 ## Aggiornamento e controllo di ogni giorno
 
-- **6:55:** un'attività programmata di Claude ricontrolla PUN (GME), futures, tariffe ARERA, dispacciamento e offerte dei fornitori, e scrive tutto nel database della versione web.
-- **7:20:** Claude verifica che i dati siano di oggi, completi e sensati (`strumenti/verifica.py`), corregge quello che manca, pubblica `data/dati.json` per l'app Android e avvisa Filippo solo se resta un problema.
+- **6:55:** un'unica attività programmata di Claude ("Aggiorna Claudia Luce") segue `strumenti/AGGIORNAMENTO.md`: aggiorna PUN, futures e offerte nel database della versione web, controlla i dati con `strumenti/verifica.py`, pubblica `data/dati.json` per l'app Android e la versione con link, e avvisa Filippo solo se resta un problema.
+  - **Giro completo** (lunedì, giovedì e quando lo chiede l'app): tutte le offerte dei fornitori.
+  - **Giro leggero** (gli altri giorni): PUN, futures e solo le offerte in scadenza. Così si consuma molto meno del piano Claude.
+  - Tariffe ARERA e dispacciamento: solo a cavallo dei cambi di trimestre.
 - **9:30 circa:** GitHub Actions ("Controllo prezzi giornaliero") ricontrolla `data/dati.json` senza Claude: se i prezzi sono vecchi apre una segnalazione (Issue) e GitHub manda un'email al proprietario del repository.
 
 ## Creare l'APK con Android Studio
