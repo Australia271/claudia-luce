@@ -36,6 +36,8 @@ html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}
   --warn-soft: #f8ead2;
   --bad: #b23a2e;
   --bad-soft: #f7e1de;
+  --on-good: #ffffff;
+  --on-bad: #ffffff;
   --f1: #eb6834;
   --f2: #2a78d6;
   --f3: #1baf7a;
@@ -54,7 +56,7 @@ html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}
     --bg: #0e161c; --surface: #15202a; --surface-2: #1b2833; --ink: #e5ecf1; --ink-2: #aab8c3; --ink-3: #8696a2; --line: #2a3a46;
     --accent: #5aa2ee; --accent-ink: #08131c; --accent-soft: #19344f;
     --lcd-bg: #1d2a23; --lcd-ink: #cfe7b6; --lcd-dim: #86a07a; --lcd-edge: #33463a;
-    --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b;
+    --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b; --on-good: #08131c; --on-bad: #1c0b08;
     --f1: #d95926; --f2: #3987e5; --f3: #199e70;
     --seg-materia: #5aa2ee; --seg-fissa: #d95926; --seg-rete: #5d6d79; --seg-tasse: #3c4a55;
     --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
@@ -65,7 +67,7 @@ html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}
   --bg: #0e161c; --surface: #15202a; --surface-2: #1b2833; --ink: #e5ecf1; --ink-2: #aab8c3; --ink-3: #8696a2; --line: #2a3a46;
   --accent: #5aa2ee; --accent-ink: #08131c; --accent-soft: #19344f;
   --lcd-bg: #1d2a23; --lcd-ink: #cfe7b6; --lcd-dim: #86a07a; --lcd-edge: #33463a;
-  --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b;
+  --good: #5cc48f; --good-soft: #173528; --warn: #e2a64a; --warn-soft: #3a2c14; --bad: #ef8678; --bad-soft: #3d1f1b; --on-good: #08131c; --on-bad: #1c0b08;
   --f1: #d95926; --f2: #3987e5; --f3: #199e70;
   --seg-materia: #5aa2ee; --seg-fissa: #d95926; --seg-rete: #5d6d79; --seg-tasse: #3c4a55;
   --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
@@ -267,6 +269,34 @@ footer.foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--l
 .verdict-big { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; }
 .verdict-big > strong { font-family: var(--font-display); font-stretch: 108%; font-size: 1.3rem; line-height: 1.25; }
 .verdict-big p { font-size: 1rem; }
+
+/* Tariffa attuale: riquadro separato in cima alla classifica, verde se conviene, rosso se no */
+.current { border: 2px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
+.current .cur-band { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding: 9px 18px; background: var(--surface-2); color: var(--ink-2); font-family: var(--font-display); font-stretch: 118%; font-size: .8rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.current .cur-badge { font-size: 1rem; letter-spacing: .06em; }
+.current.is-ok { border-color: var(--good); background: var(--good-soft); }
+.current.is-ok .cur-band { background: var(--good); color: var(--on-good); }
+.current.is-bad { border-color: var(--bad); background: var(--bad-soft); }
+.current.is-bad .cur-band { background: var(--bad); color: var(--on-bad); }
+.current.is-none { border-style: dashed; box-shadow: none; }
+.cur-main { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 14px 28px; padding: 16px 18px 4px; }
+.cur-who { font-family: var(--font-display); font-size: 1.35rem; font-weight: 800; font-stretch: 108%; line-height: 1.15; }
+.cur-who small { display: block; font-family: var(--font-body); font-size: .95rem; font-weight: 600; color: var(--ink-2); margin-top: 2px; }
+.cur-digits { font-family: var(--font-data); font-weight: 500; font-size: clamp(2.2rem, 6.5vw, 3.2rem); line-height: 1; letter-spacing: -.02em; margin-top: 10px; font-variant-numeric: tabular-nums; }
+.cur-digits .u { font-size: .38em; letter-spacing: 0; color: var(--ink-2); margin-left: 6px; }
+.cur-sub { font-family: var(--font-data); font-size: .88rem; margin-top: 6px; }
+.cur-verdict strong { display: block; font-family: var(--font-display); font-stretch: 108%; font-size: 1.3rem; line-height: 1.25; }
+.current.is-ok .cur-digits, .current.is-ok .cur-verdict strong { color: var(--good); }
+.current.is-bad .cur-digits, .current.is-bad .cur-verdict strong { color: var(--bad); }
+.cur-verdict p { margin-top: 6px; font-size: 1rem; line-height: 1.45; }
+.cur-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; padding: 12px 18px; margin: 0; }
+.cur-facts div { background: var(--surface); border-radius: 8px; padding: 8px 10px; min-width: 0; }
+.cur-facts dt { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.cur-facts dd { margin: 2px 0 0; font-family: var(--font-data); font-size: .92rem; font-weight: 600; overflow-wrap: anywhere; }
+.cur-why { padding: 4px 18px 16px; }
+.cur-why .eyebrow { margin-bottom: 8px; }
+.current.is-none .cur-why { padding-top: 14px; }
+@media (max-width: 720px) { .cur-main { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -300,6 +330,7 @@ footer.foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--l
       <button class="btn ghost small" type="button" data-goto="consumi">Modifica dati del cliente</button>
     </div>
 
+    <div id="current"></div>
     <div id="verdict"></div>
     <div id="advice" class="stack"></div>
     <div class="row" id="reportRow" hidden>
@@ -1233,18 +1264,24 @@ function renderRanking() {
   const out = rows.filter(r => r.esclusa.length && tipoOk(r));
   const cur = rows.find(r => r.offer.attuale) || null;
   const best = ok.find(r => !r.scaduta && !r.offer.attuale) || null;
+  // il giudizio sulla tariffa attuale guarda tutte le offerte attivabili, non solo quelle filtrate
+  const key = v.ordina === "prudente" ? (r => r.alto) : (r => r.calc.totale);
+  const alts = rows.filter(r => !r.esclusa.length && !r.scaduta && !r.offer.attuale);
+  const judge = cur ? judgeCurrent(cur, alts, key) : null;
+  const market = ok.filter(r => !r.offer.attuale);
   const scale = Math.max(1, ...ok.concat(out).map(r => Math.max(r.calc.totale, r.alto)));
   const end = addMonths(start, 11);
-  $("#rankIntro").textContent = "Spesa per " + numIt(u.kwhAnno) + " kWh da " + MESI_LUNGHI[+start.slice(5) - 1] + " " + start.slice(0, 4) + " a " + MESI_LUNGHI[+end.slice(5) - 1] + " " + end.slice(0, 4) + ", tutto compreso. " + ok.length + " offerte, dalla più conveniente.";
+  $("#rankIntro").textContent = (cur ? "Le offerte di oggi, dalla più conveniente: spesa per " : "Spesa per ") + numIt(u.kwhAnno) + " kWh da " + MESI_LUNGHI[+start.slice(5) - 1] + " " + start.slice(0, 4) + " a " + MESI_LUNGHI[+end.slice(5) - 1] + " " + end.slice(0, 4) + ", tutto compreso. " + market.length + " offerte" + (cur ? "." : ", dalla più conveniente.");
   let pos = 0;
-  $("#rankList").innerHTML = ok.map(r => offerRow(r, ++pos, scale, best, cur, canone)).join("") || '<li class="panel">Nessuna offerta con questi filtri.</li>';
+  $("#rankList").innerHTML = market.map(r => offerRow(r, ++pos, scale, best, cur, canone)).join("") || '<li class="panel">Nessuna offerta con questi filtri.</li>';
+  renderCurrent(cur, judge, alts, canone);
   const box = $("#excludedBox");
   box.hidden = !out.length;
   if (out.length) {
     $("#excludedSum").textContent = out.length === 1 ? "1 offerta che non puoi attivare con le tue condizioni" : out.length + " offerte che non puoi attivare con le tue condizioni";
     $("#excludedList").innerHTML = out.map(r => offerRow(r, 0, scale, null, null, canone)).join("");
   }
-  renderVerdict(best, cur, ok, canone);
+  renderVerdict(best, cur, ok, canone, judge);
   $("#calcNote").textContent = "Mercato: " + (mult === 1 ? "futures del " + dataIt(S.market.forward.rilevatoAl) : (mult > 1 ? "+" : "−") + Math.round(Math.abs(mult - 1) * 100) + "% sui futures") + ". Tariffe di rete ARERA " + dataIt(S.market.regolato.validoDal) + ".";
 }
 
@@ -1264,31 +1301,102 @@ function computeTips(best, cur, ok) {
   const u = U();
   if (u.split && normSplit(u.split).f1 > 0.4) tips.push({ t: "info", s: "Il " + Math.round(normSplit(u.split).f1 * 100) + "% dei consumi è in F1, le ore feriali più care. Con una monoraria il prezzo è uguale a ogni ora: conviene." });
   if (u.potenzaKW > 3) tips.push({ t: "info", s: "Con " + numIt(u.potenzaKW, 1) + " kW si pagano " + euro(S.market.regolato.trasporto.quotaPotenzaKWAnno * (u.potenzaKW - 3) * 1.1) + " l'anno in più di quota potenza rispetto a 3 kW e si perde l'esenzione sulle accise. Se il contatore non salta mai, si può valutare di ridurla." });
-  if (cur && cur.offer.scadenza) tips.push({ t: "info", s: "Il prezzo attuale è bloccato fino al " + dataIt(cur.offer.scadenza) + ". Cambiare fornitore è comunque gratuito: la disdetta la fa il nuovo fornitore." });
+  if (cur && cur.offer.scadenza) tips.push({ t: "info", k: "scad", s: "Il prezzo attuale è bloccato fino al " + dataIt(cur.offer.scadenza) + ". Cambiare fornitore è comunque gratuito: la disdetta la fa il nuovo fornitore." });
   return tips;
 }
-function renderVerdict(best, cur, ok, canone) {
+/* ---------- Tariffa attuale: conviene ancora? ---------- */
+// Conviene se nessuna offerta attivabile di oggi costa meno di 20 € o del 2% l'anno.
+function judgeCurrent(cur, alts, key) {
+  const k = key || (r => r.calc.totale);
+  const best = alts.slice().sort((a, b) => k(a) - k(b))[0] || null;
+  const d = best ? k(cur) - k(best) : -Infinity;
+  const soglia = Math.max(20, cur.calc.totale * 0.02);
+  const tot = alts.map(r => r.calc.totale).sort((a, b) => a - b);
+  return {
+    best, d, conviene: d <= soglia, prima: d <= 0,
+    pos: alts.filter(r => k(r) < k(cur)).length + 1, di: alts.length + 1,
+    mediana: tot.length ? tot[Math.floor(tot.length / 2)] : null
+  };
+}
+function currentReasons(cur, j) {
+  const R = [], u = U(), o = cur.offer, c = cur.calc, b = j.best;
+  const ivaF = 1 + (S.market.regolato.iva || 0.1), kwh = Math.max(1, +u.kwhAnno || 0);
+  if (b) {
+    const bc = b.calc, nb = b.offer.fornitore;
+    const pe = x => x.energia / kwh;
+    const dEn = ((c.energia + c.perdite + c.dispacciamento) - (bc.energia + bc.perdite + bc.dispacciamento)) * ivaF;
+    const dQf = (c.commercializzazione - bc.commercializzazione) * ivaF;
+    const dSc = (bc.sconti - c.sconti) * ivaF;
+    const quanto = d => euro(Math.abs(d)) + " l'anno " + (d < 0 ? "in meno" : "in più");
+    if (Math.abs(dEn) >= 1) R.push({ t: dEn < 0 ? "ok" : "bad", s: (dEn < 0 ? "Energia più economica: " : "Energia più cara: ") + "costa in media " + kwhPrice(pe(c)) + " €/kWh" + (o.tipo === "indicizzato" ? " (previsto)" : "") + " contro " + kwhPrice(pe(bc)) + " €/kWh di " + nb + ", " + quanto(dEn) + "." });
+    if (Math.abs(dQf) >= 1) R.push({ t: dQf < 0 ? "ok" : "bad", s: (dQf < 0 ? "Quota fissa più bassa: " : "Quota fissa più alta: ") + euro2(c.commercializzazione / 12) + " al mese contro " + euro2(bc.commercializzazione / 12) + " di " + nb + ", " + quanto(dQf) + "." });
+    if (Math.abs(dSc) >= 1) R.push({ t: dSc < 0 ? "ok" : "bad", s: "Sconti e bonus: " + euro(c.sconti * ivaF) + " l'anno contro " + euro(bc.sconti * ivaF) + " di " + nb + "." });
+    if (!R.length) R.push({ t: "ok", s: "Energia e quota fissa costano quasi come la migliore alternativa (" + nb + ")." });
+  }
+  if (j.mediana != null) {
+    const dm = j.mediana - c.totale;
+    if (Math.abs(dm) >= 5) R.push({ t: dm > 0 ? "info" : "bad", s: dm > 0 ? "Rispetto a un'offerta nella media del mercato si spendono " + euro(dm) + " in meno l'anno." : "Costa " + euro(-dm) + " l'anno più di un'offerta nella media del mercato." });
+  }
+  if (o.tipo === "indicizzato") R.push({ t: "warn", s: "È a prezzo variabile: se il mercato cambia (da −25% a +35%), la spesa dei prossimi 12 mesi va da " + euro(cur.basso) + " a " + euro(cur.alto) + "." });
+  if (o.scadenza) {
+    if (o.scadenza < todayISO()) R.push({ t: "warn", s: "Il prezzo bloccato è scaduto il " + dataIt(o.scadenza) + ": controlla nella bolletta il prezzo nuovo e aggiornalo in Dati del cliente." });
+    else R.push({ t: "info", s: "Prezzo bloccato fino al " + dataIt(o.scadenza) + ": verso quella data conviene rifare il controllo." });
+  }
+  if (!j.conviene) R.push({ t: "info", s: "Cambiare fornitore è gratuito e la luce non si interrompe: la disdetta la fa il nuovo fornitore." });
+  return R;
+}
+function renderCurrent(cur, j, alts, canone) {
+  const el = $("#current");
+  if (!cur) {
+    const u = U(), inc = u.attuale && u.attuale.incompleta;
+    el.innerHTML = '<section class="current is-none" aria-label="Tariffa attuale"><div class="cur-band"><span>Tariffa attuale</span><span class="cur-badge">Da inserire</span></div>' +
+      '<div class="cur-why"><p>' + (inc ? "Manca il prezzo dell'offerta attuale." : "Non conosco ancora l'offerta attuale del cliente.") + " Carica la bolletta o scrivi prezzo e quota fissa in <em>Dati del cliente</em>: qui comparirà subito, in verde se conviene ancora e in rosso se conviene cambiare.</p>" +
+      '<div class="row" style="margin-top:10px"><button class="btn primary small" type="button" data-goto="consumi">Inserisci la tariffa attuale</button></div></div></section>';
+    return;
+  }
+  const o = cur.offer, c = cur.calc, b = j.best, prud = S.user.vista.ordina === "prudente";
+  const tipo = o.tipo === "fisso" ? "prezzo fisso" : "prezzo variabile";
+  const altro = b ? esc(b.offer.fornitore + " " + b.offer.nome) : "";
+  let head, text;
+  if (!b) { head = "Nessuna alternativa da confrontare"; text = "Non ci sono offerte attivabili con le condizioni di questo cliente."; }
+  else if (j.prima) { head = "Conviene: è la più economica"; text = "Nessuna delle " + (j.di - 1) + " offerte di oggi costa meno. La migliore alternativa, " + altro + ", costerebbe " + euro(b.calc.totale) + (j.d < -0.5 ? ", cioè " + euro(-j.d) + " in più" : "") + "."; }
+  else if (j.conviene) { head = "Conviene ancora"; text = "La migliore alternativa, " + altro + ", costerebbe solo " + euro(j.d) + " in meno l'anno (" + euro(j.d / 12) + " al mese): la differenza è minima."; }
+  else { head = "Non conviene: si possono risparmiare " + euro(j.d) + " l'anno"; text = "Con " + altro + " si spenderebbero " + euro(b.calc.totale) + " in 12 mesi, cioè " + euro(j.d / 12) + " in meno al mese. Le offerte più convenienti sono qui sotto, in ordine."; }
+  if (prud && b) text += " Confronto fatto sulla spesa nel caso peggiore.";
+  const fact = (t, v) => "<div><dt>" + t + "</dt><dd>" + v + "</dd></div>";
+  const facts = fact("Posizione", j.pos + "ª su " + j.di + " offerte") +
+    fact("Prezzo energia", esc(prezzoTesto(o))) +
+    fact("Quota fissa", euro2(+o.quotaFissaMese || 0) + " al mese") +
+    (b ? fact("Migliore alternativa", esc(b.offer.fornitore) + " · " + euro(b.calc.totale)) : "") +
+    (o.scadenza ? fact("Prezzo bloccato fino al", dataIt(o.scadenza)) : "");
+  const why = currentReasons(cur, j);
+  el.innerHTML = '<section class="current ' + (j.conviene ? "is-ok" : "is-bad") + '" aria-label="Tariffa attuale">' +
+    '<div class="cur-band"><span>Tariffa attuale</span><span class="cur-badge">' + (j.conviene ? "✓ Conviene" : "✗ Non conviene") + "</span></div>" +
+    '<div class="cur-main"><div><div class="cur-who">' + esc(o.fornitore) + "<small>" + esc(o.nome) + " · " + tipo + "</small></div>" +
+    '<div class="cur-digits">' + Math.round(c.totale).toLocaleString("it-IT") + '<span class="u">€ in 12 mesi</span></div>' +
+    '<div class="cur-sub">' + euro(c.totale / 12) + " al mese · " + cent(c.cKWh) + " tutto compreso</div></div>" +
+    '<div class="cur-verdict"><strong>' + head + "</strong><p>" + text + "</p></div></div>" +
+    '<dl class="cur-facts">' + facts + "</dl>" +
+    '<div class="cur-why"><div class="eyebrow">' + (j.conviene ? "Perché conviene" : "Perché non conviene") + '</div><ul class="notes">' + why.map(x => '<li class="' + x.t + '">' + esc(x.s) + "</li>").join("") + "</ul></div></section>";
+}
+
+function renderVerdict(best, cur, ok, canone, judge) {
   const el = $("#verdict"), adv = $("#advice");
   const tips = computeTips(best, cur, ok);
-  S.lastPick = { best, cur, ok, tips, canone };
-  if (!best) { el.innerHTML = ""; adv.innerHTML = ""; return; }
+  S.lastPick = { best, cur, ok, tips, canone, judge };
+  const advTips = cur ? tips.filter(x => x.k !== "scad") : tips;
+  adv.innerHTML = advTips.length ? '<div class="panel"><div class="eyebrow" style="margin-bottom:8px">Il consiglio</div><ul class="notes">' + advTips.map(x => '<li class="' + x.t + '">' + esc(x.s) + "</li>").join("") + "</ul></div>" : "";
+  // con la tariffa attuale inserita, il riquadro in cima è quello della tariffa attuale
+  if (!best || cur) { el.innerHTML = ""; return; }
   const c = best.calc, o = best.offer, u = U();
-  let side = "";
-  if (cur) {
-    const d = cur.calc.totale - c.totale;
-    if (cur === ok[0] || d <= 0) side = '<p><span class="flag">Resta dove è</span></p><p>L\'offerta attuale costa <strong>' + euro(cur.calc.totale) + "</strong> l'anno: è già tra le più convenienti.</p>";
-    else side = '<p><span class="flag">Può risparmiare</span></p><p>Oggi con ' + esc(cur.offer.fornitore) + " spende <strong>" + euro(cur.calc.totale) + "</strong> l'anno. Cambiando risparmia circa <strong>" + euro(d) + "</strong>, cioè " + euro(d / 12) + " al mese.</p>";
-  } else {
-    const second = ok.find(r => r !== best && !r.scaduta && !r.offer.attuale);
-    const median = ok.map(r => r.calc.totale).sort((a, b) => a - b)[Math.floor(ok.length / 2)] || c.totale;
-    side = "<p>Rispetto a un'offerta nella media spende <strong>" + euro(median - c.totale) + "</strong> in meno l'anno." + (second ? " La seconda in classifica costa " + euro(second.calc.totale - c.totale) + " in più." : "") + "</p><p>Carica la bolletta del cliente in <em>Dati del cliente</em> per vedere quanto risparmia rispetto a oggi.</p>";
-  }
+  const second = ok.find(r => r !== best && !r.scaduta && !r.offer.attuale);
+  const median = ok.map(r => r.calc.totale).sort((a, b) => a - b)[Math.floor(ok.length / 2)] || c.totale;
+  const side = "<p>Rispetto a un'offerta nella media spende <strong>" + euro(median - c.totale) + "</strong> in meno l'anno." + (second ? " La seconda in classifica costa " + euro(second.calc.totale - c.totale) + " in più." : "") + "</p>";
   el.innerHTML = '<div class="meter" role="group" aria-label="Offerta più conveniente">' +
     '<div><div class="lbl">La più conveniente per ' + (u.esempio ? "questo cliente" : esc(u.nome)) + '</div><div class="who">' + esc(o.nome) + "<small>" + esc(o.fornitore) + " · " + (o.tipo === "fisso" ? "prezzo fisso" : o.tipo === "indicizzato" ? "prezzo variabile" : "prezzo ARERA") + '</small></div>' +
     '<div class="digits">' + Math.round(c.totale).toLocaleString("it-IT") + '<span class="u">€ in 12 mesi</span></div>' +
     '<div class="sub">' + euro(c.totale / 12) + " al mese · " + cent(c.cKWh) + " tutto compreso</div></div>" +
     '<div class="side">' + side + "</div></div>";
-  adv.innerHTML = tips.length ? '<div class="panel"><div class="eyebrow" style="margin-bottom:8px">Il consiglio</div><ul class="notes">' + tips.map(x => '<li class="' + x.t + '">' + esc(x.s) + "</li>").join("") + "</ul></div>" : "";
 }
 
 /* ---------- Proposta per il cliente (PDF) ---------- */
@@ -1707,15 +1815,15 @@ function showBillResult(r, srcLabel) {
 function renderBillVerdict() {
   const L = S.lastRead; if (!L) return;
   const r = L.r, u = U(), p = S.lastPick || {};
-  const cur = p.cur, best = p.best;
+  const cur = p.cur, j = p.judge, best = j && j.best;
   let head = "";
   if (cur && best) {
-    const d = cur.calc.totale - best.calc.totale;
+    const d = j.d;
     const altro = esc(best.offer.fornitore + " " + best.offer.nome) + " (" + esc(prezzoTesto(best.offer)) + ")";
-    if (d <= Math.max(20, cur.calc.totale * 0.02)) {
+    if (j.conviene) {
       head = '<div class="callout ok verdict-big"><strong>✓ La tua offerta conviene ancora.</strong><p>Con circa ' + numIt(u.kwhAnno) + " kWh l'anno spendi <strong>" + euro(cur.calc.totale) + "</strong> nei prossimi 12 mesi, tutto compreso. La migliore alternativa di oggi, " + altro + ", costerebbe " + euro(best.calc.totale) + ".</p>" + (cur.offer.scadenza ? "<p>Il prezzo è bloccato fino al " + dataIt(cur.offer.scadenza) + ": verso quella data rifai il controllo.</p>" : "") + "</div>";
     } else {
-      head = '<div class="callout warn verdict-big"><strong>Puoi risparmiare circa ' + euro(d) + " l'anno.</strong><p>Con la tua offerta spendi " + euro(cur.calc.totale) + " nei prossimi 12 mesi. Con " + altro + " spenderesti " + euro(best.calc.totale) + ", cioè " + euro(d / 12) + " in meno al mese.</p><p>Cambiare fornitore è gratuito e la disdetta la fa il nuovo fornitore.</p></div>";
+      head = '<div class="callout bad verdict-big"><strong>✗ La tua offerta non conviene più: puoi risparmiare circa ' + euro(d) + " l'anno.</strong><p>Con la tua offerta spendi " + euro(cur.calc.totale) + " nei prossimi 12 mesi. Con " + altro + " spenderesti " + euro(best.calc.totale) + ", cioè " + euro(d / 12) + " in meno al mese.</p><p>Cambiare fornitore è gratuito e la disdetta la fa il nuovo fornitore.</p></div>";
     }
   } else {
     head = '<div class="callout warn verdict-big"><strong>Mi manca il prezzo della tua offerta.</strong><p>Ho letto i consumi ma non il prezzo. Lo trovi nella bolletta, nel riquadro dell\'offerta. Scrivilo qui e ti dico subito se conviene ancora.</p>' +
@@ -2211,7 +2319,7 @@ function showTab(t) {
 }
 function boot() {
   $$(".tab").forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
-  $$("[data-goto]").forEach(b => b.addEventListener("click", () => { showTab(b.dataset.goto); window.scrollTo(0, 0); }));
+  document.addEventListener("click", e => { const b = e.target.closest && e.target.closest("[data-goto]"); if (b) { showTab(b.dataset.goto); window.scrollTo(0, 0); } });
   const onSel = e => { S.user.attivaId = e.target.value; scheduleSave(); renderAll(); };
   $("#selUtenza").addEventListener("change", onSel); $("#selUtenza2").addEventListener("change", onSel);
   $("#segTipo").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; S.user.vista.tipo = b.dataset.v; $$("#segTipo button").forEach(x => x.setAttribute("aria-pressed", String(x === b))); scheduleSave(); renderRanking(); });
