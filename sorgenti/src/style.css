@@ -282,3 +282,11 @@ footer.foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--l
 .cur-why .eyebrow { margin-bottom: 8px; }
 .current.is-none .cur-why { padding-top: 14px; }
 @media (max-width: 720px) { .cur-main { grid-template-columns: 1fr; } }
+
+/* Schermata del codice di accesso */
+.lock { position: fixed; inset: 0; z-index: 1000; background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 16px; overflow-y: auto; }
+.lock-box { width: min(380px, 100%); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 20px; box-shadow: var(--shadow); }
+.lock-brand { font-family: var(--font-display); font-stretch: 118%; font-size: .78rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.lock-box h2 { margin: 0; }
+.lock-err { color: var(--bad); font-weight: 600; }
+body.bloccato > :not(.lock):not(.toast) { visibility: hidden; }

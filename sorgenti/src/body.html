@@ -4,6 +4,7 @@
     <div class="status">
       <span class="pill" id="dataPill"><span class="dot"></span><span id="dataPillText">Dati incorporati</span></span>
       <button class="btn small" id="btnRefresh" type="button" hidden>Aggiorna adesso</button>
+      <button class="btn small" id="btnLock" type="button" hidden title="Blocca i dati dei clienti">Blocca</button>
     </div>
   </div>
   <nav class="tabs" role="tablist" aria-label="Sezioni">
@@ -200,8 +201,37 @@
         <span class="btn filebtn">Ripristina da file<input type="file" id="fileBackup" accept=".json,application/json"></span>
       </div>
       <div class="callout warn row" id="backupConfirm" hidden><span id="backupConfirmText" class="grow"></span>
+        <label class="fld" for="backupCode" id="backupCodeL" hidden>Codice del backup<input type="password" id="backupCode" autocomplete="off"></label>
         <button class="btn small" type="button" id="btnBackupYes">Sì, sostituisci</button>
         <button class="btn small" type="button" id="btnBackupNo">Annulla</button></div>
+    </div>
+    <div class="panel stack" id="protPanel">
+      <h2>Codice di accesso</h2>
+      <p class="small" id="protStato"></p>
+      <div id="protOff" class="stack">
+        <div class="grid2">
+          <label class="fld" for="protNew1">Scegli un codice<input type="password" id="protNew1" autocomplete="new-password" placeholder="Almeno 6 caratteri"></label>
+          <label class="fld" for="protNew2">Ripeti il codice<input type="password" id="protNew2" autocomplete="new-password"></label>
+        </div>
+        <p class="tiny">Meglio lettere e numeri insieme. Annotalo in un posto sicuro: senza il codice i dati non si possono più leggere, da nessuno.</p>
+        <div class="row"><button class="btn primary" type="button" id="btnProtOn">Proteggi i dati con il codice</button></div>
+      </div>
+      <div id="protOn" class="stack" hidden>
+        <div class="row"><button class="btn primary" type="button" id="btnProtLock">Blocca adesso</button></div>
+        <details><summary class="small" style="cursor:pointer;font-weight:600">Cambia o togli il codice</summary>
+          <div class="stack" style="margin-top:10px">
+            <label class="fld" for="protCur">Codice attuale<input type="password" id="protCur" autocomplete="current-password"></label>
+            <div class="grid2">
+              <label class="fld" for="protChg1">Nuovo codice<input type="password" id="protChg1" autocomplete="new-password" placeholder="Almeno 6 caratteri"></label>
+              <label class="fld" for="protChg2">Ripeti il nuovo codice<input type="password" id="protChg2" autocomplete="new-password"></label>
+            </div>
+            <div class="row">
+              <button class="btn" type="button" id="btnProtChange">Cambia codice</button>
+              <button class="btn" type="button" id="btnProtOff">Togli il codice</button>
+            </div>
+          </div>
+        </details>
+      </div>
     </div>
     <div class="panel stack">
       <h2>I tuoi dati di consulente</h2>
@@ -306,3 +336,17 @@
   </footer>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div class="lock" id="lockScreen" hidden>
+  <form class="lock-box stack" id="lockForm" autocomplete="off">
+    <div class="lock-brand">Claudia Luce</div>
+    <h2>Dati protetti</h2>
+    <p class="small">Scrivi il codice per aprire i dati dei clienti.</p>
+    <label class="fld" for="lockCode">Codice<input type="password" id="lockCode" autocomplete="current-password" required></label>
+    <p class="small lock-err" id="lockErr" hidden></p>
+    <button class="btn primary" type="submit" id="btnUnlock">Apri</button>
+    <details class="small"><summary style="cursor:pointer">Ho dimenticato il codice</summary>
+      <p style="margin-top:8px">Senza il codice i dati non si possono leggere: sono cifrati e nessuno può recuperarli. Puoi cancellarli e ricominciare, e poi ripristinare un backup.</p>
+      <button class="btn small" type="button" id="btnLockReset">Cancella i dati protetti e ricomincia</button>
+    </details>
+  </form>
+</div>

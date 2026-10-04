@@ -40,17 +40,26 @@ function U() { return S.user.utenze.find(u => u.id === S.user.attivaId) || S.use
 let saveTimer = null, saveChain = Promise.resolve();
 function scheduleSave() {
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    const data = clone(S.user); data.updatedAt = new Date().toISOString();
-    lsSet("wattgiusto.user", JSON.stringify(data));
-    const db = S.caps.db, uid = S.caps.uid;
-    if (db && uid) {
-      saveChain = saveChain.then(() => db.doc("data/users/" + uid + "/watt").set(data)).then(() => { if (S.saveDenied) { S.saveDenied = false; renderStatus(); } }).catch(e => {
-        if (e && e.code === "quota_exceeded") toast("Spazio del database esaurito: elimina qualche cliente o offerta aggiunta.");
-        if (e && e.code === "invalid_argument") { S.saveDenied = true; renderStatus(); }
-      });
-    }
-  }, 1200);
+  saveTimer = setTimeout(salvaOra, 1200);
+}
+async function salvaOra() {
+  clearTimeout(saveTimer); saveTimer = null;
+  if (S.bloccato) return;                       // dati non ancora aperti: non sovrascrivo niente
+  const data = clone(S.user); data.updatedAt = new Date().toISOString();
+  let out = data;
+  if (PROT.key) {
+    try { out = { cifrato: await cifra(data), updatedAt: data.updatedAt }; }
+    catch (e) { toast("Non riesco a cifrare i dati: non li salvo."); return; }
+  }
+  lsSet("wattgiusto.user", JSON.stringify(out));
+  const db = S.caps.db, uid = S.caps.uid;
+  if (db && uid) {
+    saveChain = saveChain.then(() => db.doc("data/users/" + uid + "/watt").set(out)).then(() => { if (S.saveDenied) { S.saveDenied = false; renderStatus(); } }).catch(e => {
+      if (e && e.code === "quota_exceeded") toast("Spazio del database esaurito: elimina qualche cliente o offerta aggiunta.");
+      if (e && e.code === "invalid_argument") { S.saveDenied = true; renderStatus(); }
+    });
+    await saveChain;
+  }
 }
 function adoptUser(data) {
   if (!data || !Array.isArray(data.utenze) || !data.utenze.length) return false;
@@ -60,7 +69,119 @@ function adoptUser(data) {
   if (!S.user.utenze.some(u => u.id === S.user.attivaId)) S.user.attivaId = S.user.utenze[0].id;
   return true;
 }
-function loadLocal() { const raw = lsGet("wattgiusto.user"); if (raw) { try { adoptUser(JSON.parse(raw)); } catch (e) { /* ignora */ } } }
+function loadLocal() { const raw = lsGet("wattgiusto.user"); if (raw) { try { caricaDati(JSON.parse(raw)); } catch (e) { /* ignora */ } } }
+/* Dati salvati: in chiaro (si aprono subito) o cifrati (serve il codice) */
+function caricaDati(d) {
+  if (d && d.cifrato) { S.bloccato = true; S.datiCifrati = d.cifrato; mostraBlocco(); return true; }
+  return adoptUser(d);
+}
+
+/* ---------- Codice di accesso e cifratura dei dati dei clienti ----------
+   Con il codice attivo, tutti i dati (clienti, dati anagrafici, consumi, offerte
+   aggiunte, dati del consulente) vengono salvati cifrati con AES-GCM a 256 bit.
+   La chiave nasce dal codice (PBKDF2-SHA256, 250.000 passaggi) e resta solo in
+   memoria finché l'app è aperta: il codice non viene salvato da nessuna parte. */
+const PROT = { key: null, salt: null, iter: 250000 };
+const BLOCCO_DOPO_MS = 5 * 60 * 1000;
+function cifraturaDisponibile() { return !!(window.crypto && crypto.subtle && window.TextEncoder); }
+function b64da(u8) { let s = ""; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); }
+function b64a(b) { const s = atob(b), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u; }
+async function chiaveDa(codice, salt, iter) {
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(codice), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: iter, hash: "SHA-256" }, base, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]);
+}
+async function cifra(obj, prot) {
+  const p = prot || PROT;
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, p.key, new TextEncoder().encode(JSON.stringify(obj))));
+  return { v: 1, alg: "AES-GCM-256", kdf: "PBKDF2-SHA256", iter: p.iter, salt: b64da(p.salt), iv: b64da(iv), dati: b64da(ct) };
+}
+/* Restituisce { dati, prot } se il codice è giusto, altrimenti null */
+async function decifra(c, codice) {
+  try {
+    const salt = b64a(c.salt), iter = c.iter || 250000;
+    const key = await chiaveDa(codice, salt, iter);
+    const pt = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64a(c.iv) }, key, b64a(c.dati));
+    return { dati: JSON.parse(new TextDecoder().decode(pt)), prot: { key, salt, iter } };
+  } catch (e) { return null; }
+}
+function mostraBlocco() {
+  const ls = $("#lockScreen"); if (!ls) return;
+  document.body.classList.add("bloccato"); ls.hidden = false;
+  $("#lockErr").hidden = true; $("#lockCode").value = "";
+  setTimeout(() => { try { $("#lockCode").focus(); } catch (e) { /* ignora */ } }, 50);
+}
+async function sblocca(e) {
+  e.preventDefault();
+  const btn = $("#btnUnlock"), err = $("#lockErr");
+  btn.disabled = true; err.hidden = true; btn.textContent = "Apro…";
+  const r = S.datiCifrati ? await decifra(S.datiCifrati, $("#lockCode").value) : null;
+  btn.disabled = false; btn.textContent = "Apri";
+  if (!r || !adoptUser(r.dati)) { err.textContent = "Codice sbagliato. Riprova."; err.hidden = false; $("#lockCode").select(); return; }
+  Object.assign(PROT, r.prot);
+  S.bloccato = false; S.datiCifrati = null;
+  $("#lockScreen").hidden = true; document.body.classList.remove("bloccato");
+  renderAll(); renderProt();
+}
+function bloccaAdesso() {
+  if (!PROT.key) return;
+  Promise.resolve(salvaOra()).catch(() => {}).then(() => location.reload());
+}
+let resetArmato = false;
+function cancellaDatiProtetti() {
+  const b = $("#btnLockReset");
+  if (!resetArmato) { resetArmato = true; b.textContent = "Sicuro? Tocca di nuovo per cancellare tutto"; return; }
+  try { localStorage.removeItem("wattgiusto.user"); } catch (e) { /* ignora */ }
+  const db = S.caps.db, uid = S.caps.uid;
+  const fatto = () => location.reload();
+  if (db && uid) db.doc("data/users/" + uid + "/watt").delete().then(fatto, fatto); else fatto();
+}
+function renderProt() {
+  if (!$("#protPanel")) return;
+  const on = !!PROT.key;
+  if (!cifraturaDisponibile()) { $("#protStato").textContent = "La cifratura non è disponibile in questa vista."; $("#protOff").hidden = true; $("#protOn").hidden = true; return; }
+  $("#protStato").innerHTML = on
+    ? "<strong>Attivo.</strong> I dati dei clienti sono salvati cifrati su questo dispositivo. L'app si blocca da sola dopo 5 minuti in sottofondo; si riapre con il codice."
+    : "Non attivo: chi usa questo dispositivo può aprire i dati dei clienti. Con il codice vengono salvati cifrati e per vederli serve il codice.";
+  $("#protOff").hidden = on; $("#protOn").hidden = !on;
+  const lb = $("#btnLock"); if (lb) lb.hidden = !on;
+}
+function codiceValido(a, b) {
+  if ((a || "").length < 6) { toast("Il codice deve avere almeno 6 caratteri."); return false; }
+  if (a !== b) { toast("I due codici non sono uguali."); return false; }
+  return true;
+}
+async function attivaCodice() {
+  const a = $("#protNew1").value, b = $("#protNew2").value;
+  if (!codiceValido(a, b)) return;
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  Object.assign(PROT, { key: await chiaveDa(a, salt, 250000), salt, iter: 250000 });
+  $("#protNew1").value = ""; $("#protNew2").value = "";
+  await salvaOra(); renderProt();
+  toast("Fatto: i dati dei clienti ora sono cifrati. Ricorda il codice.");
+}
+async function verificaAttuale() {
+  const c = $("#protCur").value;
+  const prova = await cifra({ prova: 1 });
+  const r = await decifra(prova, c);
+  if (!r) { toast("Il codice attuale non è giusto."); return false; }
+  return true;
+}
+async function cambiaCodice() {
+  if (!(await verificaAttuale())) return;
+  const a = $("#protChg1").value, b = $("#protChg2").value;
+  if (!codiceValido(a, b)) return;
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  Object.assign(PROT, { key: await chiaveDa(a, salt, 250000), salt, iter: 250000 });
+  ["#protCur", "#protChg1", "#protChg2"].forEach(id => { $(id).value = ""; });
+  await salvaOra(); renderProt(); toast("Codice cambiato.");
+}
+async function togliCodice() {
+  if (!(await verificaAttuale())) return;
+  Object.assign(PROT, { key: null, salt: null });
+  $("#protCur").value = "";
+  await salvaOra(); renderProt(); toast("Codice tolto: i dati ora sono salvati senza cifratura.");
+}
 
 /* ---------- Offerte considerate ---------- */
 function allOffers() {
@@ -1194,7 +1315,7 @@ function initCaps() {
     const uid = user ? await user.id().catch(() => null) : null; S.caps.uid = uid;
     S.caps.isOwner = user ? await user.isOwner().catch(() => false) : false; updateRefreshBtn();
     if (uid) {
-      try { const snap = await db.doc("data/users/" + uid + "/watt").get(); if (!(snap.exists && adoptUser(snap.data()))) { loadLocal(); if (S.user.utenze.some(u => !u.esempio)) scheduleSave(); } }
+      try { const snap = await db.doc("data/users/" + uid + "/watt").get(); if (!(snap.exists && caricaDati(snap.data()))) { loadLocal(); if (!S.bloccato && S.user.utenze.some(u => !u.esempio)) scheduleSave(); } }
       catch (e) { loadLocal(); }
     } else loadLocal();
     renderAll();
@@ -1270,7 +1391,8 @@ function initAndroid() {
 async function exportBackup() {
   const d = S.caps.downloads;
   if (!d) { toast("Il salvataggio di file non è disponibile in questa vista."); return; }
-  const data = JSON.stringify({ app: "Claudia Luce", tipo: "backup", creato: new Date().toISOString(), dati: S.user }, null, 1);
+  const base = { app: "Claudia Luce", tipo: "backup", creato: new Date().toISOString() };
+  const data = JSON.stringify(PROT.key ? Object.assign(base, { cifrato: await cifra(S.user) }) : Object.assign(base, { dati: S.user }), null, 1);
   try { await d.save({ filename: "claudia-luce-backup-" + todayISO() + ".json", data }); }
   catch (e) { if (!e || e.code !== "declined") toast("Non è stato possibile salvare il backup."); }
 }
@@ -1278,12 +1400,24 @@ async function importBackup(file) {
   if (!file) return;
   let j;
   try { j = JSON.parse(await file.text()); } catch (e) { toast("Questo file non è un backup di Claudia Luce."); return; }
+  const cif = j && j.tipo === "backup" && j.cifrato;
   const dati = j && j.dati;
-  if (!dati || !Array.isArray(dati.utenze)) { toast("Questo file non è un backup di Claudia Luce."); return; }
+  if (!cif && (!dati || !Array.isArray(dati.utenze))) { toast("Questo file non è un backup di Claudia Luce."); return; }
   const box = $("#backupConfirm");
   box.hidden = false;
-  $("#backupConfirmText").textContent = "Il backup contiene " + dati.utenze.length + " clienti. Vuoi sostituire i dati attuali?";
-  $("#btnBackupYes").onclick = () => { if (adoptUser(dati)) { scheduleSave(); renderAll(); toast("Backup ripristinato."); } box.hidden = true; };
+  $("#backupCodeL").hidden = !cif; $("#backupCode").value = "";
+  $("#backupConfirmText").textContent = cif ? "Il backup è protetto: scrivi il suo codice. Sostituirà i dati attuali." : "Il backup contiene " + dati.utenze.length + " clienti. Vuoi sostituire i dati attuali?";
+  $("#btnBackupYes").onclick = async () => {
+    let d = dati;
+    if (cif) {
+      const r = await decifra(cif, $("#backupCode").value);
+      if (!r) { toast("Codice del backup sbagliato."); return; }
+      d = r.dati;
+      if (!PROT.key) Object.assign(PROT, r.prot);   // il backup era protetto: resta protetto anche qui
+    }
+    if (adoptUser(d)) { await salvaOra(); renderAll(); renderProt(); toast("Backup ripristinato."); }
+    box.hidden = true;
+  };
   $("#btnBackupNo").onclick = () => { box.hidden = true; };
 }
 
@@ -1303,7 +1437,21 @@ function boot() {
   $("#selOrdina").addEventListener("change", e => { S.user.vista.ordina = e.target.value; scheduleSave(); renderRanking(); });
   $("#selScenario").addEventListener("change", e => { S.user.vista.scenario = e.target.value; scheduleSave(); renderRanking(); });
   $("#chkCanone").addEventListener("change", e => { S.user.vista.canone = e.target.checked; scheduleSave(); renderRanking(); });
-  $("#sec-consumi").addEventListener("input", e => { if (e.target.matches("input,select") && !e.target.closest(".drop") && e.target.id !== "selUtenza2") onFormChange(e); });
+  $("#sec-consumi").addEventListener("input", e => { if (e.target.matches("input,select") && !e.target.closest(".drop") && !e.target.closest("#protPanel") && !e.target.closest("#backupConfirm") && e.target.id !== "selUtenza2") onFormChange(e); });
+  $("#lockForm").addEventListener("submit", sblocca);
+  $("#btnLockReset").addEventListener("click", cancellaDatiProtetti);
+  $("#btnProtOn").addEventListener("click", attivaCodice);
+  $("#btnProtLock").addEventListener("click", bloccaAdesso);
+  $("#btnLock").addEventListener("click", bloccaAdesso);
+  $("#btnProtChange").addEventListener("click", cambiaCodice);
+  $("#btnProtOff").addEventListener("click", togliCodice);
+  renderProt();
+  // si blocca da solo se resta in sottofondo per più di 5 minuti; quando va in sottofondo salvo subito
+  let nascostaDal = 0;
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") { nascostaDal = Date.now(); if (saveTimer) salvaOra(); }
+    else if (PROT.key && nascostaDal && Date.now() - nascostaDal > BLOCCO_DOPO_MS) bloccaAdesso();
+  });
   $("#btnApplyHabits").addEventListener("click", () => applyHabits(false));
   $("#btnApplyHabitsKwh").addEventListener("click", () => applyHabits(true));
   $("#btnNewUtenza").addEventListener("click", () => { const u = nuovaUtenza("Nuovo cliente " + (S.user.utenze.length + 1), false); S.user.utenze.push(u); S.user.attivaId = u.id; scheduleSave(); renderAll(); $("#inNome").focus(); $("#inNome").select(); });
