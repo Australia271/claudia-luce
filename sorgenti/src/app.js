@@ -19,7 +19,7 @@ function nuovaUtenza(nome, esempio) {
   const st = habitsModel(ab);
   return {
     id: esempio ? "esempio" : "u" + Date.now().toString(36),
-    nome, esempio: !!esempio,
+    nome, esempio: !!esempio, anagrafica: {},
     kwhAnno: esempio ? 2700 : st.kwhAnno,
     potenzaKW: 3, residente: true,
     split: st.split, profiloMensile: st.profilo, fonteSplit: "abitudini",
@@ -335,7 +335,10 @@ function reportPlain(d) {
   const L = [];
   L.push("PROPOSTA OFFERTA LUCE");
   if (d.cons.nome) L.push("Preparata da " + d.cons.nome + (d.cons.recapiti ? " - " + d.cons.recapiti : ""));
-  L.push("Cliente: " + d.u.nome + " - " + d.oggi, "");
+  L.push("Cliente: " + d.u.nome + " - " + d.oggi);
+  const anP = d.u.anagrafica || {};
+  if (anP.indirizzo || anP.pod) L.push("Fornitura: " + [anP.indirizzo, anP.pod && "POD " + anP.pod].filter(Boolean).join(" - "));
+  L.push("");
   L.push("CONSUMI: " + numIt(d.u.kwhAnno) + " kWh l'anno, " + numIt(d.u.potenzaKW, 1) + " kW, " + (d.u.residente !== false ? "abitazione di residenza" : "seconda casa") + ". Fasce: F1 " + Math.round(d.sp.f1 * 100) + "%, F2 " + Math.round(d.sp.f2 * 100) + "%, F3 " + Math.round(d.sp.f3 * 100) + "%.");
   if (d.cur) L.push("OFFERTA ATTUALE: " + d.cur.offer.fornitore + " " + d.cur.offer.nome + ": spesa stimata " + euro(d.cur.calc.totale) + " in 12 mesi.");
   L.push("", "LE OFFERTE PIÙ CONVENIENTI");
@@ -366,7 +369,9 @@ async function makeReport() {
     text("Claudia Luce", 10, { bold: true, color: acc, gap: 6 });
     text("Proposta offerta luce", 20, { bold: true, gap: 3 });
     if (d.cons.nome) text("Preparata da " + d.cons.nome + (d.cons.recapiti ? " · " + d.cons.recapiti : ""), 10, { color: soft, gap: 1 });
-    text("Per " + d.u.nome + " · " + d.oggi, 10, { color: soft, gap: 2 });
+    const anP = d.u.anagrafica || {};
+    text("Per " + d.u.nome + " · " + d.oggi, 10, { color: soft, gap: anP.indirizzo || anP.pod ? 1 : 2 });
+    if (anP.indirizzo || anP.pod) text("Fornitura: " + [anP.indirizzo, anP.pod && "POD " + anP.pod].filter(Boolean).join(" · "), 10, { color: soft, gap: 2 });
     doc.setDrawColor(212, 219, 224); doc.line(M, y, M + W, y); y += 8;
     text("I consumi considerati", 12, { bold: true });
     text(numIt(d.u.kwhAnno) + " kWh l'anno · potenza " + numIt(d.u.potenzaKW, 1) + " kW · " + (d.u.residente !== false ? "abitazione di residenza" : "seconda casa") + " · fasce F1 " + Math.round(d.sp.f1 * 100) + "%, F2 " + Math.round(d.sp.f2 * 100) + "%, F3 " + Math.round(d.sp.f3 * 100) + "%", 10, { gap: 2 });
@@ -436,6 +441,8 @@ function fillForm() {
   const u = U();
   $("#inNome").value = u.nome;
   $("#inNote").value = u.noteCliente || "";
+  const an = u.anagrafica || {};
+  for (const [id, k] of ANAG_CAMPI) { const el = $("#" + id); if (document.activeElement !== el) el.value = an[k] || ""; }
   const cons = S.user.consulente || {};
   if (document.activeElement !== $("#inConsNome")) $("#inConsNome").value = cons.nome || "";
   if (document.activeElement !== $("#inConsRec")) $("#inConsRec").value = cons.recapiti || "";
@@ -487,11 +494,19 @@ function readCurrent() {
   o.incompleta = !tipo || Object.values(vals).some(x => x == null);
   u.attuale = (!tipo && !o.fornitore && !o.nome) ? null : o;
 }
+const ANAG_CAMPI = [["anIntest", "intestatario"], ["anCF", "codiceFiscale"], ["anIndirizzo", "indirizzo"], ["anPod", "pod"], ["anCodCli", "codiceCliente"]];
 function markEdited(u) { if (u.esempio) { u.esempio = false; if (/^Esempio/.test(u.nome)) { u.nome = "Nuovo cliente"; $("#inNome").value = u.nome; } } }
 function onFormChange(e) {
   const u = U(), id = e.target.id;
   if (id === "inNome") { u.nome = e.target.value.trim() || "Cliente"; renderCtx(); scheduleSave(); return; }
   if (id === "inNote") { u.noteCliente = e.target.value; scheduleSave(); return; }
+  const campo = ANAG_CAMPI.find(x => x[0] === id);
+  if (campo) {
+    let v = e.target.value.trim();
+    if (campo[1] === "pod" || campo[1] === "codiceFiscale") v = v.toUpperCase().replace(/\s/g, "");
+    u.anagrafica = Object.assign({}, u.anagrafica, { [campo[1]]: v || null });
+    scheduleSave(); return;
+  }
   if (id === "inConsNome" || id === "inConsRec") { S.user.consulente = { nome: $("#inConsNome").value.trim(), recapiti: $("#inConsRec").value.trim() }; scheduleSave(); return; }
   markEdited(u);
   if (id === "inKwh") u.kwhAnno = Math.max(0, num($("#inKwh")) || 0);
@@ -659,13 +674,14 @@ async function tileImage(blob) {
   } catch (e) { return [blob]; }
 }
 const BILL_PROMPT = `Sei un esperto di bollette elettriche italiane. Leggi la bolletta (testo e/o immagini) e rispondi SOLO con un oggetto JSON con questa forma esatta:
-{"fornitore":string|null,"offerta":string|null,"tipo":"fisso"|"indicizzato"|null,"consumoAnnuoKWh":number|null,"consumoAnnuoPeriodo":{"da":"AAAA-MM-GG"|null,"a":"AAAA-MM-GG"|null},"potenzaKW":number|null,"residente":true|false|null,"periodo":{"da":"AAAA-MM-GG"|null,"a":"AAAA-MM-GG"|null},"consumiPeriodoKWh":{"f1":number|null,"f2":number|null,"f3":number|null,"f23":number|null,"totale":number|null},"prezzoEnergia":{"mono":number|null,"f1":number|null,"f2":number|null,"f3":number|null,"f23":number|null},"spreadKWh":number|null,"quotaFissaMese":number|null,"scadenzaPrezzo":"AAAA-MM-GG"|null,"totaleBolletta":number|null,"note":string}
+{"cliente":{"nome":string|null,"codiceFiscale":string|null,"indirizzo":string|null,"pod":string|null,"codiceCliente":string|null},"fornitore":string|null,"offerta":string|null,"tipo":"fisso"|"indicizzato"|null,"consumoAnnuoKWh":number|null,"consumoAnnuoPeriodo":{"da":"AAAA-MM-GG"|null,"a":"AAAA-MM-GG"|null},"potenzaKW":number|null,"residente":true|false|null,"periodo":{"da":"AAAA-MM-GG"|null,"a":"AAAA-MM-GG"|null},"consumiPeriodoKWh":{"f1":number|null,"f2":number|null,"f3":number|null,"f23":number|null,"totale":number|null},"prezzoEnergia":{"mono":number|null,"f1":number|null,"f2":number|null,"f3":number|null,"f23":number|null},"spreadKWh":number|null,"quotaFissaMese":number|null,"scadenzaPrezzo":"AAAA-MM-GG"|null,"totaleBolletta":number|null,"note":string}
 Regole:
 - consumoAnnuoKWh è il "consumo annuo" che la bolletta riporta; se manca usa null. Metti in consumoAnnuoPeriodo le date a cui si riferisce: molte bollette, per forniture iniziate da poco, riportano come "consumo annuo" solo i mesi dall'inizio della fornitura.
 - Se c'è una tabella dei consumi mensili per fascia, usala per consumiPeriodoKWh solo se mancano i consumi del periodo fatturato.
 - prezzoEnergia: prezzo unitario della sola componente energia (spesa per la materia energia) in €/kWh, IVA esclusa, senza perdite, dispacciamento, trasporto, oneri o accise. Se l'offerta è indicizzata (PUN + spread) metti lo spread in spreadKWh e lascia null i prezzi.
 - quotaFissaMese: quota fissa/commercializzazione del fornitore in €/mese IVA esclusa (converti se è espressa per anno o per giorno). Non includere la quota fissa di trasporto.
 - residente: true se abitazione di residenza, false se non residente.
+- cliente: dati dell'intestatario del contratto come scritti in bolletta. nome = nome e cognome (o ragione sociale); codiceFiscale = codice fiscale dell'intestatario; indirizzo = indirizzo di FORNITURA (dove si trova il contatore, con CAP e comune), non quello di recapito della bolletta; pod = codice POD che inizia con IT (es. IT001E12345678); codiceCliente = codice o numero cliente presso il fornitore. Non confondere i dati del cliente con quelli del fornitore.
 - Usa numeri con il punto decimale. Non inventare: se un dato non c'è, metti null.
 - In "note" scrivi in italiano, in una o due frasi, cosa hai trovato e cosa manca.`;
 
@@ -707,6 +723,8 @@ function sampleErrorText(e) {
 function billRowsHtml(r) {
   const rows = [];
   const add = (k, v) => { if (v != null && v !== "") rows.push("<tr><td>" + k + '</td><td class="n">' + esc(v) + "</td></tr>"); };
+  const cl = r.cliente || {};
+  add("Intestatario", cl.nome); add("Codice fiscale", cl.codiceFiscale); add("Indirizzo di fornitura", cl.indirizzo); add("POD", cl.pod); add("Codice cliente", cl.codiceCliente);
   add("Fornitore", r.fornitore); add("Offerta", r.offerta); add("Tipo di prezzo", r.tipo === "fisso" ? "fisso" : r.tipo === "indicizzato" ? "variabile" : null);
   const cap = r.consumoAnnuoPeriodo || {}, cov = periodCoverage(cap.da, cap.a);
   add("Consumo annuo", r.consumoAnnuoKWh != null ? numIt(r.consumoAnnuoKWh) + " kWh" + (cov && cov < 0.9 ? " (solo dal " + dataIt(cap.da) + " al " + dataIt(cap.a) + ": su 12 mesi sono circa " + numIt(Math.round(r.consumoAnnuoKWh / cov / 10) * 10) + " kWh)" : "") : null);
@@ -724,9 +742,30 @@ function billRowsHtml(r) {
   return rows.join("") || "<tr><td>Nessun dato riconosciuto.</td></tr>";
 }
 /* Appena letta la bolletta: applico i dati e dico subito se l'offerta conviene ancora */
+/* A quale cliente appartiene la bolletta: stesso POD o stesso nome = cliente già presente;
+   se il cliente aperto è un'altra persona, ne creo uno nuovo invece di sovrascriverlo. */
+const NOME_PROVVISORIO = /^(?:nuovo cliente(?: \d+)?|cliente(?: \d+)?|esempio.*)$/i;
+function chiaveNome(s) { return String(s || "").toLowerCase().normalize("NFD").replace(/[^a-z\s]/g, " ").split(/\s+/).filter(Boolean).sort().join(" "); }
+function clientePerBolletta(c) {
+  const cur = U();
+  if (!c || (!c.nome && !c.pod)) return { u: cur, come: "attuale" };
+  const stesso = x => { const a = x.anagrafica || {}; return (c.pod && a.pod === c.pod) || (c.nome && [a.intestatario, x.nome].some(n => n && chiaveNome(n) === chiaveNome(c.nome))); };
+  if (stesso(cur)) return { u: cur, come: "stesso" };
+  const altro = S.user.utenze.find(x => x !== cur && stesso(x));
+  if (altro) return { u: altro, come: "esistente" };
+  const a = cur.anagrafica || {};
+  if (!cur.esempio && (a.pod || a.intestatario || !NOME_PROVVISORIO.test(cur.nome || ""))) return { u: null, come: "nuovo" };
+  return { u: cur, come: "attuale" };
+}
 function showBillResult(r, srcLabel) {
-  const u = U();
-  S.undoBill = { id: u.id, data: clone(u) };
+  r.cliente = normCliente(r.cliente);
+  const prevAttiva = S.user.attivaId;
+  const scelta = clientePerBolletta(r.cliente);
+  let u = scelta.u;
+  if (!u) { u = nuovaUtenza(r.cliente.nome || "Nuovo cliente " + (S.user.utenze.length + 1), false); S.user.utenze.push(u); }
+  S.undoBill = { id: u.id, data: scelta.come === "nuovo" ? null : clone(u), prevAttiva };
+  S.user.attivaId = u.id;
+  r.destinazione = { come: scelta.come, nome: null };
   S.lastRead = { r, srcLabel };
   S.extracted = r;
   applyBill(true);
@@ -752,13 +791,20 @@ function renderBillVerdict() {
       '<label class="fld" for="qfQf">Quota fissa (€/mese)<input type="number" id="qfQf" step="0.01" min="0" placeholder="es. 8,00"></label></div>' +
       '<div class="row"><button class="btn primary" type="button" id="btnQf">Controlla la mia offerta</button></div></div>';
   }
-  extractUI(head + '<div class="row"><button class="btn primary" type="button" id="btnGoRank">Vedi la classifica completa</button><button class="btn" type="button" id="btnUndoBill">Annulla i dati letti</button></div>' +
+  const dst = r.destinazione || {};
+  const dove = dst.come === "nuovo" ? "Ho creato il nuovo cliente <strong>" + esc(dst.nome) + "</strong> con i dati della bolletta."
+    : dst.come === "esistente" ? "La bolletta è di <strong>" + esc(dst.nome) + "</strong>, già tra i tuoi clienti: ho aggiornato i suoi dati."
+    : dst.nome ? "Dati salvati nel cliente <strong>" + esc(dst.nome) + "</strong>." : "";
+  const manca = !(r.cliente && r.cliente.nome) ? " Non ho trovato il nome dell'intestatario: puoi scriverlo nella scheda del cliente qui sotto." : "";
+  extractUI(head + (dove || manca ? '<p class="small">' + dove + manca + "</p>" : "") + '<div class="row"><button class="btn primary" type="button" id="btnGoRank">Vedi la classifica completa</button><button class="btn" type="button" id="btnUndoBill">Annulla i dati letti</button></div>' +
     '<details class="panel"><summary class="small" style="cursor:pointer;font-weight:600">Dati letti ' + esc(L.srcLabel) + '</summary><div class="tbl-wrap" style="margin-top:10px"><table class="data">' + billRowsHtml(r) + '</table></div><p class="tiny" style="margin-top:6px">' + esc(r.note || "") + " Li trovi anche qui sotto, nei campi del cliente: puoi correggerli.</p></details>");
   try { $("#extractOut").scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e) { /* ignora */ }
   $("#btnGoRank").onclick = () => { showTab("classifica"); window.scrollTo(0, 0); };
   $("#btnUndoBill").onclick = () => {
     const b = S.undoBill; if (!b) return;
-    const i = S.user.utenze.findIndex(x => x.id === b.id); if (i >= 0) S.user.utenze[i] = b.data;
+    const i = S.user.utenze.findIndex(x => x.id === b.id);
+    if (i >= 0) { if (b.data) S.user.utenze[i] = b.data; else S.user.utenze.splice(i, 1); }
+    if (S.user.utenze.some(x => x.id === b.prevAttiva)) S.user.attivaId = b.prevAttiva;
     S.undoBill = null; S.lastRead = null; scheduleSave(); renderAll();
     extractUI('<div class="callout">Ho rimesso i dati di prima.</div>');
   };
@@ -789,6 +835,15 @@ function periodCoverage(da, a) {
 function applyBill(auto) {
   const r = S.extracted; if (!r) return;
   const u = U(); markEdited(u);
+  const c = r.cliente || {};
+  const an = u.anagrafica = Object.assign({}, u.anagrafica);
+  if (c.nome) an.intestatario = c.nome;
+  if (c.codiceFiscale) an.codiceFiscale = c.codiceFiscale;
+  if (c.indirizzo) an.indirizzo = c.indirizzo;
+  if (c.pod) an.pod = c.pod;
+  if (c.codiceCliente) an.codiceCliente = c.codiceCliente;
+  if (c.nome && NOME_PROVVISORIO.test(u.nome || "")) u.nome = c.nome;
+  if (r.destinazione) r.destinazione.nome = u.nome;
   if (r.consumoAnnuoKWh > 0) {
     const pa = r.consumoAnnuoPeriodo || {};
     const cov = periodCoverage(pa.da, pa.a);
@@ -858,7 +913,9 @@ async function handleBillPdf(file) {
     let imgs = [];
     if (S.caps.images) imgs = (await readPdf(file, scansione ? 8 : 1, { tiles: scansione, maxSide: 2200 })).imgs;
     if (scansione && !imgs.length) { extractUI('<div class="callout warn">Questo PDF è una scansione senza testo e in questa vista Claude non può leggere immagini. Inserisci i dati a mano.</div>'); return; }
-    showBillResult(await claudeRead(BILL_PROMPT, scansione ? "" : pdf.text, imgs), "dal PDF");
+    const letto = await claudeRead(BILL_PROMPT, scansione ? "" : pdf.text, imgs);
+    if (pdf.text && pdf.text.trim()) letto.cliente = mergeRead(letto.cliente || {}, localBillParse(pdf.text).cliente);
+    showBillResult(letto, "dal PDF");
   }
   catch (e) { if (e && (e.code === "not_granted" || e.code === "sampling_disabled")) showBillResult(localBillParse(pdf.text), "dal PDF (lettura di base)"); else extractUI('<div class="callout bad">' + esc(sampleErrorText(e)) + "</div>"); }
 }

@@ -30,6 +30,92 @@ function firstNum(t, res, min, max) {
 }
 function dateIt(s) { const m = String(s || "").match(/(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})/); if (!m) return null; const y = m[3].length === 2 ? "20" + m[3] : m[3]; return y + "-" + m[2].padStart(2, "0") + "-" + m[1].padStart(2, "0"); }
 
+/* Dati anagrafici del cliente: intestatario, codice fiscale, indirizzo di fornitura, POD, codice cliente */
+const ANAG_STOP = /\s*\b(?:codice|cod\.?|c\.\s?f\.?|cf|partita|p\.\s?iva|indirizzo|via|viale|piazza|corso|largo|pod|numero|n\.|fornitura|tipologia|tipo|data|recapito|e-?mail|tel(?:efono)?|cell(?:ulare)?|contratto|cliente|uso|potenza|offerta|periodo|fattura|bolletta|pagina|gentile|spett|totale|importo|scadenza|emissione|emessa|pagare|pagamento|sede|domicilio|nato|nata|residente)\b.*$/i;
+const NON_NOME = /\b(?:nome|cognome|intestatari[oa]|titolare|dati|cliente|luce|gas|energia|bolletta|fattura|offerta|mercato|servizio|fornitura|spa|s\.p\.a|srl)\b/i;
+function titleCase(s) {
+  return s.toLowerCase().replace(/(^|[\s'’\-])([a-zà-ÿ])/g, (m, a, b) => a + b.toUpperCase());
+}
+function cleanNome(s) {
+  if (!s) return null;
+  s = s.replace(/[|_*•]+/g, " ").replace(/\s+/g, " ").trim().replace(/^[\s:.\-–]+/, "");
+  // nome in maiuscolo seguito da altro testo (bollette su più colonne): tengo solo il maiuscolo
+  const caps = s.match(/^([A-ZÀ-Ý][A-ZÀ-Ý'’.\-]+(?:\s+[A-ZÀ-Ý][A-ZÀ-Ý'’.\-]+){1,5})(?=\s|$)/);
+  if (caps) s = caps[1];
+  s = s.replace(/\s\S*\d.*$/, "").replace(ANAG_STOP, "").replace(/[\s,.;:\-–]+$/, "").trim();
+  const w = s.split(" ").filter(Boolean);
+  if (w.length && /^(?:sig\.?|sig\.ra|signor[ae]?|sig\.na|dott\.?(?:ssa)?|egr\.?|gent\.?(?:mo|ma)?)$/i.test(w[0])) return cleanNome(w.slice(1).join(" "));
+  if (w.length < 2 || w.length > 6 || s.length > 60 || /\d/.test(s) || NON_NOME.test(s)) return null;
+  return s === s.toUpperCase() ? titleCase(s) : s;
+}
+function normPod(s) {
+  if (!s) return null;
+  const p = s.toUpperCase().replace(/[\s.\-]/g, "").replace(/^1T/, "IT");
+  const m = p.match(/^IT([0-9O]{3})E([0-9A-Z]{8,9})$/);
+  return m ? "IT" + m[1].replace(/O/g, "0") + "E" + m[2].replace(/O/g, "0") : null;
+}
+function normCF(s) {
+  if (!s) return null;
+  const c = s.toUpperCase().replace(/\s/g, "");
+  return /^[A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST][0-9LMNPQRSTUV]{2}[A-Z][0-9LMNPQRSTUV]{3}[A-Z]$/.test(c) ? c : null;
+}
+function normCliente(c) {
+  c = c || {};
+  const out = {
+    nome: cleanNome(c.nome || "") || null,
+    codiceFiscale: normCF(c.codiceFiscale) || null,
+    indirizzo: c.indirizzo ? String(c.indirizzo).replace(/\s+/g, " ").trim().replace(/[\s,;:\-–]+$/, "") : null,
+    pod: normPod(c.pod) || null,
+    codiceCliente: c.codiceCliente ? String(c.codiceCliente).trim() : null
+  };
+  if (out.indirizzo && out.indirizzo === out.indirizzo.toUpperCase()) out.indirizzo = titleCase(out.indirizzo).replace(/\(([a-z]{2})\)/gi, (m, p) => "(" + p.toUpperCase() + ")").replace(/\b([A-Z][a-z])$/, m => m.toUpperCase());
+  if (out.indirizzo && (out.indirizzo.length < 6 || out.indirizzo.length > 140)) out.indirizzo = null;
+  return out;
+}
+function localClientParse(raw) {
+  const lines = raw.split("\n").map(s => s.trim());
+  const flat = raw.replace(/\s*\n\s*/g, " ");
+  const c = { nome: null, codiceFiscale: null, indirizzo: null, pod: null, codiceCliente: null };
+  // valore dopo un'etichetta: sulla stessa riga o, se lì non c'è niente, sulla riga dopo
+  const after = (re, extra) => {
+    for (let i = 0; i < lines.length; i++) {
+      const m = lines[i].match(re);
+      if (!m) continue;
+      let v = lines[i].slice(m.index + m[0].length).replace(/^[\s:.\-–]+/, "");
+      let j = i;
+      if (v.length < 3 && j + 1 < lines.length) { j++; v = lines[j]; }
+      // l'indirizzo può continuare sulla riga dopo (CAP e comune)
+      for (let k = 0; k < (extra || 0) && !/\b\d{5}\b/.test(v) && j + 1 < lines.length; k++) { j++; v += " " + lines[j]; }
+      if (v) return v;
+    }
+    return null;
+  };
+  const NOME_LBL = /\b(?:intestatari[oa](?:\s+(?:del(?:la)?\s+)?(?:contratto|fornitura|fattura|bolletta|utenza))?|titolare(?:\s+(?:del(?:la)?\s+)?(?:contratto|fornitura|utenza))?|intestat[oa] a|nome e cognome|cognome e nome|ragione sociale|cliente intestatario|dati (?:del )?cliente)\b/i;
+  // nome dopo l'etichetta, sulla stessa riga o in una delle due righe sotto
+  for (let i = 0; i < lines.length && !c.nome; i++) {
+    const m = lines[i].match(NOME_LBL); if (!m) continue;
+    for (const v of [lines[i].slice(m.index + m[0].length), lines[i + 1], lines[i + 2]]) { const n = cleanNome(v); if (n) { c.nome = n; break; } }
+  }
+  if (!c.nome) { const g = flat.match(/\b(?:[Gg]entile|GENTILE|[Ee]gregi[oa]|[Ss]pett\.?le|SPETT\.?LE)\s+(?:[Ss]ig\.?(?:ra)?\s+|[Ss]ignor[ae]?\s+|[Cc]liente\s+)?([A-ZÀ-Ý][A-Za-zÀ-ÿ'’]+(?:\s+[A-ZÀ-Ý][A-Za-zÀ-ÿ'’]+){1,3})/); if (g) c.nome = cleanNome(g[1]); }
+  const pod = flat.match(/\b(?:1T|IT)\s?[0-9O]{3}\s?E\s?[0-9O]{4}\s?[0-9A-Z]{4,5}\b/i);
+  if (pod) c.pod = normPod(pod[0]);
+  const cfl = flat.match(/(?:codice fiscale|c\.\s?f\.)\s*[:.]?\s*([A-Z0-9]{16})\b/i);
+  c.codiceFiscale = normCF(cfl && cfl[1]);
+  if (!c.codiceFiscale) { const cf = flat.match(/\b[A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST][0-9LMNPQRSTUV]{2}[A-Z][0-9LMNPQRSTUV]{3}[A-Z]\b/); if (cf) c.codiceFiscale = cf[0]; }
+  const cc = flat.match(/\b(?:codice|cod\.?|numero|n\.?|n°)\s*(?:del\s+)?cliente\s*(?:n\.?|n°)?\s*[:.]?\s*([0-9][0-9A-Z\-\/]{3,19})\b/i);
+  if (cc) c.codiceCliente = cc[1];
+  const ADDR_LBL = /\b(?:indirizzo (?:di |della |del punto di )?(?:fornitura|prelievo)|luogo di fornitura|ubicazione(?: della)? fornitura|punto di fornitura|fornitura in|sito di fornitura|indirizzo fornitura)\b/i;
+  let a = after(ADDR_LBL, 1);
+  if (a) {
+    const st = a.search(/\b(?:via|viale|v\.le|piazza|p\.zza|p\.za|corso|c\.so|largo|vicolo|strada|località|loc\.|contrada|c\.da|frazione|fraz\.|regione|borgo|lungomare|salita|traversa)\b/i);
+    if (st >= 0) a = a.slice(st);
+    const cap = a.match(/^(.*?\b\d{5}\b\s*[A-Za-zÀ-ÿ'’\s\-]{2,40}?(?:\s*\(?[A-Z]{2}\)?)?)(?=\s*(?:\b(?:POD|codice|cod\.|tipologia|potenza|uso|tensione|matricola|data|n\.|numero)\b|$))/i);
+    a = (cap ? cap[1] : a.replace(/\s*\b(?:POD|codice|cod\.|tipologia|potenza|uso|tensione|matricola)\b.*$/i, "")).trim();
+    if (/\d/.test(a) && a.length >= 8) c.indirizzo = a;
+  }
+  return normCliente(c);
+}
+
 function localBillParse(text) {
   const raw = cleanText(text);
   const t = raw.replace(/\n+/g, " \n ");
@@ -77,7 +163,8 @@ function localBillParse(text) {
   if (sc) out.scadenzaPrezzo = dateIt(sc[1]);
   if (!out.scadenzaPrezzo) { const sc2 = flat.match(/(?:scadenza condizioni economiche|condizioni economiche valide fino al|prezzo bloccato fino al)[:\s]*(\d{1,2}[\/.\-]\d{1,2}[\/.\-]\d{2,4})/i); if (sc2) out.scadenzaPrezzo = dateIt(sc2[1]); }
   out.totaleBolletta = firstNum(flat, [new RegExp("totale (?:da pagare|bolletta|fattura|importo)[^0-9]{0,30}" + NUM, "i")], 1, 20000);
-  const found = [out.consumoAnnuoKWh != null && "consumo annuo", out.potenzaKW != null && "potenza", (out.consumiPeriodoKWh.f1 != null) && "fasce", (out.prezzoEnergia.mono ?? out.prezzoEnergia.f1 ?? out.spreadKWh) != null && "prezzo", out.quotaFissaMese != null && "quota fissa"].filter(Boolean);
+  out.cliente = localClientParse(raw);
+  const found = [out.cliente.nome && "intestatario", out.cliente.pod && "POD", out.consumoAnnuoKWh != null && "consumo annuo", out.potenzaKW != null && "potenza", (out.consumiPeriodoKWh.f1 != null) && "fasce", (out.prezzoEnergia.mono ?? out.prezzoEnergia.f1 ?? out.spreadKWh) != null && "prezzo", out.quotaFissaMese != null && "quota fissa"].filter(Boolean);
   const missing = ["consumo annuo", "potenza", "fasce", "prezzo", "quota fissa"].filter(x => !found.includes(x));
   out.note = (found.length ? "Trovati: " + found.join(", ") + "." : "Non ho riconosciuto dati utili.") + (missing.length ? " Mancano: " + missing.join(", ") + ": controlla e completa a mano." : " Controlla comunque i valori.");
   return out;
@@ -103,4 +190,4 @@ function localOfferParse(text) {
   r.note = "Letta sul telefono: controlla prezzi e quota fissa prima di aggiungerla.";
   return r;
 }
-if (typeof module !== "undefined") module.exports = { localBillParse, localOfferParse, parseNumIt };
+if (typeof module !== "undefined") module.exports = { localBillParse, localOfferParse, localClientParse, normCliente, parseNumIt };

@@ -85,7 +85,7 @@
   <section class="section" id="sec-consumi" data-sec="consumi" hidden>
     <div class="panel stack">
       <h2>Carica la bolletta</h2>
-      <p class="muted small">Claude legge la bolletta del cliente e compila i campi qui sotto: consumo annuo, fasce, potenza e prezzo dell'offerta attuale. Puoi controllare tutto prima di applicarlo.</p>
+      <p class="muted small">Carica la bolletta: l'app legge i dati del cliente (intestatario, codice fiscale, indirizzo di fornitura, POD, codice cliente) e quelli per il calcolo (consumo annuo, fasce, potenza, prezzo dell'offerta attuale) e ti dice subito se l'offerta conviene. Se la bolletta è di un cliente nuovo, lo crea da sola; se è di un cliente che hai già, aggiorna il suo.</p>
       <div class="drop" id="dropBill">
         <span class="btn primary filebtn">Foto della bolletta<input type="file" id="fileImg" accept="image/*" capture="environment" multiple></span>
         <span class="btn filebtn">PDF della bolletta<input type="file" id="filePdf" accept="application/pdf,.pdf"></span>
@@ -104,7 +104,16 @@
         <label class="fld" for="selUtenza2">Cliente che stai modificando<select id="selUtenza2"></select></label>
         <label class="fld" for="inNome">Nome del cliente<input type="text" id="inNome" placeholder="Es. Mario Rossi"></label>
       </div>
-      <label class="fld" for="inNote">Note sul cliente<input type="text" id="inNote" placeholder="Recapiti, indirizzo di fornitura, POD"><span class="hint">Restano nel tuo account: non compaiono nella proposta.</span></label>
+      <div class="grid2">
+        <label class="fld" for="anIntest">Intestatario del contratto<input type="text" id="anIntest" autocomplete="off" placeholder="Nome e cognome come in bolletta"></label>
+        <label class="fld" for="anCF">Codice fiscale<input type="text" id="anCF" autocomplete="off" maxlength="16" placeholder="16 caratteri"></label>
+      </div>
+      <label class="fld" for="anIndirizzo">Indirizzo di fornitura<input type="text" id="anIndirizzo" autocomplete="off" placeholder="Via, numero, CAP, comune"></label>
+      <div class="grid2">
+        <label class="fld" for="anPod">POD<input type="text" id="anPod" autocomplete="off" placeholder="IT001E12345678"></label>
+        <label class="fld" for="anCodCli">Codice cliente del fornitore attuale<input type="text" id="anCodCli" autocomplete="off"></label>
+      </div>
+      <label class="fld" for="inNote">Note sul cliente<input type="text" id="inNote" placeholder="Telefono, email, appunti"><span class="hint">Questi dati si compilano da soli quando carichi la bolletta e restano solo a te. Nella proposta compaiono solo nome, indirizzo di fornitura e POD.</span></label>
       <div class="row">
         <button class="btn small" type="button" id="btnDelUtenza">Elimina questo cliente</button>
         <span id="delConfirm" class="row" hidden><span class="small">Eliminarlo davvero?</span>
