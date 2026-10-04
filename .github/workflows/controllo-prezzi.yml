@@ -1,0 +1,47 @@
+name: Controllo prezzi giornaliero
+
+# Ogni giorno (circa 9:30 in estate, 8:30 in inverno, ora italiana) controlla che il file
+# dei prezzi dell'app sia di oggi. Se non lo è apre una segnalazione (Issue): GitHub manda
+# un'email al proprietario del repository. Quando torna tutto a posto la chiude da sola.
+on:
+  schedule:
+    - cron: "30 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  controllo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Controlla data/dati.json
+        id: c
+        run: |
+          set +e
+          out=$(python3 strumenti/controllo_github.py)
+          code=$?
+          echo "$out"
+          echo "esito<<EOF" >> "$GITHUB_OUTPUT"; echo "$out" >> "$GITHUB_OUTPUT"; echo "EOF" >> "$GITHUB_OUTPUT"
+          echo "codice=$code" >> "$GITHUB_OUTPUT"
+      - name: Apri o chiudi la segnalazione
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ESITO: ${{ steps.c.outputs.esito }}
+          CODICE: ${{ steps.c.outputs.codice }}
+        run: |
+          aperta=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "in:title Prezzi non aggiornati" --json number --jq '.[0].number')
+          if [ "$CODICE" != "0" ]; then
+            testo="Il controllo automatico di oggi ha trovato un problema nei prezzi dell'app Claudia Luce:
+
+          $ESITO
+
+          Cosa fare: apri la conversazione di Claudia Luce su Claude e scrivi \"controlla l'aggiornamento dei prezzi\"."
+            if [ -n "$aperta" ]; then gh issue comment "$aperta" --repo "$GITHUB_REPOSITORY" --body "$testo"
+            else gh issue create --repo "$GITHUB_REPOSITORY" --title "Prezzi non aggiornati - Claudia Luce" --body "$testo"; fi
+            exit 1
+          elif [ -n "$aperta" ]; then
+            gh issue close "$aperta" --repo "$GITHUB_REPOSITORY" --comment "Risolto: $ESITO"
+          fi
