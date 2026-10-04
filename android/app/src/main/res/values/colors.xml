@@ -1,5 +1,8 @@
 <resources>
     <color name="page_bg">#EDF1F3</color>
-    <color name="lcd_bg">#C9D4C1</color>
-    <color name="lcd_ink">#15221A</color>
+    <!-- icona: "Blu e oro" -->
+    <color name="icon_blue_light">#1470CC</color>
+    <color name="icon_blue_dark">#083F7A</color>
+    <color name="icon_bolt">#FFC53D</color>
+    <color name="icon_bolt_edge">#B87A00</color>
 </resources>

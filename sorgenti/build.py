@@ -72,7 +72,8 @@ testa='''<link rel="manifest" href="manifest.webmanifest">
 pagina=andr.replace(title, title+testa, 1)
 (sito/'index.html').write_text(pagina)
 fissi=['./','index.html','manifest.webmanifest','servizi-web.js','vendor/pdf.min.js','vendor/pdf.worker.min.js','vendor/jspdf.umd.min.js']+['fonts/'+k for k in fonts]+['icons/'+f.name for f in sorted((wa/'icons').iterdir())]
-ver=hashlib.sha1((pagina+(wa/'servizi-web.js').read_text()).encode()).hexdigest()[:12]
+# anche icone e manifest entrano nella versione: se cambiano, l'app installata sul PC li riscarica
+ver=hashlib.sha1((pagina+(wa/'servizi-web.js').read_text()).encode()+(wa/'manifest.webmanifest').read_bytes()+b''.join(f.read_bytes() for f in sorted((wa/'icons').iterdir()))).hexdigest()[:12]
 (sito/'sw.js').write_text((wa/'sw.js').read_text().replace('__VERSIONE__','claudia-'+ver).replace('__FILE__',json.dumps(fissi)))
 # l'app Android controlla questo file e, se la versione è nuova, scarica la pagina
 # (minApk: alzarlo se la pagina nuova ha bisogno di servizi del telefono che le app vecchie non hanno)
