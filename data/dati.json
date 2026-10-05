@@ -117,17 +117,17 @@
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN è a circa 0,21 €/kWh: settembre ha chiuso a 0,208 €/kWh e i primi giorni di ottobre sono sullo stesso livello. I futures prevedono un inverno caro, intorno a 0,20 €/kWh fino a febbraio, poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene di più il prezzo fisso: le migliori offerte fisse (0,13-0,16 €/kWh) costano meno del PUN atteso per i prossimi 12 mesi.",
+  "notaMercato": "Il PUN è intorno a 0,20 €/kWh: settembre ha chiuso a 0,208 €/kWh e i primi giorni di ottobre sono a 0,202 €/kWh. I futures prevedono un inverno caro (0,19-0,21 €/kWh fino a febbraio) e poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027, con una media dei prossimi 12 mesi di circa 0,17 €/kWh. Oggi conviene di più il prezzo fisso: le migliori offerte fisse (0,13-0,16 €/kWh) costano meno del PUN atteso.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index)",
    "meseCorrente": {
-    "aggiornatoAl": "2026-10-02",
+    "aggiornatoAl": "2026-10-03",
     "f1": 0.21057,
-    "f2": 0.251871,
-    "f3": 0.192231,
-    "fonte": "a4energie.it su dati GME (verificato il 3/10)",
+    "f2": 0.203236,
+    "f3": 0.194025,
+    "fonte": "a4energie.it su dati GME (dati fino al 3/10, letti il 4/10)",
     "mese": "2026-10",
-    "mono": 0.213061,
+    "mono": 0.202407,
     "parziale": true
    },
    "storico": [
@@ -355,7 +355,8 @@
     "capacitaKWh": 0.0085,
     "dispBTAnno": 1.2311,
     "energiaKWh": 0.0117,
-    "nota": "Componenti ARERA (uplift, essenzialità, modulazione, altri) del I trim. 2026 più stima media del corrispettivo mercato capacità."
+    "nota": "Valori del I trim. 2026 (CTE Pulsee del 12/1/2026: uplift, essenzialità, funzionamento Terna, modulazione, mancata produzione, altri). Valori del IV trim. 2026 non ancora trovati.",
+    "validoDal": "2026-01-01"
    },
    "fonti": [
     {
@@ -392,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-04T06:56:00+02:00"
+  "updatedAt": "2026-10-04T14:31:00+02:00"
  },
  "offers": [
   {
@@ -701,11 +702,11 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-03",
+   "aggiornato": "2026-10-04",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-01",
+    "data": "2026-10-03",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/enel/offerte"
    },
@@ -1100,12 +1101,12 @@
    "fonte": {
     "data": "2026-10-03",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte/fissa-12m-luce"
+    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
    },
    "fornitore": "Octopus Energy",
    "id": "octopus-fissa-12m",
    "nome": "Fissa 12M",
-   "note": "Octopus aggiorna il prezzo fisso ogni settimana: controlla quello del giorno prima di firmare. Prezzo da luce-gas.it aggiornato al 3/10 (papernest.it al 2/10 riportava 0,1298 €/kWh: usata la fonte più recente). Nuova scadenza del prezzo non indicata dalle fonti.",
+   "note": "Octopus aggiorna il prezzo fisso ogni settimana: controlla quello del giorno prima di firmare. Prezzo da luce-gas.it aggiornato al 3/10, valido fino al 6/10 (papernest.it al 2/10 riportava 0,1298 €/kWh: usata la fonte più recente).",
    "prezzo": {
     "mono": 0.176
    },
@@ -1114,7 +1115,7 @@
     "online"
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-02",
+   "validoFino": "2026-10-06",
    "verde": true
   },
   {
@@ -1266,9 +1267,24 @@
   }
  ],
  "status": {
-  "lastFull": "2026-10-04T06:56:00+02:00",
-  "lastRun": "2026-10-04T06:56:00+02:00",
+  "lastFull": "2026-10-04T14:31:00+02:00",
+  "lastRun": "2026-10-05T07:01:00+02:00",
   "runs": [
+   {
+    "at": "2026-10-05T07:01:00+02:00",
+    "esito": "parziale",
+    "note": "Giro completo: non eseguito. Le pagine web (luce-gas.it, GME, SEN) non si sono potute aprire perché la richiesta di permesso per WebFetch non è stata approvata (sessione programmata senza nessuno presente). Nessun prezzo cambiato: restano i valori del 4/10. Futures saltati (lunedì). PUN di settembre già presente."
+   },
+   {
+    "at": "2026-10-04T14:31:00+02:00",
+    "esito": "parziale",
+    "note": "Richiesta dall'app (14:28): nessun cambiamento. PUN parziale di ottobre invariato (a4energie, dati 1-3/10, 0,2024 €/kWh), nessun mese GME nuovo. Futures non riletti (domenica, TradingView restituisce dati vecchi): restano quelli rilevati oggi. Tariffe regolate ott-dic invariate. Dispacciamento del IV trim. ancora non trovato (avviso Terna non leggibile): restano i valori del I trim. Offerte ricontrollate su luce-gas.it (Octopus, Enel, Edison, Plenitude, Hera, Sorgenia, confronto generale): nessun prezzo cambiato, nessuna offerta nuova."
+   },
+   {
+    "at": "2026-10-04T12:35:00+02:00",
+    "esito": "parziale",
+    "note": "PUN parziale di ottobre aggiornato (0,2024 €/kWh, a4energie dati al 3/10); nessun mese GME nuovo. Futures ICE invariati (domenica). Tariffe regolate ott-dic confermate su SEN (pagina non residenti non raggiungibile, valori lasciati). Dispacciamento del IV trim. non trovato: restano i valori del I trim. Offerte: Octopus Fissa 12M ora valida fino al 6/10, nessun prezzo cambiato, nessuna offerta nuova."
+   },
    {
     "at": "2026-10-04T06:56:00+02:00",
     "esito": "ok",
@@ -1290,11 +1306,11 @@
     "note": "Prima raccolta dati: PUN GME gen-set 2026, futures ICE, tariffe ARERA ott-dic 2026, 22 offerte."
    }
   ],
-  "schedule": "ogni giorno alle 6:55",
+  "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-04T09:31:00+02:00",
+   "at": "2026-10-04T09:46:00+02:00",
    "esito": "ok",
-   "note": "Aggiornamento delle 6:56 presente, tariffe ARERA valide, PUN fino a settembre, futures del 4/10, 35 offerte attive, calcolo coerente, dati.json pubblicato e uguale al database. Avviso: prezzo Octopus Fissa 12M scaduto il 2/10, fonte non raggiungibile in questa verifica."
+   "note": "Nessun problema: aggiornamento delle 6:56, tariffe ARERA, PUN fino a settembre, futures del 4/10, 35 offerte, calcolo coerente, dati.json pubblicato. Octopus Fissa 12M: prezzo aggiornato a 0,176 €/kWh (luce-gas.it 3/10); la nuova scadenza non è indicata, resta l'avviso di prezzo scaduto."
   }
  }
 }
