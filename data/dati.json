@@ -1268,8 +1268,13 @@
  ],
  "status": {
   "lastFull": "2026-10-04T14:31:00+02:00",
-  "lastRun": "2026-10-05T07:01:00+02:00",
+  "lastRun": "2026-10-06T07:01:23+02:00",
   "runs": [
+   {
+    "at": "2026-10-06T07:01:23+02:00",
+    "esito": "parziale",
+    "note": "Giro completo: non eseguito per il secondo giorno. WebFetch di nuovo bloccato (richiesta di permesso non approvata nella sessione programmata): luce-gas.it e TradingView non leggibili; la ricerca web non ha dato valori del PUN di ottobre. Nessun prezzo cambiato: restano i valori del 4/10."
+   },
    {
     "at": "2026-10-05T07:01:00+02:00",
     "esito": "parziale",
@@ -1308,9 +1313,9 @@
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-04T09:46:00+02:00",
-   "esito": "ok",
-   "note": "Nessun problema: aggiornamento delle 6:56, tariffe ARERA, PUN fino a settembre, futures del 4/10, 35 offerte, calcolo coerente, dati.json pubblicato. Octopus Fissa 12M: prezzo aggiornato a 0,176 €/kWh (luce-gas.it 3/10); la nuova scadenza non è indicata, resta l'avviso di prezzo scaduto."
+   "at": "2026-10-05T07:08:00+02:00",
+   "esito": "problemi",
+   "note": "Giro completo non fatto: WebFetch bloccato (permesso non approvato nella sessione programmata), nessuna fonte letta. Prezzi fermi al 4/10; Lene Leggera 24 scade oggi, NeN Surf e Octopus Fissa 12M domani. dati.json ripubblicato con i dati del 4/10 pomeriggio (commit 006805d; GitHub raw può mostrare ancora la copia precedente per qualche minuto)."
   }
  }
 }
