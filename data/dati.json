@@ -1268,8 +1268,13 @@
  ],
  "status": {
   "lastFull": "2026-10-04T14:31:00+02:00",
-  "lastRun": "2026-10-07T07:01:28+02:00",
+  "lastRun": "2026-10-08T07:01:26+02:00",
   "runs": [
+   {
+    "at": "2026-10-08T07:01:26+02:00",
+    "esito": "parziale",
+    "note": "Giro completo: non eseguito per il quarto giorno. WebFetch ancora bloccato (permesso non approvato nella sessione programmata) e le ricerche web restituiscono solo titoli senza prezzi: nessun valore nuovo per PUN, futures e offerte. Restano i valori del 4/10."
+   },
    {
     "at": "2026-10-07T07:01:28+02:00",
     "esito": "parziale",
@@ -1318,9 +1323,9 @@
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-06T07:06:00+02:00",
+   "at": "2026-10-07T07:06:00+02:00",
    "esito": "problemi",
-   "note": "Secondo giorno senza fonti: WebFetch bloccato (permesso non approvato nella sessione programmata). Mercato fermo al 4/10; Lene Leggera 24 scaduta il 5/10, NeN Surf e Octopus Fissa 12M scadono oggi. dati.json ripubblicato (commit f1e578a), uguale al database."
+   "note": "Terzo giorno senza fonti: WebFetch bloccato (permesso non approvato nella sessione programmata). Mercato fermo al 4/10; Lene Leggera 24, NeN Surf e Octopus Fissa 12M con prezzo scaduto, altre 9 offerte scadono oggi. dati.json ripubblicato (commit 3f100f1), uguale al database."
   }
  }
 }
