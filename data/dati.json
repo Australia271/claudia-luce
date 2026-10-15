@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-14T07:10:00+02:00"
+  "updatedAt": "2026-10-15T07:15:00+02:00"
  },
  "offers": [
   {
@@ -786,6 +786,53 @@
    "validoFino": "2026-10-14"
   },
   {
+   "aggiornato": "2026-10-15",
+   "attiva": true,
+   "durataMesi": 12,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-09",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/eon/offerte"
+   },
+   "fornitore": "E.ON",
+   "id": "eon-click-verde-luce",
+   "nome": "Click Verde Luce",
+   "note": "Riservata a chi cambia fornitore. Sconto del 50% sulla componente energia il primo mese (non incluso nel calcolo). Bioraria: F1 0,1597, F23 0,1546 €/kWh.",
+   "prezzo": {
+    "mono": 0.1565
+   },
+   "quotaFissaMese": 9,
+   "tipo": "fisso",
+   "validoFino": "2026-10-15",
+   "verde": true
+  },
+  {
+   "aggiornato": "2026-10-15",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-09",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/eon/offerte"
+   },
+   "fornitore": "E.ON",
+   "id": "eon-flex-click-luce",
+   "nome": "Flex Click Luce",
+   "quotaFissaMese": 9,
+   "sconti": [
+    {
+     "descrizione": "Bonus annuo (3 rate da 9 €)",
+     "euroAnno": 27
+    }
+   ],
+   "spread": {
+    "mono": 0.0088
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-10-15"
+  },
+  {
    "aggiornato": "2026-10-14",
    "attiva": true,
    "durataMesi": 12,
@@ -864,12 +911,12 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-15",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-08",
+    "data": "2026-10-14",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/hera/offerte"
    },
@@ -881,7 +928,7 @@
    },
    "quotaFissaMese": 12,
    "tipo": "fisso",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-10-23"
   },
   {
    "aggiornato": "2026-10-14",
@@ -1071,20 +1118,21 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-15",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-06",
+    "data": "2026-10-14",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/confronto/offerte-luce"
    },
    "fornitore": "Lene",
    "id": "lene-leggera-24",
    "nome": "Leggera Luce 24",
+   "note": "Prezzo salito da 0,156 a 0,166 €/kWh (confronto luce-gas.it del 14/10; la pagina del fornitore del 7/10 indica ancora 0,156).",
    "prezzo": {
-    "mono": 0.156
+    "mono": 0.166
    },
    "quotaFissaMese": 7,
    "sconti": [
@@ -1094,7 +1142,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-13"
+   "validoFino": "2026-10-21"
   },
   {
    "aggiornato": "2026-10-14",
@@ -1126,8 +1174,8 @@
    "validoFino": "2026-10-20"
   },
   {
-   "aggiornato": "2026-10-14",
-   "attiva": true,
+   "aggiornato": "2026-10-15",
+   "attiva": false,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
@@ -1138,7 +1186,7 @@
    "fornitore": "Octopus Energy",
    "id": "octopus-fissa-12m",
    "nome": "Fissa 12M",
-   "note": "Octopus aggiorna il prezzo fisso ogni settimana: controlla quello del giorno prima di firmare. Prezzo da luce-gas.it del 10/10, indicato valido fino al 13/10.",
+   "note": "Non più in elenco su luce-gas.it il 14/10: sostituita da Fissa 24M.",
    "prezzo": {
     "mono": 0.1914
    },
@@ -1148,6 +1196,31 @@
    ],
    "tipo": "fisso",
    "validoFino": "2026-10-13",
+   "verde": true
+  },
+  {
+   "aggiornato": "2026-10-15",
+   "attiva": true,
+   "durataMesi": 24,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-14",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
+   },
+   "fornitore": "Octopus Energy",
+   "id": "octopus-fissa-24m",
+   "nome": "Fissa 24M",
+   "note": "Octopus aggiorna il prezzo fisso spesso: controlla quello del giorno prima di firmare.",
+   "prezzo": {
+    "mono": 0.1595
+   },
+   "quotaFissaMese": 6,
+   "requisiti": [
+    "online"
+   ],
+   "tipo": "fisso",
+   "validoFino": "2026-10-16",
    "verde": true
   },
   {
@@ -1299,9 +1372,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-10-14T07:10:00+02:00",
-  "lastRun": "2026-10-14T07:10:00+02:00",
+  "lastFull": "2026-10-15T07:15:00+02:00",
+  "lastRun": "2026-10-15T07:15:00+02:00",
   "runs": [
+   {
+    "at": "2026-10-15T07:15:00+02:00",
+    "esito": "parziale",
+    "note": "Giro completo: offerte ricontrollate su luce-gas.it. Lene Leggera 24 sale a 0,166 (scade 21/10); Hera Special Flat confermata fino al 23/10; Octopus Fissa 12M disattivata e sostituita da Fissa 24M (0,1595); aggiunte E.ON Click Verde Luce (0,1565) e Flex Click Luce (PUN+0,0088). Molte schede (Edison, Iren, Engie, Plenitude, A2A, Pulsee) ancora con scadenza 14/10 non rinnovata dalla fonte. PUN di ottobre e futures non aggiornati: TradingView non raggiungibile e fonti PUN senza fasce o incoerenti."
+   },
    {
     "at": "2026-10-14T07:10:00+02:00",
     "esito": "parziale",
@@ -1385,9 +1463,9 @@
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-13T07:06:00+02:00",
-   "esito": "problemi",
-   "note": "Nono giorno senza fonti: WebFetch bloccato (permesso non risposto nella sessione programmata), WebSearch dà solo titoli. Mercato fermo al 4/10; 22 offerte con prezzo scaduto. dati.json ripubblicato (commit eaebd6a), uguale al database."
+   "at": "2026-10-14T07:20:00+02:00",
+   "esito": "ok",
+   "note": "Nessun problema. Offerte ricontrollate e dati.json pubblicato (commit a96904f), uguale al database. Avvisi: PUN di ottobre e futures fermi al 3-4/10 (fonti senza fasce o vecchie), 2 offerte con prezzo scaduto ieri secondo la fonte (Lene Leggera 24, Octopus Fissa 12M), dispacciamento del IV trimestre non trovato."
   }
  }
 }
