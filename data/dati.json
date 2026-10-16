@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-15T07:15:00+02:00"
+  "updatedAt": "2026-10-16T07:10:00+02:00"
  },
  "offers": [
   {
@@ -417,20 +417,20 @@
    "validoFino": "2026-10-28"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-01",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/a2a/offerte"
    },
    "fornitore": "A2A Energia",
    "id": "a2a-full-luce",
    "nome": "Full Luce",
-   "note": "Disponibile anche bioraria: F1 0,1845 e F23 0,1764 €/kWh.",
+   "note": "Disponibile anche bioraria: F1 0,1776 e F23 0,1708 €/kWh.",
    "prezzo": {
-    "mono": 0.179
+    "mono": 0.173
    },
    "quotaFissaMese": 11.3,
    "sconti": [
@@ -440,7 +440,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-10-28"
   },
   {
    "aggiornato": "2026-10-14",
@@ -615,21 +615,21 @@
    "validoFino": "2026-10-14"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-08",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce"
    },
    "fornitore": "Edison Energia",
    "id": "edison-web-luce",
    "nome": "Web Luce",
-   "note": "Disponibile anche bioraria: F1 0,172 e F23 0,167 €/kWh.",
+   "note": "Disponibile anche bioraria: F1 0,179 e F23 0,174 €/kWh. Prezzo del 15/10 dal confronto luce-gas.it (la scheda Edison dell'8/10 indicava ancora 0,168).",
    "prezzo": {
-    "mono": 0.168
+    "mono": 0.175
    },
    "quotaFissaMese": 8,
    "requisiti": [
@@ -643,7 +643,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-10-21"
   },
   {
    "aggiornato": "2026-10-14",
@@ -743,47 +743,47 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-08",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/engie/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce"
    },
    "fornitore": "Engie",
    "id": "engie-punto-fisso-12-luce",
    "nome": "Energia Punto Fisso 12 Luce",
-   "note": "Disponibile anche trioraria: F1 0,2027, F2 0,2114, F3 0,1861 €/kWh.",
+   "note": "Disponibile anche trioraria: F1 0,1944, F2 0,2062, F3 0,179 €/kWh.",
    "prezzo": {
-    "mono": 0.199
+    "mono": 0.192
    },
-   "quotaFissaMese": 9,
+   "quotaFissaMese": 7.5,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-08",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/engie/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce"
    },
    "fornitore": "Engie",
    "id": "engie-vedo-chiaro-luce",
    "nome": "Energia Vedo Chiaro Luce",
-   "note": "Spread e quota fissa aggiornati da luce-gas.it all'8/10.",
+   "note": "Spread e quota fissa confermati da luce-gas.it il 15/10.",
    "quotaFissaMese": 3,
    "sconti": [],
    "spread": {
     "mono": 0.006
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-10-21"
   },
   {
    "aggiornato": "2026-10-15",
@@ -1005,11 +1005,11 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-12",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1027,14 +1027,14 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-10-27"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-12",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1042,7 +1042,7 @@
    "id": "iren-quick-luce-new",
    "nome": "Quick Luce New",
    "prezzo": {
-    "mono": 0.1616
+    "mono": 0.1644
    },
    "quotaFissaMese": 12.3,
    "sconti": [
@@ -1052,14 +1052,14 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-10-27"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-12",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1068,19 +1068,19 @@
    "nome": "Revolution Salute Luce",
    "note": "Offerta abbinata a servizi per la salute: leggi le condizioni.",
    "prezzo": {
-    "mono": 0.1961
+    "mono": 0.1999
    },
    "quotaFissaMese": 13.8,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-10-27"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-12",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1088,19 +1088,19 @@
    "id": "iren-smart-no-stress-luce",
    "nome": "Smart No Stress Luce",
    "prezzo": {
-    "mono": 0.1647
+    "mono": 0.168
    },
    "quotaFissaMese": 13.3,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-10-27"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-12",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1114,7 +1114,7 @@
    "quotaFissaMese": 13.3,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-14",
+   "validoFino": "2026-10-27",
    "verde": true
   },
   {
@@ -1247,19 +1247,19 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-01",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eni/offerte"
    },
    "fornitore": "Plenitude",
    "id": "plenitude-fixa-time-24",
    "nome": "Fixa Time 24 Luce",
-   "note": "Bioraria: F1 0,2165 e F23 0,2029 €/kWh. Durata del prezzo bloccato da verificare (12 o 24 mesi).",
+   "note": "Bioraria: F1 0,2154 e F23 0,2036 €/kWh. Durata del prezzo bloccato da verificare (12 o 24 mesi).",
    "prezzo": {
     "mono": 0.2079
    },
@@ -1269,14 +1269,14 @@
     "pct": 5
    },
    "tipo": "fisso",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-16",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-09-30",
+    "data": "2026-10-15",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eni/offerte"
    },
@@ -1295,7 +1295,7 @@
     "mono": 0.022
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-14"
+   "validoFino": "2026-11-23"
   },
   {
    "aggiornato": "2026-10-14",
@@ -1372,9 +1372,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-10-15T07:15:00+02:00",
-  "lastRun": "2026-10-15T07:15:00+02:00",
+  "lastFull": "2026-10-16T07:10:00+02:00",
+  "lastRun": "2026-10-16T07:10:00+02:00",
   "runs": [
+   {
+    "at": "2026-10-16T07:10:00+02:00",
+    "esito": "parziale",
+    "note": "Giro completo (verifica di ieri con problemi): luce-gas.it ha rinnovato Iren (scadenza 27/10; Quick 0,1644, Smart No Stress 0,168, Revolution 0,1999), Plenitude (Trend Casa al 23/11, Fixa Time 24 al 4/11), A2A Full Luce (0,173, al 28/10), Engie (Punto Fisso 12 a 0,192 e 7,5 €/mese, al 21/10) ed Edison Web Luce (0,175, al 21/10). Ancora senza nuova scadenza: Edison Dynamic, Easy Fix, Super Flex, World, Pulsee Relax Fix (14/10), E.ON (4 offerte) e Sorgenia PUNtuale (15/10). PUN di ottobre e futures non aggiornati: fonti senza fasce, TradingView con quotazioni vecchie/incoerenti."
+   },
    {
     "at": "2026-10-15T07:15:00+02:00",
     "esito": "parziale",
@@ -1463,9 +1468,9 @@
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-14T07:20:00+02:00",
-   "esito": "ok",
-   "note": "Nessun problema. Offerte ricontrollate e dati.json pubblicato (commit a96904f), uguale al database. Avvisi: PUN di ottobre e futures fermi al 3-4/10 (fonti senza fasce o vecchie), 2 offerte con prezzo scaduto ieri secondo la fonte (Lene Leggera 24, Octopus Fissa 12M), dispacciamento del IV trimestre non trovato."
+   "at": "2026-10-15T07:25:00+02:00",
+   "esito": "problemi",
+   "note": "16 offerte con prezzo scaduto il 14/10 (Edison, Iren, Engie, Plenitude, A2A Full, Pulsee Relax): luce-gas.it le mostra ancora senza nuova scadenza. dati.json pubblicato (commit 543cf69), uguale al database. Avvisi: PUN di ottobre e futures fermi al 3-4/10, dispacciamento IV trim. non trovato, Acea non ricontrollata da 10 giorni."
   }
  }
 }
