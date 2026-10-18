@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-17T07:02:52+02:00"
+  "updatedAt": "2026-10-18T07:02:00+02:00"
  },
  "offers": [
   {
@@ -786,12 +786,12 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-15",
+   "aggiornato": "2026-10-18",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-09",
+    "data": "2026-10-16",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
@@ -804,15 +804,15 @@
    },
    "quotaFissaMese": 9,
    "tipo": "fisso",
-   "validoFino": "2026-10-15",
+   "validoFino": "2026-10-22",
    "verde": true
   },
   {
-   "aggiornato": "2026-10-15",
+   "aggiornato": "2026-10-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-09",
+    "data": "2026-10-16",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
@@ -830,17 +830,17 @@
     "mono": 0.0088
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-15"
+   "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-18",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-09",
+    "data": "2026-10-16",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce"
+    "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
    "fornitore": "E.ON",
    "id": "eon-insieme",
@@ -851,7 +851,7 @@
    },
    "quotaFissaMese": 9,
    "tipo": "fisso",
-   "validoFino": "2026-10-15"
+   "validoFino": "2026-10-22"
   },
   {
    "aggiornato": "2026-10-17",
@@ -1373,8 +1373,13 @@
  ],
  "status": {
   "lastFull": "2026-10-16T07:10:00+02:00",
-  "lastRun": "2026-10-17T07:02:52+02:00",
+  "lastRun": "2026-10-18T07:02:00+02:00",
   "runs": [
+   {
+    "at": "2026-10-18T07:02:00+02:00",
+    "esito": "parziale",
+    "note": "Giro leggero: E.ON Click Verde, Flex Click e Insieme rinnovate su luce-gas.it (prezzi invariati, scadenza 22/10). Octopus Fissa 24M ancora senza nuova scadenza (luce-gas.it non raggiungibile; Segugio indica 0,167 senza data, non usato). PUN di ottobre non aggiornato: fonte senza fasce e MTD dubbio; futures saltati (domenica)."
+   },
    {
     "at": "2026-10-17T07:02:52+02:00",
     "esito": "parziale",
@@ -1473,9 +1478,9 @@
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-16T07:15:00+02:00",
+   "at": "2026-10-17T07:12:00+02:00",
    "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit f58c8ba), uguale al database. Avvisi: 10 offerte ancora con scadenza 14-15/10 non rinnovata da luce-gas.it (Edison Dynamic/Easy Fix/Super Flex/World, E.ON x4, Pulsee Relax, Sorgenia); PUN di ottobre fermo al 3/10 e futures al 4/10; dispacciamento IV trim. non trovato; Acea non ricontrollata da 10 giorni."
+   "note": "Nessun problema. dati.json pubblicato (commit c65a418), uguale al database. Avvisi: E.ON Click Verde/Flex Click/Insieme (15/10) e Octopus Fissa 24M (16/10) senza nuova scadenza su luce-gas.it; PUN di ottobre fermo al 3/10 e futures al 4/10; dispacciamento IV trim. non trovato; Acea non ricontrollata da 10 giorni."
   }
  }
 }
