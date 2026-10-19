@@ -117,7 +117,7 @@
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN è intorno a 0,20 €/kWh: settembre ha chiuso a 0,208 €/kWh e i primi giorni di ottobre sono a 0,202 €/kWh. I futures prevedono un inverno caro (0,19-0,21 €/kWh fino a febbraio) e poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027, con una media dei prossimi 12 mesi di circa 0,17 €/kWh. Oggi conviene di più il prezzo fisso: le migliori offerte fisse (0,13-0,16 €/kWh) costano meno del PUN atteso.",
+  "notaMercato": "Il PUN resta intorno a 0,20-0,21 €/kWh: settembre ha chiuso a 0,208 €/kWh e a metà ottobre la media del mese è circa 0,211 €/kWh. I futures prevedono un inverno caro (0,19-0,21 €/kWh fino a febbraio) e poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027, con una media dei prossimi 12 mesi di circa 0,17 €/kWh. Oggi conviene di più il prezzo fisso: le migliori offerte fisse (0,14-0,17 €/kWh) costano meno del PUN atteso.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index)",
    "meseCorrente": {
@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-18T07:02:00+02:00"
+  "updatedAt": "2026-10-19T07:20:00+02:00"
  },
  "offers": [
   {
@@ -854,6 +854,30 @@
    "validoFino": "2026-10-22"
   },
   {
+   "aggiornato": "2026-10-19",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-16",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/eon/offerte"
+   },
+   "fornitore": "E.ON",
+   "id": "eon-luce-click-per-24",
+   "nome": "Luce Click Per 24",
+   "note": "La pagina non indica la durata del prezzo fisso.",
+   "prezzo": {
+    "mono": 0.1739
+   },
+   "quotaFissaMese": 12.1,
+   "requisiti": [
+    "online"
+   ],
+   "sconti": [],
+   "tipo": "fisso",
+   "validoFino": "2026-10-22"
+  },
+  {
    "aggiornato": "2026-10-17",
    "attiva": true,
    "durataMesi": 12,
@@ -1199,12 +1223,12 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-15",
+   "aggiornato": "2026-10-19",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-14",
+    "data": "2026-10-17",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
    },
@@ -1213,14 +1237,14 @@
    "nome": "Fissa 24M",
    "note": "Octopus aggiorna il prezzo fisso spesso: controlla quello del giorno prima di firmare.",
    "prezzo": {
-    "mono": 0.1595
+    "mono": 0.1672
    },
    "quotaFissaMese": 6,
    "requisiti": [
     "online"
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-16",
+   "validoFino": "2026-10-20",
    "verde": true
   },
   {
@@ -1372,9 +1396,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-10-16T07:10:00+02:00",
-  "lastRun": "2026-10-18T07:02:00+02:00",
+  "lastFull": "2026-10-19T07:20:00+02:00",
+  "lastRun": "2026-10-19T07:20:00+02:00",
   "runs": [
+   {
+    "at": "2026-10-19T07:20:00+02:00",
+    "esito": "parziale",
+    "note": "Giro completo: Octopus Fissa 24M a 0,1672 €/kWh (scade 20/10); aggiunta E.ON Luce Click Per 24 (0,1739, 12,1 €/mese). Ricontrollate su luce-gas.it Edison, Enel, Plenitude, Octopus, E.ON, Sorgenia, A2A, NeN, Lene, Engie, Alperia: invariate. Non raggiungibili: pagine Hera, Iren, Pulsee, Illumia, Acea e papernest. PUN di ottobre senza fasce (MTD mono 0,211 al 13/10, non scritto); futures saltati (lunedì)."
+   },
    {
     "at": "2026-10-18T07:02:00+02:00",
     "esito": "parziale",
@@ -1469,18 +1498,13 @@
     "at": "2026-10-03T13:56:00+02:00",
     "esito": "parziale",
     "note": "14 offerte nuove (A2A, Iren, Engie, Acea, Illumia, Pulsee), 3 prezzi cambiati (Enel Fix Web 0,1817, Enel Move 0,211, Edison Easy Fix bioraria corretta), scadenze NeN/Pulsee aggiornate. Nessun nuovo mese PUN (settembre già presente); PUN di ottobre non aggiornato (fonte non raggiungibile). Futures invariati (sabato), tariffe regolate ott-dic confermate."
-   },
-   {
-    "at": "2026-10-03T12:30:00+02:00",
-    "esito": "ok",
-    "note": "Prima raccolta dati: PUN GME gen-set 2026, futures ICE, tariffe ARERA ott-dic 2026, 22 offerte."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-17T07:12:00+02:00",
+   "at": "2026-10-18T07:08:00+02:00",
    "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit c65a418), uguale al database. Avvisi: E.ON Click Verde/Flex Click/Insieme (15/10) e Octopus Fissa 24M (16/10) senza nuova scadenza su luce-gas.it; PUN di ottobre fermo al 3/10 e futures al 4/10; dispacciamento IV trim. non trovato; Acea non ricontrollata da 10 giorni."
+   "note": "Nessun problema. dati.json pubblicato (commit beac796), uguale al database. Avvisi: Octopus Fissa 24M (16/10) senza nuova scadenza; PUN di ottobre fermo al 3/10 e futures al 4/10; dispacciamento IV trim. non trovato; Acea non ricontrollata da 10 giorni."
   }
  }
 }
