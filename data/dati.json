@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-19T07:20:00+02:00"
+  "updatedAt": "2026-10-20T07:05:00+02:00"
  },
  "offers": [
   {
@@ -532,7 +532,7 @@
    "validoFino": "2026-12-31"
   },
   {
-   "aggiornato": "2026-10-17",
+   "aggiornato": "2026-10-20",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -615,7 +615,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-20",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -765,7 +765,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-20",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1142,7 +1142,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-15",
+   "aggiornato": "2026-10-20",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1223,7 +1223,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-19",
+   "aggiornato": "2026-10-20",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1345,14 +1345,14 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-17",
+   "aggiornato": "2026-10-20",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-10-17",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/pulsee/offerte"
+    "url": "https://luce-gas.it/confronto/meglio-edison-o-pulsee"
    },
    "fornitore": "Pulsee",
    "id": "pulsee-relax-fix-luce",
@@ -1397,8 +1397,13 @@
  ],
  "status": {
   "lastFull": "2026-10-19T07:20:00+02:00",
-  "lastRun": "2026-10-19T07:20:00+02:00",
+  "lastRun": "2026-10-20T07:05:00+02:00",
   "runs": [
+   {
+    "at": "2026-10-20T07:05:00+02:00",
+    "esito": "parziale",
+    "note": "Giro leggero: confermate invariate su luce-gas.it Octopus Fissa 24M (scade 20/10), Edison Web Luce e Dynamic, Engie Vedo Chiaro, Lene Leggera 24, Pulsee Relax Fix (scadenza 21/10). Non riconfermate (pagine fornitore non raggiungibili): Edison Easy Fix, Super Flex, World, Engie Punto Fisso 12, NeN Surf (luce-gas.it ferma ad agosto). PUN di ottobre non aggiornato (fonte senza fasce, MTD dubbio). Futures: TradingView mostra contratti vecchi (dal 09/2025, ~110 €/MWh), non usati."
+   },
    {
     "at": "2026-10-19T07:20:00+02:00",
     "esito": "parziale",
@@ -1493,18 +1498,13 @@
     "at": "2026-10-03T13:58:00+02:00",
     "esito": "ok",
     "note": "Richiesta dall'app: ricontrollati PUN, futures, tariffe e offerte. PUN parziale di ottobre confermato da a4energie (0,2131 €/kWh al 2/10). Futures invariati (sabato). Nessun prezzo cambiato rispetto al run precedente."
-   },
-   {
-    "at": "2026-10-03T13:56:00+02:00",
-    "esito": "parziale",
-    "note": "14 offerte nuove (A2A, Iren, Engie, Acea, Illumia, Pulsee), 3 prezzi cambiati (Enel Fix Web 0,1817, Enel Move 0,211, Edison Easy Fix bioraria corretta), scadenze NeN/Pulsee aggiornate. Nessun nuovo mese PUN (settembre già presente); PUN di ottobre non aggiornato (fonte non raggiungibile). Futures invariati (sabato), tariffe regolate ott-dic confermate."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-18T07:08:00+02:00",
+   "at": "2026-10-19T07:30:00+02:00",
    "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit beac796), uguale al database. Avvisi: Octopus Fissa 24M (16/10) senza nuova scadenza; PUN di ottobre fermo al 3/10 e futures al 4/10; dispacciamento IV trim. non trovato; Acea non ricontrollata da 10 giorni."
+   "note": "Nessun problema. dati.json pubblicato (commit 83ca19c), uguale al database. Avvisi: PUN di ottobre fermo al 3/10 e futures al 4/10; dispacciamento IV trim. non trovato; pagine luce-gas.it di Hera, Iren, Pulsee, Illumia, Acea non raggiungibili oggi; Acea non ricontrollata da oltre 10 giorni."
   }
  }
 }
