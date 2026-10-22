@@ -117,7 +117,7 @@
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN resta intorno a 0,20-0,21 €/kWh: settembre ha chiuso a 0,208 €/kWh e a metà ottobre la media del mese è circa 0,211 €/kWh. I futures prevedono un inverno caro (0,19-0,21 €/kWh fino a febbraio) e poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027, con una media dei prossimi 12 mesi di circa 0,17 €/kWh. Oggi conviene di più il prezzo fisso: le migliori offerte fisse (0,14-0,17 €/kWh) costano meno del PUN atteso.",
+  "notaMercato": "Il PUN di ottobre è salito: la media del mese fino al 17/10 è circa 0,232 €/kWh, sopra settembre (0,208 €/kWh). I futures prevedono un inverno caro (0,19-0,21 €/kWh fino a febbraio) e poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene di più il prezzo fisso: le migliori offerte fisse (0,15-0,17 €/kWh) costano meno del PUN atteso.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index)",
    "meseCorrente": {
@@ -393,11 +393,11 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-21T07:02+02:00"
+  "updatedAt": "2026-10-22T07:13+02:00"
  },
  "offers": [
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -417,7 +417,7 @@
    "validoFino": "2026-10-28"
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -443,7 +443,7 @@
    "validoFino": "2026-10-28"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -485,6 +485,29 @@
    "tipo": "indicizzato",
    "validoFino": "2026-12-06",
    "verde": true
+  },
+  {
+   "aggiornato": "2026-10-22",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-11",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/confronto/offerte-luce"
+   },
+   "fornitore": "Alperia Energia",
+   "id": "alperia-home-digital",
+   "nome": "Home Digital",
+   "quotaFissaMese": 9.1,
+   "requisiti": [
+    "online"
+   ],
+   "sconti": [],
+   "spread": {
+    "mono": 0.011
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-11-10"
   },
   {
    "aggiornato": "2026-10-14",
@@ -532,7 +555,31 @@
    "validoFino": "2026-12-31"
   },
   {
-   "aggiornato": "2026-10-20",
+   "aggiornato": "2026-10-22",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-14",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/confronto/offerte-luce"
+   },
+   "fornitore": "Bluenergy",
+   "id": "bluenergy-50-special-web",
+   "nome": "50 Special Web",
+   "note": "La fonte indica uno sconto di 60 €/anno per l'offerta luce e gas insieme; per la sola luce non è indicato.",
+   "quotaFissaMese": 13,
+   "requisiti": [
+    "online"
+   ],
+   "sconti": [],
+   "spread": {
+    "mono": 0
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-11-12"
+  },
+  {
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -562,7 +609,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-17",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "bi",
@@ -590,7 +637,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-17",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -615,7 +662,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-20",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -646,7 +693,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-17",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -671,7 +718,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -702,7 +749,7 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-22",
    "attiva": false,
    "fasce": "mono",
    "fonte": {
@@ -722,7 +769,7 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -743,7 +790,7 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -765,7 +812,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-20",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -786,7 +833,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-18",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -808,7 +855,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-18",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -833,7 +880,7 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-18",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -1142,7 +1189,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-20",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1169,7 +1216,7 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-21",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1223,12 +1270,12 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-20",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-17",
+    "data": "2026-10-21",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
    },
@@ -1237,18 +1284,18 @@
    "nome": "Fissa 24M",
    "note": "Octopus aggiorna il prezzo fisso spesso: controlla quello del giorno prima di firmare.",
    "prezzo": {
-    "mono": 0.1672
+    "mono": 0.1683
    },
    "quotaFissaMese": 6,
    "requisiti": [
     "online"
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-20",
+   "validoFino": "2026-10-23",
    "verde": true
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1271,7 +1318,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1296,7 +1343,7 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1367,7 +1414,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-17",
+   "aggiornato": "2026-10-22",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1396,9 +1443,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-10-19T07:20:00+02:00",
-  "lastRun": "2026-10-21T07:02+02:00",
+  "lastFull": "2026-10-22T07:13+02:00",
+  "lastRun": "2026-10-22T07:13+02:00",
   "runs": [
+   {
+    "at": "2026-10-22T07:13+02:00",
+    "esito": "parziale",
+    "note": "Giro completo: Octopus Fissa 24M aggiornata a 0,1683 €/kWh (scade 23/10). Aggiunte Alperia Home Digital (PUN+0,011, 9,1 €/mese) e Bluenergy 50 Special Web (PUN+0, 13 €/mese). Confermate invariate su luce-gas.it Edison (5), Enel (3), Eni/Plenitude (2), A2A (3), E.ON (3), Engie (2), Lene, Sorgenia, NeN, Octopus Flex. Edison, Engie, Lene e Pulsee Relax Fix ancora con scadenza 21/10 sulla fonte. Pagine Iren, E.ON, Hera e Pulsee non raggiungibili. PUN ottobre: solo media mono 0,2324 al 17/10 senza fasce, non scritta. Futures: TradingView ancora con contratti vecchi, non usati."
+   },
    {
     "at": "2026-10-21T07:02+02:00",
     "esito": "parziale",
@@ -1493,18 +1545,13 @@
     "at": "2026-10-04T12:35:00+02:00",
     "esito": "parziale",
     "note": "PUN parziale di ottobre aggiornato (0,2024 €/kWh, a4energie dati al 3/10); nessun mese GME nuovo. Futures ICE invariati (domenica). Tariffe regolate ott-dic confermate su SEN (pagina non residenti non raggiungibile, valori lasciati). Dispacciamento del IV trim. non trovato: restano i valori del I trim. Offerte: Octopus Fissa 12M ora valida fino al 6/10, nessun prezzo cambiato, nessuna offerta nuova."
-   },
-   {
-    "at": "2026-10-04T06:56:00+02:00",
-    "esito": "ok",
-    "note": "Controllo completo (domenica): PUN parziale di ottobre invariato (a4energie, dati al 2/10; nessun mese nuovo), futures ICE invariati (mercato chiuso), tariffe regolate ott-dic confermate su SEN. Offerte ricontrollate su luce-gas.it: nessun prezzo cambiato, nessuna offerta nuova. Octopus Fissa 12M risulta scaduta il 2/10 senza nuovo prezzo pubblicato: valore lasciato com'era. File dei prezzi per l'app Android pubblicato alle 7:45 (36 offerte)."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-20T07:10:00+02:00",
+   "at": "2026-10-21T07:05+02:00",
    "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit e15b7bb), uguale al database. Avvisi: PUN di ottobre fermo al 3/10 e futures al 4/10 (TradingView con dati vecchi); dispacciamento IV trim. non trovato; Acea non ricontrollata da oltre 10 giorni; NeN Surf e Octopus Fissa 24M scadono oggi."
+   "note": "Nessun problema. dati.json pubblicato (commit 8ee9262), uguale al database. Avvisi: PUN di ottobre fermo al 3/10 (fonti senza fasce) e futures al 4/10 (TradingView con dati vecchi); dispacciamento IV trim. non trovato; Octopus Fissa 24M con scadenza 20/10 non rinnovata sulla fonte; Acea non ricontrollata da oltre 10 giorni."
   }
  }
 }
