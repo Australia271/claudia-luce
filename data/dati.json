@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-22T07:13+02:00"
+  "updatedAt": "2026-10-23T07:03+02:00"
  },
  "offers": [
   {
@@ -579,13 +579,13 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-23",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte"
+    "data": "2026-10-22",
+    "nome": "luce-gas.it",
+    "url": "https://luce-gas.it/confronto/meglio-edison-o-eon"
    },
    "fornitore": "Edison Energia",
    "id": "edison-dynamic",
@@ -606,7 +606,7 @@
     "spread": 0.023
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-21"
+   "validoFino": "2026-10-28"
   },
   {
    "aggiornato": "2026-10-22",
@@ -662,14 +662,14 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-23",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce"
+    "data": "2026-10-22",
+    "nome": "luce-gas.it",
+    "url": "https://luce-gas.it/confronto/meglio-edison-o-eon"
    },
    "fornitore": "Edison Energia",
    "id": "edison-web-luce",
@@ -690,7 +690,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-21"
+   "validoFino": "2026-10-28"
   },
   {
    "aggiornato": "2026-10-22",
@@ -718,20 +718,21 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-23",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-02",
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/enel/offerte"
+    "data": "2026-10-23",
+    "nome": "luce-gas.it",
+    "url": "https://luce-gas.it/confronto/meglio-enel-o-pulsee"
    },
    "fornitore": "Enel Energia",
    "id": "enel-fix-web",
    "nome": "Fix Web Luce",
+   "note": "Prezzo salito da 0,1817 a 0,1934 €/kWh (luce-gas.it 23/10); sconto non indicato sulla fonte, tenuto quello precedente.",
    "prezzo": {
-    "mono": 0.1817
+    "mono": 0.1934
    },
    "quotaFissaMese": 12,
    "requisiti": [
@@ -746,7 +747,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-22"
+   "validoFino": "2026-11-12"
   },
   {
    "aggiornato": "2026-10-22",
@@ -812,25 +813,25 @@
    "validoFino": "2026-10-21"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-23",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce"
+    "data": "2026-10-22",
+    "nome": "luce-gas.it",
+    "url": "https://luce-gas.it/confronto/meglio-engie-o-sorgenia"
    },
    "fornitore": "Engie",
    "id": "engie-vedo-chiaro-luce",
    "nome": "Energia Vedo Chiaro Luce",
-   "note": "Spread e quota fissa confermati da luce-gas.it il 15/10.",
-   "quotaFissaMese": 3,
+   "note": "Spread salito da 0,006 a 0,008 €/kWh e quota fissa da 3 a 4 €/mese (luce-gas.it 22/10).",
+   "quotaFissaMese": 4,
    "sconti": [],
    "spread": {
-    "mono": 0.006
+    "mono": 0.008
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-21"
+   "validoFino": "2026-10-28"
   },
   {
    "aggiornato": "2026-10-22",
@@ -982,24 +983,25 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-15",
+   "aggiornato": "2026-10-23",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-14",
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/hera/offerte"
+    "data": "2026-10-22",
+    "nome": "luce-gas.it",
+    "url": "https://luce-gas.it/confronto/meglio-hera-o-octopus-energy"
    },
    "fornitore": "Hera Comm",
    "id": "hera-special-flat",
    "nome": "Più Controllo Special Flat Luce",
+   "note": "Prezzo salito da 0,1777 a 0,1903 €/kWh (luce-gas.it 22/10).",
    "prezzo": {
-    "mono": 0.1777
+    "mono": 0.1903
    },
    "quotaFissaMese": 12,
    "tipo": "fisso",
-   "validoFino": "2026-10-23"
+   "validoFino": "2026-11-10"
   },
   {
    "aggiornato": "2026-10-14",
@@ -1392,25 +1394,26 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-20",
+   "aggiornato": "2026-10-23",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-17",
-    "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/meglio-edison-o-pulsee"
+    "data": "2026-10-23",
+    "nome": "luce-gas.it",
+    "url": "https://luce-gas.it/confronto/meglio-enel-o-pulsee"
    },
    "fornitore": "Pulsee",
    "id": "pulsee-relax-fix-luce",
    "nome": "Relax Fix Luce",
+   "note": "Prezzo sceso da 0,1884 a 0,1865 €/kWh e quota fissa da 12 a 9,5 €/mese (luce-gas.it 23/10).",
    "prezzo": {
-    "mono": 0.1884
+    "mono": 0.1865
    },
-   "quotaFissaMese": 12,
+   "quotaFissaMese": 9.5,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-21",
+   "validoFino": "2026-10-28",
    "verde": true
   },
   {
@@ -1444,8 +1447,13 @@
  ],
  "status": {
   "lastFull": "2026-10-22T07:13+02:00",
-  "lastRun": "2026-10-22T07:13+02:00",
+  "lastRun": "2026-10-23T07:03+02:00",
   "runs": [
+   {
+    "at": "2026-10-23T07:03+02:00",
+    "esito": "parziale",
+    "note": "Giro leggero: Enel Fix Web salita a 0,1934 €/kWh (fino al 12/11); Engie Vedo Chiaro PUN+0,008 e 4 €/mese (fino al 28/10); Pulsee Relax Fix 0,1865 €/kWh e 9,5 €/mese (fino al 28/10). Hera Special Flat salita a 0,1903 €/kWh e prorogata al 10/11. Edison Web Luce e Dynamic prorogate al 28/10 (luce-gas.it 22/10). Octopus Fissa 24M, E.ON (5), Enel Move ancora senza rinnovo sulla fonte (pagina del 22/10); Edison Easy Fix/Super Flex/World, Engie Punto Fisso 12, Lene e Sorgenia (scadenza 22/10 sulla fonte) non ricontrollabili (pagine luce-gas.it fornitore non raggiungibili). PUN ottobre: solo mono 0,2251 al 18/10 senza fasce, non scritto. Futures: TradingView ancora con contratti vecchi, non usati."
+   },
    {
     "at": "2026-10-22T07:13+02:00",
     "esito": "parziale",
@@ -1540,18 +1548,13 @@
     "at": "2026-10-04T14:31:00+02:00",
     "esito": "parziale",
     "note": "Richiesta dall'app (14:28): nessun cambiamento. PUN parziale di ottobre invariato (a4energie, dati 1-3/10, 0,2024 €/kWh), nessun mese GME nuovo. Futures non riletti (domenica, TradingView restituisce dati vecchi): restano quelli rilevati oggi. Tariffe regolate ott-dic invariate. Dispacciamento del IV trim. ancora non trovato (avviso Terna non leggibile): restano i valori del I trim. Offerte ricontrollate su luce-gas.it (Octopus, Enel, Edison, Plenitude, Hera, Sorgenia, confronto generale): nessun prezzo cambiato, nessuna offerta nuova."
-   },
-   {
-    "at": "2026-10-04T12:35:00+02:00",
-    "esito": "parziale",
-    "note": "PUN parziale di ottobre aggiornato (0,2024 €/kWh, a4energie dati al 3/10); nessun mese GME nuovo. Futures ICE invariati (domenica). Tariffe regolate ott-dic confermate su SEN (pagina non residenti non raggiungibile, valori lasciati). Dispacciamento del IV trim. non trovato: restano i valori del I trim. Offerte: Octopus Fissa 12M ora valida fino al 6/10, nessun prezzo cambiato, nessuna offerta nuova."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-21T07:05+02:00",
+   "at": "2026-10-22T07:18+02:00",
    "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit 8ee9262), uguale al database. Avvisi: PUN di ottobre fermo al 3/10 (fonti senza fasce) e futures al 4/10 (TradingView con dati vecchi); dispacciamento IV trim. non trovato; Octopus Fissa 24M con scadenza 20/10 non rinnovata sulla fonte; Acea non ricontrollata da oltre 10 giorni."
+   "note": "Nessun problema. dati.json pubblicato (commit 52a782c), 43 offerte. Avvisi: PUN di ottobre fermo al 3/10 (fonti senza fasce) e futures al 4/10 (TradingView con dati vecchi); dispacciamento IV trim. non trovato; 9 offerte con scadenza 21/10 non rinnovata sulla fonte (Edison, Engie, Lene, Pulsee Relax Fix); Acea non ricontrollata da oltre 10 giorni."
   }
  }
 }
