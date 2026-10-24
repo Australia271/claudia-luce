@@ -117,7 +117,7 @@
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN di ottobre è salito: la media del mese fino al 17/10 è circa 0,232 €/kWh, sopra settembre (0,208 €/kWh). I futures prevedono un inverno caro (0,19-0,21 €/kWh fino a febbraio) e poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene di più il prezzo fisso: le migliori offerte fisse (0,15-0,17 €/kWh) costano meno del PUN atteso.",
+  "notaMercato": "Il PUN di ottobre è alto: nella seconda metà del mese le medie giornaliere sono tra 0,21 e 0,26 €/kWh, sopra settembre (0,208 €/kWh). I futures prevedono un inverno caro (0,19-0,21 €/kWh fino a febbraio) e poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene ancora il prezzo fisso, ma le offerte fisse stanno salendo (le migliori ora tra 0,165 e 0,18 €/kWh).",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index)",
    "meseCorrente": {
@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-23T07:03+02:00"
+  "updatedAt": "2026-10-24T07:03+02:00"
  },
  "offers": [
   {
@@ -609,22 +609,22 @@
    "validoFino": "2026-10-28"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-24",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "bi",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-10-22",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
    "fornitore": "Edison Energia",
    "id": "edison-easy-fix",
    "nome": "Easy Fix Luce (bioraria)",
-   "note": "Monoraria: 0,21 €/kWh. Prezzi bi corretti il 3/10 (prima erano quelli di Web Luce).",
+   "note": "Monoraria: 0,215 €/kWh. Prezzo salito il 22/10 (la tabella riepilogativa indica F1 0,217, la scheda 0,2171: usata la scheda).",
    "prezzo": {
-    "f1": 0.2125,
-    "f23": 0.2087
+    "f1": 0.2171,
+    "f23": 0.214
    },
    "quotaFissaMese": 12,
    "sconti": [
@@ -634,14 +634,14 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-21"
+   "validoFino": "2026-10-28"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-24",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-10-22",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
@@ -659,7 +659,7 @@
     "mono": 0.022
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-21"
+   "validoFino": "2026-10-28"
   },
   {
    "aggiornato": "2026-10-23",
@@ -693,11 +693,11 @@
    "validoFino": "2026-10-28"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-24",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-10-22",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
@@ -715,7 +715,7 @@
     "mono": 0
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-21"
+   "validoFino": "2026-10-28"
   },
   {
    "aggiornato": "2026-10-23",
@@ -770,47 +770,47 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-24",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-02",
+    "data": "2026-10-23",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/enel/offerte"
    },
    "fornitore": "Enel Energia",
    "id": "enel-move",
    "nome": "Move Luce",
-   "note": "Include il servizio Enel Move Plus (riparazioni elettriche) per 36 mesi.",
+   "note": "Include il servizio Enel Move Plus (riparazioni elettriche). Prezzo salito da 0,211 a 0,2293 €/kWh (luce-gas.it 23/10).",
    "prezzo": {
-    "mono": 0.211
+    "mono": 0.2293
    },
    "quotaFissaMese": 14,
    "tipo": "fisso",
-   "validoFino": "2026-10-22"
+   "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-24",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-10-23",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
    },
    "fornitore": "Engie",
    "id": "engie-punto-fisso-12-luce",
    "nome": "Energia Punto Fisso 12 Luce",
-   "note": "Disponibile anche trioraria: F1 0,1944, F2 0,2062, F3 0,179 €/kWh.",
+   "note": "Prezzo salito da 0,192 a 0,215 €/kWh. Disponibile anche trioraria: F1 0,2173, F2 0,2293, F3 0,202 €/kWh.",
    "prezzo": {
-    "mono": 0.192
+    "mono": 0.215
    },
    "quotaFissaMese": 7.5,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-21"
+   "validoFino": "2026-10-28"
   },
   {
    "aggiornato": "2026-10-23",
@@ -834,39 +834,40 @@
    "validoFino": "2026-10-28"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-24",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-16",
+    "data": "2026-10-23",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/eon/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
    },
    "fornitore": "E.ON",
    "id": "eon-click-verde-luce",
    "nome": "Click Verde Luce",
-   "note": "Riservata a chi cambia fornitore. Sconto del 50% sulla componente energia il primo mese (non incluso nel calcolo). Bioraria: F1 0,1597, F23 0,1546 €/kWh.",
+   "note": "Nel confronto luce-gas.it del 23/10 compare come 'Click Luce e Gas': prezzo salito da 0,1565 a 0,1692 €/kWh. Bioraria: F1 0,1736, F23 0,1664 €/kWh. Prevede costi in caso di recesso anticipato.",
    "prezzo": {
-    "mono": 0.1565
+    "mono": 0.1692
    },
    "quotaFissaMese": 9,
    "tipo": "fisso",
-   "validoFino": "2026-10-22",
+   "validoFino": "2026-10-29",
    "verde": true
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-24",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-16",
+    "data": "2026-10-23",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/eon/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
    },
    "fornitore": "E.ON",
    "id": "eon-flex-click-luce",
    "nome": "Flex Click Luce",
+   "note": "Il confronto del 23/10 indica -54 €/anno (luce e gas insieme); per la sola luce resta il bonus di 27 €/anno della pagina fornitore.",
    "quotaFissaMese": 9,
    "sconti": [
     {
@@ -878,32 +879,32 @@
     "mono": 0.0088
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-22"
+   "validoFino": "2026-10-29"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-24",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-16",
+    "data": "2026-10-23",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/eon/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
    },
    "fornitore": "E.ON",
    "id": "eon-insieme",
    "nome": "Insieme Luce",
-   "note": "Prevede costi in caso di recesso anticipato: leggi le condizioni.",
+   "note": "Prezzo salito da 0,1559 a 0,1685 €/kWh (confronto luce-gas.it 23/10; la pagina fornitore indica ancora i prezzi del 16/10). Prevede costi in caso di recesso anticipato: leggi le condizioni.",
    "prezzo": {
-    "mono": 0.1559
+    "mono": 0.1685
    },
    "quotaFissaMese": 9,
    "tipo": "fisso",
-   "validoFino": "2026-10-22"
+   "validoFino": "2026-10-29"
   },
   {
-   "aggiornato": "2026-10-19",
-   "attiva": true,
+   "aggiornato": "2026-10-24",
+   "attiva": false,
    "fasce": "mono",
    "fonte": {
     "data": "2026-10-16",
@@ -913,7 +914,7 @@
    "fornitore": "E.ON",
    "id": "eon-luce-click-per-24",
    "nome": "Luce Click Per 24",
-   "note": "La pagina non indica la durata del prezzo fisso.",
+   "note": "Scaduta il 22/10: non compare più nel confronto luce-gas.it del 23/10 e la pagina fornitore non è stata rinnovata.",
    "prezzo": {
     "mono": 0.1739
    },
@@ -926,8 +927,8 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-17",
-   "attiva": true,
+   "aggiornato": "2026-10-24",
+   "attiva": false,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
@@ -938,7 +939,7 @@
    "fornitore": "E.ON",
    "id": "eon-luce-premia",
    "nome": "Luce Premia",
-   "note": "Prevede costi in caso di recesso anticipato: leggi le condizioni.",
+   "note": "Scaduta il 22/10: non compare più nel confronto luce-gas.it del 23/10 e la pagina fornitore non è stata rinnovata.",
    "prezzo": {
     "mono": 0.1498
    },
@@ -1191,8 +1192,8 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-22",
-   "attiva": true,
+   "aggiornato": "2026-10-24",
+   "attiva": false,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
@@ -1203,7 +1204,7 @@
    "fornitore": "Lene",
    "id": "lene-leggera-24",
    "nome": "Leggera Luce 24",
-   "note": "Prezzo salito da 0,156 a 0,166 €/kWh (confronto luce-gas.it del 14/10; la pagina del fornitore del 7/10 indica ancora 0,156).",
+   "note": "Scaduta il 21/10; sostituita da Special Luce 24 (confronto luce-gas.it 23/10).",
    "prezzo": {
     "mono": 0.166
    },
@@ -1216,6 +1217,27 @@
    ],
    "tipo": "fisso",
    "validoFino": "2026-10-21"
+  },
+  {
+   "aggiornato": "2026-10-24",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-23",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
+   },
+   "fornitore": "Lene",
+   "id": "lene-special-24",
+   "nome": "Special Luce 24",
+   "note": "Il confronto indica -80 €/anno per luce e gas insieme; sconto per la sola luce non indicato, non incluso.",
+   "prezzo": {
+    "mono": 0.179
+   },
+   "quotaFissaMese": 7,
+   "sconti": [],
+   "tipo": "fisso",
+   "validoFino": "2026-11-04"
   },
   {
    "aggiornato": "2026-10-22",
@@ -1272,8 +1294,8 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-22",
-   "attiva": true,
+   "aggiornato": "2026-10-24",
+   "attiva": false,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
@@ -1284,7 +1306,7 @@
    "fornitore": "Octopus Energy",
    "id": "octopus-fissa-24m",
    "nome": "Fissa 24M",
-   "note": "Octopus aggiorna il prezzo fisso spesso: controlla quello del giorno prima di firmare.",
+   "note": "Scaduta il 23/10 (luce-gas.it 23/10 la indica ancora con scadenza 23/10, nessun rinnovo trovato al 24/10).",
    "prezzo": {
     "mono": 0.1683
    },
@@ -1417,18 +1439,19 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-24",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-16",
+    "data": "2026-10-23",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
    },
    "fornitore": "Sorgenia",
    "id": "sorgenia-puntuale",
    "nome": "Next Energy PUNtuale Luce",
-   "quotaFissaMese": 9.5,
+   "note": "Dal 23/10 spread PUN+0,014 €/kWh e quota fissa 5,2 €/mese (prima PUN+0 e 9,5 €/mese). Il confronto indica -120 €/anno per luce e gas insieme; sconto luce non confermato, tenuto quello precedente.",
+   "quotaFissaMese": 5.2,
    "requisiti": [
     "online"
    ],
@@ -1439,16 +1462,21 @@
     }
    ],
    "spread": {
-    "mono": 0
+    "mono": 0.014
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-22"
+   "validoFino": "2026-10-29"
   }
  ],
  "status": {
-  "lastFull": "2026-10-22T07:13+02:00",
-  "lastRun": "2026-10-23T07:03+02:00",
+  "lastFull": "2026-10-24T07:03+02:00",
+  "lastRun": "2026-10-24T07:03+02:00",
   "runs": [
+   {
+    "at": "2026-10-24T07:03+02:00",
+    "esito": "parziale",
+    "note": "Giro completo: (verifica di ieri con problemi). Rinnovate al 28-29/10 o 12/11: Edison Easy Fix (F1 0,2171, F23 0,214), Super Flex, World; Enel Move salita a 0,2293; Engie Punto Fisso 12 salita a 0,215; E.ON Insieme 0,1685 e Click 0,1692 (prima 0,156); E.ON Flex Click confermata; Sorgenia PUNtuale ora PUN+0,014 e 5,2 €/mese. Disattivate perché scadute senza rinnovo: E.ON Luce Premia e Luce Click Per 24, Octopus Fissa 24M, Lene Leggera 24. Aggiunta Lene Special Luce 24 (0,179, 7 €/mese). PUN ottobre: solo mono MTD senza fasce (comparasemplice 20/10, dato dubbio), non scritto. Futures: TradingView ancora con contratti vecchi, non usati. Nota di mercato riscritta."
+   },
    {
     "at": "2026-10-23T07:03+02:00",
     "esito": "parziale",
@@ -1543,18 +1571,13 @@
     "at": "2026-10-05T07:01:00+02:00",
     "esito": "parziale",
     "note": "Giro completo: non eseguito. Le pagine web (luce-gas.it, GME, SEN) non si sono potute aprire perché la richiesta di permesso per WebFetch non è stata approvata (sessione programmata senza nessuno presente). Nessun prezzo cambiato: restano i valori del 4/10. Futures saltati (lunedì). PUN di settembre già presente."
-   },
-   {
-    "at": "2026-10-04T14:31:00+02:00",
-    "esito": "parziale",
-    "note": "Richiesta dall'app (14:28): nessun cambiamento. PUN parziale di ottobre invariato (a4energie, dati 1-3/10, 0,2024 €/kWh), nessun mese GME nuovo. Futures non riletti (domenica, TradingView restituisce dati vecchi): restano quelli rilevati oggi. Tariffe regolate ott-dic invariate. Dispacciamento del IV trim. ancora non trovato (avviso Terna non leggibile): restano i valori del I trim. Offerte ricontrollate su luce-gas.it (Octopus, Enel, Edison, Plenitude, Hera, Sorgenia, confronto generale): nessun prezzo cambiato, nessuna offerta nuova."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-22T07:18+02:00",
-   "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit 52a782c), 43 offerte. Avvisi: PUN di ottobre fermo al 3/10 (fonti senza fasce) e futures al 4/10 (TradingView con dati vecchi); dispacciamento IV trim. non trovato; 9 offerte con scadenza 21/10 non rinnovata sulla fonte (Edison, Engie, Lene, Pulsee Relax Fix); Acea non ricontrollata da oltre 10 giorni."
+   "at": "2026-10-23T07:20+02:00",
+   "esito": "problemi",
+   "note": "dati.json pubblicato (commit 87cc52b), 43 offerte, file Android uguale al database. Problema: 12 offerte con scadenza passata non rinnovata o non ricontrollabile sulla fonte (Edison Easy Fix/Super Flex/World, Enel Move, Engie Punto Fisso 12, E.ON 5 offerte, Lene Leggera 24, Sorgenia PUNtuale): da rifare nel giro completo. Avvisi: PUN ottobre fermo al 3/10 (fonti senza fasce), futures al 4/10 (TradingView con contratti vecchi), dispacciamento IV trim. non trovato, Acea non ricontrollata da oltre 10 giorni."
   }
  }
 }
