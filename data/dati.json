@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-24T07:03+02:00"
+  "updatedAt": "2026-10-25T07:06+01:00"
  },
  "offers": [
   {
@@ -1470,8 +1470,13 @@
  ],
  "status": {
   "lastFull": "2026-10-24T07:03+02:00",
-  "lastRun": "2026-10-24T07:03+02:00",
+  "lastRun": "2026-10-25T07:06+01:00",
   "runs": [
+   {
+    "at": "2026-10-25T07:06+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: nessun prezzo cambiato. Alperia Smile Easy (scade 26/10) non ricontrollabile: luce-gas.it non raggiungibile, sul sito Alperia solo schede di agosto. PUN ottobre: fonti senza fasce (selectra 17/10 con media 0,376 dubbia), non scritto. Domenica: futures saltati."
+   },
    {
     "at": "2026-10-24T07:03+02:00",
     "esito": "parziale",
@@ -1566,18 +1571,13 @@
     "at": "2026-10-06T07:01:23+02:00",
     "esito": "parziale",
     "note": "Giro completo: non eseguito per il secondo giorno. WebFetch di nuovo bloccato (richiesta di permesso non approvata nella sessione programmata): luce-gas.it e TradingView non leggibili; la ricerca web non ha dato valori del PUN di ottobre. Nessun prezzo cambiato: restano i valori del 4/10."
-   },
-   {
-    "at": "2026-10-05T07:01:00+02:00",
-    "esito": "parziale",
-    "note": "Giro completo: non eseguito. Le pagine web (luce-gas.it, GME, SEN) non si sono potute aprire perché la richiesta di permesso per WebFetch non è stata approvata (sessione programmata senza nessuno presente). Nessun prezzo cambiato: restano i valori del 4/10. Futures saltati (lunedì). PUN di settembre già presente."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-23T07:20+02:00",
-   "esito": "problemi",
-   "note": "dati.json pubblicato (commit 87cc52b), 43 offerte, file Android uguale al database. Problema: 12 offerte con scadenza passata non rinnovata o non ricontrollabile sulla fonte (Edison Easy Fix/Super Flex/World, Enel Move, Engie Punto Fisso 12, E.ON 5 offerte, Lene Leggera 24, Sorgenia PUNtuale): da rifare nel giro completo. Avvisi: PUN ottobre fermo al 3/10 (fonti senza fasce), futures al 4/10 (TradingView con contratti vecchi), dispacciamento IV trim. non trovato, Acea non ricontrollata da oltre 10 giorni."
+   "at": "2026-10-24T07:20+02:00",
+   "esito": "ok",
+   "note": "dati.json pubblicato (commit 1bc88b2), 44 offerte (36 attive), file Android uguale al database, nessuna offerta scaduta. Avvisi: PUN ottobre fermo al 3/10 (fonti senza fasce), futures al 4/10 (TradingView con contratti vecchi), dispacciamento IV trim. non trovato, Acea non ricontrollata da oltre 10 giorni."
   }
  }
 }
