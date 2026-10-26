@@ -117,7 +117,7 @@
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN di ottobre è alto: nella seconda metà del mese le medie giornaliere sono tra 0,21 e 0,26 €/kWh, sopra settembre (0,208 €/kWh). I futures prevedono un inverno caro (0,19-0,21 €/kWh fino a febbraio) e poi un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene ancora il prezzo fisso, ma le offerte fisse stanno salendo (le migliori ora tra 0,165 e 0,18 €/kWh).",
+  "notaMercato": "Il PUN di ottobre resta alto: tra il 14 e il 20 ottobre le medie giornaliere sono tra 0,21 e 0,26 €/kWh, sopra settembre (0,208 €/kWh). I futures (rilevati il 4/10) prevedono un inverno caro (0,19-0,21 €/kWh fino a febbraio) e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene ancora il prezzo fisso: le migliori offerte fisse sono tra 0,164 e 0,18 €/kWh.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index)",
    "meseCorrente": {
@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-25T07:06+01:00"
+  "updatedAt": "2026-10-26T07:10+01:00"
  },
  "offers": [
   {
@@ -1294,28 +1294,28 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-24",
-   "attiva": false,
+   "aggiornato": "2026-10-26",
+   "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-21",
+    "data": "2026-10-24",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
    },
    "fornitore": "Octopus Energy",
    "id": "octopus-fissa-24m",
    "nome": "Fissa 24M",
-   "note": "Scaduta il 23/10 (luce-gas.it 23/10 la indica ancora con scadenza 23/10, nessun rinnovo trovato al 24/10).",
+   "note": "Di nuovo in vendita: luce-gas.it la riporta aggiornata al 24/10 a 0,1815 €/kWh, scadenza 27/10.",
    "prezzo": {
-    "mono": 0.1683
+    "mono": 0.1815
    },
    "quotaFissaMese": 6,
    "requisiti": [
     "online"
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-23",
+   "validoFino": "2026-10-27",
    "verde": true
   },
   {
@@ -1342,7 +1342,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-10-26",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1354,7 +1354,7 @@
    "fornitore": "Plenitude",
    "id": "plenitude-fixa-time-24",
    "nome": "Fixa Time 24 Luce",
-   "note": "Bioraria: F1 0,2154 e F23 0,2036 €/kWh. Durata del prezzo bloccato da verificare (12 o 24 mesi).",
+   "note": "Bioraria: F1 0,2154 e F23 0,2036 €/kWh. Il confronto luce-gas.it Eni/Iren del 24/10 indica 0,2036 €/kWh (forse la F23): prezzo mono lasciato a 0,2079 finché non è confermato. Durata del prezzo bloccato da verificare (12 o 24 mesi).",
    "prezzo": {
     "mono": 0.2079
    },
@@ -1469,9 +1469,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-10-24T07:03+02:00",
-  "lastRun": "2026-10-25T07:06+01:00",
+  "lastFull": "2026-10-26T07:12+01:00",
+  "lastRun": "2026-10-26T07:12+01:00",
   "runs": [
+   {
+    "at": "2026-10-26T07:12+01:00",
+    "esito": "parziale",
+    "note": "Giro completo: Octopus Fissa 24M di nuovo in vendita (0,1815 €/kWh, 6 €/mese, scade 27/10) e riattivata. Plenitude Fixa Time 24: luce-gas.it 24/10 indica 0,2036 (forse F23), prezzo lasciato a 0,2079 con nota. Altre offerte confermate (luce-gas.it 24/10). Alperia Smile Easy (scade oggi) e Iren (scadono 27/10, dati del 15/10) senza fonte nuova. PUN ottobre: solo valori giornalieri senza fasce, non scritto. Lunedì: futures saltati. Nota di mercato riscritta."
+   },
    {
     "at": "2026-10-25T07:06+01:00",
     "esito": "parziale",
@@ -1566,18 +1571,13 @@
     "at": "2026-10-07T07:01:28+02:00",
     "esito": "parziale",
     "note": "Giro completo: non eseguito per il terzo giorno. WebFetch ancora bloccato (permesso non approvato nella sessione programmata) e le ricerche web non mostrano prezzi: nessun valore nuovo per PUN, futures e offerte. Restano i valori del 4/10."
-   },
-   {
-    "at": "2026-10-06T07:01:23+02:00",
-    "esito": "parziale",
-    "note": "Giro completo: non eseguito per il secondo giorno. WebFetch di nuovo bloccato (richiesta di permesso non approvata nella sessione programmata): luce-gas.it e TradingView non leggibili; la ricerca web non ha dato valori del PUN di ottobre. Nessun prezzo cambiato: restano i valori del 4/10."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-24T07:20+02:00",
+   "at": "2026-10-25T07:15+01:00",
    "esito": "ok",
-   "note": "dati.json pubblicato (commit 1bc88b2), 44 offerte (36 attive), file Android uguale al database, nessuna offerta scaduta. Avvisi: PUN ottobre fermo al 3/10 (fonti senza fasce), futures al 4/10 (TradingView con contratti vecchi), dispacciamento IV trim. non trovato, Acea non ricontrollata da oltre 10 giorni."
+   "note": "dati.json pubblicato (commit 095418b su main), 44 offerte (36 attive), nessuna offerta scaduta. La copia raw di GitHub era ancora in cache con i dati del 24/10 al momento del controllo. Avvisi: PUN ottobre fermo al 3/10, futures al 4/10, dispacciamento IV trim. non trovato, Alperia Smile Easy (scade 26/10) non ricontrollata, 6 offerte non ricontrollate da oltre 10 giorni."
   }
  }
 }
