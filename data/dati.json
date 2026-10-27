@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-26T07:10+01:00"
+  "updatedAt": "2026-10-27T07:07+01:00"
  },
  "offers": [
   {
@@ -510,18 +510,19 @@
    "validoFino": "2026-11-10"
   },
   {
-   "aggiornato": "2026-10-14",
-   "attiva": true,
+   "aggiornato": "2026-10-27",
+   "attiva": false,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-11",
+    "data": "2026-10-24",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/confronto/offerte-luce"
    },
    "fornitore": "Alperia Energia",
    "id": "alperia-smile-easy",
    "nome": "Smile Easy Luce",
+   "note": "Scaduta il 26/10, nessun rinnovo indicato da luce-gas.it (24/10).",
    "prezzo": {
     "mono": 0.1386
    },
@@ -1470,8 +1471,13 @@
  ],
  "status": {
   "lastFull": "2026-10-26T07:12+01:00",
-  "lastRun": "2026-10-26T07:12+01:00",
+  "lastRun": "2026-10-27T07:07+01:00",
   "runs": [
+   {
+    "at": "2026-10-27T07:07+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: Alperia Smile Easy disattivata (scaduta il 26/10, luce-gas.it 24/10 senza rinnovo). Iren e Octopus Fissa 24M (scadono oggi) e A2A, Edison, Engie, Pulsee (scadono 28/10) confermate senza novità (luce-gas.it 15-26/10). PUN ottobre: nessuna fonte nuova con fasce, non scritto. Futures: TradingView mostra ancora contratti vecchi (~110 €/MWh), non usati."
+   },
    {
     "at": "2026-10-26T07:12+01:00",
     "esito": "parziale",
@@ -1566,18 +1572,13 @@
     "at": "2026-10-08T07:01:26+02:00",
     "esito": "parziale",
     "note": "Giro completo: non eseguito per il quarto giorno. WebFetch ancora bloccato (permesso non approvato nella sessione programmata) e le ricerche web restituiscono solo titoli senza prezzi: nessun valore nuovo per PUN, futures e offerte. Restano i valori del 4/10."
-   },
-   {
-    "at": "2026-10-07T07:01:28+02:00",
-    "esito": "parziale",
-    "note": "Giro completo: non eseguito per il terzo giorno. WebFetch ancora bloccato (permesso non approvato nella sessione programmata) e le ricerche web non mostrano prezzi: nessun valore nuovo per PUN, futures e offerte. Restano i valori del 4/10."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-25T07:15+01:00",
+   "at": "2026-10-26T07:20+01:00",
    "esito": "ok",
-   "note": "dati.json pubblicato (commit 095418b su main), 44 offerte (36 attive), nessuna offerta scaduta. La copia raw di GitHub era ancora in cache con i dati del 24/10 al momento del controllo. Avvisi: PUN ottobre fermo al 3/10, futures al 4/10, dispacciamento IV trim. non trovato, Alperia Smile Easy (scade 26/10) non ricontrollata, 6 offerte non ricontrollate da oltre 10 giorni."
+   "note": "dati.json pubblicato (commit ffec701 su main), 44 offerte (37 attive), nessun problema. La copia raw di GitHub era ancora in cache con i dati del 25/10 al momento del controllo. Avvisi: PUN ottobre fermo al 3/10, futures al 4/10, dispacciamento IV trim. non trovato, Alperia Smile Easy (scade 26/10) senza fonte nuova, Iren fisse scadono 27/10, 6 offerte non ricontrollate da oltre 10 giorni."
   }
  }
 }
