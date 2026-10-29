@@ -117,7 +117,7 @@
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN di ottobre resta alto: le medie giornaliere della seconda metà del mese sono tra 0,21 e 0,26 €/kWh, sopra settembre (0,208 €/kWh). I futures (rilevati il 28/10) prevedono un inverno caro (0,20-0,22 €/kWh fino a febbraio) e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene ancora il prezzo fisso: le migliori offerte fisse sono tra 0,155 e 0,18 €/kWh.",
+  "notaMercato": "Il PUN di ottobre resta alto: le medie giornaliere della seconda metà del mese sono intorno a 0,24 €/kWh, sopra settembre (0,208 €/kWh). I futures prevedono un inverno caro (0,20-0,22 €/kWh fino a febbraio) e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene ancora il prezzo fisso: le migliori offerte fisse sono tra 0,153 e 0,175 €/kWh.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index)",
    "meseCorrente": {
@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-28T07:08:06+01:00"
+  "updatedAt": "2026-10-29T07:10:00+01:00"
  },
  "offers": [
   {
@@ -792,14 +792,14 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-10-24",
+   "aggiornato": "2026-10-29",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-23",
+    "data": "2026-10-28",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
+    "url": "https://luce-gas.it/fornitori/engie/offerte"
    },
    "fornitore": "Engie",
    "id": "engie-punto-fisso-12-luce",
@@ -808,7 +808,7 @@
    "prezzo": {
     "mono": 0.215
    },
-   "quotaFissaMese": 7.5,
+   "quotaFissaMese": 4,
    "sconti": [],
    "tipo": "fisso",
    "validoFino": "2026-10-28"
@@ -904,20 +904,20 @@
    "validoFino": "2026-10-29"
   },
   {
-   "aggiornato": "2026-10-24",
-   "attiva": false,
+   "aggiornato": "2026-10-29",
+   "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-16",
+    "data": "2026-10-23",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
    "fornitore": "E.ON",
    "id": "eon-luce-click-per-24",
    "nome": "Luce Click Per 24",
-   "note": "Scaduta il 22/10: non compare più nel confronto luce-gas.it del 23/10 e la pagina fornitore non è stata rinnovata.",
+   "note": "Di nuovo in vendita (luce-gas.it 23/10): 0,1858 €/kWh.",
    "prezzo": {
-    "mono": 0.1739
+    "mono": 0.1858
    },
    "quotaFissaMese": 12.1,
    "requisiti": [
@@ -925,24 +925,24 @@
    ],
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-22"
+   "validoFino": "2026-11-09"
   },
   {
-   "aggiornato": "2026-10-24",
-   "attiva": false,
-   "durataMesi": 12,
+   "aggiornato": "2026-10-29",
+   "attiva": true,
+   "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-16",
+    "data": "2026-10-23",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce"
+    "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
    "fornitore": "E.ON",
    "id": "eon-luce-premia",
    "nome": "Luce Premia",
-   "note": "Scaduta il 22/10: non compare più nel confronto luce-gas.it del 23/10 e la pagina fornitore non è stata rinnovata.",
+   "note": "Di nuovo in vendita (luce-gas.it 23/10): 0,1617 €/kWh, prezzo fisso 24 mesi.",
    "prezzo": {
-    "mono": 0.1498
+    "mono": 0.1617
    },
    "quotaFissaMese": 9,
    "sconti": [
@@ -952,7 +952,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-22"
+   "validoFino": "2026-10-29"
   },
   {
    "aggiornato": "2026-10-14",
@@ -1080,11 +1080,11 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-29",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-10-28",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1102,22 +1102,23 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-27"
+   "validoFino": "2026-11-01"
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-29",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-10-28",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
    "fornitore": "Iren",
    "id": "iren-quick-luce-new",
    "nome": "Quick Luce New",
+   "note": "Prezzo fisso fino al 30/04/2027 (era 0,1644 €/kWh).",
    "prezzo": {
-    "mono": 0.1644
+    "mono": 0.1949
    },
    "quotaFissaMese": 12.3,
    "sconti": [
@@ -1127,14 +1128,14 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-27"
+   "validoFino": "2026-11-15"
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-29",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-10-28",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1143,12 +1144,12 @@
    "nome": "Revolution Salute Luce",
    "note": "Offerta abbinata a servizi per la salute: leggi le condizioni.",
    "prezzo": {
-    "mono": 0.1999
+    "mono": 0.2389
    },
    "quotaFissaMese": 13.8,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-27"
+   "validoFino": "2026-11-15"
   },
   {
    "aggiornato": "2026-10-16",
@@ -1171,11 +1172,11 @@
    "validoFino": "2026-10-27"
   },
   {
-   "aggiornato": "2026-10-16",
+   "aggiornato": "2026-10-29",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-10-28",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1184,12 +1185,12 @@
    "nome": "Stay Luce Verde Prezzo Fisso Connettività",
    "note": "Offerta abbinata a un servizio di connettività: leggi le condizioni.",
    "prezzo": {
-    "mono": 0.159
+    "mono": 0.1694
    },
    "quotaFissaMese": 13.3,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-27",
+   "validoFino": "2026-11-15",
    "verde": true
   },
   {
@@ -1237,6 +1238,32 @@
    },
    "quotaFissaMese": 7,
    "sconti": [],
+   "tipo": "fisso",
+   "validoFino": "2026-11-04"
+  },
+  {
+   "aggiornato": "2026-10-29",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-10-28",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+   },
+   "fornitore": "NeN",
+   "id": "nen-due-luce",
+   "nome": "Due Luce",
+   "note": "Prezzo letto nel confronto luce-gas.it delle offerte luce e gas del 28/10.",
+   "prezzo": {
+    "mono": 0.153
+   },
+   "quotaFissaMese": 9,
+   "sconti": [
+    {
+     "descrizione": "Sconto annuo",
+     "euroAnno": 24
+    }
+   ],
    "tipo": "fisso",
    "validoFino": "2026-11-04"
   },
@@ -1295,28 +1322,28 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-26",
+   "aggiornato": "2026-10-29",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-24",
+    "data": "2026-10-28",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "Octopus Energy",
    "id": "octopus-fissa-24m",
    "nome": "Fissa 24M",
-   "note": "Di nuovo in vendita: luce-gas.it la riporta aggiornata al 24/10 a 0,1815 €/kWh, scadenza 27/10.",
+   "note": "Prezzo salito a 0,1958 €/kWh nel confronto luce-gas.it del 28/10; la pagina fornitore (24/10) riporta ancora 0,1815: usato il dato più recente.",
    "prezzo": {
-    "mono": 0.1815
+    "mono": 0.1958
    },
    "quotaFissaMese": 6,
    "requisiti": [
     "online"
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-27",
+   "validoFino": "2026-10-30",
    "verde": true
   },
   {
@@ -1470,9 +1497,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-10-26T07:12+01:00",
-  "lastRun": "2026-10-28T07:08+01:00",
+  "lastFull": "2026-10-29T07:12+01:00",
+  "lastRun": "2026-10-29T07:12+01:00",
   "runs": [
+   {
+    "at": "2026-10-29T07:12+01:00",
+    "esito": "parziale",
+    "note": "Giro completo: Iren aggiornata (luce-gas.it 28/10: Quick Luce New 0,1949, Stay 0,1694, Revolution 0,2389, scadenze 15/11; Lock & Fix fino al 1/11), Octopus Fissa 24M a 0,1958 fino al 30/10, Engie Punto Fisso quota fissa 4 €/mese, E.ON Luce Premia (0,1617) e Luce Click Per 24 (0,1858) di nuovo attive, nuova NeN Due Luce (0,153). Futures: TradingView con le stesse quotazioni del 28/10, lasciati. PUN ottobre: nessuna media per fasce affidabile, non scritto."
+   },
    {
     "at": "2026-10-28T07:08+01:00",
     "esito": "parziale",
@@ -1567,18 +1599,13 @@
     "at": "2026-10-10T07:01:09+02:00",
     "esito": "parziale",
     "note": "Giro completo: non eseguito per il sesto giorno. WebFetch ancora bloccato (permesso non approvato nella sessione programmata) e la ricerca web restituisce solo titoli senza prezzi: nessun valore nuovo per PUN, futures e offerte. Restano i valori del 4/10."
-   },
-   {
-    "at": "2026-10-09T07:01:44+02:00",
-    "esito": "parziale",
-    "note": "Giro completo: non eseguito per il quinto giorno. WebFetch ancora bloccato (permesso non approvato nella sessione programmata) e la ricerca web restituisce solo titoli senza prezzi: nessun valore nuovo per PUN, futures e offerte. Restano i valori del 4/10."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-27T07:12+01:00",
+   "at": "2026-10-28T07:12+01:00",
    "esito": "ok",
-   "note": "dati.json pubblicato (commit fc2a608 su main), 44 offerte (36 attive), nessun problema; file dell'app uguale al database. Avvisi: PUN ottobre fermo al 3/10, futures al 4/10 (TradingView con contratti vecchi), dispacciamento IV trim. non trovato, Iren e Octopus Fissa 24M scadono oggi, 10 offerte non ricontrollate da oltre 10 giorni."
+   "note": "dati.json pubblicato (commit 3ffc413 su main), 44 offerte (36 attive), nessun problema; file dell'app uguale al database. Avvisi: PUN ottobre fermo al 3/10, dispacciamento IV trim. non trovato, Iren (5) e Octopus Fissa 24M con validità 27/10 senza schede nuove su luce-gas.it, 10 offerte non ricontrollate da oltre 10 giorni."
   }
  }
 }
