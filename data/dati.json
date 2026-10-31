@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-30T07:25:00+01:00"
+  "updatedAt": "2026-10-31T07:10+01:00"
  },
  "offers": [
   {
@@ -836,14 +836,14 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-24",
+   "aggiornato": "2026-10-31",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-23",
+    "data": "2026-10-30",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "E.ON",
    "id": "eon-click-verde-luce",
@@ -854,22 +854,22 @@
    },
    "quotaFissaMese": 9,
    "tipo": "fisso",
-   "validoFino": "2026-10-29",
+   "validoFino": "2026-11-09",
    "verde": true
   },
   {
-   "aggiornato": "2026-10-24",
+   "aggiornato": "2026-10-31",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-23",
+    "data": "2026-10-30",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "E.ON",
    "id": "eon-flex-click-luce",
    "nome": "Flex Click Luce",
-   "note": "Il confronto del 23/10 indica -54 €/anno (luce e gas insieme); per la sola luce resta il bonus di 27 €/anno della pagina fornitore.",
+   "note": "Il confronto del 30/10 indica -54 €/anno (luce e gas insieme); per la sola luce resta il bonus di 27 €/anno della pagina fornitore.",
    "quotaFissaMese": 9,
    "sconti": [
     {
@@ -881,28 +881,28 @@
     "mono": 0.0088
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-29"
+   "validoFino": "2026-11-09"
   },
   {
-   "aggiornato": "2026-10-24",
+   "aggiornato": "2026-10-31",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-23",
+    "data": "2026-10-30",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "E.ON",
    "id": "eon-insieme",
    "nome": "Insieme Luce",
-   "note": "Prezzo salito da 0,1559 a 0,1685 €/kWh (confronto luce-gas.it 23/10; la pagina fornitore indica ancora i prezzi del 16/10). Prevede costi in caso di recesso anticipato: leggi le condizioni.",
+   "note": "Prezzo 0,1685 €/kWh confermato nel confronto luce-gas.it del 30/10 (prima 0,1559). Prevede costi in caso di recesso anticipato: leggi le condizioni.",
    "prezzo": {
     "mono": 0.1685
    },
    "quotaFissaMese": 9,
    "tipo": "fisso",
-   "validoFino": "2026-10-29"
+   "validoFino": "2026-11-09"
   },
   {
    "aggiornato": "2026-10-29",
@@ -1469,18 +1469,18 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-24",
+   "aggiornato": "2026-10-31",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-23",
+    "data": "2026-10-30",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
+    "url": "https://luce-gas.it/fornitori/sorgenia/offerte"
    },
    "fornitore": "Sorgenia",
    "id": "sorgenia-puntuale",
    "nome": "Next Energy PUNtuale Luce",
-   "note": "Dal 23/10 spread PUN+0,014 €/kWh e quota fissa 5,2 €/mese (prima PUN+0 e 9,5 €/mese). Il confronto indica -120 €/anno per luce e gas insieme; sconto luce non confermato, tenuto quello precedente.",
+   "note": "Dal 23/10 spread PUN+0,014 €/kWh e quota fissa 5,2 €/mese (prima PUN+0 e 9,5 €/mese). La pagina fornitore del 30/10 indica uno sconto annuale di 40 € (prima tenuti 80 €).",
    "quotaFissaMese": 5.2,
    "requisiti": [
     "online"
@@ -1488,20 +1488,25 @@
    "sconti": [
     {
      "descrizione": "Sconto annuo",
-     "euroAnno": 80
+     "euroAnno": 40
     }
    ],
    "spread": {
     "mono": 0.014
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-29"
+   "validoFino": "2026-10-31"
   }
  ],
  "status": {
   "lastFull": "2026-10-30T07:25+01:00",
-  "lastRun": "2026-10-30T07:25+01:00",
+  "lastRun": "2026-10-31T07:10+01:00",
   "runs": [
+   {
+    "at": "2026-10-31T07:10+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: E.ON Insieme, Click Verde e Flex Click confermate (stessi prezzi) fino al 9/11 (luce-gas.it 30/10); Sorgenia PUNtuale PUN+0,014, 5,2 €/mese, sconto 40 €/anno, fino al 31/10 (luce-gas.it 30/10). Octopus Flex e Fissa 24M senza rinnovo visibile; Iren Lock & Fix, Smart No Stress e A2A Easy non ricontrollabili (pagine fornitore non raggiungibili). PUN ottobre: nessun valore affidabile con le fasce, lasciato com'è. Futures: pagina con dati vecchi, lasciati quelli del 28/10."
+   },
    {
     "at": "2026-10-30T07:25+01:00",
     "esito": "parziale",
@@ -1596,18 +1601,13 @@
     "at": "2026-10-12T07:01:21+02:00",
     "esito": "parziale",
     "note": "Giro completo (lunedì): non eseguito per l'ottavo giorno. WebFetch ancora bloccato (permesso non approvato nella sessione programmata) e la ricerca web dà solo titoli senza valori mensili: nessun numero nuovo per PUN e offerte (futures saltati, lunedì). Restano i valori del 4/10."
-   },
-   {
-    "at": "2026-10-11T07:00:00+02:00",
-    "esito": "parziale",
-    "note": "Giro completo (verifica di ieri con problemi): non eseguito per il settimo giorno. WebFetch ancora bloccato (permesso non approvato nella sessione programmata) e la ricerca web restituisce solo titoli senza prezzi: nessun valore nuovo per PUN e offerte (futures saltati, domenica). Restano i valori del 4/10."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-29T07:20+01:00",
-   "esito": "problemi",
-   "note": "dati.json pubblicato (commit f908b39 su main), 45 offerte (39 attive), file dell'app uguale al database. Problema: 12 offerte con validità scaduta (A2A 3, Edison 5, Engie 2, Pulsee Relax Fix al 28/10; Iren Smart No Stress al 27/10): luce-gas.it e papernest non mostrano ancora i rinnovi, prezzi lasciati com'erano. Avvisi: PUN ottobre fermo al 3/10, dispacciamento IV trim. non trovato, futures uguali al 28/10."
+   "at": "2026-10-30T07:40+01:00",
+   "esito": "ok",
+   "note": "dati.json pubblicato (commit a9f253a su main), 45 offerte (39 attive), file dell'app uguale al database. Nessun problema. Avvisi: 7 offerte con scadenza passata senza rinnovo visibile (E.ON 4, Sorgenia, A2A Easy, Iren Smart No Stress), PUN ottobre fermo al 3/10, futures del 28/10, dispacciamento IV trim. non trovato."
   }
  }
 }
