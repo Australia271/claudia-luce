@@ -393,29 +393,29 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-10-31T07:10+01:00"
+  "updatedAt": "2026-11-01T07:01+01:00"
  },
  "offers": [
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-01",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
     "data": "2026-10-29",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/a2a/costo-kwh"
+    "url": "https://luce-gas.it/fornitori/a2a/offerte"
    },
    "fornitore": "A2A Energia",
    "id": "a2a-easy-luce",
    "nome": "Easy Luce",
-   "note": "Confermata su luce-gas.it il 29/10, senza data di scadenza.",
+   "note": "Confermata su luce-gas.it (scheda 29/10): PUN + 0, 12,5 €/mese, fino al 25/11.",
    "quotaFissaMese": 12.5,
    "sconti": [],
    "spread": {
     "mono": 0
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-28"
+   "validoFino": "2026-11-25"
   },
   {
    "aggiornato": "2026-10-30",
@@ -929,19 +929,19 @@
    "validoFino": "2026-11-09"
   },
   {
-   "aggiornato": "2026-10-29",
+   "aggiornato": "2026-11-01",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-23",
+    "data": "2026-10-30",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
    "fornitore": "E.ON",
    "id": "eon-luce-premia",
    "nome": "Luce Premia",
-   "note": "Di nuovo in vendita (luce-gas.it 23/10): 0,1617 €/kWh, prezzo fisso 24 mesi.",
+   "note": "Confermata su luce-gas.it (scheda 30/10): 0,1617 €/kWh, prezzo fisso 24 mesi, fino al 9/11.",
    "prezzo": {
     "mono": 0.1617
    },
@@ -953,7 +953,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-29"
+   "validoFino": "2026-11-09"
   },
   {
    "aggiornato": "2026-10-14",
@@ -1081,7 +1081,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-29",
+   "aggiornato": "2026-11-01",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1153,25 +1153,25 @@
    "validoFino": "2026-11-15"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-01",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-30",
+    "data": "2026-10-28",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
    "fornitore": "Iren",
    "id": "iren-smart-no-stress-luce",
    "nome": "Smart No Stress Luce",
-   "note": "Prezzo salito da 0,168 a 0,1784 €/kWh (luce-gas.it, letto il 30/10); scadenza non indicata.",
+   "note": "Confermata su luce-gas.it (scheda 28/10): 0,1784 €/kWh, 13,3 €/mese, fino al 15/11.",
    "prezzo": {
     "mono": 0.1784
    },
    "quotaFissaMese": 13.3,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-10-27"
+   "validoFino": "2026-11-15"
   },
   {
    "aggiornato": "2026-10-29",
@@ -1500,8 +1500,13 @@
  ],
  "status": {
   "lastFull": "2026-10-30T07:25+01:00",
-  "lastRun": "2026-10-31T07:10+01:00",
+  "lastRun": "2026-11-01T07:05+01:00",
   "runs": [
+   {
+    "at": "2026-11-01T07:05+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: confermate su luce-gas.it (stessi prezzi) E.ON Luce Premia fino al 9/11 (scheda 30/10), Iren Smart No Stress fino al 15/11 e Lock & Fix fino al 1/11 (schede 28/10), A2A Easy Luce PUN+0 fino al 25/11 (scheda 29/10). Octopus Flex e Fissa 24M e Sorgenia PUNtuale ancora senza rinnovo visibile, lasciate. PUN novembre: nessun dato (primo giorno del mese); PUN ottobre definitivo GME dal 3/11. Futures: domenica, saltati."
+   },
    {
     "at": "2026-10-31T07:10+01:00",
     "esito": "parziale",
@@ -1596,18 +1601,13 @@
     "at": "2026-10-13T07:01:16+02:00",
     "esito": "parziale",
     "note": "Giro completo (verifica di ieri con problemi): non eseguito per il nono giorno. WebFetch ancora bloccato (richiesta di permesso non risposta nella sessione programmata) e la ricerca web dà solo titoli senza valori: nessun numero nuovo per PUN, futures e offerte. Restano i valori del 4/10."
-   },
-   {
-    "at": "2026-10-12T07:01:21+02:00",
-    "esito": "parziale",
-    "note": "Giro completo (lunedì): non eseguito per l'ottavo giorno. WebFetch ancora bloccato (permesso non approvato nella sessione programmata) e la ricerca web dà solo titoli senza valori mensili: nessun numero nuovo per PUN e offerte (futures saltati, lunedì). Restano i valori del 4/10."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-30T07:40+01:00",
+   "at": "2026-10-31T07:15+01:00",
    "esito": "ok",
-   "note": "dati.json pubblicato (commit a9f253a su main), 45 offerte (39 attive), file dell'app uguale al database. Nessun problema. Avvisi: 7 offerte con scadenza passata senza rinnovo visibile (E.ON 4, Sorgenia, A2A Easy, Iren Smart No Stress), PUN ottobre fermo al 3/10, futures del 28/10, dispacciamento IV trim. non trovato."
+   "note": "dati.json pubblicato (commit 701db6b su main), 45 offerte (39 attive), file dell'app uguale al database. Nessun problema. Avvisi: 4 offerte con scadenza passata senza rinnovo visibile (A2A Easy, E.ON Luce Premia, Iren Smart No Stress, Octopus Fissa 24M), PUN ottobre fermo al 3/10, futures del 28/10, dispacciamento IV trim. non trovato."
   }
  }
 }
