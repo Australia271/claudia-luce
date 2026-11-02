@@ -117,7 +117,7 @@
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN di ottobre resta alto: la media del mese fino al 26/10 è 0,242 €/kWh, sopra settembre (0,208 €/kWh). I futures prevedono un inverno caro (0,20-0,22 €/kWh fino a febbraio) e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene ancora il prezzo fisso: molte offerte fisse sono salite, ma le migliori restano tra 0,153 e 0,18 €/kWh.",
+  "notaMercato": "Il PUN è molto salito in autunno: settembre 0,208 €/kWh e ottobre intorno a 0,24 €/kWh (dati provvisori). I futures (28/10) prevedono un inverno caro, 0,20-0,22 €/kWh fino a febbraio, e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,153 e 0,17 €/kWh, meno del PUN atteso nei prossimi mesi.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index)",
    "meseCorrente": {
@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-01T07:01+01:00"
+  "updatedAt": "2026-11-02T07:20+01:00"
  },
  "offers": [
   {
@@ -444,7 +444,7 @@
    "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -512,25 +512,25 @@
    "validoFino": "2026-11-10"
   },
   {
-   "aggiornato": "2026-10-27",
-   "attiva": false,
+   "aggiornato": "2026-11-02",
+   "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-24",
+    "data": "2026-10-27",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/confronto/offerte-luce"
    },
    "fornitore": "Alperia Energia",
    "id": "alperia-smile-easy",
    "nome": "Smile Easy Luce",
-   "note": "Scaduta il 26/10, nessun rinnovo indicato da luce-gas.it (24/10).",
+   "note": "Di nuovo in vendita: 0,1584 €/kWh, 9,1 €/mese, fino al 10/11 (luce-gas.it, scheda 27/10).",
    "prezzo": {
-    "mono": 0.1386
+    "mono": 0.1584
    },
    "quotaFissaMese": 9.1,
    "tipo": "fisso",
-   "validoFino": "2026-10-26"
+   "validoFino": "2026-11-10"
   },
   {
    "aggiornato": "2026-10-03",
@@ -558,7 +558,7 @@
    "validoFino": "2026-12-31"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -582,7 +582,7 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -612,7 +612,7 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -639,7 +639,7 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -664,7 +664,7 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -695,7 +695,7 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -720,7 +720,7 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-23",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -793,7 +793,7 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -836,7 +836,7 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-31",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -858,7 +858,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-31",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -884,7 +884,7 @@
    "validoFino": "2026-11-09"
   },
   {
-   "aggiornato": "2026-10-31",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -929,7 +929,7 @@
    "validoFino": "2026-11-09"
   },
   {
-   "aggiornato": "2026-11-01",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1106,7 +1106,7 @@
    "validoFino": "2026-11-01"
   },
   {
-   "aggiornato": "2026-10-29",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1244,11 +1244,11 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-29",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-28",
+    "data": "2026-10-26",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
@@ -1324,42 +1324,43 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-29",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-28",
+    "data": "2026-10-31",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
    },
    "fornitore": "Octopus Energy",
    "id": "octopus-fissa-24m",
    "nome": "Fissa 24M",
-   "note": "Prezzo salito a 0,1958 €/kWh nel confronto luce-gas.it del 28/10; la pagina fornitore (24/10) riporta ancora 0,1815: usato il dato più recente.",
+   "note": "Prezzo sceso a 0,1925 €/kWh, fino al 2/11 (pagina Octopus e confronto luce-gas.it, schede 31/10).",
    "prezzo": {
-    "mono": 0.1958
+    "mono": 0.1925
    },
    "quotaFissaMese": 6,
    "requisiti": [
     "online"
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-30",
+   "validoFino": "2026-11-02",
    "verde": true
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-01",
+    "data": "2026-11-01",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "Octopus Energy",
    "id": "octopus-flex",
    "nome": "Flex Luce",
+   "note": "La scheda solo luce (1/10) indica scadenza 31/10; la scheda Flex Luce e Gas del 1/11 riporta stesso spread e quota fino al 30/11: usata la più recente.",
    "quotaFissaMese": 6,
    "requisiti": [
     "online"
@@ -1368,11 +1369,11 @@
     "mono": 0.0088
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-31",
+   "validoFino": "2026-11-30",
    "verde": true
   },
   {
-   "aggiornato": "2026-10-26",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1397,7 +1398,7 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-22",
+   "aggiornato": "2026-11-02",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1499,9 +1500,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-10-30T07:25+01:00",
-  "lastRun": "2026-11-01T07:05+01:00",
+  "lastFull": "2026-11-02T07:20+01:00",
+  "lastRun": "2026-11-02T07:20+01:00",
   "runs": [
+   {
+    "at": "2026-11-02T07:20+01:00",
+    "esito": "parziale",
+    "note": "Giro completo: Alperia Smile Easy di nuovo in vendita a 0,1584 €/kWh (fino al 10/11); Octopus Fissa 24M scesa a 0,1925 €/kWh (fino al 2/11); Octopus Flex prorogata al 30/11 (scheda dual 1/11). Confermati senza cambi Edison, E.ON, NeN, Lene, Engie, Enel Fix Web, Plenitude, A2A Smart Casa, Iren Quick, Bluenergy. Sorgenia PUNtuale luce ancora con scadenza 31/10. Nessuna offerta nuova con dati completi e recenti. PUN: ottobre definitivo GME dal 3/11, novembre senza dati affidabili. Futures: lunedì, saltati. Pagine di Enel, Hera, Iren, A2A e altri fornitori non apribili (permesso negato), restano i valori precedenti."
+   },
    {
     "at": "2026-11-01T07:05+01:00",
     "esito": "parziale",
@@ -1596,18 +1602,13 @@
     "at": "2026-10-14T07:10:00+02:00",
     "esito": "parziale",
     "note": "Giro completo (verifica di ieri con problemi): offerte ricontrollate su luce-gas.it (WebFetch di nuovo funzionante sulle pagine trovate con la ricerca). Nuovi prezzi: Octopus Fissa 12M 0,1914, Pulsee Relax Fix 0,1817, Alperia Smile Easy 0,1386, Lene Leggera 24 0,156; Engie Vedo Chiaro PUN+0,006 e 3 €/mese; Sorgenia PUNtuale quota 9,5 €/mese; aggiornate le scadenze. Aggiunta Iren Lock & Fix Luce (0,155). Disattivate Enel Flex Box e Iren 10x2 (non domestiche). PUN del mese e futures non aggiornati: fonti senza fasce o con dati vecchi."
-   },
-   {
-    "at": "2026-10-13T07:01:16+02:00",
-    "esito": "parziale",
-    "note": "Giro completo (verifica di ieri con problemi): non eseguito per il nono giorno. WebFetch ancora bloccato (richiesta di permesso non risposta nella sessione programmata) e la ricerca web dà solo titoli senza valori: nessun numero nuovo per PUN, futures e offerte. Restano i valori del 4/10."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-10-31T07:15+01:00",
+   "at": "2026-11-01T07:10+01:00",
    "esito": "ok",
-   "note": "dati.json pubblicato (commit 701db6b su main), 45 offerte (39 attive), file dell'app uguale al database. Nessun problema. Avvisi: 4 offerte con scadenza passata senza rinnovo visibile (A2A Easy, E.ON Luce Premia, Iren Smart No Stress, Octopus Fissa 24M), PUN ottobre fermo al 3/10, futures del 28/10, dispacciamento IV trim. non trovato."
+   "note": "dati.json pubblicato (commit 649a83c su main), 45 offerte (39 attive), file dell'app uguale al database. Nessun problema. Avvisi: Octopus Flex, Octopus Fissa 24M e Sorgenia PUNtuale con scadenza passata senza rinnovo visibile, PUN novembre non ancora disponibile, futures del 28/10, dispacciamento IV trim. non trovato."
   }
  }
 }
