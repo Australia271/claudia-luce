@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-02T07:20+01:00"
+  "updatedAt": "2026-11-03T07:00+01:00"
  },
  "offers": [
   {
@@ -793,21 +793,21 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-11-02",
+   "aggiornato": "2026-11-03",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-29",
+    "data": "2026-11-01",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+    "url": "https://luce-gas.it/confronto/meglio-engie-o-pulsee"
    },
    "fornitore": "Engie",
    "id": "engie-punto-fisso-12-luce",
    "nome": "Energia Punto Fisso 12 Luce",
-   "note": "Prezzo salito da 0,215 a 0,232 €/kWh (confronto luce-gas.it 29/10).",
+   "note": "Prezzo salito da 0,232 a 0,234 €/kWh (confronto luce-gas.it Engie/Pulsee del 1/11).",
    "prezzo": {
-    "mono": 0.232
+    "mono": 0.234
    },
    "quotaFissaMese": 4,
    "sconti": [],
@@ -1447,7 +1447,7 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-03",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -1459,9 +1459,9 @@
    "fornitore": "Pulsee",
    "id": "pulsee-relax-fix-luce",
    "nome": "Relax Fix Luce",
-   "note": "Prezzo salito da 0,1865 a 0,208 €/kWh (luce-gas.it 29/10).",
+   "note": "Prezzo 0,2081 €/kWh (scheda luce-gas.it 29/10, prima arrotondato a 0,208).",
    "prezzo": {
-    "mono": 0.208
+    "mono": 0.2081
    },
    "quotaFissaMese": 9.5,
    "sconti": [],
@@ -1470,18 +1470,18 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-31",
+   "aggiornato": "2026-11-03",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-30",
+    "data": "2026-11-01",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/sorgenia/offerte"
+    "url": "https://luce-gas.it/confronto/meglio-iren-o-sorgenia"
    },
    "fornitore": "Sorgenia",
    "id": "sorgenia-puntuale",
    "nome": "Next Energy PUNtuale Luce",
-   "note": "Dal 23/10 spread PUN+0,014 €/kWh e quota fissa 5,2 €/mese (prima PUN+0 e 9,5 €/mese). La pagina fornitore del 30/10 indica uno sconto annuale di 40 € (prima tenuti 80 €).",
+   "note": "Il confronto luce-gas.it Iren/Sorgenia del 1/11 (più recente) indica PUN+0,007 €/kWh e 5,2 €/mese fino al 5/11; la scheda del 30/10 indicava PUN+0,014. Sconto annuale di 40 € non ripetuto nel confronto, tenuto.",
    "quotaFissaMese": 5.2,
    "requisiti": [
     "online"
@@ -1493,16 +1493,21 @@
     }
    ],
    "spread": {
-    "mono": 0.014
+    "mono": 0.007
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-10-31"
+   "validoFino": "2026-11-05"
   }
  ],
  "status": {
   "lastFull": "2026-11-02T07:20+01:00",
-  "lastRun": "2026-11-02T07:20+01:00",
+  "lastRun": "2026-11-03T07:00+01:00",
   "runs": [
+   {
+    "at": "2026-11-03T07:00+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: Engie Punto Fisso 12 salita a 0,234 €/kWh (1/11); Sorgenia PUNtuale ora PUN+0,007 fino al 5/11 (confronto 1/11); Pulsee Relax Fix 0,2081. Confermate senza cambi Edison (5 offerte), Engie Vedo Chiaro, NeN Due e Surf, Hera Special Active, Plenitude Fixa Time 24 (scadenza 4/11). Octopus Fissa 24M (scaduta 2/11) e Iren Lock & Fix senza rinnovo visibile, lasciate. PUN ottobre definitivo e novembre: nessun dato trovato (GME non apribile). Futures: TradingView ha dato valori non coerenti (contratti scaduti), lasciati quelli del 28/10."
+   },
    {
     "at": "2026-11-02T07:20+01:00",
     "esito": "parziale",
@@ -1597,18 +1602,13 @@
     "at": "2026-10-15T07:15:00+02:00",
     "esito": "parziale",
     "note": "Giro completo: offerte ricontrollate su luce-gas.it. Lene Leggera 24 sale a 0,166 (scade 21/10); Hera Special Flat confermata fino al 23/10; Octopus Fissa 12M disattivata e sostituita da Fissa 24M (0,1595); aggiunte E.ON Click Verde Luce (0,1565) e Flex Click Luce (PUN+0,0088). Molte schede (Edison, Iren, Engie, Plenitude, A2A, Pulsee) ancora con scadenza 14/10 non rinnovata dalla fonte. PUN di ottobre e futures non aggiornati: TradingView non raggiungibile e fonti PUN senza fasce o incoerenti."
-   },
-   {
-    "at": "2026-10-14T07:10:00+02:00",
-    "esito": "parziale",
-    "note": "Giro completo (verifica di ieri con problemi): offerte ricontrollate su luce-gas.it (WebFetch di nuovo funzionante sulle pagine trovate con la ricerca). Nuovi prezzi: Octopus Fissa 12M 0,1914, Pulsee Relax Fix 0,1817, Alperia Smile Easy 0,1386, Lene Leggera 24 0,156; Engie Vedo Chiaro PUN+0,006 e 3 €/mese; Sorgenia PUNtuale quota 9,5 €/mese; aggiornate le scadenze. Aggiunta Iren Lock & Fix Luce (0,155). Disattivate Enel Flex Box e Iren 10x2 (non domestiche). PUN del mese e futures non aggiornati: fonti senza fasce o con dati vecchi."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-01T07:10+01:00",
+   "at": "2026-11-02T07:30+01:00",
    "esito": "ok",
-   "note": "dati.json pubblicato (commit 649a83c su main), 45 offerte (39 attive), file dell'app uguale al database. Nessun problema. Avvisi: Octopus Flex, Octopus Fissa 24M e Sorgenia PUNtuale con scadenza passata senza rinnovo visibile, PUN novembre non ancora disponibile, futures del 28/10, dispacciamento IV trim. non trovato."
+   "note": "dati.json pubblicato (commit ab35031 su main), 45 offerte (40 attive), file dell'app uguale al database. Nessun problema. Avvisi: Iren Lock & Fix e Sorgenia PUNtuale con scadenza passata, 6 offerte non ricontrollate da 10 giorni (pagine fornitore non apribili), futures del 28/10, PUN ottobre GME dal 3/11, dispacciamento IV trim. non trovato."
   }
  }
 }
