@@ -393,7 +393,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-03T07:00+01:00"
+  "updatedAt": "2026-11-04T07:10+01:00"
  },
  "offers": [
   {
@@ -1081,17 +1081,18 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-01",
-   "attiva": true,
+   "aggiornato": "2026-11-04",
+   "attiva": false,
    "fasce": "mono",
    "fonte": {
     "data": "2026-10-28",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/iren/offerte"
+    "url": "https://luce-gas.it/fornitori/iren/offerte/lock-fix-luce"
    },
    "fornitore": "Iren",
    "id": "iren-lock-fix-luce",
    "nome": "Lock & Fix Luce",
+   "note": "Non più attivabile (scheda luce-gas.it del 28/10).",
    "prezzo": {
     "mono": 0.155
    },
@@ -1324,28 +1325,28 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-02",
+   "aggiornato": "2026-11-04",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-31",
+    "data": "2026-11-03",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
    },
    "fornitore": "Octopus Energy",
    "id": "octopus-fissa-24m",
    "nome": "Fissa 24M",
-   "note": "Prezzo sceso a 0,1925 €/kWh, fino al 2/11 (pagina Octopus e confronto luce-gas.it, schede 31/10).",
+   "note": "Prezzo salito a 0,198 €/kWh, fino al 3/11 (luce-gas.it, scheda del 3/11).",
    "prezzo": {
-    "mono": 0.1925
+    "mono": 0.198
    },
    "quotaFissaMese": 6,
    "requisiti": [
     "online"
    ],
    "tipo": "fisso",
-   "validoFino": "2026-11-02",
+   "validoFino": "2026-11-03",
    "verde": true
   },
   {
@@ -1501,8 +1502,13 @@
  ],
  "status": {
   "lastFull": "2026-11-02T07:20+01:00",
-  "lastRun": "2026-11-03T07:00+01:00",
+  "lastRun": "2026-11-04T07:10+01:00",
   "runs": [
+   {
+    "at": "2026-11-04T07:10+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: Iren Lock & Fix non più attivabile (attiva:false, luce-gas.it 28/10); Octopus Fissa 24M salita a 0,198 €/kWh (fino al 3/11, luce-gas.it 3/11). Confermate senza cambi Edison (5 offerte), Pulsee Relax Fix e Limite, Plenitude Fixa Time 24, Hera Special Active, Engie Vedo Chiaro, NeN Due e Surf, Lene Special 24, Sorgenia PUNtuale; le schede indicano ancora scadenza 4/11. PUN ottobre: switcho.it indica 0,231 €/kWh medio ma senza fasce, non inserito; GME non apribile; novembre nessun dato. Futures: TradingView ancora con valori non coerenti, lasciati quelli del 28/10."
+   },
    {
     "at": "2026-11-03T07:00+01:00",
     "esito": "parziale",
@@ -1597,18 +1603,13 @@
     "at": "2026-10-16T07:10:00+02:00",
     "esito": "parziale",
     "note": "Giro completo (verifica di ieri con problemi): luce-gas.it ha rinnovato Iren (scadenza 27/10; Quick 0,1644, Smart No Stress 0,168, Revolution 0,1999), Plenitude (Trend Casa al 23/11, Fixa Time 24 al 4/11), A2A Full Luce (0,173, al 28/10), Engie (Punto Fisso 12 a 0,192 e 7,5 €/mese, al 21/10) ed Edison Web Luce (0,175, al 21/10). Ancora senza nuova scadenza: Edison Dynamic, Easy Fix, Super Flex, World, Pulsee Relax Fix (14/10), E.ON (4 offerte) e Sorgenia PUNtuale (15/10). PUN di ottobre e futures non aggiornati: fonti senza fasce, TradingView con quotazioni vecchie/incoerenti."
-   },
-   {
-    "at": "2026-10-15T07:15:00+02:00",
-    "esito": "parziale",
-    "note": "Giro completo: offerte ricontrollate su luce-gas.it. Lene Leggera 24 sale a 0,166 (scade 21/10); Hera Special Flat confermata fino al 23/10; Octopus Fissa 12M disattivata e sostituita da Fissa 24M (0,1595); aggiunte E.ON Click Verde Luce (0,1565) e Flex Click Luce (PUN+0,0088). Molte schede (Edison, Iren, Engie, Plenitude, A2A, Pulsee) ancora con scadenza 14/10 non rinnovata dalla fonte. PUN di ottobre e futures non aggiornati: TradingView non raggiungibile e fonti PUN senza fasce o incoerenti."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-02T07:30+01:00",
+   "at": "2026-11-03T07:10+01:00",
    "esito": "ok",
-   "note": "dati.json pubblicato (commit ab35031 su main), 45 offerte (40 attive), file dell'app uguale al database. Nessun problema. Avvisi: Iren Lock & Fix e Sorgenia PUNtuale con scadenza passata, 6 offerte non ricontrollate da 10 giorni (pagine fornitore non apribili), futures del 28/10, PUN ottobre GME dal 3/11, dispacciamento IV trim. non trovato."
+   "note": "dati.json pubblicato (commit 92aea6e su main), 45 offerte (40 attive), file dell'app uguale al database. Nessun problema. Avvisi: Iren Lock & Fix e Octopus Fissa 24M con scadenza passata, 7 offerte non ricontrollate da 10 giorni, futures del 28/10 (TradingView incoerente oggi), PUN ottobre GME non ancora letto, dispacciamento IV trim. non trovato."
   }
  }
 }
