@@ -117,7 +117,7 @@
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN continua a salire: settembre 0,208 €/kWh, ottobre 0,231 €/kWh (dato GME) e i primi giorni di novembre sopra 0,26 €/kWh. Gli ultimi futures disponibili (28/10) prevedono un inverno caro, 0,20-0,22 €/kWh fino a febbraio, e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,153 e 0,19 €/kWh, meno del PUN attuale.",
+  "notaMercato": "Il PUN resta alto: ottobre 0,231 €/kWh (dato GME) e i primi giorni di novembre tra 0,265 e 0,282 €/kWh. Gli ultimi futures disponibili (28/10) prevedono un inverno caro, 0,20-0,22 €/kWh fino a febbraio, e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,158 e 0,19 €/kWh, meno del PUN attuale.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index); ottobre 2026 da powergas.it (fasce) ed energiachiara.it (mono) su dati GME",
    "meseCorrente": {
@@ -400,7 +400,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-05T07:30+01:00"
+  "updatedAt": "2026-11-06T07:20+01:00"
  },
  "offers": [
   {
@@ -589,13 +589,13 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-06",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-29",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte"
+    "url": "https://luce-gas.it/confronto/gestore-energia-elettrica-piu-conveniente"
    },
    "fornitore": "Edison Energia",
    "id": "edison-dynamic",
@@ -616,7 +616,7 @@
     "spread": 0.023
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-11-04"
+   "validoFino": "2026-11-11"
   },
   {
    "aggiornato": "2026-11-05",
@@ -671,14 +671,14 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-06",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-29",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte"
+    "url": "https://luce-gas.it/confronto/gestore-energia-elettrica-piu-conveniente"
    },
    "fornitore": "Edison Energia",
    "id": "edison-web-luce",
@@ -699,7 +699,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-11-04"
+   "validoFino": "2026-11-11"
   },
   {
    "aggiornato": "2026-11-05",
@@ -800,26 +800,26 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-06",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-01",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/meglio-engie-o-pulsee"
+    "url": "https://luce-gas.it/confronto/gestore-energia-elettrica-piu-conveniente"
    },
    "fornitore": "Engie",
    "id": "engie-punto-fisso-12-luce",
    "nome": "Energia Punto Fisso 12 Luce",
-   "note": "Prezzo salito da 0,232 a 0,234 €/kWh (confronto luce-gas.it Engie/Pulsee del 1/11).",
+   "note": "Prezzo salito da 0,234 a 0,238 €/kWh (luce-gas.it 5/11). Trioraria: F1 0,2399, F2 0,2543, F3 0,2237 €/kWh.",
    "prezzo": {
-    "mono": 0.234
+    "mono": 0.238
    },
    "quotaFissaMese": 4,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-11-04"
+   "validoFino": "2026-11-11"
   },
   {
    "aggiornato": "2026-11-05",
@@ -1204,52 +1204,57 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-10-24",
-   "attiva": false,
+   "aggiornato": "2026-11-06",
+   "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-14",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce"
+    "url": "https://luce-gas.it/fornitori/lene/offerte"
    },
    "fornitore": "Lene",
    "id": "lene-leggera-24",
    "nome": "Leggera Luce 24",
-   "note": "Scaduta il 21/10; sostituita da Special Luce 24 (confronto luce-gas.it 23/10).",
+   "note": "Di nuovo in vendita (luce-gas.it 5/11): 0,189 €/kWh, 8 €/mese, sconto 15 €/anno.",
    "prezzo": {
-    "mono": 0.166
+    "mono": 0.189
    },
-   "quotaFissaMese": 7,
+   "quotaFissaMese": 8,
    "sconti": [
     {
      "descrizione": "Sconto annuo",
-     "euroAnno": 50
+     "euroAnno": 15
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-10-21"
+   "validoFino": "2026-11-10"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-06",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-23",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas/gennaio-2022"
+    "url": "https://luce-gas.it/fornitori/lene/offerte"
    },
    "fornitore": "Lene",
    "id": "lene-special-24",
    "nome": "Special Luce 24",
-   "note": "Il confronto indica -80 €/anno per luce e gas insieme; sconto per la sola luce non indicato, non incluso.",
+   "note": "Prezzo salito da 0,179 a 0,189 €/kWh e quota fissa da 7 a 8 €/mese (luce-gas.it 5/11).",
    "prezzo": {
-    "mono": 0.179
+    "mono": 0.189
    },
-   "quotaFissaMese": 7,
-   "sconti": [],
+   "quotaFissaMese": 8,
+   "sconti": [
+    {
+     "descrizione": "Sconto annuo",
+     "euroAnno": 15
+    }
+   ],
    "tipo": "fisso",
-   "validoFino": "2026-11-04"
+   "validoFino": "2026-11-10"
   },
   {
    "aggiornato": "2026-11-05",
@@ -1381,21 +1386,21 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-02",
+   "aggiornato": "2026-11-06",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-15",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eni/offerte"
    },
    "fornitore": "Plenitude",
    "id": "plenitude-fixa-time-24",
    "nome": "Fixa Time 24 Luce",
-   "note": "Bioraria: F1 0,2154 e F23 0,2036 €/kWh. Il confronto luce-gas.it Eni/Iren del 24/10 indica 0,2036 €/kWh (forse la F23): prezzo mono lasciato a 0,2079 finché non è confermato. Durata del prezzo bloccato da verificare (12 o 24 mesi).",
+   "note": "Prezzo sceso da 0,2079 a 0,1639 €/kWh (luce-gas.it 5/11). Bioraria: F1 0,1694 e F23 0,1607 €/kWh. La pagina del 5/11 non indica sconti: lo sconto 5% con domiciliazione è da riconfermare.",
    "prezzo": {
-    "mono": 0.2079
+    "mono": 0.1639
    },
    "quotaFissaMese": 12,
    "scontoEnergiaPct": {
@@ -1403,7 +1408,7 @@
     "pct": 5
    },
    "tipo": "fisso",
-   "validoFino": "2026-11-04"
+   "validoFino": "2026-11-23"
   },
   {
    "aggiornato": "2026-11-02",
@@ -1508,9 +1513,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-11-05T07:30+01:00",
-  "lastRun": "2026-11-05T07:30+01:00",
+  "lastFull": "2026-11-06T07:20+01:00",
+  "lastRun": "2026-11-06T07:20+01:00",
   "runs": [
+   {
+    "at": "2026-11-06T07:20+01:00",
+    "esito": "parziale",
+    "note": "Giro completo (verifica di ieri con problemi): Plenitude Fixa Time 24 scesa a 0,1639 €/kWh (fino al 23/11); Engie Punto Fisso 12 salita a 0,238 (fino all'11/11); Lene Special 24 a 0,189 con quota 8 €/mese e Lene Leggera 24 di nuovo in vendita (0,189, fino al 10/11); Edison Web Luce e Dynamic rinnovate fino all'11/11 senza cambi (luce-gas.it 5/11). Ancora con scadenza passata nelle fonti: Edison Easy Fix, Super Flex, World, Engie Vedo Chiaro, Hera Special Active, NeN Due e Surf, Sorgenia PUNtuale. PUN novembre senza fasce (comparasemplice 2/11: 0,282), non inserito. Futures: TradingView con dati vecchi/incoerenti, lasciati quelli del 28/10. Nota di mercato riscritta."
+   },
    {
     "at": "2026-11-05T07:30+01:00",
     "esito": "parziale",
@@ -1605,18 +1615,13 @@
     "at": "2026-10-18T07:02:00+02:00",
     "esito": "parziale",
     "note": "Giro leggero: E.ON Click Verde, Flex Click e Insieme rinnovate su luce-gas.it (prezzi invariati, scadenza 22/10). Octopus Fissa 24M ancora senza nuova scadenza (luce-gas.it non raggiungibile; Segugio indica 0,167 senza data, non usato). PUN di ottobre non aggiornato: fonte senza fasce e MTD dubbio; futures saltati (domenica)."
-   },
-   {
-    "at": "2026-10-17T07:02:52+02:00",
-    "esito": "parziale",
-    "note": "Giro leggero: rinnovate su luce-gas.it le offerte Edison Dynamic, Easy Fix, Super Flex e World (prezzi invariati, scadenza 21/10); E.ON Luce Premia a 0,1498 (al 22/10); Sorgenia PUNtuale con sconto annuo salito a 80 € (al 22/10); Pulsee Relax Fix a 0,1884 (al 21/10). Ancora senza nuova scadenza: E.ON Click Verde, Flex Click, Insieme (15/10) e Octopus Fissa 24M (16/10). PUN e futures non aggiornati: fonte PUN senza fasce (MTD dubbio al 13/10) e pagina TradingView con dati vecchi e senza data."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-04T07:15+01:00",
-   "esito": "ok",
-   "note": "dati.json pubblicato (commit e53bc81 su main), 45 offerte (39 attive), nessun problema. Avvisi: Octopus Fissa 24M con scadenza 3/11, 9 offerte non ricontrollate da 10 giorni, futures del 28/10 (TradingView incoerente), PUN ottobre GME non ancora letto (switcho 0,231 senza fasce), dispacciamento IV trim. non trovato."
+   "at": "2026-11-05T07:50+01:00",
+   "esito": "problemi",
+   "note": "dati.json pubblicato (commit 7008292 su main; il file raw di GitHub era ancora in cache al controllo). Problema: 12 offerte su 38 con scadenza 4/11 passata (Edison x5, Engie x2, Hera Special Active, Lene Special 24, NeN Due e Surf, Plenitude Fixa Time 24): luce-gas.it e bolletta-energia.it non le hanno ancora rinnovate. Avvisi: futures del 28/10 (TradingView incoerente), PUN novembre senza fasce, dispacciamento IV trim. non trovato."
   }
  }
 }
