@@ -400,7 +400,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-06T07:20+01:00"
+  "updatedAt": "2026-11-07T07:02+01:00"
  },
  "offers": [
   {
@@ -619,14 +619,14 @@
    "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-07",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-29",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "Edison Energia",
    "id": "edison-easy-fix",
@@ -643,16 +643,16 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-11-04"
+   "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-07",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-29",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "Edison Energia",
    "id": "edison-super-flex",
@@ -668,7 +668,7 @@
     "mono": 0.022
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-11-04"
+   "validoFino": "2026-11-11"
   },
   {
    "aggiornato": "2026-11-06",
@@ -822,22 +822,22 @@
    "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-07",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-29",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "Engie",
    "id": "engie-vedo-chiaro-luce",
    "nome": "Energia Vedo Chiaro Luce",
-   "note": "Spread tornato a 0,006 €/kWh e quota fissa a 3 €/mese (confronto luce-gas.it 29/10).",
-   "quotaFissaMese": 3,
+   "note": "Spread salito a 0,008 €/kWh e quota fissa a 4 €/mese (confronto luce-gas.it 5/11, scadenza non indicata).",
+   "quotaFissaMese": 4,
    "sconti": [],
    "spread": {
-    "mono": 0.006
+    "mono": 0.008
    },
    "tipo": "indicizzato",
    "validoFino": "2026-11-04"
@@ -1283,13 +1283,13 @@
    "validoFino": "2026-11-04"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-07",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-21",
+    "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/meglio-nen-o-octopus-energy"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "NeN",
    "id": "nen-surf",
@@ -1309,7 +1309,7 @@
     "mono": 0
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-11-04"
+   "validoFino": "2026-11-18"
   },
   {
    "aggiornato": "2026-10-15",
@@ -1483,18 +1483,18 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-07",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-01",
+    "data": "2026-11-07",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/meglio-iren-o-sorgenia"
+    "url": "https://luce-gas.it/confronto/meglio-edison-o-sorgenia"
    },
    "fornitore": "Sorgenia",
    "id": "sorgenia-puntuale",
    "nome": "Next Energy PUNtuale Luce",
-   "note": "Il confronto luce-gas.it Iren/Sorgenia del 1/11 (più recente) indica PUN+0,007 €/kWh e 5,2 €/mese fino al 5/11; la scheda del 30/10 indicava PUN+0,014. Sconto annuale di 40 € non ripetuto nel confronto, tenuto.",
+   "note": "Confronto luce-gas.it Edison/Sorgenia (letto il 7/11): PUN+0,007 €/kWh e 5,2 €/mese, scadenza 12/11. Sconto annuale di 40 € non ripetuto nel confronto, tenuto.",
    "quotaFissaMese": 5.2,
    "requisiti": [
     "online"
@@ -1509,13 +1509,18 @@
     "mono": 0.007
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-11-05"
+   "validoFino": "2026-11-12"
   }
  ],
  "status": {
   "lastFull": "2026-11-06T07:20+01:00",
-  "lastRun": "2026-11-06T07:20+01:00",
+  "lastRun": "2026-11-07T07:02+01:00",
   "runs": [
+   {
+    "at": "2026-11-07T07:02+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: Edison Easy Fix e Super Flex rinnovate fino all'11/11 e NeN Surf fino al 18/11 senza cambi di prezzo (luce-gas.it 5/11); Sorgenia PUNtuale fino al 12/11 (PUN+0,007, 5,2 €/mese); Engie Vedo Chiaro ora PUN+0,008 e 4 €/mese (scadenza non indicata). Non trovate nelle fonti: Edison World, NeN Due, Hera Special Active. Futures: TradingView con dati vecchi/incoerenti, lasciati quelli del 28/10. PUN novembre senza fasce affidabili, non aggiornato."
+   },
    {
     "at": "2026-11-06T07:20+01:00",
     "esito": "parziale",
@@ -1610,18 +1615,13 @@
     "at": "2026-10-19T07:20:00+02:00",
     "esito": "parziale",
     "note": "Giro completo: Octopus Fissa 24M a 0,1672 €/kWh (scade 20/10); aggiunta E.ON Luce Click Per 24 (0,1739, 12,1 €/mese). Ricontrollate su luce-gas.it Edison, Enel, Plenitude, Octopus, E.ON, Sorgenia, A2A, NeN, Lene, Engie, Alperia: invariate. Non raggiungibili: pagine Hera, Iren, Pulsee, Illumia, Acea e papernest. PUN di ottobre senza fasce (MTD mono 0,211 al 13/10, non scritto); futures saltati (lunedì)."
-   },
-   {
-    "at": "2026-10-18T07:02:00+02:00",
-    "esito": "parziale",
-    "note": "Giro leggero: E.ON Click Verde, Flex Click e Insieme rinnovate su luce-gas.it (prezzi invariati, scadenza 22/10). Octopus Fissa 24M ancora senza nuova scadenza (luce-gas.it non raggiungibile; Segugio indica 0,167 senza data, non usato). PUN di ottobre non aggiornato: fonte senza fasce e MTD dubbio; futures saltati (domenica)."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-05T07:50+01:00",
-   "esito": "problemi",
-   "note": "dati.json pubblicato (commit 7008292 su main; il file raw di GitHub era ancora in cache al controllo). Problema: 12 offerte su 38 con scadenza 4/11 passata (Edison x5, Engie x2, Hera Special Active, Lene Special 24, NeN Due e Surf, Plenitude Fixa Time 24): luce-gas.it e bolletta-energia.it non le hanno ancora rinnovate. Avvisi: futures del 28/10 (TradingView incoerente), PUN novembre senza fasce, dispacciamento IV trim. non trovato."
+   "at": "2026-11-06T07:30+01:00",
+   "esito": "ok",
+   "note": "Nessun problema; dati.json pubblicato (commit ee619ed). Avvisi: 8 offerte con scadenza passata nelle fonti (Edison x3, Engie Vedo Chiaro, Hera Active, NeN x2, Sorgenia), futures del 28/10, PUN novembre senza fasce, dispacciamento IV trim. non trovato."
   }
  }
 }
