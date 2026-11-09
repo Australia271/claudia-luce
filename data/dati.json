@@ -117,7 +117,7 @@
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN resta alto: ottobre 0,231 €/kWh (dato GME) e i primi giorni di novembre tra 0,265 e 0,282 €/kWh. Gli ultimi futures disponibili (28/10) prevedono un inverno caro, 0,20-0,22 €/kWh fino a febbraio, e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,158 e 0,19 €/kWh, meno del PUN attuale.",
+  "notaMercato": "Il PUN resta alto: ottobre 0,231 €/kWh (dato GME) e novembre è partito ancora più caro. Gli ultimi futures disponibili (28/10) prevedono un inverno caro, 0,20-0,22 €/kWh fino a febbraio, e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,158 e 0,19 €/kWh, meno del PUN attuale.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index); ottobre 2026 da powergas.it (fasce) ed energiachiara.it (mono) su dati GME",
    "meseCorrente": {
@@ -400,7 +400,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-08T07:05+01:00"
+  "updatedAt": "2026-11-09T07:15+01:00"
  },
  "offers": [
   {
@@ -519,7 +519,7 @@
    "validoFino": "2026-11-10"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -565,7 +565,7 @@
    "validoFino": "2026-12-31"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -589,13 +589,13 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-11-06",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
     "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/gestore-energia-elettrica-piu-conveniente"
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
    "fornitore": "Edison Energia",
    "id": "edison-dynamic",
@@ -619,14 +619,14 @@
    "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-11-07",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
     "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
    "fornitore": "Edison Energia",
    "id": "edison-easy-fix",
@@ -646,13 +646,13 @@
    "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-11-07",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
     "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
    "fornitore": "Edison Energia",
    "id": "edison-super-flex",
@@ -671,14 +671,14 @@
    "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-11-06",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
     "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/gestore-energia-elettrica-piu-conveniente"
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
    "fornitore": "Edison Energia",
    "id": "edison-web-luce",
@@ -702,7 +702,7 @@
    "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-11-08",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -727,19 +727,19 @@
    "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-09",
    "attiva": true,
-   "durataMesi": 12,
+   "durataMesi": 36,
    "fasce": "mono",
    "fonte": {
     "data": "2026-10-23",
-    "nome": "luce-gas.it",
-    "url": "https://luce-gas.it/confronto/meglio-enel-o-pulsee"
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/enel/offerte"
    },
    "fornitore": "Enel Energia",
    "id": "enel-fix-web",
    "nome": "Fix Web Luce",
-   "note": "Prezzo salito da 0,1817 a 0,1934 €/kWh (luce-gas.it 23/10); sconto non indicato sulla fonte, tenuto quello precedente.",
+   "note": "Prezzo 0,1934 €/kWh bloccato 36 mesi (luce-gas.it 23/10, confermato il 9/11); sconto non indicato sulla fonte, tenuto quello precedente.",
    "prezzo": {
     "mono": 0.1934
    },
@@ -779,7 +779,7 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-10-24",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -800,14 +800,40 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-11-06",
+   "aggiornato": "2026-11-09",
+   "attiva": true,
+   "durataMesi": 24,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-11-05",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/enel/offerte"
+   },
+   "fornitore": "Enel Energia",
+   "id": "enel-wow-luce",
+   "nome": "Wow Luce",
+   "note": "Prezzo fisso 24 mesi; pagamento anche con bollettino.",
+   "prezzo": {
+    "mono": 0.2104
+   },
+   "quotaFissaMese": 13,
+   "sconti": [],
+   "scontoEnergiaPct": {
+    "condizione": "addebito diretto su conto o carta",
+    "pct": 5
+   },
+   "tipo": "fisso",
+   "validoFino": "2026-11-12"
+  },
+  {
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
     "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/gestore-energia-elettrica-piu-conveniente"
+    "url": "https://luce-gas.it/confronto/offerte-luce"
    },
    "fornitore": "Engie",
    "id": "engie-punto-fisso-12-luce",
@@ -843,14 +869,14 @@
    "validoFino": "2026-11-11"
   },
   {
-   "aggiornato": "2026-11-02",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
     "data": "2026-10-30",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+    "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
    "fornitore": "E.ON",
    "id": "eon-click-verde-luce",
@@ -865,13 +891,13 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-02",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
     "data": "2026-10-30",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+    "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
    "fornitore": "E.ON",
    "id": "eon-flex-click-luce",
@@ -891,14 +917,14 @@
    "validoFino": "2026-11-09"
   },
   {
-   "aggiornato": "2026-11-02",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
     "data": "2026-10-30",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+    "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
    "fornitore": "E.ON",
    "id": "eon-insieme",
@@ -912,7 +938,7 @@
    "validoFino": "2026-11-09"
   },
   {
-   "aggiornato": "2026-10-29",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -963,7 +989,7 @@
    "validoFino": "2026-11-09"
   },
   {
-   "aggiornato": "2026-11-08",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "bonusUnaTantum": 30,
    "fasce": "mono",
@@ -993,14 +1019,14 @@
    "validoFino": "2026-12-16"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-22",
-    "nome": "luce-gas.it",
-    "url": "https://luce-gas.it/confronto/meglio-hera-o-octopus-energy"
+    "data": "2026-10-19",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/hera/offerte"
    },
    "fornitore": "Hera Comm",
    "id": "hera-special-flat",
@@ -1204,14 +1230,14 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-06",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
     "data": "2026-11-05",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/lene/offerte"
+    "url": "https://luce-gas.it/confronto/offerte-luce"
    },
    "fornitore": "Lene",
    "id": "lene-leggera-24",
@@ -1362,13 +1388,13 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
     "data": "2026-11-01",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+    "url": "https://luce-gas.it/fornitori/octopus-energy/offerte"
    },
    "fornitore": "Octopus Energy",
    "id": "octopus-flex",
@@ -1386,7 +1412,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-06",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1411,7 +1437,7 @@
    "validoFino": "2026-11-23"
   },
   {
-   "aggiornato": "2026-11-02",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1483,13 +1509,13 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-07",
+   "aggiornato": "2026-11-09",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-07",
+    "data": "2026-11-06",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/meglio-edison-o-sorgenia"
+    "url": "https://luce-gas.it/fornitori/sorgenia/offerte"
    },
    "fornitore": "Sorgenia",
    "id": "sorgenia-puntuale",
@@ -1513,9 +1539,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-11-06T07:20+01:00",
-  "lastRun": "2026-11-08T07:05+01:00",
+  "lastFull": "2026-11-09T07:15+01:00",
+  "lastRun": "2026-11-09T07:15+01:00",
   "runs": [
+   {
+    "at": "2026-11-09T07:15+01:00",
+    "esito": "parziale",
+    "note": "Giro completo: ricontrollate su luce-gas.it le offerte di Edison, Sorgenia, Octopus, Enel, Plenitude, Hera, E.ON, Engie, Alperia, Bluenergy e Lene, prezzi invariati; aggiunta Enel Wow Luce (0,2104 €/kWh, 13 €/mese); Enel Fix Web blocca il prezzo 36 mesi. E.ON scade oggi (9/11) senza rinnovo in fonte. Lunedì: futures non aggiornati. PUN novembre: solo media mono non affidabile e senza fasce, non aggiornato. papernest non raggiungibile."
+   },
    {
     "at": "2026-11-08T07:05+01:00",
     "esito": "ok",
@@ -1610,18 +1641,13 @@
     "at": "2026-10-21T07:02+02:00",
     "esito": "parziale",
     "note": "Giro leggero: NeN Surf confermata (PUN+0, 12 €/mese) e prorogata al 04/11. Confermate invariate su luce-gas.it Edison (5 offerte, scadenza 21/10), E.ON (5), Enel Fix Web e Move, Engie Vedo Chiaro, Lene Leggera 24, Sorgenia PUNtuale. Octopus Fissa 24M ancora con scadenza 20/10 sulla fonte. Pulsee Relax Fix e Engie Punto Fisso 12 non trovate. PUN ottobre: solo mono MTD 0,2324 al 17/10 senza fasce, non scritto. Futures: TradingView ancora con contratti vecchi, non usati."
-   },
-   {
-    "at": "2026-10-20T07:05:00+02:00",
-    "esito": "parziale",
-    "note": "Giro leggero: confermate invariate su luce-gas.it Octopus Fissa 24M (scade 20/10), Edison Web Luce e Dynamic, Engie Vedo Chiaro, Lene Leggera 24, Pulsee Relax Fix (scadenza 21/10). Non riconfermate (pagine fornitore non raggiungibili): Edison Easy Fix, Super Flex, World, Engie Punto Fisso 12, NeN Surf (luce-gas.it ferma ad agosto). PUN di ottobre non aggiornato (fonte senza fasce, MTD dubbio). Futures: TradingView mostra contratti vecchi (dal 09/2025, ~110 €/MWh), non usati."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-07T07:10+01:00",
+   "at": "2026-11-08T07:12+01:00",
    "esito": "ok",
-   "note": "Nessun problema; dati.json pubblicato (commit 6c285d5). Avvisi: 4 offerte con scadenza passata (Edison World, Engie Vedo Chiaro senza data, Hera Active, NeN Due), futures del 28/10, PUN novembre senza fasce, dispacciamento IV trim. non trovato."
+   "note": "Nessun problema; dati.json pubblicato (commit 694b36c). Avvisi: futures del 28/10 (domenica), PUN novembre senza fasce, dispacciamento IV trim. non trovato, 4 offerte non ricontrollate da 10 giorni."
   }
  }
 }
