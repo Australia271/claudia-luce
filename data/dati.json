@@ -400,7 +400,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-09T07:15+01:00"
+  "updatedAt": "2026-11-10T07:02+01:00"
  },
  "offers": [
   {
@@ -1540,8 +1540,13 @@
  ],
  "status": {
   "lastFull": "2026-11-09T07:15+01:00",
-  "lastRun": "2026-11-09T07:15+01:00",
+  "lastRun": "2026-11-10T07:02+01:00",
   "runs": [
+   {
+    "at": "2026-11-10T07:02+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: ricontrollate le 20 offerte in scadenza (Edison, E.ON, Engie, Lene, Hera, A2A, Illumia, Pulsee, Alperia) su luce-gas.it e bolletta-energia.it: prezzi e quote invariati, scadenze non ancora rinnovate in fonte (E.ON ferma al 9/11). Alperia Home Digital non trovata in fonte. Futures: TradingView mostra quotazioni vecchie (Nov 2026 a 107,94 contro 220 del 28/10, con contratti 2025 scaduti), non aggiornati. PUN novembre senza fasce affidabili, non aggiornato."
+   },
    {
     "at": "2026-11-09T07:15+01:00",
     "esito": "parziale",
@@ -1636,18 +1641,13 @@
     "at": "2026-10-22T07:13+02:00",
     "esito": "parziale",
     "note": "Giro completo: Octopus Fissa 24M aggiornata a 0,1683 €/kWh (scade 23/10). Aggiunte Alperia Home Digital (PUN+0,011, 9,1 €/mese) e Bluenergy 50 Special Web (PUN+0, 13 €/mese). Confermate invariate su luce-gas.it Edison (5), Enel (3), Eni/Plenitude (2), A2A (3), E.ON (3), Engie (2), Lene, Sorgenia, NeN, Octopus Flex. Edison, Engie, Lene e Pulsee Relax Fix ancora con scadenza 21/10 sulla fonte. Pagine Iren, E.ON, Hera e Pulsee non raggiungibili. PUN ottobre: solo media mono 0,2324 al 17/10 senza fasce, non scritta. Futures: TradingView ancora con contratti vecchi, non usati."
-   },
-   {
-    "at": "2026-10-21T07:02+02:00",
-    "esito": "parziale",
-    "note": "Giro leggero: NeN Surf confermata (PUN+0, 12 €/mese) e prorogata al 04/11. Confermate invariate su luce-gas.it Edison (5 offerte, scadenza 21/10), E.ON (5), Enel Fix Web e Move, Engie Vedo Chiaro, Lene Leggera 24, Sorgenia PUNtuale. Octopus Fissa 24M ancora con scadenza 20/10 sulla fonte. Pulsee Relax Fix e Engie Punto Fisso 12 non trovate. PUN ottobre: solo mono MTD 0,2324 al 17/10 senza fasce, non scritto. Futures: TradingView ancora con contratti vecchi, non usati."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-08T07:12+01:00",
+   "at": "2026-11-09T07:25+01:00",
    "esito": "ok",
-   "note": "Nessun problema; dati.json pubblicato (commit 694b36c). Avvisi: futures del 28/10 (domenica), PUN novembre senza fasce, dispacciamento IV trim. non trovato, 4 offerte non ricontrollate da 10 giorni."
+   "note": "Nessun problema; dati.json pubblicato (commit e41b87c). Avvisi: futures del 28/10 (lunedì), PUN novembre senza fasce, dispacciamento IV trim. non trovato, 5 offerte (Acea, Illumia, 3 Iren) non ricontrollate da 10 giorni."
   }
  }
 }
