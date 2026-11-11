@@ -5,119 +5,119 @@
    "fonte": "ICE Endex, Italian Power Base futures (quotazioni via TradingView)",
    "mesi": [
     {
-     "mese": "2026-10",
-     "v": 211.07
-    },
-    {
      "mese": "2026-11",
-     "v": 220.08
+     "v": 256.46
     },
     {
      "mese": "2026-12",
-     "v": 214.96
+     "v": 239.82
     },
     {
      "mese": "2027-01",
-     "v": 206.08
+     "v": 223.84
     },
     {
      "mese": "2027-02",
-     "v": 200
+     "v": 202.25
     },
     {
      "mese": "2027-03",
-     "v": 183.07
+     "v": 189.94
     },
     {
      "mese": "2027-04",
-     "v": 144.12
+     "v": 145.19
     },
     {
      "mese": "2027-05",
-     "v": 142.39
+     "v": 140.21
     },
     {
      "mese": "2027-06",
-     "v": 141.95
+     "v": 151.73
     },
     {
      "mese": "2027-07",
-     "v": 149.67
+     "v": 156.8
     },
     {
      "mese": "2027-08",
-     "v": 154.82
+     "v": 162.39
     },
     {
      "mese": "2027-09",
-     "v": 156.49
+     "v": 164.75
     },
     {
      "mese": "2027-10",
-     "v": 151.81
+     "v": 161.32
     },
     {
      "mese": "2027-11",
-     "v": 155.01
+     "v": 164.61
     },
     {
      "mese": "2027-12",
-     "v": 157.8
+     "v": 166.11
     },
     {
      "mese": "2028-01",
-     "v": 156.28
+     "v": 165.16
     },
     {
      "mese": "2028-02",
-     "v": 148.65
+     "v": 157.55
     },
     {
      "mese": "2028-03",
-     "v": 139.44
+     "v": 148.7
     },
     {
      "mese": "2028-04",
-     "v": 108.53
+     "v": 111.86
     },
     {
      "mese": "2028-05",
-     "v": 100.7
+     "v": 104.61
     },
     {
      "mese": "2028-06",
-     "v": 98.06
+     "v": 102.17
     },
     {
      "mese": "2028-07",
-     "v": 104.36
+     "v": 110.46
     },
     {
      "mese": "2028-08",
-     "v": 111.63
+     "v": 118.19
     },
     {
      "mese": "2028-09",
-     "v": 115.79
+     "v": 122.31
     },
     {
      "mese": "2028-10",
-     "v": 111.38
+     "v": 119.27
     },
     {
      "mese": "2028-11",
-     "v": 117.33
+     "v": 123.8
     },
     {
      "mese": "2028-12",
-     "v": 118.51
+     "v": 123.28
+    },
+    {
+     "mese": "2029-01",
+     "v": 124.97
     }
    ],
-   "rilevatoAl": "2026-10-28",
+   "rilevatoAl": "2026-11-11",
    "unita": "€/MWh",
    "url": "https://www.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN resta alto: ottobre 0,231 €/kWh (dato GME) e novembre è partito ancora più caro. Gli ultimi futures disponibili (28/10) prevedono un inverno caro, 0,20-0,22 €/kWh fino a febbraio, e un calo verso 0,14-0,15 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,158 e 0,19 €/kWh, meno del PUN attuale.",
+  "notaMercato": "Il PUN resta alto: ottobre 0,231 €/kWh (dato GME) e novembre è partito ancora più caro. I futures del 11/11 sono saliti: inverno caro, 0,26-0,22 €/kWh fino a gennaio e 0,19-0,20 a febbraio-marzo, poi un calo verso 0,14-0,16 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,158 e 0,19 €/kWh, meno del PUN attuale.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index); ottobre 2026 da powergas.it (fasce) ed energiachiara.it (mono) su dati GME",
    "meseCorrente": {
@@ -400,7 +400,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-10T07:02+01:00"
+  "updatedAt": "2026-11-11T07:02+01:00"
  },
  "offers": [
   {
@@ -1540,8 +1540,13 @@
  ],
  "status": {
   "lastFull": "2026-11-09T07:15+01:00",
-  "lastRun": "2026-11-10T07:02+01:00",
+  "lastRun": "2026-11-11T07:05+01:00",
   "runs": [
+   {
+    "at": "2026-11-11T07:05+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: futures aggiornati da TradingView (nov 2026 256,46 €/MWh, quotazioni di nuovo correnti) e nota di mercato riscritta. Offerte in scadenza ricontrollate su luce-gas.it (pagina del 10/11): prezzi, spread e quote invariati, scadenze non ancora rinnovate in fonte. Pagine dei singoli fornitori non raggiungibili oggi. PUN novembre senza fasce affidabili, non aggiornato."
+   },
    {
     "at": "2026-11-10T07:02+01:00",
     "esito": "parziale",
@@ -1636,18 +1641,13 @@
     "at": "2026-10-23T07:03+02:00",
     "esito": "parziale",
     "note": "Giro leggero: Enel Fix Web salita a 0,1934 €/kWh (fino al 12/11); Engie Vedo Chiaro PUN+0,008 e 4 €/mese (fino al 28/10); Pulsee Relax Fix 0,1865 €/kWh e 9,5 €/mese (fino al 28/10). Hera Special Flat salita a 0,1903 €/kWh e prorogata al 10/11. Edison Web Luce e Dynamic prorogate al 28/10 (luce-gas.it 22/10). Octopus Fissa 24M, E.ON (5), Enel Move ancora senza rinnovo sulla fonte (pagina del 22/10); Edison Easy Fix/Super Flex/World, Engie Punto Fisso 12, Lene e Sorgenia (scadenza 22/10 sulla fonte) non ricontrollabili (pagine luce-gas.it fornitore non raggiungibili). PUN ottobre: solo mono 0,2251 al 18/10 senza fasce, non scritto. Futures: TradingView ancora con contratti vecchi, non usati."
-   },
-   {
-    "at": "2026-10-22T07:13+02:00",
-    "esito": "parziale",
-    "note": "Giro completo: Octopus Fissa 24M aggiornata a 0,1683 €/kWh (scade 23/10). Aggiunte Alperia Home Digital (PUN+0,011, 9,1 €/mese) e Bluenergy 50 Special Web (PUN+0, 13 €/mese). Confermate invariate su luce-gas.it Edison (5), Enel (3), Eni/Plenitude (2), A2A (3), E.ON (3), Engie (2), Lene, Sorgenia, NeN, Octopus Flex. Edison, Engie, Lene e Pulsee Relax Fix ancora con scadenza 21/10 sulla fonte. Pagine Iren, E.ON, Hera e Pulsee non raggiungibili. PUN ottobre: solo media mono 0,2324 al 17/10 senza fasce, non scritta. Futures: TradingView ancora con contratti vecchi, non usati."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-09T07:25+01:00",
+   "at": "2026-11-10T07:10+01:00",
    "esito": "ok",
-   "note": "Nessun problema; dati.json pubblicato (commit e41b87c). Avvisi: futures del 28/10 (lunedì), PUN novembre senza fasce, dispacciamento IV trim. non trovato, 5 offerte (Acea, Illumia, 3 Iren) non ricontrollate da 10 giorni."
+   "note": "Nessun problema; dati.json pubblicato (commit dbbb60d), uguale al database. Avvisi: futures fermi al 28/10 (TradingView mostra quotazioni vecchie), PUN novembre senza fasce, dispacciamento IV trim. non trovato, 5 offerte E.ON scadute il 9/11 non rinnovate in fonte, 6 offerte non ricontrollate da 10 giorni."
   }
  }
 }
