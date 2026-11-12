@@ -1236,19 +1236,19 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-09",
+   "aggiornato": "2026-11-12",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-05",
+    "data": "2026-11-11",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce"
+    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
    "fornitore": "Lene",
    "id": "lene-leggera-24",
    "nome": "Leggera Luce 24",
-   "note": "Di nuovo in vendita (luce-gas.it 5/11): 0,189 €/kWh, 8 €/mese, sconto 15 €/anno.",
+   "note": "Scadenza 12/11 dal confronto luce-gas.it dell'11/11, che riporta 0,18 €/kWh; Facile.it (6/11) e la scheda luce-gas.it del 5/11 indicano 0,189 €/kWh, tenuto finché non c'è conferma.",
    "prezzo": {
     "mono": 0.189
    },
@@ -1260,7 +1260,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-11-10"
+   "validoFino": "2026-11-12"
   },
   {
    "aggiornato": "2026-11-06",
