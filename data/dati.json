@@ -400,7 +400,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-14T07:30+01:00"
+  "updatedAt": "2026-11-15T07:01+01:00"
  },
  "offers": [
   {
@@ -1567,8 +1567,13 @@
  ],
  "status": {
   "lastFull": "2026-11-12T07:20+01:00",
-  "lastRun": "2026-11-14T07:35+01:00",
+  "lastRun": "2026-11-15T07:01+01:00",
   "runs": [
+   {
+    "at": "2026-11-15T07:01+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: nessun valore cambiato. Futures non aggiornati (domenica). PUN novembre: fonti discordanti (selectra 0,449 €/kWh, comparasemplice 0,243 €/kWh al 8/11), nessun dato affidabile, lasciato com'è. Pagine delle 11 offerte scadute o in scadenza (Iren, Enel Move/Wow, A2A Full, Engie Vedo Chiaro, Illumia, Pulsee Relax, WindTre 50 Special) non apribili oggi."
+   },
    {
     "at": "2026-11-14T07:35+01:00",
     "esito": "parziale",
@@ -1663,18 +1668,13 @@
     "at": "2026-10-27T07:07+01:00",
     "esito": "parziale",
     "note": "Giro leggero: Alperia Smile Easy disattivata (scaduta il 26/10, luce-gas.it 24/10 senza rinnovo). Iren e Octopus Fissa 24M (scadono oggi) e A2A, Edison, Engie, Pulsee (scadono 28/10) confermate senza novità (luce-gas.it 15-26/10). PUN ottobre: nessuna fonte nuova con fasce, non scritto. Futures: TradingView mostra ancora contratti vecchi (~110 €/MWh), non usati."
-   },
-   {
-    "at": "2026-10-26T07:12+01:00",
-    "esito": "parziale",
-    "note": "Giro completo: Octopus Fissa 24M di nuovo in vendita (0,1815 €/kWh, 6 €/mese, scade 27/10) e riattivata. Plenitude Fixa Time 24: luce-gas.it 24/10 indica 0,2036 (forse F23), prezzo lasciato a 0,2079 con nota. Altre offerte confermate (luce-gas.it 24/10). Alperia Smile Easy (scade oggi) e Iren (scadono 27/10, dati del 15/10) senza fonte nuova. PUN ottobre: solo valori giornalieri senza fasce, non scritto. Lunedì: futures saltati. Nota di mercato riscritta."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-13T07:20+01:00",
+   "at": "2026-11-14T07:45+01:00",
    "esito": "ok",
-   "note": "Nessun problema dopo la correzione (Lene Leggera 24 a 0,18 €/kWh, Lene Special 24 solo luce disattivata). dati.json pubblicato (commit 57e6f2c). Avvisi: 11 offerte con scadenza non ancora rinnovata in fonte (Enel, Engie, Sorgenia, A2A Full, Illumia, Bluenergy, Pulsee Relax, Lene Leggera), futures fermi al 12/11 (TradingView con dati vecchi), PUN novembre senza fasce, dispacciamento IV trim. non trovato."
+   "note": "Nessun problema. dati.json pubblicato (commit dab6ee6), uguale al database. Avvisi: 6 offerte con scadenza passata non ricontrollabili oggi (A2A Full, Enel Move e Wow, Engie Vedo Chiaro, Illumia, Pulsee Relax: pagine fornitori di luce-gas.it non raggiungibili), PUN novembre senza fasce, dispacciamento IV trim. non trovato."
   }
  }
 }
