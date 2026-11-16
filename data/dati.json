@@ -117,7 +117,7 @@
    "unita": "€/MWh",
    "url": "https://it.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN resta alto: ottobre 0,231 €/kWh (dato GME). I futures del 14/11 sono un po' saliti e vedono un inverno caro (0,26-0,24 €/kWh fino a gennaio, 0,22-0,20 a febbraio-marzo), poi un calo verso 0,14-0,17 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,158 e 0,19 €/kWh, meno del PUN attuale.",
+  "notaMercato": "Il PUN resta alto: ottobre 0,231 €/kWh (dato GME) e novembre finora sopra quel livello. I futures del 14/11 vedono un inverno caro (0,26-0,24 €/kWh fino a gennaio, 0,22-0,20 a febbraio-marzo), poi un calo verso 0,14-0,17 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,158 e 0,19 €/kWh, meno del PUN attuale.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index); ottobre 2026 da powergas.it (fasce) ed energiachiara.it (mono) su dati GME",
    "meseCorrente": {
@@ -400,9 +400,33 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-15T07:01+01:00"
+  "updatedAt": "2026-11-16T07:20:00+01:00"
  },
  "offers": [
+  {
+   "aggiornato": "2026-11-16",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-11-13",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/a2a/offerte"
+   },
+   "fornitore": "A2A Energia",
+   "id": "a2a-click-luce",
+   "nome": "Click Luce",
+   "note": "Bioraria: F1 0,2041 e F23 0,1966 €/kWh. La tabella riepilogativa di luce-gas.it riporta 0,204 €/kWh: usata la scheda (0,199).",
+   "prezzo": {
+    "mono": 0.199
+   },
+   "quotaFissaMese": 8.5,
+   "requisiti": [
+    "online"
+   ],
+   "sconti": [],
+   "tipo": "fisso",
+   "validoFino": "2026-11-25"
+  },
   {
    "aggiornato": "2026-11-01",
    "attiva": true,
@@ -425,20 +449,21 @@
    "validoFino": "2026-11-25"
   },
   {
-   "aggiornato": "2026-10-30",
+   "aggiornato": "2026-11-16",
    "attiva": true,
+   "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-29",
+    "data": "2026-11-13",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/a2a/costo-kwh"
+    "url": "https://luce-gas.it/fornitori/a2a/offerte"
    },
    "fornitore": "A2A Energia",
    "id": "a2a-full-luce",
    "nome": "Full Luce",
-   "note": "Prezzo salito da 0,173 a 0,189 €/kWh. Disponibile anche bioraria: F1 0,1937 e F23 0,1868 €/kWh. Scadenza 11/11 dal confronto luce-gas.it A2A/E.ON del 29/10.",
+   "note": "Prezzo salito da 0,189 a 0,213 €/kWh (luce-gas.it 13/11). Bioraria: F1 0,2178 e F23 0,2107 €/kWh.",
    "prezzo": {
-    "mono": 0.189
+    "mono": 0.213
    },
    "quotaFissaMese": 11.3,
    "sconti": [
@@ -448,7 +473,7 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-11-11"
+   "validoFino": "2026-11-25"
   },
   {
    "aggiornato": "2026-11-05",
@@ -469,6 +494,27 @@
     "mono": 0.025
    },
    "tipo": "indicizzato",
+   "validoFino": "2026-11-25"
+  },
+  {
+   "aggiornato": "2026-11-16",
+   "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-11-13",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/a2a/offerte"
+   },
+   "fornitore": "A2A Energia",
+   "id": "a2a-start-luce",
+   "nome": "Start Luce",
+   "note": "Bioraria: F1 0,2178 e F23 0,2107 €/kWh.",
+   "prezzo": {
+    "mono": 0.213
+   },
+   "quotaFissaMese": 9.5,
+   "sconti": [],
+   "tipo": "fisso",
    "validoFino": "2026-11-25"
   },
   {
@@ -779,29 +825,29 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-11-09",
+   "aggiornato": "2026-11-16",
    "attiva": true,
-   "durataMesi": 12,
+   "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-23",
+    "data": "2026-11-13",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/enel/offerte"
    },
    "fornitore": "Enel Energia",
    "id": "enel-move",
    "nome": "Move Luce",
-   "note": "Include il servizio Enel Move Plus (riparazioni elettriche). Prezzo salito da 0,211 a 0,2293 €/kWh (luce-gas.it 23/10).",
+   "note": "Include il servizio Enel Move Plus (riparazioni elettriche). Prezzo salito da 0,2293 a 0,25 €/kWh, bloccato 24 mesi (luce-gas.it 13/11).",
    "prezzo": {
-    "mono": 0.2293
+    "mono": 0.25
    },
    "quotaFissaMese": 14,
    "tipo": "fisso",
-   "validoFino": "2026-11-12"
+   "validoFino": "2026-11-30"
   },
   {
-   "aggiornato": "2026-11-09",
-   "attiva": true,
+   "aggiornato": "2026-11-16",
+   "attiva": false,
    "durataMesi": 24,
    "fasce": "mono",
    "fonte": {
@@ -812,7 +858,7 @@
    "fornitore": "Enel Energia",
    "id": "enel-wow-luce",
    "nome": "Wow Luce",
-   "note": "Prezzo fisso 24 mesi; pagamento anche con bollettino.",
+   "note": "Non più presente tra le offerte Enel su luce-gas.it (13/11).",
    "prezzo": {
     "mono": 0.2104
    },
@@ -1046,8 +1092,28 @@
    "validoFino": "2026-11-25"
   },
   {
-   "aggiornato": "2026-10-14",
+   "aggiornato": "2026-11-16",
    "attiva": true,
+   "fasce": "mono",
+   "fonte": {
+    "data": "2026-11-12",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/illumia/offerte"
+   },
+   "fornitore": "Illumia",
+   "id": "illumia-luce-flex",
+   "nome": "Luce Flex",
+   "quotaFissaMese": 10,
+   "sconti": [],
+   "spread": {
+    "mono": 0
+   },
+   "tipo": "indicizzato",
+   "validoFino": "2026-12-11"
+  },
+  {
+   "aggiornato": "2026-11-16",
+   "attiva": false,
    "fasce": "mono",
    "fonte": {
     "data": "2026-10-12",
@@ -1057,7 +1123,7 @@
    "fornitore": "Illumia",
    "id": "illumia-sicurinsieme-luce",
    "nome": "SicurInsieme Luce",
-   "note": "Prevede un tetto agli aumenti della materia prima nel primo anno: valore non indicato dalla fonte.",
+   "note": "Prevede un tetto agli aumenti della materia prima nel primo anno: valore non indicato dalla fonte. Scaduta l'11/11 e non rinnovata sulla scheda luce-gas.it (ferma al 12/10).",
    "quotaFissaMese": 10,
    "sconti": [],
    "spread": {
@@ -1492,26 +1558,26 @@
    "validoFino": "2026-12-02"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-16",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-05",
-    "nome": "bolletta-energia.it",
-    "url": "https://bolletta-energia.it/fornitore/pulsee/offerte"
+    "data": "2026-11-12",
+    "nome": "luce-gas.it (Selectra)",
+    "url": "https://luce-gas.it/fornitori/pulsee/offerte"
    },
    "fornitore": "Pulsee",
    "id": "pulsee-relax-fix-luce",
    "nome": "Relax Fix Luce",
-   "note": "Prezzo 0,2081 €/kWh (scheda luce-gas.it 29/10, prima arrotondato a 0,208).",
+   "note": "Prezzo sceso da 0,2081 a 0,1909 €/kWh (luce-gas.it 12/11).",
    "prezzo": {
-    "mono": 0.2081
+    "mono": 0.1909
    },
    "quotaFissaMese": 9.5,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-11-11",
+   "validoFino": "2026-11-18",
    "verde": true
   },
   {
@@ -1566,9 +1632,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-11-12T07:20+01:00",
-  "lastRun": "2026-11-15T07:01+01:00",
+  "lastFull": "2026-11-16T07:20:00+01:00",
+  "lastRun": "2026-11-16T07:20:00+01:00",
   "runs": [
+   {
+    "at": "2026-11-16T07:20+01:00",
+    "esito": "parziale",
+    "note": "Giro completo: A2A Full Luce salita a 0,213 €/kWh (scad. 25/11), Enel Move a 0,25 €/kWh (scad. 30/11), Pulsee Relax Fix scesa a 0,1909 €/kWh; Enel Wow e Illumia SicurInsieme non più in vendita; nuove A2A Start Luce, A2A Click Luce, Illumia Luce Flex. Altre offerte confermate da luce-gas.it 13/11. Futures non aggiornati (lunedì). PUN novembre: fonti incomplete (comparasemplice 0,294 €/kWh senza fasce), lasciato com'è. Iren, Engie Vedo Chiaro, WindTre: pagine non aggiornate dopo la scadenza."
+   },
    {
     "at": "2026-11-15T07:01+01:00",
     "esito": "parziale",
@@ -1663,18 +1734,13 @@
     "at": "2026-10-28T07:08+01:00",
     "esito": "parziale",
     "note": "Giro leggero: futures aggiornati (TradingView, 28/10: nov 220, dic 215, gen 206 €/MWh; calo a ~144 da aprile 2027) e nota di mercato riscritta. Offerte in scadenza (A2A, Iren, Edison, Engie, Pulsee, E.ON, Sorgenia, Octopus 24M): luce-gas.it senza schede nuove (A2A 26/10, Iren 15/10), prezzi lasciati com'erano. PUN ottobre: nessuna media per fasce affidabile, non scritto."
-   },
-   {
-    "at": "2026-10-27T07:07+01:00",
-    "esito": "parziale",
-    "note": "Giro leggero: Alperia Smile Easy disattivata (scaduta il 26/10, luce-gas.it 24/10 senza rinnovo). Iren e Octopus Fissa 24M (scadono oggi) e A2A, Edison, Engie, Pulsee (scadono 28/10) confermate senza novità (luce-gas.it 15-26/10). PUN ottobre: nessuna fonte nuova con fasce, non scritto. Futures: TradingView mostra ancora contratti vecchi (~110 €/MWh), non usati."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-14T07:45+01:00",
+   "at": "2026-11-15T07:06+01:00",
    "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit dab6ee6), uguale al database. Avvisi: 6 offerte con scadenza passata non ricontrollabili oggi (A2A Full, Enel Move e Wow, Engie Vedo Chiaro, Illumia, Pulsee Relax: pagine fornitori di luce-gas.it non raggiungibili), PUN novembre senza fasce, dispacciamento IV trim. non trovato."
+   "note": "Nessun problema. dati.json pubblicato (commit d06646b). Avvisi: 6 offerte con prezzo scaduto non ricontrollabili (pagine fornitori non apribili oggi), PUN novembre senza dato affidabile (fonti discordanti), dispacciamento IV trim. non trovato."
   }
  }
 }
