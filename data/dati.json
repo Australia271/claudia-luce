@@ -400,7 +400,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-16T07:20:00+01:00"
+  "updatedAt": "2026-11-17T07:02:05+01:00"
  },
  "offers": [
   {
@@ -717,14 +717,14 @@
    "validoFino": "2026-11-18"
   },
   {
-   "aggiornato": "2026-11-13",
+   "aggiornato": "2026-11-17",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-12",
+    "data": "2026-11-17",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/fornitori/edison/offerte"
+    "url": "https://luce-gas.it/confronto/gestore-energia-elettrica-piu-conveniente"
    },
    "fornitore": "Edison Energia",
    "id": "edison-web-luce",
@@ -1633,8 +1633,13 @@
  ],
  "status": {
   "lastFull": "2026-11-16T07:20:00+01:00",
-  "lastRun": "2026-11-16T07:20:00+01:00",
+  "lastRun": "2026-11-17T07:02:05+01:00",
   "runs": [
+   {
+    "at": "2026-11-17T07:02:05+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: Edison Web Luce confermata a 0,189 €/kWh con quota 8 €/mese (luce-gas.it e facile.it 5/11), Edison Dynamic confermata PUN+0,018. Futures non aggiornati: la pagina TradingView mostra prezzi vecchi (~108 €/MWh, non coerenti), lasciati quelli del 14/11. PUN novembre: solo media mono incerta (comparasemplice 0,271 €/kWh all'11/11, selectra 0,446) senza fasce, lasciato com'è. Pagine luce-gas.it dei fornitori (Iren, Engie, Pulsee, NeN, WindTre) non apribili oggi."
+   },
    {
     "at": "2026-11-16T07:20+01:00",
     "esito": "parziale",
@@ -1729,18 +1734,13 @@
     "at": "2026-10-29T07:12+01:00",
     "esito": "parziale",
     "note": "Giro completo: Iren aggiornata (luce-gas.it 28/10: Quick Luce New 0,1949, Stay 0,1694, Revolution 0,2389, scadenze 15/11; Lock & Fix fino al 1/11), Octopus Fissa 24M a 0,1958 fino al 30/10, Engie Punto Fisso quota fissa 4 €/mese, E.ON Luce Premia (0,1617) e Luce Click Per 24 (0,1858) di nuovo attive, nuova NeN Due Luce (0,153). Futures: TradingView con le stesse quotazioni del 28/10, lasciati. PUN ottobre: nessuna media per fasce affidabile, non scritto."
-   },
-   {
-    "at": "2026-10-28T07:08+01:00",
-    "esito": "parziale",
-    "note": "Giro leggero: futures aggiornati (TradingView, 28/10: nov 220, dic 215, gen 206 €/MWh; calo a ~144 da aprile 2027) e nota di mercato riscritta. Offerte in scadenza (A2A, Iren, Edison, Engie, Pulsee, E.ON, Sorgenia, Octopus 24M): luce-gas.it senza schede nuove (A2A 26/10, Iren 15/10), prezzi lasciati com'erano. PUN ottobre: nessuna media per fasce affidabile, non scritto."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-15T07:06+01:00",
+   "at": "2026-11-16T07:30+01:00",
    "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit d06646b). Avvisi: 6 offerte con prezzo scaduto non ricontrollabili (pagine fornitori non apribili oggi), PUN novembre senza dato affidabile (fonti discordanti), dispacciamento IV trim. non trovato."
+   "note": "Nessun problema. dati.json pubblicato (commit 91c29f1), uguale al database. Avvisi: 6 offerte con prezzo scaduto (Iren x4, Engie Vedo Chiaro, WindTre) senza pagine aggiornate, PUN novembre senza dato affidabile, dispacciamento IV trim. non trovato."
   }
  }
 }
