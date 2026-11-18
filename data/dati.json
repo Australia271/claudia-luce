@@ -400,7 +400,7 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-17T07:02:05+01:00"
+  "updatedAt": "2026-11-18T07:02:37+01:00"
  },
  "offers": [
   {
@@ -635,7 +635,7 @@
    "validoFino": "2026-12-11"
   },
   {
-   "aggiornato": "2026-11-13",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -665,7 +665,7 @@
    "validoFino": "2026-11-18"
   },
   {
-   "aggiornato": "2026-11-13",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
@@ -692,7 +692,7 @@
    "validoFino": "2026-11-18"
   },
   {
-   "aggiornato": "2026-11-13",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -748,7 +748,7 @@
    "validoFino": "2026-11-18"
   },
   {
-   "aggiornato": "2026-11-13",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -872,14 +872,14 @@
    "validoFino": "2026-11-12"
   },
   {
-   "aggiornato": "2026-11-14",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
     "data": "2026-11-12",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce"
+    "url": "https://luce-gas.it/fornitori/engie/offerte"
    },
    "fornitore": "Engie",
    "id": "engie-punto-fisso-12-luce",
@@ -894,11 +894,11 @@
    "validoFino": "2026-11-18"
   },
   {
-   "aggiornato": "2026-11-08",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-05",
+    "data": "2026-11-12",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/engie/offerte"
    },
@@ -906,21 +906,21 @@
    "id": "engie-vedo-chiaro-luce",
    "nome": "Energia Vedo Chiaro Luce",
    "note": "PUN+0,008 €/kWh e 4 €/mese, scadenza 11/11 (pagina Engie su luce-gas.it del 5/11).",
-   "quotaFissaMese": 4,
+   "quotaFissaMese": 3,
    "sconti": [],
    "spread": {
     "mono": 0.008
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-11-11"
+   "validoFino": "2026-11-18"
   },
   {
-   "aggiornato": "2026-11-12",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-10",
+    "data": "2026-11-13",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
@@ -937,11 +937,11 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-12",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-10",
+    "data": "2026-11-13",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
@@ -963,12 +963,12 @@
    "validoFino": "2026-11-19"
   },
   {
-   "aggiornato": "2026-11-12",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-10",
+    "data": "2026-11-13",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/eon/offerte"
    },
@@ -1212,11 +1212,11 @@
    "validoFino": "2026-11-01"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-28",
+    "data": "2026-11-16",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1235,14 +1235,14 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-11-15"
+   "validoFino": "2026-11-16"
   },
   {
-   "aggiornato": "2026-10-29",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-28",
+    "data": "2026-11-16",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1256,14 +1256,14 @@
    "quotaFissaMese": 13.8,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-11-15"
+   "validoFino": "2026-11-16"
   },
   {
-   "aggiornato": "2026-11-05",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-28",
+    "data": "2026-11-16",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1277,14 +1277,14 @@
    "quotaFissaMese": 13.3,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-11-15"
+   "validoFino": "2026-11-16"
   },
   {
-   "aggiornato": "2026-10-29",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-10-28",
+    "data": "2026-11-16",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1298,11 +1298,11 @@
    "quotaFissaMese": 13.3,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-11-15",
+   "validoFino": "2026-11-16",
    "verde": true
   },
   {
-   "aggiornato": "2026-11-14",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1581,7 +1581,7 @@
    "verde": true
   },
   {
-   "aggiornato": "2026-11-14",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -1610,11 +1610,11 @@
    "validoFino": "2026-11-19"
   },
   {
-   "aggiornato": "2026-11-12",
+   "aggiornato": "2026-11-18",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-11",
+    "data": "2026-11-14",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/confronto/offerte-luce-gas"
    },
@@ -1628,13 +1628,18 @@
     "mono": 0.0278
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-11-15"
+   "validoFino": "2027-01-06"
   }
  ],
  "status": {
   "lastFull": "2026-11-16T07:20:00+01:00",
-  "lastRun": "2026-11-17T07:02:05+01:00",
+  "lastRun": "2026-11-18T07:02:37+01:00",
   "runs": [
+   {
+    "at": "2026-11-18T07:02:37+01:00",
+    "esito": "parziale",
+    "note": "Giro leggero: Engie Vedo Chiaro quota fissa scesa a 3 €/mese (luce-gas.it 12/11); WindTre 50 Special confermata con scadenza 6/1/2027; Edison, E.ON, Engie Punto Fisso, Sorgenia, Lene e Iren confermate ai prezzi esistenti (pagine 12-16/11, scadenze non ancora rinnovate dalla fonte). Pulsee Relax Fix non trovata. Futures non aggiornati: TradingView mostra ancora dati vecchi. PUN novembre: fonti senza fasce affidabili (comparasemplice 0,233 €/kWh al 15/11, incoerente), lasciato com'è."
+   },
    {
     "at": "2026-11-17T07:02:05+01:00",
     "esito": "parziale",
@@ -1729,18 +1734,13 @@
     "at": "2026-10-30T07:25+01:00",
     "esito": "parziale",
     "note": "Giro completo (verifica di ieri con problemi): rinnovi trovati su luce-gas.it 29/10. Edison Web Luce 0,189 (da 0,175), Easy Fix 0,237, Dynamic/Super Flex/World confermate fino al 4/11; Engie Punto Fisso 0,232 (da 0,215), Vedo Chiaro PUN+0,006 e 3 €/mese; A2A Full 0,189 (da 0,173) fino all'11/11, Smart Casa fino al 25/11; Pulsee Relax Fix 0,208 (da 0,1865); Iren Smart No Stress 0,1784 (da 0,168). E.ON (4 offerte) e Sorgenia ancora con scadenza 29/10 senza rinnovo, A2A Easy e Iren Smart No Stress senza data: lasciate. Futures: TradingView mostra ancora contratti vecchi, lasciati. PUN ottobre: media al 26/10 0,2415 €/kWh senza fasce, non scritto."
-   },
-   {
-    "at": "2026-10-29T07:12+01:00",
-    "esito": "parziale",
-    "note": "Giro completo: Iren aggiornata (luce-gas.it 28/10: Quick Luce New 0,1949, Stay 0,1694, Revolution 0,2389, scadenze 15/11; Lock & Fix fino al 1/11), Octopus Fissa 24M a 0,1958 fino al 30/10, Engie Punto Fisso quota fissa 4 €/mese, E.ON Luce Premia (0,1617) e Luce Click Per 24 (0,1858) di nuovo attive, nuova NeN Due Luce (0,153). Futures: TradingView con le stesse quotazioni del 28/10, lasciati. PUN ottobre: nessuna media per fasce affidabile, non scritto."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-16T07:30+01:00",
+   "at": "2026-11-17T07:10+01:00",
    "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit 91c29f1), uguale al database. Avvisi: 6 offerte con prezzo scaduto (Iren x4, Engie Vedo Chiaro, WindTre) senza pagine aggiornate, PUN novembre senza dato affidabile, dispacciamento IV trim. non trovato."
+   "note": "Nessun problema. dati.json pubblicato (commit 0a0073e), uguale al database. Avvisi: 6 offerte con prezzo scaduto (Iren x4, Engie Vedo Chiaro, WindTre) con pagine non apribili, PUN novembre senza fasce affidabili, futures fermi al 14/11 (TradingView con dati vecchi), dispacciamento IV trim. non trovato."
   }
  }
 }
