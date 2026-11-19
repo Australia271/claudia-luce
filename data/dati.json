@@ -6,118 +6,118 @@
    "mesi": [
     {
      "mese": "2026-11",
-     "v": 255.2
+     "v": 249.98
     },
     {
      "mese": "2026-12",
-     "v": 256.14
+     "v": 230.84
     },
     {
      "mese": "2027-01",
-     "v": 241.12
+     "v": 226.81
     },
     {
      "mese": "2027-02",
-     "v": 223.77
+     "v": 215.95
     },
     {
      "mese": "2027-03",
-     "v": 200.18
+     "v": 189.77
     },
     {
      "mese": "2027-04",
-     "v": 158.32
+     "v": 149.93
     },
     {
      "mese": "2027-05",
-     "v": 140.56
+     "v": 140.7
     },
     {
      "mese": "2027-06",
-     "v": 153.55
+     "v": 153.35
     },
     {
      "mese": "2027-07",
-     "v": 160.87
+     "v": 158.11
     },
     {
      "mese": "2027-08",
-     "v": 166.6
+     "v": 163.43
     },
     {
      "mese": "2027-09",
-     "v": 168.91
+     "v": 165.32
     },
     {
      "mese": "2027-10",
-     "v": 165.68
+     "v": 162.76
     },
     {
      "mese": "2027-11",
-     "v": 168.44
+     "v": 165.88
     },
     {
      "mese": "2027-12",
-     "v": 169.5
+     "v": 167.34
     },
     {
      "mese": "2028-01",
-     "v": 171.22
+     "v": 164.55
     },
     {
      "mese": "2028-02",
-     "v": 163.22
+     "v": 156.74
     },
     {
      "mese": "2028-03",
-     "v": 154.43
+     "v": 148.23
     },
     {
      "mese": "2028-04",
-     "v": 112.58
+     "v": 107.24
     },
     {
      "mese": "2028-05",
-     "v": 105.82
+     "v": 100.79
     },
     {
      "mese": "2028-06",
-     "v": 103.86
+     "v": 99.05
     },
     {
      "mese": "2028-07",
-     "v": 113.23
+     "v": 108.03
     },
     {
      "mese": "2028-08",
-     "v": 120.8
+     "v": 115.75
     },
     {
      "mese": "2028-09",
-     "v": 124.73
+     "v": 119.79
     },
     {
      "mese": "2028-10",
-     "v": 119.29
+     "v": 114.89
     },
     {
      "mese": "2028-11",
-     "v": 123.64
+     "v": 119.31
     },
     {
      "mese": "2028-12",
-     "v": 122.97
+     "v": 118.66
     },
     {
      "mese": "2029-01",
-     "v": 126.45
+     "v": 121.98
     }
    ],
-   "rilevatoAl": "2026-11-14",
+   "rilevatoAl": "2026-11-19",
    "unita": "€/MWh",
    "url": "https://it.tradingview.com/symbols/ICEENDEX-IPB1!/contracts"
   },
-  "notaMercato": "Il PUN resta alto: ottobre 0,231 €/kWh (dato GME) e novembre finora sopra quel livello. I futures del 14/11 vedono un inverno caro (0,26-0,24 €/kWh fino a gennaio, 0,22-0,20 a febbraio-marzo), poi un calo verso 0,14-0,17 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,158 e 0,19 €/kWh, meno del PUN attuale.",
+  "notaMercato": "Il PUN resta alto: ottobre 0,231 €/kWh (dato GME) e novembre finora circa 0,233 €/kWh. I futures del 19/11 vedono un inverno caro (0,23-0,22 €/kWh fino a febbraio, 0,19 a marzo), poi un calo verso 0,14-0,17 €/kWh dalla primavera 2027. Oggi conviene il prezzo fisso: le offerte migliori costano tra 0,158 e 0,19 €/kWh, meno del PUN attuale.",
   "pun": {
    "fonte": "GME, Prezzo medio per fasce (PUN Index); ottobre 2026 da powergas.it (fasce) ed energiachiara.it (mono) su dati GME",
    "meseCorrente": {
@@ -400,11 +400,11 @@
    "validoDal": "2026-10-01"
   },
   "schema": 1,
-  "updatedAt": "2026-11-18T07:02:37+01:00"
+  "updatedAt": "2026-11-19T07:30:00+01:00"
  },
  "offers": [
   {
-   "aggiornato": "2026-11-16",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -449,7 +449,7 @@
    "validoFino": "2026-11-25"
   },
   {
-   "aggiornato": "2026-11-16",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -497,7 +497,7 @@
    "validoFino": "2026-11-25"
   },
   {
-   "aggiornato": "2026-11-16",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
@@ -635,11 +635,11 @@
    "validoFino": "2026-12-11"
   },
   {
-   "aggiornato": "2026-11-18",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-12",
+    "data": "2026-11-19",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
@@ -662,15 +662,15 @@
     "spread": 0.023
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-11-18"
+   "validoFino": "2026-11-25"
   },
   {
-   "aggiornato": "2026-11-18",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-12",
+    "data": "2026-11-19",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
@@ -689,14 +689,14 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-11-18"
+   "validoFino": "2026-11-25"
   },
   {
-   "aggiornato": "2026-11-18",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-12",
+    "data": "2026-11-19",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
@@ -714,24 +714,24 @@
     "mono": 0.022
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-11-18"
+   "validoFino": "2026-11-25"
   },
   {
-   "aggiornato": "2026-11-17",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "durataMesi": 12,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-17",
+    "data": "2026-11-19",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/gestore-energia-elettrica-piu-conveniente"
+    "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
    "fornitore": "Edison Energia",
    "id": "edison-web-luce",
    "nome": "Web Luce",
-   "note": "Disponibile anche bioraria: F1 0,193 e F23 0,188 €/kWh. Prezzo salito da 0,175 a 0,189 €/kWh (luce-gas.it 29/10).",
+   "note": "Disponibile anche bioraria: F1 0,202 e F23 0,197 €/kWh. Prezzo salito da 0,189 a 0,1979 €/kWh (luce-gas.it 19/11).",
    "prezzo": {
-    "mono": 0.189
+    "mono": 0.1979
    },
    "quotaFissaMese": 8,
    "requisiti": [
@@ -745,14 +745,14 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-11-18"
+   "validoFino": "2026-11-25"
   },
   {
-   "aggiornato": "2026-11-18",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-12",
+    "data": "2026-11-19",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/edison/offerte"
    },
@@ -770,17 +770,17 @@
     "mono": 0
    },
    "tipo": "indicizzato",
-   "validoFino": "2026-11-18"
+   "validoFino": "2026-11-25"
   },
   {
-   "aggiornato": "2026-11-14",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "durataMesi": 36,
    "fasce": "mono",
    "fonte": {
     "data": "2026-11-13",
     "nome": "luce-gas.it (Selectra)",
-    "url": "https://luce-gas.it/confronto/offerte-luce-gas"
+    "url": "https://luce-gas.it/fornitori/enel/offerte"
    },
    "fornitore": "Enel Energia",
    "id": "enel-fix-web",
@@ -825,7 +825,7 @@
    "validoFino": "2026-10-22"
   },
   {
-   "aggiornato": "2026-11-16",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "durataMesi": 24,
    "fasce": "mono",
@@ -1212,20 +1212,20 @@
    "validoFino": "2026-11-01"
   },
   {
-   "aggiornato": "2026-11-18",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-16",
+    "data": "2026-11-17",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
    "fornitore": "Iren",
    "id": "iren-quick-luce-new",
    "nome": "Quick Luce New",
-   "note": "Prezzo fisso fino al 30/04/2027 (era 0,1644 €/kWh).",
+   "note": "Prezzo sceso da 0,1949 a 0,1923 €/kWh (luce-gas.it 17/11).",
    "prezzo": {
-    "mono": 0.1949
+    "mono": 0.1923
    },
    "quotaFissaMese": 12.3,
    "sconti": [
@@ -1235,56 +1235,56 @@
     }
    ],
    "tipo": "fisso",
-   "validoFino": "2026-11-16"
+   "validoFino": "2026-11-30"
   },
   {
-   "aggiornato": "2026-11-18",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-16",
+    "data": "2026-11-17",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
    "fornitore": "Iren",
    "id": "iren-revolution-salute-luce",
    "nome": "Revolution Salute Luce",
-   "note": "Offerta abbinata a servizi per la salute: leggi le condizioni.",
+   "note": "Confermata su luce-gas.it (17/11): 0,2389 €/kWh, 13,8 €/mese, fino al 30/11.",
    "prezzo": {
     "mono": 0.2389
    },
    "quotaFissaMese": 13.8,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-11-16"
+   "validoFino": "2026-11-30"
   },
   {
-   "aggiornato": "2026-11-18",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-16",
+    "data": "2026-11-17",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
    "fornitore": "Iren",
    "id": "iren-smart-no-stress-luce",
    "nome": "Smart No Stress Luce",
-   "note": "Confermata su luce-gas.it (scheda 28/10): 0,1784 €/kWh, 13,3 €/mese, fino al 15/11.",
+   "note": "Confermata su luce-gas.it (17/11): 0,1784 €/kWh, 13,3 €/mese, fino al 30/11.",
    "prezzo": {
     "mono": 0.1784
    },
    "quotaFissaMese": 13.3,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-11-16"
+   "validoFino": "2026-11-30"
   },
   {
-   "aggiornato": "2026-11-18",
+   "aggiornato": "2026-11-19",
    "attiva": true,
    "fasce": "mono",
    "fonte": {
-    "data": "2026-11-16",
+    "data": "2026-11-17",
     "nome": "luce-gas.it (Selectra)",
     "url": "https://luce-gas.it/fornitori/iren/offerte"
    },
@@ -1298,7 +1298,7 @@
    "quotaFissaMese": 13.3,
    "sconti": [],
    "tipo": "fisso",
-   "validoFino": "2026-11-16",
+   "validoFino": "2026-11-30",
    "verde": true
   },
   {
@@ -1632,9 +1632,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-11-16T07:20:00+01:00",
-  "lastRun": "2026-11-18T07:02:37+01:00",
+  "lastFull": "2026-11-19T07:04:18+01:00",
+  "lastRun": "2026-11-19T07:04:18+01:00",
   "runs": [
+   {
+    "at": "2026-11-19T07:04:18+01:00",
+    "esito": "parziale",
+    "note": "Giro completo: futures aggiornati al 19/11 (TradingView di nuovo aggiornato: dic 230,84, gen 226,81 €/MWh). Edison Web Luce salita a 0,1979 €/kWh e offerte Edison rinnovate fino al 25/11; Iren Quick Luce New scesa a 0,1923 €/kWh e offerte Iren rinnovate fino al 30/11; Enel, A2A, Plenitude, E.ON, Hera, Octopus, Sorgenia, Lene, Alperia, Bluenergy, WindTre confermate. Engie, Pulsee Relax Fix e NeN Surf con scadenza 18/11 non ancora rinnovata dalla fonte. PUN novembre: 0,233 €/kWh al 15/11 (comparasemplice) ma senza fasce, lasciato com'è. Nessuna offerta nuova cercata oltre le pagine luce-gas.it."
+   },
    {
     "at": "2026-11-18T07:02:37+01:00",
     "esito": "parziale",
@@ -1729,18 +1734,13 @@
     "at": "2026-10-31T07:10+01:00",
     "esito": "parziale",
     "note": "Giro leggero: E.ON Insieme, Click Verde e Flex Click confermate (stessi prezzi) fino al 9/11 (luce-gas.it 30/10); Sorgenia PUNtuale PUN+0,014, 5,2 €/mese, sconto 40 €/anno, fino al 31/10 (luce-gas.it 30/10). Octopus Flex e Fissa 24M senza rinnovo visibile; Iren Lock & Fix, Smart No Stress e A2A Easy non ricontrollabili (pagine fornitore non raggiungibili). PUN ottobre: nessun valore affidabile con le fasce, lasciato com'è. Futures: pagina con dati vecchi, lasciati quelli del 28/10."
-   },
-   {
-    "at": "2026-10-30T07:25+01:00",
-    "esito": "parziale",
-    "note": "Giro completo (verifica di ieri con problemi): rinnovi trovati su luce-gas.it 29/10. Edison Web Luce 0,189 (da 0,175), Easy Fix 0,237, Dynamic/Super Flex/World confermate fino al 4/11; Engie Punto Fisso 0,232 (da 0,215), Vedo Chiaro PUN+0,006 e 3 €/mese; A2A Full 0,189 (da 0,173) fino all'11/11, Smart Casa fino al 25/11; Pulsee Relax Fix 0,208 (da 0,1865); Iren Smart No Stress 0,1784 (da 0,168). E.ON (4 offerte) e Sorgenia ancora con scadenza 29/10 senza rinnovo, A2A Easy e Iren Smart No Stress senza data: lasciate. Futures: TradingView mostra ancora contratti vecchi, lasciati. PUN ottobre: media al 26/10 0,2415 €/kWh senza fasce, non scritto."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-17T07:10+01:00",
+   "at": "2026-11-18T07:15+01:00",
    "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit 0a0073e), uguale al database. Avvisi: 6 offerte con prezzo scaduto (Iren x4, Engie Vedo Chiaro, WindTre) con pagine non apribili, PUN novembre senza fasce affidabili, futures fermi al 14/11 (TradingView con dati vecchi), dispacciamento IV trim. non trovato."
+   "note": "Nessun problema. dati.json pubblicato (commit 36e30c4), uguale al database. Avvisi: 4 offerte Iren con scadenza 16/11 non ancora rinnovata dalla fonte, PUN novembre senza fasce affidabili, futures fermi al 14/11 (TradingView con dati vecchi), dispacciamento IV trim. non trovato."
   }
  }
 }
