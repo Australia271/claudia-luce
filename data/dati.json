@@ -1633,8 +1633,13 @@
  ],
  "status": {
   "lastFull": "2026-11-19T07:04:18+01:00",
-  "lastRun": "2026-11-20T07:01:31+01:00",
+  "lastRun": "2026-11-21T07:01:20+01:00",
   "runs": [
+   {
+    "at": "2026-11-21T07:01:20+01:00",
+    "esito": "parziale",
+    "note": "Giro completo (verifica di ieri con problemi): nessun dato aggiornato. Le pagine web (luce-gas.it, TradingView) non si sono potute aprire per il secondo giorno: permesso di lettura non concesso nel giro automatico. Tenuti prezzi, PUN e futures del 19/11; 9 offerte restano con scadenza passata."
+   },
    {
     "at": "2026-11-20T07:01:31+01:00",
     "esito": "parziale",
@@ -1729,18 +1734,13 @@
     "at": "2026-11-02T07:20+01:00",
     "esito": "parziale",
     "note": "Giro completo: Alperia Smile Easy di nuovo in vendita a 0,1584 €/kWh (fino al 10/11); Octopus Fissa 24M scesa a 0,1925 €/kWh (fino al 2/11); Octopus Flex prorogata al 30/11 (scheda dual 1/11). Confermati senza cambi Edison, E.ON, NeN, Lene, Engie, Enel Fix Web, Plenitude, A2A Smart Casa, Iren Quick, Bluenergy. Sorgenia PUNtuale luce ancora con scadenza 31/10. Nessuna offerta nuova con dati completi e recenti. PUN: ottobre definitivo GME dal 3/11, novembre senza dati affidabili. Futures: lunedì, saltati. Pagine di Enel, Hera, Iren, A2A e altri fornitori non apribili (permesso negato), restano i valori precedenti."
-   },
-   {
-    "at": "2026-11-01T07:05+01:00",
-    "esito": "parziale",
-    "note": "Giro leggero: confermate su luce-gas.it (stessi prezzi) E.ON Luce Premia fino al 9/11 (scheda 30/10), Iren Smart No Stress fino al 15/11 e Lock & Fix fino al 1/11 (schede 28/10), A2A Easy Luce PUN+0 fino al 25/11 (scheda 29/10). Octopus Flex e Fissa 24M e Sorgenia PUNtuale ancora senza rinnovo visibile, lasciate. PUN novembre: nessun dato (primo giorno del mese); PUN ottobre definitivo GME dal 3/11. Futures: domenica, saltati."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-19T07:10:00+01:00",
-   "esito": "ok",
-   "note": "Nessun problema. dati.json pubblicato (commit c071ce7), uguale al database. Avvisi: Engie (2), NeN Surf e Pulsee Relax Fix con scadenza 18/11 non rinnovata dalla fonte; PUN novembre senza fasce affidabili; dispacciamento IV trim. non trovato."
+   "at": "2026-11-20T07:10:00+01:00",
+   "esito": "problemi",
+   "note": "Mercato non aggiornato (fermo al 19/11): pagine web non apribili nel giro automatico (permesso di lettura non concesso). 9 offerte con scadenza passata non ricontrollate. dati.json pubblicato (commit dc84ac8) con il solo stato del giro."
   }
  }
 }
