@@ -1632,9 +1632,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-11-19T07:04:18+01:00",
-  "lastRun": "2026-11-21T07:01:20+01:00",
+  "lastFull": "2026-11-22T07:01:00+01:00",
+  "lastRun": "2026-11-22T07:01:00+01:00",
   "runs": [
+   {
+    "at": "2026-11-22T07:01:00+01:00",
+    "esito": "parziale",
+    "note": "Giro completo (verifica di ieri con problemi): nessun dato aggiornato. Per il terzo giorno le pagine web (luce-gas.it) non si aprono nel giro automatico (permesso di lettura non concesso); la ricerca web non riporta i valori del PUN di novembre. Futures saltati (domenica). Tenuti prezzi, PUN e futures del 19/11."
+   },
    {
     "at": "2026-11-21T07:01:20+01:00",
     "esito": "parziale",
@@ -1729,18 +1734,13 @@
     "at": "2026-11-03T07:00+01:00",
     "esito": "parziale",
     "note": "Giro leggero: Engie Punto Fisso 12 salita a 0,234 €/kWh (1/11); Sorgenia PUNtuale ora PUN+0,007 fino al 5/11 (confronto 1/11); Pulsee Relax Fix 0,2081. Confermate senza cambi Edison (5 offerte), Engie Vedo Chiaro, NeN Due e Surf, Hera Special Active, Plenitude Fixa Time 24 (scadenza 4/11). Octopus Fissa 24M (scaduta 2/11) e Iren Lock & Fix senza rinnovo visibile, lasciate. PUN ottobre definitivo e novembre: nessun dato trovato (GME non apribile). Futures: TradingView ha dato valori non coerenti (contratti scaduti), lasciati quelli del 28/10."
-   },
-   {
-    "at": "2026-11-02T07:20+01:00",
-    "esito": "parziale",
-    "note": "Giro completo: Alperia Smile Easy di nuovo in vendita a 0,1584 €/kWh (fino al 10/11); Octopus Fissa 24M scesa a 0,1925 €/kWh (fino al 2/11); Octopus Flex prorogata al 30/11 (scheda dual 1/11). Confermati senza cambi Edison, E.ON, NeN, Lene, Engie, Enel Fix Web, Plenitude, A2A Smart Casa, Iren Quick, Bluenergy. Sorgenia PUNtuale luce ancora con scadenza 31/10. Nessuna offerta nuova con dati completi e recenti. PUN: ottobre definitivo GME dal 3/11, novembre senza dati affidabili. Futures: lunedì, saltati. Pagine di Enel, Hera, Iren, A2A e altri fornitori non apribili (permesso negato), restano i valori precedenti."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-20T07:10:00+01:00",
+   "at": "2026-11-21T07:12:00+01:00",
    "esito": "problemi",
-   "note": "Mercato non aggiornato (fermo al 19/11): pagine web non apribili nel giro automatico (permesso di lettura non concesso). 9 offerte con scadenza passata non ricontrollate. dati.json pubblicato (commit dc84ac8) con il solo stato del giro."
+   "note": "Mercato fermo al 19/11: per il secondo giorno le pagine web (luce-gas.it, TradingView) non si aprono nel giro automatico (permesso di lettura non concesso). 9 offerte con scadenza passata non ricontrollate. dati.json pubblicato (commit 5889caa) con il solo stato del giro."
   }
  }
 }
