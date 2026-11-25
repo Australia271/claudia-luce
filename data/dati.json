@@ -1632,9 +1632,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-11-24T07:01:08+01:00",
-  "lastRun": "2026-11-24T07:01:08+01:00",
+  "lastFull": "2026-11-25T07:05:00+01:00",
+  "lastRun": "2026-11-25T07:05:00+01:00",
   "runs": [
+   {
+    "at": "2026-11-25T07:05:00+01:00",
+    "esito": "parziale",
+    "note": "Giro completo (verifica di ieri con problemi): nessun dato aggiornato. Per il sesto giorno le pagine web (luce-gas.it, TradingView) non si aprono nel giro automatico (permesso di lettura non concesso); le ricerche web danno solo titoli, senza valori del PUN di novembre né dei futures. Tenuti prezzi, PUN e futures del 19/11."
+   },
    {
     "at": "2026-11-24T07:01:08+01:00",
     "esito": "parziale",
@@ -1729,18 +1734,13 @@
     "at": "2026-11-06T07:20+01:00",
     "esito": "parziale",
     "note": "Giro completo (verifica di ieri con problemi): Plenitude Fixa Time 24 scesa a 0,1639 €/kWh (fino al 23/11); Engie Punto Fisso 12 salita a 0,238 (fino all'11/11); Lene Special 24 a 0,189 con quota 8 €/mese e Lene Leggera 24 di nuovo in vendita (0,189, fino al 10/11); Edison Web Luce e Dynamic rinnovate fino all'11/11 senza cambi (luce-gas.it 5/11). Ancora con scadenza passata nelle fonti: Edison Easy Fix, Super Flex, World, Engie Vedo Chiaro, Hera Special Active, NeN Due e Surf, Sorgenia PUNtuale. PUN novembre senza fasce (comparasemplice 2/11: 0,282), non inserito. Futures: TradingView con dati vecchi/incoerenti, lasciati quelli del 28/10. Nota di mercato riscritta."
-   },
-   {
-    "at": "2026-11-05T07:30+01:00",
-    "esito": "parziale",
-    "note": "Giro completo: aggiunto PUN ottobre 2026 (0,23082 €/kWh; F1 0,23339, F2 0,25214, F3 0,21588) e ricalcolati i rapporti di fascia; Octopus Fissa 24M non più in vendita (attiva:false). Confermate senza cambi su luce-gas.it (pagine del 2-3/11) Edison (5), Sorgenia, NeN (2), Lene, Octopus Flex, Engie (2), Alperia (2), Bluenergy, A2A Smart Casa, Iren Quick e No Stress, Enel Fix Web; nessuna fonte ha ancora rinnovato le scadenze del 4-5/11. PUN novembre: solo il dato del 1/11 (0,265) senza fasce, non inserito. Futures: TradingView con valori non coerenti, lasciati quelli del 28/10."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-23T07:10:00+01:00",
+   "at": "2026-11-24T07:08:00+01:00",
    "esito": "problemi",
-   "note": "Mercato fermo al 19/11: per il quarto giorno le pagine web (luce-gas.it) non si aprono nel giro automatico (permesso di lettura non concesso). 9 offerte con scadenza passata non ricontrollate, PUN di novembre mancante. dati.json pubblicato (commit d371424) con il solo stato del giro."
+   "note": "Mercato fermo al 19/11: per il quinto giorno le pagine web (luce-gas.it, TradingView) non si aprono nel giro automatico (permesso di lettura non concesso). 11 offerte con scadenza passata non ricontrollate, PUN di novembre e futures non aggiornati. dati.json pubblicato (commit a0cdd87) con il solo stato del giro."
   }
  }
 }
