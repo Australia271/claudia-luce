@@ -1632,9 +1632,14 @@
   }
  ],
  "status": {
-  "lastFull": "2026-11-27T07:01:38+01:00",
-  "lastRun": "2026-11-27T07:01:38+01:00",
+  "lastFull": "2026-11-28T07:01:22+01:00",
+  "lastRun": "2026-11-28T07:01:22+01:00",
   "runs": [
+   {
+    "at": "2026-11-28T07:01:22+01:00",
+    "esito": "parziale",
+    "note": "Giro completo (verifica di ieri con problemi): nessun dato aggiornato. Per il nono giorno le pagine web (luce-gas.it, TradingView) non si aprono nel giro automatico (permesso di lettura non concesso); la ricerca web dà solo titoli, senza valori del PUN di novembre né dei futures. Tenuti prezzi, PUN e futures del 19/11."
+   },
    {
     "at": "2026-11-27T07:01:38+01:00",
     "esito": "parziale",
@@ -1729,18 +1734,13 @@
     "at": "2026-11-09T07:15+01:00",
     "esito": "parziale",
     "note": "Giro completo: ricontrollate su luce-gas.it le offerte di Edison, Sorgenia, Octopus, Enel, Plenitude, Hera, E.ON, Engie, Alperia, Bluenergy e Lene, prezzi invariati; aggiunta Enel Wow Luce (0,2104 €/kWh, 13 €/mese); Enel Fix Web blocca il prezzo 36 mesi. E.ON scade oggi (9/11) senza rinnovo in fonte. Lunedì: futures non aggiornati. PUN novembre: solo media mono non affidabile e senza fasce, non aggiornato. papernest non raggiungibile."
-   },
-   {
-    "at": "2026-11-08T07:05+01:00",
-    "esito": "ok",
-    "note": "Giro leggero: Edison World ed Engie Vedo Chiaro confermate fino all'11/11 e Hera Special Active fino al 16/12 senza cambi di prezzo; NeN Due Luce non più in vendita (attiva:false). E.ON: scadenza 9/11 ancora non rinnovata in fonte, lasciate. Domenica: futures non aggiornati; PUN novembre senza fasce affidabili, non aggiornato."
    }
   ],
   "schedule": "ogni giorno alle 6:55 (giro completo lunedì e giovedì)",
   "verifica": {
-   "at": "2026-11-26T07:10:00+01:00",
+   "at": "2026-11-27T07:12:00+01:00",
    "esito": "problemi",
-   "note": "Mercato fermo al 19/11: per il settimo giorno le pagine web (luce-gas.it, TradingView) non si aprono nel giro automatico (permesso di lettura non concesso). 23 offerte con scadenza passata non ricontrollate, PUN di novembre e futures non aggiornati. dati.json pubblicato (commit 6979e11) con il solo stato del giro."
+   "note": "Mercato fermo al 19/11: per l'ottavo giorno le pagine web (luce-gas.it, TradingView) non si aprono nel giro automatico (permesso di lettura non concesso). 24 offerte con scadenza passata non ricontrollate, PUN di novembre e futures non aggiornati. dati.json pubblicato (commit 7981750) con il solo stato del giro."
   }
  }
 }
